@@ -8,6 +8,9 @@ class AvionController extends Application_Controller_Action
     {
         /* Connection a la Base de Donnée en local */
     	// Va rechercher les info dans le application.ini
+    	
+    	echo "AvionCntroller.php";
+    	
     	$dbavion = Zend_Db::factory(Zend_Registry::get('config')->database); 
     }
     public function indexAction()
