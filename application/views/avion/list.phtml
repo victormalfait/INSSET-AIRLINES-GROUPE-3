@@ -1,0 +1,29 @@
+<table border="1" width="100%" cellpadding="0" cellspacing="0" >
+    <thead>
+        <tr>
+            <th>IdModelle</th>
+            <th>Immatriculation</th>
+            <th>Nombre d'heures de vol Total</th>
+            <th>Nombre d'heures depuis la derniere revision</th>
+            <th>Options</th>
+        </tr>
+    </thead>
+    <?php foreach ($this->liste as $avion): ?>
+            <td><?php echo $avion->getIdModelle(); ?></td>
+            <td><?php echo $avion->getImmatriculation(); ?></td>
+            <td><?php echo $avion->getHeuresTotal(); ?></td>
+            <td><?php echo $avion->getHeuresRevision(); ?></td>
+            <td>Modifier / Suprimer</td>
+        </tr>
+    <?php endforeach; ?>
+
+</table>
+
+<a href="<?php
+                echo $this->url(
+                        array(
+                            'action' => 'ajouter'
+                ));
+                ?>" class="button">
+    Ajouter un Avion
+</a>
