@@ -19,3 +19,5 @@ Zend_Session::start();
 $application = new Zend_Application(APPLICATION_ENV,APPLICATION_PATH.'/config/application.ini');
 $application->bootstrap()->run();
 
+echo "index.php";
+

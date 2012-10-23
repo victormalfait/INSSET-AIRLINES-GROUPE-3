@@ -1,4 +1,0 @@
-INSSET-AIRLINES-GROUPE-3
-========================
-
-INSSET AIRLINES GROUPE 3
