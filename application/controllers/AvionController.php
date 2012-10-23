@@ -1,6 +1,6 @@
 <?php
 
-class AvionController extends Application_Controller_Action
+class AvionController extends Zend_Controller_Action
 {
 	protected $_messenger = null;
 	

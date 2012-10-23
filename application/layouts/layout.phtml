@@ -1,0 +1,24 @@
+<html>
+<head>
+	<?php 
+		echo $this->doctype("HTML5");
+	?>
+	<title>Insset Airline</title>
+	<?php 
+		$this->headLink()->appendStylesheet('/css/template.css');
+		echo $this->headLink();
+	?>
+</head>
+<body>
+	<div id="body">
+		<div id="header">
+			<div>Site Insset Ailine</div>
+		</div>	
+		<div id="content">Contenue de la page :
+		<?php 	
+			echo $this->layout()->content; 
+		?>
+		</div>
+	</div<
+</body>
+</html>

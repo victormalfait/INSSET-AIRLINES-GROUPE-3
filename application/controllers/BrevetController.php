@@ -1,5 +1,5 @@
 <?php
-class DrhController extends Zend_Controller_Action
+class BrevetController extends Zend_Controller_Action
 {
 	public function indexAction() 
 	{	
