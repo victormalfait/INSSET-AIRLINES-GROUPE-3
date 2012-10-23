@@ -9,25 +9,28 @@ class AvionController extends Zend_Controller_Action
         /* Connection a la Base de Donnée en local */
     	// Va rechercher les info dans le application.ini
     	
-    	echo "AvionCntroller.php";
-    	
-    	$dbavion = Zend_Db::factory(Zend_Registry::get('config')->database); 
+    	//$dbavion = Zend_Db::factory(Zend_Registry::get('config')->database); 
     }
     public function indexAction()
     {
+    	/*
     	$this->view->messages = $this->_messenger->getMessage();
         $this->view->titre2 = "Gestion des Avions";
-        $this->_forward('list');
+        $this->_forward('list');*/
+        
     }
     public function listAction()
     {
+    	
+    	
     	$avionMapper = new Application_Model_Mapper_Avion();
     	
     	// création du paginator
     	Zend_View_Helper_PaginationControl::setDefaultViewPartial('paginator.phtml');
-    	$listeAvion = $avionMapper->getAllAvion();
     	
-    	$this->view->liste = $listeAvion;	
+    	$this->view->list = $avionMapper->getAllAvion();
+    	
+    		
     	
     }
     
@@ -53,6 +56,39 @@ class AvionController extends Zend_Controller_Action
 
     public function ajouterAction()
     {
+    	$monform = new Zend_Form;
+    	
+    	//paramétres du formulaire
+    	$monform->setMethod('post');
+    	$monform->setAction('/index/#');
+    	$monform->setAttrib('id', 'monformulaire');
+    	
+    	//creation élément formulaire
+    	$eModelle = new Zend_Form_Element_Select('listmodelle');
+    	$eModelle->setLabel('Liste des Modelles : ');
+    	$eModelle->setMultiOptions(array('1' => 'Bohing 437', '2' => 'Bohing 499'));
+    	
+    	$eImmatriculation = new Zend_Form_Element_Text('Immatriculation');
+    	$eImmatriculation->setLabel('Liste des Modelles : ');
+    	$eImmatriculation->setValue(array('XXXXXXXX'));
+    	
+    	$eHeuresTotal = new Zend_Form_Element_Text('HeuresTotal');
+    	$eHeuresTotal->setLabel('Heures Total : ');
+    	$eHeuresTotal->setValue(array('XXXXXXXX'));
+    	$eHeuresTotal->setResuired(true);
+    	
+    	$eHeuresRevision = new Zend_Form_Element_Text('Immatriculation');
+    	$eHeuresRevision->setLabel('Heures depuis la Revision : ');
+    	$eHeuresRevision->setValue(array('XXXXXXXX'));
+    	$eHeuresRevision->setResuired(true);
+    	
+    	
+    	$monform->addElement($eModelle);
+    	$monform->addElement($eImmatriculation);
+    	$monform->addElement($eHeuresTotal);
+    	$monform->addElement($eHeuresRevision);
+    	
+    	echo $monform;
     	/*
         $this->view->titre2 = "Ajouter un avion";
 
