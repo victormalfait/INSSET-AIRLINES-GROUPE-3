@@ -7,7 +7,7 @@
  * @copyright INSSET Projet 
  * 
  */
-class Application_Model_Utilisateur
+class Application_Model_Avion
 {
     protected $_id_name_modelle_avion;
     protected $_immatriculation;

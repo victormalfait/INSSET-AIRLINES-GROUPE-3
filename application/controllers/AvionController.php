@@ -82,8 +82,8 @@ class AvionController extends Zend_Controller_Action
             $this->_redirector->gotoSimple('index', null, null, array());
         }
 
-        $this->view->form = $form;
-    }*/
+        $this->view->form = $form;*/
+    }
 
 
 }
