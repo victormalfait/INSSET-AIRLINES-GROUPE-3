@@ -1,0 +1,81 @@
+#menu{
+	position: absolute;
+	top:150px;
+	left: 50%;
+	margin-left: -300px;
+	background: #83C8FF;
+	width: 608px;
+	height: 300px;
+	border-radius: 15px;
+	box-shadow: 3px 3px 3px #1f1f1f;
+}
+.direction-strategique{
+	width:150px;
+	height: 150px;
+	float:left;
+	text-align: center;
+}
+.direction-strategique a{
+	color: #fff;
+	line-height: 150px;
+}
+.drh{
+	width:150px;
+	height: 150px;
+	float:left;
+	text-align: center;
+}
+.drh a{
+	color: #fff;
+	line-height: 150px;
+}
+.maintenance{
+	width:150px;
+	height: 150px;
+	float:left;
+	text-align: center;
+}
+.maintenance a{
+	color: #fff;
+	line-height: 150px;
+}
+.planning{
+	width:150px;
+	height: 150px;
+	float:left;
+	text-align: center;
+}
+.planning a{
+	color: #fff;
+	line-height: 150px;
+}
+.commercial{
+	width:150px;
+	height: 150px;
+	float:left;
+	text-align: center;
+}
+.commercial a{
+	color: #fff;
+	line-height: 150px;
+}
+.exploitation{
+	width:150px;
+	height: 150px;
+	float:left;
+	text-align: center;
+}
+.exploitation a{
+	color: #fff;
+	line-height: 150px;
+}
+.logistique{
+	width:150px;
+	height: 150px;
+	float:left;
+	text-align: center;
+}
+.logistique a{
+	color: #fff;
+	line-height: 150px;
+}
