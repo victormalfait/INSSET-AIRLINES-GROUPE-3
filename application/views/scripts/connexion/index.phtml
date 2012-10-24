@@ -1,10 +1,15 @@
-<div>
-	<form>
-		<label for="identifiant">Identifiant :</label></br>
-		<input type="text" id="identifiant" name="identifiant"></br></br>
+<link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl('/css/connexion.css')?>" />
 
-		<label for="mdp">Mot de passe :</label></br>
-		<input type="password" id="mdp" name="mdp"></br></br>
+<div class="connexion">
+	<form>
+		<div class="identifiant">
+			<label for="identifiant">Identifiant :</label></br>
+			<input type="text" id="identifiant" name="identifiant"></br></br>
+		</div>
+		<div class="mdp">
+			<label for="mdp">Mot de passe :</label></br>
+			<input type="password" id="mdp" name="mdp"></br></br>
+		</div>
 
 		<input type="submit" value="Connexion" name="connexion">
 
