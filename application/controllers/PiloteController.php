@@ -21,6 +21,7 @@ class PiloteController extends Zend_Controller_Action
 		$ePilot->setLabel('ajoutpilote: ');
 		//$ePilot->setMultiOptions(array('1' => 'Jean Charle', '2' => 'Amstrong Frederic'));
 		
+		
 	}
 	
 	
