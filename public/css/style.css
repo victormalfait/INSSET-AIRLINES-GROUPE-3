@@ -2,33 +2,6 @@
 
 body
 {
-	background:#125358;
 	font-family:arial,sans-serif;
 	color:#000;
-}
-
-#container
-{
-	margin:0 auto;
-	width:980px;
-}
-
-header
-{
-	color:#949494;
-	margin:30px auto 50px auto;
-	border:5px solid #002D31;
-	text-align:center;
-}
-
-#page
-{
-	background:#fff;
-	border:3px solid grey;
-	min-height:300px;
-	padding:10px;
-}
-
-canvas{
-	z-index: -2;
 }
