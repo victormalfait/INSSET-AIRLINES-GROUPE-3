@@ -1,0 +1,24 @@
+#commercial{
+	position: absolute;
+	top:80px;
+	left: 50%;
+	margin-left: -400px;
+	background: #83C8FF;
+	width: 800px;
+	height: 500px;
+	border-radius: 15px;
+	box-shadow: 3px 3px 3px #1f1f1f;
+	font-size: 1.250em;
+}
+
+.bandeau{
+	line-height: 45px;
+	background:#f9f9f9;
+	border:3px solid #e1e1e1;
+	border-radius: 15px;
+	text-align: center;
+}
+
+h1{
+	margin:0;
+}
