@@ -12,15 +12,16 @@ body
 	width: 390px;
 	border-radius: 15px;
 	box-shadow: 3px 3px 3px #1f1f1f;
-	background: cyan;
+	background: #83C8FF;
 	text-align: center;
 	color:#fff;
 	font-family: "arial",sans-serif;
-	border: 1px solid black;
 	position: absolute;
 	top:150px;
 	left: 50%;
 	margin-left: -195px;
+	opacity: .7;
+	font-size: 1.450em;
 }
 
 .identifiant,
@@ -30,6 +31,7 @@ body
 	border: 1px solid black;
 	width:290px;
 	margin-top:40px;
+	opacity: 1;
 }
 
 input[type="text"],
@@ -37,3 +39,5 @@ input[type="password"]{
 	width:275px;
 	height: 45px;
 }
+
+input[type="submit"]
