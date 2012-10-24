@@ -3,7 +3,7 @@
 body
 {
 	background:#125358;
-	font-style:arial,sans-serif;
+	font-family:arial,sans-serif;
 	color:#000;
 }
 
@@ -27,4 +27,8 @@ header
 	border:3px solid grey;
 	min-height:300px;
 	padding:10px;
+}
+
+canvas{
+	z-index: -2;
 }
