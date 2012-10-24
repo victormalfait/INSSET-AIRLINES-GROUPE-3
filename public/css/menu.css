@@ -8,6 +8,7 @@
 	height: 300px;
 	border-radius: 15px;
 	box-shadow: 3px 3px 3px #1f1f1f;
+	font-size: 1.250em;
 }
 .direction-strategique{
 	width:150px;
@@ -17,7 +18,7 @@
 }
 .direction-strategique a{
 	color: #fff;
-	line-height: 150px;
+	line-height: 10px;
 }
 .drh{
 	width:150px;
