@@ -21,7 +21,7 @@ class BrevetController extends Zend_Controller_Action
 		$ePilot->setMultiOptions(array('1' => 'Jean Charle', '2' => 'Amstrong Frederic'));
 		
 		$eBrevet = new Zend_Form_Element_Select('listbrevet');
-		$eBrevet->setLabel('Liste des brevet : ');
+		$eBrevet->setLabel('Liste des brevet du pilote: ');
 		$eBrevet->setMultiOptions(array('1' => 'A380', '2' => 'airbus'));
 		
 		
