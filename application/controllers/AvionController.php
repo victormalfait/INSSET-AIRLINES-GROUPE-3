@@ -56,12 +56,12 @@ class AvionController extends Zend_Controller_Action
 
     public function ajouterAction()
     {
-    	$monform = new Zend_Form;
+    	$FormAjout = new Zend_Form;
     	
     	//paramétres du formulaire
-    	$monform->setMethod('post');
-    	$monform->setAction('/index/#');
-    	$monform->setAttrib('id', 'monformulaire');
+    	$FormAjout->setMethod('post');
+    	$FormAjout->setAction('/index/#');
+    	$FormAjout->setAttrib('id', 'monformulaire');
     	
     	//creation élément formulaire
     	$eModelle = new Zend_Form_Element_Select('listmodelle');
@@ -74,21 +74,21 @@ class AvionController extends Zend_Controller_Action
     	
     	$eHeuresTotal = new Zend_Form_Element_Text('HeuresTotal');
     	$eHeuresTotal->setLabel('Heures Total : ');
-    	$eHeuresTotal->setValue(array('XXXXXXXX'));
-    	$eHeuresTotal->setResuired(true);
+    	$eHeuresTotal->setValue('XXXXXXXX');
+    	$eHeuresTotal->setRequired(true);
     	
     	$eHeuresRevision = new Zend_Form_Element_Text('Immatriculation');
     	$eHeuresRevision->setLabel('Heures depuis la Revision : ');
-    	$eHeuresRevision->setValue(array('XXXXXXXX'));
-    	$eHeuresRevision->setResuired(true);
+    	$eHeuresRevision->setValue('XXXXXXXX');
+    	$eHeuresRevision->setRequired(true);
     	
     	
-    	$monform->addElement($eModelle);
-    	$monform->addElement($eImmatriculation);
-    	$monform->addElement($eHeuresTotal);
-    	$monform->addElement($eHeuresRevision);
+    	$FormAjout->addElement($eModelle);
+    	$FormAjout->addElement($eImmatriculation);
+    	$FormAjout->addElement($eHeuresTotal);
+    	$FormAjout->addElement($eHeuresRevision);
     	
-    	echo $monform;
+    	echo $FormAjout;
     	/*
         $this->view->titre2 = "Ajouter un avion";
 
