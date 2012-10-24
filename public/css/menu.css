@@ -18,7 +18,6 @@
 }
 .direction-strategique a{
 	color: #fff;
-	line-height: 20px;
 	opacity: 0.5;
 }
 .direction-strategique a:hover{
@@ -32,7 +31,10 @@
 }
 .drh a{
 	color: #fff;
-	line-height: 150px;
+	opacity: 0.5;
+}
+.drh a:hover{
+	opacity: 1;
 }
 .maintenance{
 	width:150px;
@@ -42,7 +44,10 @@
 }
 .maintenance a{
 	color: #fff;
-	line-height: 150px;
+	opacity: 0.5;
+}
+.maintenance a:hover{
+	opacity: 1;
 }
 .planning{
 	width:150px;
@@ -52,7 +57,10 @@
 }
 .planning a{
 	color: #fff;
-	line-height: 150px;
+	opacity: 0.5;
+}
+.planning a:hover{
+	opacity: 1;
 }
 .commercial{
 	width:150px;
@@ -62,7 +70,10 @@
 }
 .commercial a{
 	color: #fff;
-	line-height: 150px;
+	opacity: 0.5;
+}
+.commercial a:hover{
+	opacity: 1;
 }
 .exploitation{
 	width:150px;
@@ -72,7 +83,10 @@
 }
 .exploitation a{
 	color: #fff;
-	line-height: 150px;
+	opacity: 0.5;
+}
+.exploitation a:hover{
+	opacity: 1;
 }
 .logistique{
 	width:150px;
@@ -82,7 +96,10 @@
 }
 .logistique a{
 	color: #fff;
-	line-height: 150px;
+	opacity: 0.5;
+}
+.logistique a:hover{
+	opacity: 1;
 }
 .fils{
 
