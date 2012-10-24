@@ -4,8 +4,8 @@
 	left: 50%;
 	margin-left: -300px;
 	background: #83C8FF;
-	width: 608px;
-	height: 300px;
+	width: 604px;
+	height: 301px;
 	border-radius: 15px;
 	box-shadow: 3px 3px 3px #1f1f1f;
 	font-size: 1.250em;
@@ -15,6 +15,8 @@
 	height: 150px;
 	float:left;
 	text-align: center;
+	border-right: 1px solid #9f9f9f;
+	border-bottom: 1px solid #9f9f9f;
 }
 .direction-strategique a{
 	color: #fff;
@@ -28,6 +30,8 @@
 	height: 150px;
 	float:left;
 	text-align: center;
+	border-right: 1px solid #9f9f9f;
+	border-bottom: 1px solid #9f9f9f;
 }
 .drh a{
 	color: #fff;
@@ -41,6 +45,8 @@
 	height: 150px;
 	float:left;
 	text-align: center;
+	border-right: 1px solid #9f9f9f;
+	border-bottom: 1px solid #9f9f9f;
 }
 .maintenance a{
 	color: #fff;
@@ -54,6 +60,7 @@
 	height: 150px;
 	float:left;
 	text-align: center;
+	border-bottom: 1px solid #9f9f9f;
 }
 .planning a{
 	color: #fff;
@@ -67,6 +74,7 @@
 	height: 150px;
 	float:left;
 	text-align: center;
+	border-right: 1px solid #9f9f9f;
 }
 .commercial a{
 	color: #fff;
@@ -80,6 +88,7 @@
 	height: 150px;
 	float:left;
 	text-align: center;
+	border-right: 1px solid #9f9f9f;
 }
 .exploitation a{
 	color: #fff;
@@ -93,6 +102,7 @@
 	height: 150px;
 	float:left;
 	text-align: center;
+	border-right: 1px solid #9f9f9f;
 }
 .logistique a{
 	color: #fff;
@@ -102,5 +112,5 @@
 	opacity: 1;
 }
 .fils{
-
+	margin-top: 20px;
 }
