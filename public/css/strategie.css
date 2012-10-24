@@ -1,0 +1,15 @@
+.strategieMenu{
+	background-color: #83C8FF;
+	opacity: .5;
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	width: 724px;
+	height: 129px;
+	-webkit-border-radius: 20px;
+	border-radius: 20px;
+	-webkit-box-shadow: 5px 5px 5px black;
+	box-shadow: 5px 5px 5px black; 
+	-webkit-box-shadow:inset -5px -5px -5px -5px black;
+	box-shadow:inset -5px -5px -5px -5px black;
+}
