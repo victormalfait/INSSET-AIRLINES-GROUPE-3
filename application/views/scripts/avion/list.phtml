@@ -8,14 +8,15 @@
             <th>Options</th>
         </tr>
     </thead>
-    <?php foreach ($this->list as $avion): ?>
-            <td><?php echo $avion->getIdModelle(); ?></td>
-            <td><?php echo $avion->getImmatriculation(); ?></td>
-            <td><?php echo $avion->getHeuresTotal(); ?></td>
-            <td><?php echo $avion->getHeuresRevision(); ?></td>
-            <td>Modifier / Suprimer</td>
+    
+    <?php //foreach ($this->list as $avion): ?>
+            <td><?php //echo $avion->getIdModelle(); ?></td>
+            <td><?php //echo $avion->getImmatriculation(); ?></td>
+            <td><?php //echo $avion->getHeuresTotal(); ?></td>
+            <td><?php //echo $avion->getHeuresRevision(); ?></td>
+            <td><a href="../avion/modifier">Modifier</a> / <a href="../avion/suprimer">Suprimer</a></td>
         </tr>
-    <?php endforeach; ?>
+    <?php //endforeach; ?>
 
 </table>
 

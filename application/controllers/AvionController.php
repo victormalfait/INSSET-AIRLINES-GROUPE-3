@@ -2,7 +2,7 @@
 
 class AvionController extends Zend_Controller_Action
 {
-	protected $_messenger = null;
+	//protected $_messenger = null;
 	
     public function init()
     {
@@ -22,14 +22,20 @@ class AvionController extends Zend_Controller_Action
     public function listAction()
     {
     	
+    	/*
+    	$tableAvion = new TAvion;
     	
-    	$avionMapper = new Application_Model_Mapper_Avion();
+    	$avions = $tableAvion->fetchAll();
+    	foreach ($avions as $avion)
+    	{
+    		echo $avion->id_name_modelle_avion . '<br/>';
+    		echo $avion->immatriculation . '<br/>';
+    		echo $avion->heures_vol_total . '<br/>';
+    		echo $avion->heures_depuis_revision . '<br/>';
+    		
+    	}
     	
-    	// création du paginator
-    	Zend_View_Helper_PaginationControl::setDefaultViewPartial('paginator.phtml');
-    	
-    	$this->view->list = $avionMapper->getAllAvion();
-    	
+    	*/
     		
     	
     }
@@ -81,12 +87,14 @@ class AvionController extends Zend_Controller_Action
     	$eHeuresRevision->setLabel('Heures depuis la Revision : ');
     	$eHeuresRevision->setValue('XXXXXXXX');
     	$eHeuresRevision->setRequired(true);
-    	
+    
+    	$eSubmit = new Zend_Form_Element_Submit('Envoyer');
     	
     	$FormAjout->addElement($eModelle);
     	$FormAjout->addElement($eImmatriculation);
     	$FormAjout->addElement($eHeuresTotal);
     	$FormAjout->addElement($eHeuresRevision);
+    	$FormAjout->addElement($eSubmit);
     	
     	echo $FormAjout;
     	/*
