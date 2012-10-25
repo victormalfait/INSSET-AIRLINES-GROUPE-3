@@ -8,11 +8,12 @@
 							 ->appendStylesheet('/css/style.css');
 			echo $this->headLink();
 			
-			$this->headScript()->appendFile('/js/cloud/ThreeWebGL.js');
-			$this->headScript()->appendFile('/js/cloud/ThreeExtras.js');
-			$this->headScript()->appendFile('/js/cloud/Detector.js');
-			$this->headScript()->appendFile('/js/cloud/RequestAnimationFrame.js');
-			//echo $this->headScript();
+			$this->headScript()	->appendFile('http://code.jquery.com/jquery-1.8.2.min.js')
+								->appendFile('/js/cloud/ThreeWebGL.js')
+								->appendFile('/js/cloud/ThreeExtras.js')
+								->appendFile('/js/cloud/Detector.js')
+								->appendFile('/js/cloud/RequestAnimationFrame.js');
+			echo $this->headScript();
 		?>
 	</head>
 	<body>
