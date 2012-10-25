@@ -1,85 +1,105 @@
 /*******************************
 *           strategie          *
 *******************************/
-/*menu strategie*/
+	body,html{ margin: 0; padding: 0;}
+	.test{ border:1px solid black;}
+	.titre{color: #fff; font-size: 1.450em;}
+	.formTitre{color: #000; font-size: 1.450em;}
+	.mapage{ position: absolute; top: 0; left: 0; width: 100%; height: 100%}
+
+/* partie gauche */
+	.gauche{ width: 50%; float: left; min-width: 500px;}
+	.gauchefils{margin: 20px;}
+
+/*entete strategie*/
 	.strategie{
 		background-color: #83C8FF;
-		position: absolute;
-		top: 20px;
-		left: 20px;
-		width: 600px;
+		margin:0 auto;
 		height: 80px;
 		-webkit-border-radius: 20px;
 		border-radius: 20px;
 		-webkit-box-shadow: 5px 5px 5px black;
-		box-shadow: 5px 5px 5px black; 
-		-webkit-box-shadow:inset -5px -5px -5px -5px black;
-		box-shadow:inset -5px -5px -5px -5px black;
+		box-shadow: 5px 5px 5px black;
 		padding: 20px;
 	}
 
-	.titre{color: #fff; font-size: 1.450em;}
-
-	.menu a /* Contenu des listes */
-	{
-	        display : block; /* on change le type d'élément, les liens deviennent des balises de type block */
-	        padding : 0; /* aucune marge intérieure */
-	        text-decoration : none; /* on supprime le style par défaut des liens (la plupart du temps = souligné) */
+/*formulaire nouveau vol*/
+	.newVol{
+		background-color: #fff;
+		margin: 0 25px;
+		height: 400px;
+		-webkit-box-shadow: 5px 5px 5px black;
+		box-shadow: 5px 5px 5px black;
+		padding: 20px;
 	}
 
-	.menu li /* Elements des listes */      
+
+/*menu*/
+	.menu a
+	{
+	        display : block;
+	        padding : 0;
+	        text-decoration : none;
+	}
+
+	.menu li
 	{ 
 	        float : left; 
-	        /* pour IE qui ne reconnaît pas "transparent" */
-	        border-right : 1px solid #fff; /* on met une bordure blanche à droite de chaque élément */
+	       
+	        border-right : 1px solid #fff;
 	}
 
 	/* IE ne reconnaissant pas le sélecteur ">" */
 	html>body .menu li
 	{
-	        border-right: 1px solid transparent ; /* on met une bordure transparente à droite de chaque élément */
+	        border-right: 1px solid transparent ;
 	}
 
-	.menu li ul /* Sous-listes */
+	.menu li ul
 	{ 
-	        position: absolute; /* Position absolue */
-	        width: 144px; /* Largeur des sous-listes */
-	        left: -999em; /* Hop, on envoie loin du champ de vision */
+	        position: absolute;
+	        width: 144px;
+	        left: -999em;
 	}
 
 
-	.menu li ul li /* Éléments de sous-listes */
+	.menu li ul li
 	{
-	        /* pour IE qui ne reconnaît pas "transparent" (comme précédemment) */
-	        border-top : 1px solid #fff; /* on met une bordure blanche en haut de chaque élément d'une sous liste */
+	       
+	        border-top : 1px solid #fff;
 	}
 
 	/* IE ne reconnaissant pas le sélecteur ">" */
 	html>body .menu li ul li                
 	{
-	        border-top : 1px solid transparent; /* on met une bordure transparente en haut de chaque élément */
+	        border-top : 1px solid transparent;
 	}
 
 	.menu li ul ul 
 	{
-	        margin    : -22px 0 0 144px ; /* On décale les sous-sous-listes pour qu'elles ne soient pas au dessus des sous-listes */ 
-	        /* pour IE qui ne reconnaît pas "transparent" (comme précédemment) */
-	        border-left     : 1px solid #fff ; /* Petite bordure à gauche pour ne pas coller ... */      
+	        margin    : -22px 0 0 144px ;
+	       
+	        border-left     : 1px solid #fff ;
 	}
 
 	/* IE ne reconnaissant pas le sélecteur ">" ... je me répète ;-) */
 	html>body .menu li ul ul                
 	{
-	        border-left     : 1px solid transparent ; /* on met une bordure transparente sur la gauche de chaque élément */
+	        border-left     : 1px solid transparent ;
 	}
 
-	.menu li:hover ul ul, .menu li.sfhover ul ul /* Sous-sous-listes lorsque la souris passe sur un élément de liste */
+	.menu li:hover ul ul, .menu li.sfhover ul ul
 	{
-	        left: -999em; /* On expédie les sous-sous-listes hors du champ de vision */
+	        left: -999em;
 	}
 
-	.menu li:hover ul, .menu li li:hover ul, .menu li.sfhover ul, .menu li li.sfhover ul  /* Sous-listes lorsque la souris passe sur un élément de liste ET sous-sous-lites lorsque la souris passe sur un élément de sous-liste */
+	.menu li:hover ul, .menu li li:hover ul, .menu li.sfhover ul, .menu li li.sfhover ul 
 	{
-	        left: auto; /* Repositionnement normal */
-	        min-height: 0; /* Corrige un bug sous IE */
+	        left: auto;
+	        min-height: 0;
 	}
+
+
+/*parti droite*/
+	.droite{ float: right; width: 50%; min-width: 500px;}
+	.droitefils{margin: 20px;}

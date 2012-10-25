@@ -1,39 +1,63 @@
-<link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl('/css/strategie.css')?>" />
+<div class="mapage test">
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl('/css/strategie.css')?>" />
 
-<script type="text/javascript">
-	<!--
-		sfHover = function() {
-		    var sfEls = document.getElementById("menu").getElementsByTagName("LI");
-		    
-		    for (var i=0; i<sfEls.length; i++) {
-		        sfEls[i].onmouseover=function() {
-		            this.className+=" sfhover";
-		        }
-		        sfEls[i].onmouseout=function() {
-		            this.className=this.className.replace(new RegExp(" sfhover\\b"), "");
-		        }
-		    }
-		}
-		
-		if (window.attachEvent) window.attachEvent("onload", sfHover);
-	-->
-</script>
+	<script type="text/javascript">
+		<!--
+			sfHover = function() {
+			    var sfEls = document.getElementById("menu").getElementsByTagName("LI");
+			    
+			    for (var i=0; i<sfEls.length; i++) {
+			        sfEls[i].onmouseover=function() {
+			            this.className+=" sfhover";
+			        }
+			        sfEls[i].onmouseout=function() {
+			            this.className=this.className.replace(new RegExp(" sfhover\\b"), "");
+			        }
+			    }
+			}
+			
+			if (window.attachEvent) window.attachEvent("onload", sfHover);
+		-->
+	</script>
+	<!-- parti gauche -->
+		<div class="gauche">
+			<div class="gauchefils test">
+				<header class="strategie">
+					<div class="titre">
+						<span>Direction Strategique</span>
+					</div>
+					<div>
+						<ul class="menu">
+							<li>
+								<a href="#">vol</a>
+								<ul>
+									<li><a href="#">Nouveau vol</a></li>
+									<li><a href="#">Fermer vol</a></li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</header>
+				
+				<section class="newVol">
+					<form method="post">
+						<div class="formTitre">
+							<span>Création d'un Vol</span>
+						</div>
+						<div></div>
+						<div></div>
+						<div></div>
+					</form>
+				</section>
+			</div>
+		</div>
+	<!-- parti gauche -->
 
-<div>
-	<header class="strategie">
-		<div class="titre">
-			<span>Direction Strategique</span>
+	<!-- parti droite -->
+		<div class="droite">
+			<div class="droitefils test">
+				
+			</div>
 		</div>
-		<div>
-			<ul class="menu">
-				<li>
-					<a href="#">vol</a>
-					<ul>
-						<li><a href="#">Nouveau vol</a></li>
-						<li><a href="#">Fermer vol</a></li>
-					</ul>
-				</li>
-			</ul>
-		</div>
-	</header>
+	<!-- parti droite -->
 </div>
