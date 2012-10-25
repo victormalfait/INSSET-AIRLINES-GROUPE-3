@@ -1,4 +1,4 @@
-<div class="mapage test">
+<div class="mapage">
 	<link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl('/css/strategie.css')?>" />
 	<script type="text/javascript">
 		<!--
@@ -30,103 +30,123 @@
 	</script>
 	<!-- parti gauche -->
 		<div class="gauche min-width">
-			<div class="gauchefils test">
+			<div class="gauchefils">
 				<!-- menu -->
 					<header class="strategie">
-						<div class="titre">
-							<span>Direction Strategique</span>
-						</div>
-						<div>
-							<ul class="menu">
-								<li>
-									<a href="#">vol</a>
-									<ul>
-										<li><a href="#">Nouveau vol</a></li>
-										<li><a href="#">Fermer vol</a></li>
+						<div class="strategie1 strat-pos"></div>
+						<div class="strategie2 strat-pos">
+							<div class="strategiefils">
+								<div class="titre">
+									<span>Direction Strategique</span>
+								</div>
+								<div>
+									<ul class="menu">
+										<li>
+											<a href="#">vol</a>
+											<ul>
+												<li><a href="#">Nouveau vol</a></li>
+												<li><a href="#">Fermer vol</a></li>
+											</ul>
+										</li>
 									</ul>
-								</li>
-							</ul>
+								</div>
+							</div>
 						</div>
 					</header>
 				<!-- menu -->
+				
 				<!-- formulaire -->
 					<section class="newVol">
-						<div class="newVolfils">
-							<form method="post">
-								<div class="formTitre">
-									<span>Création d'un Vol</span>
-								</div>
-								<div class="Depart">
-									<fieldset>
-										<legend>Départ</legend>
-										<div class="gauche">
-											<div>
-												<label for="Dpays">Pays</label>
-												<select name="Dpays" id="Dpays" class="formSelect"></select>
+						<div class="newVol1 NV-pos"></div>
+						<div class="newVol2 NV-pos">
+							<div class="newVolfils">
+								<form method="post">
+									<!-- titre -->
+										<div class="formTitre">
+											<span>Création d'un Vol</span>
+										</div>
+									<!-- titre -->
+
+									<!-- formulaire depart -->
+										<div class="depart">
+											<fieldset>
+												<legend>Départ</legend>
+												<div class="cellule">
+													<label for="Dpays">Pays</label>
+													<select name="Dpays" id="Dpays" class="formSelect" required></select>
+												</div>
+												<div class="cellule">
+													<label for="Daeroport">Aeroport</label>
+													<select name="Daeroport" id="Daeroport" class="formSelect" required></select>
+												</div>
+												<div class="cellule">
+													<label for="Dhoraire">Horaire</label>
+													<input type="text" id="Dhoraire" name="Dheure" maxlength="2" class="formText" required/><span class="gris" >H</span>
+													<input type="text" name="Dminute" maxlength="2" class="formText" required/><span class="gris">M</span>
+												</div>
+											</fieldset>
+										</div>
+									<!-- formulaire depart -->
+
+									<!-- formulaire arrivee -->
+										<div class="arrivee">
+											<fieldset>
+												<legend>Arrivée</legend>
+												<div class="cellule">
+													<label for="Apays">Pays</label>
+													<select name="Apays" id="Apays" class="formSelect" required></select>
+												</div>
+												<div class="cellule">
+													<label for="Aaeroport">Aeroport</label>
+													<select name="Aaeroport" id="Aaeroport" class="formSelect" required></select>
+												</div>
+												<div class="cellule">
+													<label for="Ahoraire">Horaire</label>
+													<input type="text" id="Ahoraire" name="Aheure" maxlength="2" class="formText" required/><span class="gris" >H</span>
+													<input type="text" name="Aminute" maxlength="2" class="formText" required/><span class="gris">M</span>
+												</div>
+											</fieldset>
+										</div>
+									<!-- formulaire arrivee -->
+
+									<!-- formulaire validation -->
+										<div class="validation">
+											<div style="float:left; width:240px;">
+												<fieldset>
+													<legend>Periodicité</legend>
+													<div class="cellule">
+														<select name="periodicite" id="periodicite" required>
+															<optgroup label="Quelle type de periode ?">
+																<option id="question" value="-1">Quelle type de periode ?</option>
+																<optgroup label="Unique">
+																	<option value="1">Une fois</option>
+																</optgroup>
+																<optgroup label="semaine">
+																	<option value="2">Lundi</option>
+																	<option value="3">Mardi</option>
+																	<option value="4">Mercredi</option>
+																	<option value="5">Jeudi</option>
+																	<option value="6">Vendredi</option>
+																	<option value="7">Samedi</option>
+																	<option value="8">Dimanche</option>
+																</optgroup>
+															</optgroup>
+														</select>
+													</div>
+												</fieldset>
 											</div>
-											<div>
-												<label for="Daeroport">Aeroport</label>
-												<select name="Daeroport" id="Daeroport" class="formSelect"></select>
+											<div style="float:left; width:240px">
+												<fieldset>
+													<legend>Terminer</legend>
+													<div class="cellule">
+														<input type="submit" name="NV_rec" id="NV_rec" value="Enregistrer" />
+													</div>
+												</fieldset>
 											</div>
 										</div>
-										<div class="droite center">
-											<label for="Dhoraire">Horaire</label>
-											<input type="text" id="Dhoraire" name="Dheure" maxlength="2" class="formText" /><span class="gris" >H</span>
-											<input type="text" name="Dminute" maxlength="2" class="formText" /><span class="gris">M</span>
-										</div>
-									</fieldset>
-								</div>
-								<div>
-									<fieldset>
-										<legend>Arrivée</legend>
-										<div class="gauche">
-											<div>
-												<label for="Apays">Pays</label>
-												<select name="Apays" id="Apays" class="formSelect"></select>
-											</div>
-											<div>
-												<label for="Aaeroport">Aeroport</label>
-												<select name="Aaeroport" id="Aaeroport" class="formSelect"></select>
-											</div>
-										</div>
-										<div class="droite center">
-											<label for="Ahoraire">Horaire</label>
-											<input type="text" id="Ahoraire" name="Aheure" maxlength="2" class="formText" /><span class="gris" >H</span>
-											<input type="text" name="Aminute" maxlength="2" class="formText" /><span class="gris">M</span>
-										</div>
-									</fieldset>
-								</div>
-								<div>
-									<div class="gauche center">
-										<fieldset>
-											<legend>Periodicité</legend>
-											<select name="periodicite" id="periodicite">
-												<optgroup label="Quelle type de periode ?">
-													<option id="question" value="-1">Quelle type de periode ?</option>
-													<optgroup label="Unique">
-														<option value="1">Une fois</option>
-													</optgroup>
-													<optgroup label="semaine">
-														<option value="2">Lundi</option>
-														<option value="3">Mardi</option>
-														<option value="4">Mercredi</option>
-														<option value="5">Jeudi</option>
-														<option value="6">Vendredi</option>
-														<option value="7">Samedi</option>
-														<option value="8">Dimanche</option>
-													</optgroup>
-												</optgroup>
-											</select>
-										</fieldset>
-									</div>
-									<div class="droite center">
-										<fieldset>
-											<legend>Terminer</legend>
-											<input type="submit" name="NV_rec" id="NV_rec" value="Enregistrer" />
-										</fieldset>
-									</div>
-								</div>
-							</form>
+									<!-- formulaire validation -->
+								</form>
+							</div>
 						</div>
 					</section>
 				<!-- formulaire -->

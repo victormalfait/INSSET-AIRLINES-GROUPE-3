@@ -4,9 +4,9 @@
 	body,html{ margin: 0; padding: 0;}
 	.test{ border:1px solid black;}
 	.titre{color: #fff; font-size: 1.450em;}
-	.formTitre{color: #000; font-size: 1.450em; text-align: center;}
+	.formTitre{color: #000; font-size: 1.450em; text-align: center; padding: 10px;}
 	.mapage{ position: absolute; top: 0; left: 0; width: 100%; height: 100%;}
-	.min-width{min-width: 500px}
+	.min-width{min-width: 393px}
 	.gris{color: #808080;}
 	.center{text-align: center;}
 /* partie gauche */
@@ -15,33 +15,35 @@
 
 /*entete strategie*/
 	.strategie{
-		background-color: #83C8FF;
+		position: relative;
+	}
+
+	.strat-pos{
+		width: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
 		margin:0 auto;
 		height: 80px;
 		-webkit-border-radius: 20px;
 		border-radius: 20px;
-		-webkit-box-shadow: 5px 5px 5px black;
-		box-shadow: 5px 5px 5px black;
-		padding: 20px;
 	}
 
-/*formulaire nouveau vol*/
-	.newVol{
-		overflow: auto;
-		background-color: #fff;
-		margin: 0 25px;
-		-webkit-box-shadow: 5px 5px 5px black;
-		box-shadow: 5px 5px 5px black;
+	.strategie1{
+		background-color: #83C8FF; 
+		opacity: .8;
+		box-shadow:
+		10px 10px 10px 0px rgba(0, 0, 0, 0.5),
+		-10px -10px 10px 0px rgba(0, 0, 0, 0.5) inset,
+		10px 10px 10px 0px rgba(255, 255, 255, 0.5) inset; 
+	}
+	.strategie2{
+		position: relative;
 	}
 
-	.newVolfils{ overflow: auto; margin: 20px;}
-
-	fieldset{ border-radius: 20px; -webkit-border-radius: 20px; border: 1px solid #808080;}
-	label{color: #808080; cursor: pointer;}
-	legend{ color: #808080; margin: 0 5px;}
-
-	.formSelect{ width: 100px; margin-right: 0;}
-	.formText{width: 20px}
+	.strategiefils{
+		padding: 10px;
+	}
 
 /*menu*/
 	.menu a
@@ -108,6 +110,43 @@
 	        min-height: 0;
 	}
 
+/*formulaire nouveau vol*/
+	.newVol{
+		position: relative;
+		margin: 0 25px;
+	}
+
+	.NV-pos{
+		width:99%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		margin:0 auto;
+		min-height: 420px;
+	}
+
+	.newVol1{
+		background-color: #fff;
+		opacity: .7;
+		box-shadow:
+		10px 10px 10px 0px rgba(0, 0, 0, 0.5),
+		0px 5px 5px 0px rgba(0, 0, 0, 0.5) inset; 
+	}
+	.newVol2{
+	}
+
+	.newVolfils{ margin: 20px; }
+
+	fieldset{ border-radius: 10px; -webkit-border-radius: 20px; border: 1px solid #808080;}
+	label{color: #808080; cursor: pointer;}
+	legend{ color: #808080; margin: 0 5px;}
+
+	.formSelect{ width: 120px; margin-right: 0;}
+	.formText{width: 20px}
+
+	.depart, .arrivee, .validation{ padding: 10px;}
+	.validation{overflow: auto;}
+	.cellule{float:left; margin: 3px;}
 
 /*parti droite*/
 	.droite{ float: right; width: 50%;}
