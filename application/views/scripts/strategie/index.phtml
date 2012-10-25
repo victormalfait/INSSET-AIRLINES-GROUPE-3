@@ -1,6 +1,5 @@
 <div class="mapage test">
 	<link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl('/css/strategie.css')?>" />
-	<script type="text/javascript" src="js/jquery-1.8.2.js"></script>
 	<script type="text/javascript">
 		<!--
 			sfHover = function() {
@@ -23,7 +22,7 @@
 		<!--
 			$(document).ready(function(){
 				//retire la question de la liste de selection
-				$('#animal').focus(function(){
+				$('#periodicite').focus(function(){
 					$('#question').remove();
 				});
 			});
@@ -102,8 +101,8 @@
 										<fieldset>
 											<legend>Periodicité</legend>
 											<select name="periodicite" id="periodicite">
-												<optgroup label="Periodicité">
-													<option value="-1">Periodicité</option>
+												<optgroup label="Quelle type de periode ?">
+													<option id="question" value="-1">Quelle type de periode ?</option>
 													<optgroup label="Unique">
 														<option value="1">Une fois</option>
 													</optgroup>
