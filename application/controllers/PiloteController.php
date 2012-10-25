@@ -20,7 +20,7 @@ class PiloteController extends Zend_Controller_Action
 		$ePilot = new Zend_Form_Element_Text('pilot');
 		$ePilot->setLabel('ajouter un pilote: ');
 		$eSubmit= new Zend_Form_Element_Submit('ajouter');
-		//$ePilot->setMultiOptions(array('1' => 'Jean Charle', '2' => 'Amstrong Frederic'));
+
 		
 		$ajoutpilote->addElement($ePilot);
 		$ajoutpilote->addElement($eSubmit);
@@ -31,6 +31,42 @@ class PiloteController extends Zend_Controller_Action
 		
 	}
 	
+	public function disponibiliterpiloteAction()
+	{
+		// creation du formulaire
+		$edispopilote = new Zend_Form;
+		
+		//paramétre du formulaire
+		$edispopilote->setMethod('post');
+		$edispopilote->setAction('/index/#');
+		$edispopilote->setAttrib('id', 'disponibilite');
+		
+		//creation élément formulaire
+		
+		//voire les pilotes
+		$ePilote = new Zend_Form_Element_Select('pilot');
+		$ePilote->setLabel('selectionner un pilote');
+		$ePilote->setMultiOptions(array('1' => 'Jean Charle', '2' => 'Amstrong Frederic'));
+		
+		//voire les brevets
+		$eBrevet = new Zend_Form_Element_Select('listbrevet');
+		$eBrevet->setLabel('Liste des brevet : ');
+		$eBrevet->setMultiOptions(array('1' => 'A380', '2' => 'airbus'));
+		
+		//voire disponibiliter: calendrier ou tableau ?
+		$edatedispo = new Zend_Form_Element_Select('datedispo');
+		$edatedispo->setLabel('(tableau ou calendrier)');
+		
+		
+		
+		
+		$edispopilote->addElement($ePilote);
+		$edispopilote->addElement($eBrevet);
+		$edispopilote->addElement($edatedispo);
+		
+		echo $edispopilote;
+		
+	}
 	
 	
 	
