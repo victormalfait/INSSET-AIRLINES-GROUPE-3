@@ -17,9 +17,16 @@ class PiloteController extends Zend_Controller_Action
 		$ajoutpilote->setAttrib('id', 'formulairepilote');
 		
 		//creation élément formulaire
-		$ePilot = new Zend_Form_Element_text('listpilot');
-		$ePilot->setLabel('ajoutpilote: ');
+		$ePilot = new Zend_Form_Element_Text('pilot');
+		$ePilot->setLabel('ajouter un pilote: ');
+		$eSubmit= new Zend_Form_Element_Submit('ajouter');
 		//$ePilot->setMultiOptions(array('1' => 'Jean Charle', '2' => 'Amstrong Frederic'));
+		
+		$ajoutpilote->addElement($ePilot);
+		$ajoutpilote->addElement($eSubmit);
+		
+		
+		echo $ajoutpilote;
 		
 		
 	}
@@ -28,6 +35,9 @@ class PiloteController extends Zend_Controller_Action
 	
 	
 	
+	
+	
+		
 	
 	
 }
