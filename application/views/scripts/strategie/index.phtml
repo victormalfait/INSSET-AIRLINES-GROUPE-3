@@ -1,6 +1,39 @@
 <link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl('/css/strategie.css')?>" />
-<div>
-	<div class="strategieMenu">
+
+<script type="text/javascript">
+	<!--
+		sfHover = function() {
+		    var sfEls = document.getElementById("menu").getElementsByTagName("LI");
+		    
+		    for (var i=0; i<sfEls.length; i++) {
+		        sfEls[i].onmouseover=function() {
+		            this.className+=" sfhover";
+		        }
+		        sfEls[i].onmouseout=function() {
+		            this.className=this.className.replace(new RegExp(" sfhover\\b"), "");
+		        }
+		    }
+		}
 		
-	</div>
+		if (window.attachEvent) window.attachEvent("onload", sfHover);
+	-->
+</script>
+
+<div>
+	<header class="strategie">
+		<div class="titre">
+			<span>Direction Strategique</span>
+		</div>
+		<div>
+			<ul class="menu">
+				<li>
+					<a href="#">vol</a>
+					<ul>
+						<li><a href="#">Nouveau vol</a></li>
+						<li><a href="#">Fermer vol</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</header>
 </div>

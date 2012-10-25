@@ -1,15 +1,85 @@
-.strategieMenu{
-	background-color: #83C8FF;
-	opacity: .5;
-	position: absolute;
-	top: 20px;
-	left: 20px;
-	width: 724px;
-	height: 129px;
-	-webkit-border-radius: 20px;
-	border-radius: 20px;
-	-webkit-box-shadow: 5px 5px 5px black;
-	box-shadow: 5px 5px 5px black; 
-	-webkit-box-shadow:inset -5px -5px -5px -5px black;
-	box-shadow:inset -5px -5px -5px -5px black;
-}
+/*******************************
+*           strategie          *
+*******************************/
+/*menu strategie*/
+	.strategie{
+		background-color: #83C8FF;
+		position: absolute;
+		top: 20px;
+		left: 20px;
+		width: 600px;
+		height: 80px;
+		-webkit-border-radius: 20px;
+		border-radius: 20px;
+		-webkit-box-shadow: 5px 5px 5px black;
+		box-shadow: 5px 5px 5px black; 
+		-webkit-box-shadow:inset -5px -5px -5px -5px black;
+		box-shadow:inset -5px -5px -5px -5px black;
+		padding: 20px;
+	}
+
+	.titre{color: #fff; font-size: 1.450em;}
+
+	.menu a /* Contenu des listes */
+	{
+	        display : block; /* on change le type d'élément, les liens deviennent des balises de type block */
+	        padding : 0; /* aucune marge intérieure */
+	        text-decoration : none; /* on supprime le style par défaut des liens (la plupart du temps = souligné) */
+	}
+
+	.menu li /* Elements des listes */      
+	{ 
+	        float : left; 
+	        /* pour IE qui ne reconnaît pas "transparent" */
+	        border-right : 1px solid #fff; /* on met une bordure blanche à droite de chaque élément */
+	}
+
+	/* IE ne reconnaissant pas le sélecteur ">" */
+	html>body .menu li
+	{
+	        border-right: 1px solid transparent ; /* on met une bordure transparente à droite de chaque élément */
+	}
+
+	.menu li ul /* Sous-listes */
+	{ 
+	        position: absolute; /* Position absolue */
+	        width: 144px; /* Largeur des sous-listes */
+	        left: -999em; /* Hop, on envoie loin du champ de vision */
+	}
+
+
+	.menu li ul li /* Éléments de sous-listes */
+	{
+	        /* pour IE qui ne reconnaît pas "transparent" (comme précédemment) */
+	        border-top : 1px solid #fff; /* on met une bordure blanche en haut de chaque élément d'une sous liste */
+	}
+
+	/* IE ne reconnaissant pas le sélecteur ">" */
+	html>body .menu li ul li                
+	{
+	        border-top : 1px solid transparent; /* on met une bordure transparente en haut de chaque élément */
+	}
+
+	.menu li ul ul 
+	{
+	        margin    : -22px 0 0 144px ; /* On décale les sous-sous-listes pour qu'elles ne soient pas au dessus des sous-listes */ 
+	        /* pour IE qui ne reconnaît pas "transparent" (comme précédemment) */
+	        border-left     : 1px solid #fff ; /* Petite bordure à gauche pour ne pas coller ... */      
+	}
+
+	/* IE ne reconnaissant pas le sélecteur ">" ... je me répète ;-) */
+	html>body .menu li ul ul                
+	{
+	        border-left     : 1px solid transparent ; /* on met une bordure transparente sur la gauche de chaque élément */
+	}
+
+	.menu li:hover ul ul, .menu li.sfhover ul ul /* Sous-sous-listes lorsque la souris passe sur un élément de liste */
+	{
+	        left: -999em; /* On expédie les sous-sous-listes hors du champ de vision */
+	}
+
+	.menu li:hover ul, .menu li li:hover ul, .menu li.sfhover ul, .menu li li.sfhover ul  /* Sous-listes lorsque la souris passe sur un élément de liste ET sous-sous-lites lorsque la souris passe sur un élément de sous-liste */
+	{
+	        left: auto; /* Repositionnement normal */
+	        min-height: 0; /* Corrige un bug sous IE */
+	}
