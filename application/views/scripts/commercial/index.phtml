@@ -1,7 +1,102 @@
-<link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl('/css/commercial.css')?>" />
-<div id="commercial">
-	<div class="bandeau">
-		<h1>Liste des vols</h1>
-	</div>
-	
+<div class="mapage">
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl('/css/commercial.css')?>" />
+	<script type="text/javascript">
+		<!--
+			sfHover = function() {
+			    var sfEls = document.getElementById("menu").getElementsByTagName("LI");
+			    
+			    for (var i=0; i<sfEls.length; i++) {
+			        sfEls[i].onmouseover=function() {
+			            this.className+=" sfhover";
+			        }
+			        sfEls[i].onmouseout=function() {
+			            this.className=this.className.replace(new RegExp(" sfhover\\b"), "");
+			        }
+			    }
+			}
+			
+			if (window.attachEvent) window.attachEvent("onload", sfHover);
+		-->
+	</script>
+	<script type="text/javascript">
+		<!--
+			$(document).ready(function(){
+				//retire la question de la liste de selection
+				$('#periodicite').focus(function(){
+					$('#question').remove();
+				});
+			});
+		-->
+	</script>
+	<!-- parti gauche -->
+		<div class="gauche min-width">
+			<div class="gauchefils">
+				<!-- menu -->
+					<header class="strategie">
+						<div class="strategie1 strat-pos"></div>
+						<div class="strategie2 strat-pos">
+							<div class="strategiefils">
+								<div class="titre">
+									<span>Service Commercial</span>
+								</div>
+								<div>
+									<ul class="menu">
+										<li>
+											<a href="#">vol</a>
+											<ul>
+												<li><a href="#">Nouveau vol</a></li>
+												<li><a href="#">Fermer vol</a></li>
+											</ul>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</header>
+				<!-- menu -->
+				
+				<!-- formulaire -->
+					<section class="newVol">
+						<div class="newVol1 NV-pos"></div>
+						<div class="newVol2 NV-pos">
+							<div class="newVolfils">
+								<form method="post">
+									<!-- titre -->
+										<div class="formTitre">
+											<span>Création d'un Vol</span>
+										</div>
+									<!-- titre -->
+
+									<!-- formulaire depart -->
+										<div class="depart">
+											<fieldset>
+												<legend>Vol</legend>
+												<div class="cellule">
+													
+												</div>
+												<div class="cellule">
+													
+												</div>
+												<div class="cellule">
+													
+												</div>
+											</fieldset>
+										</div>
+									<!-- formulaire depart -->
+								</form>
+							</div>
+						</div>
+					</section>
+				<!-- formulaire -->
+			</div>
+		</div>
+	<!-- parti gauche -->
+
+	<!-- parti droite -->
+		<div class="droite min-width">
+			<div class="droitefils test">
+				
+			</div>
+		</div>
+	<!-- parti droite -->
 </div>
