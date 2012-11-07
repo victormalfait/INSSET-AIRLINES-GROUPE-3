@@ -10,6 +10,7 @@ class AvionController extends Zend_Controller_Action
     	// Va rechercher les info dans le application.ini
     	
     	//$dbavion = Zend_Db::factory(Zend_Registry::get('config')->database); 
+    	
     }
     public function indexAction()
     {
@@ -97,14 +98,8 @@ class AvionController extends Zend_Controller_Action
     	$FormAjout->addElement($eSubmit);
     	
     	echo $FormAjout;
-    	/*
+    	
         $this->view->titre2 = "Ajouter un avion";
-
-        $listeService = $this->getListeService();
-        $form = new Application_Form_avion(array(
-                    'listeService' => $listeService
-                ));
-        $form->setMethod('post');
 
         // Vérification de l'envoi du formulaire
         if ($this->getRequest()->isPost() && $form->isValid($_POST)) {
@@ -121,12 +116,7 @@ class AvionController extends Zend_Controller_Action
             } catch (Zend_Db_Exception $e) {
                 $this->_messenger->setMessage('Erreur');
             }
-
-            // Message d'erreur à faire
-            $this->_redirector->gotoSimple('index', null, null, array());
         }
-
-        $this->view->form = $form;*/
     }
 
 

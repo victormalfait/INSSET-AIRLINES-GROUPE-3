@@ -23,24 +23,4 @@ body
 	font-size: 1.450em;
 }
 
-.identifiant,
-.mdp{
-	text-align: left;
-	margin:0px auto;
-	width:290px;
-	margin-top:20px;
-	opacity: 1;
-}
 
-input[type="text"],
-input[type="password"]{
-	width:275px;
-	height: 45px;
-}
-
-input[type="submit"]{
-	width:170px;
-	height: 40;
-	font-size: 1.050em;
-	margin-top: 20px;
-}
