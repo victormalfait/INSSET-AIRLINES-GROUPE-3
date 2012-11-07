@@ -1,0 +1,10 @@
+<?php
+	// si le formulaire a bien été envoyé envoyer a la vue ...
+	if (isset($this->formNouveauVol)) {
+		// ... on l'affiche
+		?>
+	  		<h2><?php echo $this->translate('Création d\'un Vol')?> : </h2>
+	  	<?php 
+	  	echo $this->formNouveauVol;
+	}
+?>
