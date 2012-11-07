@@ -1,67 +1,35 @@
 <?php
 
-/**
- * Classe métier des Avions
- *  
- * @package Application_Model
- * @copyright INSSET Projet 
- * 
- */
-class Application_Model_Avion
+class TAvion extends Zend_Db_Table_Abstract
 {
-    protected $_id_name_modelle_avion;
-    protected $_immatriculation;
-    protected $_heures_vol_total;
-    protected $_heures_depuis_revision;
-    
-    public function getIdModelle()
+	protected $_shema = 'inssetairlines';
+	protected $_name = 'avions'; //Nom de la table
+	//protected $_primary = 'immatriculation'; //Table primaire
+
+/*
+    protected function _createItemFromRow(Zend_Db_Table_Row $row)
     {
-        return $this->_id_name_modelle_avion;
-    }
-    public function getImmatriculation()
-    {
-        return $this->_immatriculation;
-    }
-    public function getHeuresTotal()
-    {
-        return $this->_heures_vol_total;
-    }
-    public function getHeuresRevision()
-    {
-    	return $this->_heures_depuis_revision;
+        $item = new Application_Model_Avion();
+        $item->setIdModelle($row->idmodelle)
+             ->setImmatriculation($row->immatriculation)
+             ->setHeuresTotal($row->heurestotal)
+             ->setHeuresRevision($row->heuresrevision);
+        return $item;
     }
 
-    public function setIdModelle($idmodelle = null)
-    {
-        $this->_id_name_modelle_avion = (string) $idmodelle;
-        return $this;
-    }
-
-    public function setImmatriculation($immatriculation = null)
-    {
-        $this->_immatriculation = (string) $immatriculation ;
-        return $this;
-    }
-    
-    
-    public function setHeuresTotal($heurestotal = null)
-    {
-    	$this->_heures_vol_total = (int) $heurestotal ;
-    	return $this;
-    }
-    public function setHeuresRevision($heuresrevision = null)
-    {
-    	$this->_heures_depuis_revision = (int) $heuresrevision ;
-    	return $this;
-    }  
-
-     public function getArrayFromItem()
+    protected function _getDataArrayFromItem($item)
     {
         return array(
-            'idmodelle'=> $this->_id_name_modelle_avion,
-            'immatriculation' => $this->_immatriculation,
-            'heurestotal' => $this->_heures_vol_total,
-            'heuresrevision' => $this->_heures_depuis_revision
+        		'idmodelle'=> $item->getIdModelle(),
+        		'immatriculation' => $item->getImmatriculation(),
+        		'heurestotal' => $item->getHeuresTotal(),
+        		'heuresrevision' => $item->getHeuresRevision()
         );
     }
+
+    public function getAllAvion()
+    {
+        return($this->fetchAll());
+    }*/
+
 }
