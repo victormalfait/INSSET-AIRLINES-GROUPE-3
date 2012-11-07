@@ -5,3 +5,32 @@ body
 	font-family:arial,sans-serif;
 	color:#000;
 }
+
+#content{
+	position: absolute;
+	top:150px;
+	left: 50%;
+	margin-left: -300px;
+	background: #83C8FF;
+	width: 604px;
+	padding : 15px;
+	border-radius: 15px;
+	box-shadow: 3px 3px 3px #1f1f1f;
+	font-size: 1.250em;
+	opacity: .9;
+}
+
+.menu{
+	width:150px;
+	height: 150px;
+	float:left;
+	text-align: center;
+	border-right: 1px solid #9f9f9f;
+}
+.menu a{
+	color: #fff;
+	opacity: 0.5;
+}
+.menu a:hover{
+	opacity: 1;
+}
