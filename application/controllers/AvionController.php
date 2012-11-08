@@ -10,6 +10,7 @@ class AvionController extends Zend_Controller_Action
     	// Va rechercher les info dans le application.ini
     	
     	//$dbavion = Zend_Db::factory(Zend_Registry::get('config')->database); 
+    	
     }
     public function indexAction()
     {
@@ -36,8 +37,7 @@ class AvionController extends Zend_Controller_Action
     	}
     	
     	*/
-    		
-    	
+    			
     }
     
     public function supprimerAction()
@@ -62,6 +62,7 @@ class AvionController extends Zend_Controller_Action
 
     public function ajouterAction()
     {
+        /*
     	$FormAjout = new Zend_Form;
     	
     	//paramétres du formulaire
@@ -76,18 +77,17 @@ class AvionController extends Zend_Controller_Action
     	
     	$eImmatriculation = new Zend_Form_Element_Text('Immatriculation');
     	$eImmatriculation->setLabel('Liste des Modelles : ');
-    	$eImmatriculation->setValue(array('XXXXXXXX'));
+    	$eImmatriculation->setValue(array('X678F'));
+
     	
     	$eHeuresTotal = new Zend_Form_Element_Text('HeuresTotal');
     	$eHeuresTotal->setLabel('Heures Total : ');
-    	$eHeuresTotal->setValue('XXXXXXXX');
-    	$eHeuresTotal->setRequired(true);
+    	$eHeuresTotal->setValue('0');
     	
     	$eHeuresRevision = new Zend_Form_Element_Text('Immatriculation');
     	$eHeuresRevision->setLabel('Heures depuis la Revision : ');
-    	$eHeuresRevision->setValue('XXXXXXXX');
-    	$eHeuresRevision->setRequired(true);
-    
+    	$eHeuresRevision->setValue('0');
+        
     	$eSubmit = new Zend_Form_Element_Submit('Envoyer');
     	
     	$FormAjout->addElement($eModelle);
@@ -97,14 +97,6 @@ class AvionController extends Zend_Controller_Action
     	$FormAjout->addElement($eSubmit);
     	
     	echo $FormAjout;
-    	/*
-        $this->view->titre2 = "Ajouter un avion";
-
-        $listeService = $this->getListeService();
-        $form = new Application_Form_avion(array(
-                    'listeService' => $listeService
-                ));
-        $form->setMethod('post');
 
         // Vérification de l'envoi du formulaire
         if ($this->getRequest()->isPost() && $form->isValid($_POST)) {
@@ -121,12 +113,7 @@ class AvionController extends Zend_Controller_Action
             } catch (Zend_Db_Exception $e) {
                 $this->_messenger->setMessage('Erreur');
             }
-
-            // Message d'erreur à faire
-            $this->_redirector->gotoSimple('index', null, null, array());
-        }
-
-        $this->view->form = $form;*/
+        }*/
     }
 
 

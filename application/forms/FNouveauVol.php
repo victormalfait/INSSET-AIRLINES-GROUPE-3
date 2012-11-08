@@ -65,5 +65,60 @@ class FNouveauVol extends Zend_Form
 		// Ajout des éléments au formulaire
 		$elements = array ( $ePaysDepart, $eAeroportDepart, $eDepartH, $eDepartM, $ePaysArrivee, $eAeroportArrivee, $eArriveeH, $eArriveeM, $ePeriodicite, $eSubmit );
 		$this->addElements ( $elements );
+
+		$this->addDisplayGroup(array(
+			'ePaysDepart',
+			'eAeroportDepart',
+			'eDepartH',
+			'eDepartM'
+            ),'Depart',array('legend' => 'Départ'));
+        
+        $Depart = $this->getDisplayGroup('Depart');
+        $Depart->setDecorators(array(
+        
+                    'FormElements',
+                    'Fieldset',
+                    array('HtmlTag',array('tag'=>'div','style'=>'width:50%;;float:left;'))
+        ));
+
+        $this->addDisplayGroup(array(
+			'ePaysArrivee',
+			'eAeroportArrivee',
+			'eArriveeH',
+			'eArriveeM'
+            ),'Arrivee',array('legend' => 'Arrivée'));
+        
+        $Arrivee = $this->getDisplayGroup('Arrivee');
+        $Arrivee->setDecorators(array(
+        
+                    'FormElements',
+                    'Fieldset',
+                    array('HtmlTag',array('tag'=>'div','style'=>'width:50%;;float:left;'))
+        ));
+
+        $this->addDisplayGroup(array(
+			'periodicite'
+            ),'periodicite',array('legend' => 'Périodicité'));
+        
+        $periodicite = $this->getDisplayGroup('periodicite');
+        $periodicite->setDecorators(array(
+        
+                    'FormElements',
+                    'Fieldset',
+                    array('HtmlTag',array('tag'=>'div','style'=>'width:50%;;float:left;'))
+        ));
+
+		$this->addDisplayGroup(array(
+			'Enregistrer'
+            ),'Enregistrer',array('legend' => 'Terminer'));
+        
+        $Enregistrer = $this->getDisplayGroup('Enregistrer');
+        $Enregistrer->setDecorators(array(
+        
+                    'FormElements',
+                    'Fieldset',
+                    array('HtmlTag',array('tag'=>'div','style'=>'width:50%;;float:left;'))
+        ));
+
 	}
 }

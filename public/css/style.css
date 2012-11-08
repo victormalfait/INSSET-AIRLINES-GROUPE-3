@@ -3,5 +3,54 @@
 body
 {
 	font-family:arial,sans-serif;
-	color:#000;
+}
+
+.test{ border: 1px solid black;}
+
+#content{
+	position: absolute;
+	top:0;
+	left:0;
+	width: 100%;
+	height: 100%;
+}
+
+/*========================= BOUTON =========================*/
+.bouton {
+	font-family: Arial;
+	color: #ffffff;
+	font-size: 14px;
+	padding: 3px 10px;
+	text-decoration: none;
+	border: none;
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	-webkit-box-shadow: 0px 1px 3px #666666;
+	-moz-box-shadow: 0px 1px 3px #666666;
+	text-shadow: 0px 1px 3px #b3b3b3;
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#ded6ff), to(#456da8));
+	background: -moz-linear-gradient(top, #ded6ff, #456da8);
+	-ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorStr=#ded6ff, endColorStr=#456da8);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorStr=#ded6ff, endColorStr=#456da8);
+	display:inline-block; /* IE is so silly */
+}
+
+.bouton:hover {
+	background: #4262ff;
+}
+
+
+.menu{
+	width:150px;
+	height: 150px;
+	float:left;
+	text-align: center;
+	border-right: 1px solid #9f9f9f;
+}
+.menu a{
+	color: #fff;
+	opacity: 0.5;
+}
+.menu a:hover{
+	opacity: 1;
 }

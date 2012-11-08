@@ -1,10 +1,12 @@
 <link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl('/css/menu.css')?>" />
 <div id="menu">
 	<div class="direction-strategique">
-		<a href="<?php echo $this->baseUrl('avion/ajouter')?>"><div class="fils"><img src="<?php echo $this->baseUrl('img/planning.png')?>" /><br/>Ajouer un Avion</div></a>
+		<a href="<?php echo $this->baseUrl('avion/ajouter')?>"><div class="fils"><img src="<?php echo $this->baseUrl('img/planning.png')?>" /><br/>Ajouter un appareil</div></a>
 	</div>
-	<div class="drh">
-		<a href="<?php echo $this->baseUrl('')?>"><div class="fils"><img src="<?php echo $this->baseUrl('img/planning.png')?>" /><br/>Calendrier des interventions</div></a>
+	<div class="direction-strategique">
+		<a href="<?php echo $this->baseUrl('maintenance/ajouter')?>"><div class="fils"><img src="<?php echo $this->baseUrl('img/maintenance.png')?>" /><br/>Ajout d'une maintenance</div></a>
 	</div>
-	
+	<div class="direction-strategique">
+		<a href="<?php echo $this->baseUrl('maintenance/calendrier')?>"><div class="fils"><img src="<?php echo $this->baseUrl('img/exploitation.png')?>" /><br/>Calendrier des interventions</div></a>
+	</div>
 </div>
