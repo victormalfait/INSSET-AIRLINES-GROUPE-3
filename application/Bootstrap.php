@@ -9,7 +9,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	}
 
 	// Initialisation et stockage de la configuration
-	public function _initConfig()
+	protected function _initConfig()
 	{
 		Zend_Registry::set('config', new Zend_Config($this->getOptions()));
 	}
@@ -25,17 +25,16 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	/** initialisation des sessions et de l'espace de nom festival pour les sessions */
 	protected function _initSession()
 	{
-		$session = new Zend_Session_Namespace('crm', true);
+		$session = new Zend_Session_Namespace('inssetairline', true);
 		return $session;
 	}
 
 	// Initialisation et stockage de la base de données
-	public function _initDb()
+	protected function _initDb()
 	{
-		$db = Zend_Db ::factory(Zend_Registry::get('config')->database);
+		$db = Zend_Db::factory(Zend_Registry::get('config')->database);
 		Zend_Db_Table_Abstract::setDefaultAdapter($db);
 		Zend_Registry::set('db', $db);
 	}
-	
 }
 
