@@ -1,4 +1,4 @@
-
+/*
 css reset
 
     Home
@@ -96,7 +96,7 @@ Google Plus
 All words, images and code copyright © 2010 - 2012 cssreset.com. All rights reserved.
 About • Contact • Terms & Conditions • Privacy
 RSS / Email / Twitter:   RSS Email Twitter
-Eric Meyer’s “Reset CSS” 2.0 ×
+Eric Meyer’s “Reset CSS” 2.0 ×*/
 
     /**
     * Eric Meyer's Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/)
@@ -151,7 +151,8 @@ Eric Meyer’s “Reset CSS” 2.0 ×
 	    border-collapse: collapse;
 	    border-spacing: 0;
     }
-
+/*
 Documentation Click to Copy:   Minified (820 B) Full (1.12 KB)
 
 NB: 1-click-copy requires Flash. If it's not working, click the code above and copy it manually!
+*/

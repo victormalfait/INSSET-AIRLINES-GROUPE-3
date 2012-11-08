@@ -1,18 +1,17 @@
 <link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl('/css/connexion.css')?>" />
 
-<div id="connexion">
-
-	<form>
-		<div class="identifiant">
-			<label for="identifiant">Identifiant :</label></br>
-			<input type="text" id="identifiant" name="identifiant"></br></br>
+<section id="connexion">
+	<div class="bgbleu shadow position"></div>
+	<div class="position">
+		<div class="Fconnexion">
+			<?php
+				// si le formulaire a bien été envoyé envoyer a la vue ...
+				if (isset($this->formConnexion)) {
+					// ... on l'affiche
+				  	echo $this->formConnexion;
+				}
+			?>
+			<input type="submit" class="bouton">
 		</div>
-		<div class="mdp">
-			<label for="mdp">Mot de passe :</label></br>
-			<input type="password" id="mdp" name="mdp"></br></br>
-		</div>
-
-		<input type="submit" value="Connexion" name="connexion">
-
-	</form>
-</div>
+	</div>
+</section>

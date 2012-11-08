@@ -1,26 +1,26 @@
-@CHARSET "UTF-8";
-
-body
-{
-	color:#000;
-	width:100%;
-	height:100%;
-}
-
 #connexion{
-	height: 370px;
-	width: 390px;
-	border-radius: 15px;
-	box-shadow: 3px 3px 3px #1f1f1f;
-	background: #83C8FF;
-	text-align: center;
-	color:#fff;
-	position: absolute;
-	top:150px;
-	left: 50%;
-	margin-left: -195px;
-	opacity: .7;
-	font-size: 1.450em;
+	position: relative;
+	width: 100%;
+	height: 100%;
 }
 
+#connexion .position{ 
+	height: 300px;
+	width: 390px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -150px;
+	margin-left: -195px; 
+	border-radius: 20px;
+}
 
+.Fconnexion{
+	margin: 20px;
+	font-weight: bold;
+	font-family: "ProximaNova",sans-serif;
+	font-size: 1.470em;
+	color: white;
+	text-shadow: -1px 1px 0px black;
+	text-align: center;
+}
