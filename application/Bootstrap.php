@@ -17,9 +17,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	/** initialisation de l'API personnalisée "INSSETAIRLINE" */
 	protected function _initLoaderINSSETAIRLINE()
 	{
+		/*
 		$autoloader = Zend_Loader_Autoloader::getInstance();
 		$autoloader->registerNamespace('INSSETAIRLINE_');
-		$autoloader->setFallbackAutoloader(true);
+		$autoloader->setFallbackAutoloader(true);*/
 	}
 
 	/** initialisation des sessions et de l'espace de nom festival pour les sessions */
