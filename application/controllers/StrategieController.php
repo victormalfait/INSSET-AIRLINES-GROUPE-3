@@ -39,7 +39,7 @@ class StrategieController extends Zend_Controller_Action
     //     }
     }
 
-    public function nouveauVolAction()
+    public function nouveauvolAction()
     {
     	// creation de l'objet formulaire
         $form = new FNouveauVol;
