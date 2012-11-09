@@ -38,21 +38,23 @@ class FConnexion extends Zend_Form
 		$eEmail = new Zend_Form_Element_Text('email');
 		$eEmail		->setLabel('Identifiant')
 		        	->setRequired(true)
+		        	->setAttrib('required', 'required')
 		            ->addFilter('StripTags')
 		            ->addFilter('StringTrim')
 		            ->setDecorators($decorators);
 
 
 		$ePass = new Zend_Form_Element_Password('password');
-		$ePass 		->setLabel('Mot de pase')
+		$ePass 		->setLabel('Mot de passe')
 					->setRequired(true)
+					->setAttrib('required', 'required')
 					->addFilter('StripTags')
 					->addFilter('StringTrim')
 					->setDecorators($decorators);
 
-		$eSubmit = new Zend_Form_Element_Submit('submit');
-		$eSubmit 	->setAttrib('id', 'submitbutton')
-					->setLabel('Se connecter')
+		$eSubmit = new Zend_Form_Element_Submit('connexion');
+		$eSubmit 	->setAttrib('id', 'connexion')
+					->setLabel('Ok')
 					->setDecorators($decorators);
 
 		$elements = array($eEmail,$ePass, $eSubmit);
@@ -65,5 +67,5 @@ class FConnexion extends Zend_Form
 		'Form'
 		));
 	}
- 
+
 }

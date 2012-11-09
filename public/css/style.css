@@ -1,4 +1,6 @@
 @CHARSET "UTF-8";
+html, body{ width: 100%; height: 100%;}
+
 
 body
 {
@@ -16,29 +18,60 @@ body
 }
 
 /*========================= BOUTON =========================*/
-.bouton {
+/*input[type='submit'] {
+	border: none;
+	width: 100px;
 	font-family: Arial;
 	color: #ffffff;
-	font-size: 14px;
+	font-size: .9em;
 	padding: 3px 10px;
 	text-decoration: none;
-	border: none;
-	-webkit-border-radius: 20px;
-	-moz-border-radius: 20px;
+	-webkit-border-radius: 28px;
+	-moz-border-radius: 28px;
 	-webkit-box-shadow: 0px 1px 3px #666666;
 	-moz-box-shadow: 0px 1px 3px #666666;
-	text-shadow: 0px 1px 3px #b3b3b3;
-	background: -webkit-gradient(linear, 0 0, 0 100%, from(#ded6ff), to(#456da8));
-	background: -moz-linear-gradient(top, #ded6ff, #456da8);
-	-ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorStr=#ded6ff, endColorStr=#456da8);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorStr=#ded6ff, endColorStr=#456da8);
-	display:inline-block; /* IE is so silly */
+	text-shadow: 1px 1px 3px #666666;
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#fafafa), to(#707070));
+	background: -moz-linear-gradient(top, #fafafa, #707070);
+	display:inline-block; /* IE is so silly *//*
 }
 
-.bouton:hover {
-	background: #4262ff;
+input[type='submit']:hover {
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#8c8c8c), to(#b3b3b3));
+	background: -moz-linear-gradient(top, #8c8c8c, #b3b3b3)
+}*/
+
+input[type='submit'] {
+    color: rgb(51, 51, 51);
+    text-shadow: 0px 1px 0px rgb(255, 255, 255);
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(212, 212, 212) rgb(212, 212, 212) rgb(188, 188, 188);
+    -moz-border-top-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    border-image: none;
+    background: linear-gradient(rgb(250, 250, 250), rgb(234, 234, 234)) repeat scroll 0% 0% transparent;
 }
 
+input[type='submit'] {
+    position: relative;
+    display: inline-block;
+    padding: 0px 10px;
+    font-family: Helvetica,arial,freesans,clean,sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 24px;
+    white-space: nowrap;
+    border-radius: 3px 3px 3px 3px;
+    cursor: pointer;
+    -moz-user-select: none;
+}
+
+input[type='submit']:hover{
+	 background: linear-gradient(rgb(250, 250, 250), rgb(234, 234, 234)) repeat scroll 0% 0% transparent;
+}
 
 .menu{
 	width:150px;
