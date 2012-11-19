@@ -5,7 +5,7 @@
 		    $this->headMeta()	->setHttpEquiv('Content-Type', 'text/html;X charset=utf-8')
                                 ->setHttpEquiv('Content-Style-Type', 'text/css')
                                 ->setHttpEquiv('lang', 'fr')
-                                ->setHttpEquiv('Refresh', '2')
+                                // ->setHttpEquiv('Refresh', '2')
                                 ->setName('author', 'Arnaud Lefevre')
                                 ->setName('language', 'fr');
             echo $this->headMeta();
@@ -20,7 +20,7 @@
 								->appendFile('/js/cloud/ThreeExtras.js')
 								->appendFile('/js/cloud/Detector.js')
 								->appendFile('/js/cloud/RequestAnimationFrame.js');
-			echo $this->headScript();
+			// echo $this->headScript();
 		?>
 		<title>Insset Airline</title>
 	</head>
