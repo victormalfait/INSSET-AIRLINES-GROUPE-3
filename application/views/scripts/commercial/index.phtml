@@ -1,33 +1,46 @@
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
+    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+    <script src="/resources/demos/external/jquery.bgiframe-2.1.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+    <script>
+    $(function() {
+        $( "#datepickerdeb" ).datepicker({dateFormat :'dd-mm-yy', minDate: 0});
+        $("#datepickerdeb").change(function(){
+            var d = $("#datepickerdeb").datepicker('getDate');
+        
+            var n = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1);
+     
+            $("#datepickerfin").datepicker({dateFormat :'d-m-y', minDate: n});
+        });
+    });
+    $(function() {
+ 
+ 
+        $( "#dialog-form" ).dialog({
+            autoOpen: false,
+            height: 550,
+            width: 750,
+            modal: true,
+            buttons: {
+                Fermer: function() {
+                    $( this ).dialog( "close" );
+                }
+            },
+            close: function() {
+                allFields.val( "" ).removeClass( "ui-state-error" );
+            }
+        });
+ 
+        $( "#create-projet" )
+            .button()
+            .click(function() {
+                $( "#dialog-form" ).dialog( "open" );
+            });
+    });
+    </script>
+</head>
 <div class="mapage">
 	<link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl('/css/commercial.css')?>" />
-	<script type="text/javascript">
-		<!--
-			sfHover = function() {
-			    var sfEls = document.getElementById("menu").getElementsByTagName("LI");
-			    
-			    for (var i=0; i<sfEls.length; i++) {
-			        sfEls[i].onmouseover=function() {
-			            this.className+=" sfhover";
-			        }
-			        sfEls[i].onmouseout=function() {
-			            this.className=this.className.replace(new RegExp(" sfhover\\b"), "");
-			        }
-			    }
-			}
-			
-			if (window.attachEvent) window.attachEvent("onload", sfHover);
-		-->
-	</script>
-	<script type="text/javascript">
-		<!--
-			$(document).ready(function(){
-				//retire la question de la liste de selection
-				$('#periodicite').focus(function(){
-					$('#question').remove();
-				});
-			});
-		-->
-	</script>
 	<!-- parti gauche -->
 		<div class="gauche min-width">
 			<div class="gauchefils">
@@ -40,7 +53,7 @@
 									<span>Service Commercial</span>
 								</div>
 								<div>
-									<ul class="menu">
+									<!-- <ul class="menu">
 										<li>
 											<a href="#">vol</a>
 											<ul>
@@ -48,7 +61,7 @@
 												<li><a href="#">Fermer vol</a></li>
 											</ul>
 										</li>
-									</ul>
+									</ul> -->
 								</div>
 							</div>
 						</div>
@@ -60,30 +73,14 @@
 						<div class="newVol1 NV-pos"></div>
 						<div class="newVol2 NV-pos">
 							<div class="newVolfils">
-								<form method="post">
 									<!-- titre -->
 										<div class="formTitre">
 											<span>Création d'un Vol</span>
 										</div>
 									<!-- titre -->
-
-									<!-- formulaire depart -->
-										<div class="depart">
-											<fieldset>
-												<legend>Vol</legend>
-												<div class="cellule">
-													
-												</div>
-												<div class="cellule">
-													
-												</div>
-												<div class="cellule">
-													
-												</div>
-											</fieldset>
-										</div>
-									<!-- formulaire depart -->
-								</form>
+									<?php
+									echo $this->formCommercial;
+									?>
 							</div>
 						</div>
 					</section>
