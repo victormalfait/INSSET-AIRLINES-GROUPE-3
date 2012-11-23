@@ -17,15 +17,16 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	/** initialisation de l'API personnalisée "INSSETAIRLINE" */
 	protected function _initLoaderINSSETAIRLINE()
 	{
-		
 		$autoloader = Zend_Loader_Autoloader::getInstance();
 		$autoloader->registerNamespace('INSSETAIRLINE_');
 		$autoloader->setFallbackAutoloader(true);
 	}
 
-	/** initialisation des sessions et de l'espace de nom festival pour les sessions */
+	/** initialisation des sessions et de l'espace de nom inssetairline pour les sessions */
 	protected function _initSession()
 	{
+		$sessionConfig = Zend_Registry::get('config')->session;
+    	Zend_Session::setOptions($sessionConfig->toArray());
 		$session = new Zend_Session_Namespace('inssetairline', true);
 		return $session;
 	}

@@ -1,116 +1,46 @@
-#menu{
-	position: absolute;
-	top:150px;
-	left: 50%;
-	margin-left: -300px;
-	background: #83C8FF;
-	width: 604px;
-	height: 301px;
-	border-radius: 15px;
-	box-shadow: 3px 3px 3px #1f1f1f;
-	font-size: 1.250em;
-}
-.direction-strategique{
-	width:150px;
-	height: 150px;
-	float:left;
-	text-align: center;
-	border-right: 1px solid #9f9f9f;
-	border-bottom: 1px solid #9f9f9f;
-}
-.direction-strategique a{
-	color: #fff;
-	opacity: 0.5;
-}
-.direction-strategique a:hover{
-	opacity: 1;
-}
-.drh{
-	width:150px;
-	height: 150px;
-	float:left;
-	text-align: center;
-	border-right: 1px solid #9f9f9f;
-	border-bottom: 1px solid #9f9f9f;
-}
-.drh a{
-	color: #fff;
-	opacity: 0.5;
-}
-.drh a:hover{
-	opacity: 1;
-}
-.maintenance{
-	width:150px;
-	height: 150px;
-	float:left;
-	text-align: center;
-	border-right: 1px solid #9f9f9f;
-	border-bottom: 1px solid #9f9f9f;
-}
-.maintenance a{
-	color: #fff;
-	opacity: 0.5;
-}
-.maintenance a:hover{
-	opacity: 1;
-}
-.planning{
-	width:150px;
-	height: 150px;
-	float:left;
-	text-align: center;
-	border-bottom: 1px solid #9f9f9f;
-}
-.planning a{
-	color: #fff;
-	opacity: 0.5;
-}
-.planning a:hover{
-	opacity: 1;
-}
-.commercial{
-	width:150px;
-	height: 150px;
-	float:left;
-	text-align: center;
-	border-right: 1px solid #9f9f9f;
-}
-.commercial a{
-	color: #fff;
-	opacity: 0.5;
-}
-.commercial a:hover{
-	opacity: 1;
-}
-.exploitation{
-	width:150px;
-	height: 150px;
-	float:left;
-	text-align: center;
-	border-right: 1px solid #9f9f9f;
-}
-.exploitation a{
-	color: #fff;
-	opacity: 0.5;
-}
-.exploitation a:hover{
-	opacity: 1;
-}
-.logistique{
-	width:150px;
-	height: 150px;
-	float:left;
-	text-align: center;
-	border-right: 1px solid #9f9f9f;
-}
-.logistique a{
-	color: #fff;
-	opacity: 0.5;
-}
-.logistique a:hover{
-	opacity: 1;
-}
+/****************************************
+*										*
+*		FEUILLE DE STYLE MENU			*
+*										*
+****************************************/
+
+	#menu{
+		position: absolute;
+		top:150px;
+		left: 50%;
+		margin-left: -300px;
+		background: #83C8FF;
+		width: 604px;
+		height: 301px;
+		border-radius: 15px;
+		box-shadow: 3px 3px 3px #1f1f1f;
+		font-size: 1.250em;
+	}
+
+	#menu ul {
+
+	}
+
+	#menu li {
+		float: left;
+		display: inline-block;
+		width: 150px;
+		height: 150px;
+		text-align: center;
+		border-right: 1px solid #9f9f9f;
+		border-bottom: 1px solid #9f9f9f;
+		opacity: .5;
+	}
+
+	#menu li:hover {
+		opacity: 1;
+	}
+
+	#menu a{
+		color: #fff;
+		text-decoration: none;
+	}
+
 .fils{
 	margin-top: 20px;
 }

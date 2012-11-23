@@ -15,48 +15,59 @@ class FNouveauVol extends Zend_Form
 		$ePaysDepart = new Zend_Form_Element_Select('paysDepart');
 		$ePaysDepart	->setLabel('Pays : ')
 						->setRequired(true)
+						->setAttrib('required', 'required')
+						// ->addMultiOptions(Zend_Locale::getCountryTranslationList(Zend_Registry::get('Zend_Locale')))
+						->addMultiOptions('monchoix', '1')
 						->addValidator('notEmpty');
 
 		$eAeroportDepart = new Zend_Form_Element_Select('aeroportDepart');
 		$eAeroportDepart	->setLabel('Aeroport : ')
 							->setRequired(true)
+							->setAttrib('required', 'required')
 							->addValidator('notEmpty');
 		
 		$eDepartH = new Zend_Form_Element_Text('departH');
 		$eDepartH	->setLabel('H')
 					->setRequired(true)
+					->setAttrib('required', 'required')
 					->addValidator('notEmpty');
 
 		$eDepartM = new Zend_Form_Element_Text('departM');
 		$eDepartM	->setLabel('M')
 					->setRequired(true)
+					->setAttrib('required', 'required')
 					->addValidator('notEmpty');
 
 		//Arrivee
 		$ePaysArrivee = new Zend_Form_Element_Select('paysArrivee');
 		$ePaysArrivee	->setLabel('Pays : ')
 						->setRequired(true)
+						->setAttrib('required', 'required')
 						->addValidator('notEmpty');
 
 		$eAeroportArrivee = new Zend_Form_Element_Select('aeroportArrivee');
 		$eAeroportArrivee	->setLabel('Aeroport : ')
 							->setRequired(true)
+							->setAttrib('required', 'required')
 							->addValidator('notEmpty');
 		
 		$eArriveeH = new Zend_Form_Element_Text('arriveeH');
 		$eArriveeH	->setLabel('H')
 					->setRequired(true)
+					->setAttrib('required', 'required')
 					->addValidator('notEmpty');
 
 		$eArriveeM = new Zend_Form_Element_Text('arriveeM');
 		$eArriveeM	->setLabel('M')
 					->setRequired(true)
+					->setAttrib('required', 'required')
 					->addValidator('notEmpty');
 
 		// Périodicité
 		$ePeriodicite = new Zend_Form_Element_Select('periodicite');
 		$ePeriodicite	//->setLabel('Aeroport : ')
 							->setRequired(true)
+							->setAttrib('required', 'required')
 							->addValidator('notEmpty');
 
 		// Terminer

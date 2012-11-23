@@ -11,7 +11,6 @@
             echo $this->headMeta();
 
 			$this->headLink()	->appendStylesheet('/css/resetcss.css')
-								// ->appendStylesheet('/css/style.css')
 								->appendStylesheet('/css/style.css');
 			echo $this->headLink();
 			
@@ -20,7 +19,7 @@
 								->appendFile('/js/cloud/ThreeExtras.js')
 								->appendFile('/js/cloud/Detector.js')
 								->appendFile('/js/cloud/RequestAnimationFrame.js');
-			// echo $this->headScript();
+			echo $this->headScript();
 		?>
 		<title>Insset Airline</title>
 	</head>

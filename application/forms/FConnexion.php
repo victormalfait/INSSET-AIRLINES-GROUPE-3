@@ -14,10 +14,6 @@ class FConnexion extends Zend_Form
 		// Descativer les decorateurs par defaut
 		$this->clearDecorators();
 
-		// Creer les decorateurs
-		// $decorators = new InssetAirline_Form_Decorator_Connexion();
-		// $decorators = array($decorators);
-
 		$decorators = array(
 		    'ViewHelper',
 		    'Errors',
@@ -35,16 +31,16 @@ class FConnexion extends Zend_Form
 			'Form'
 		);
 
-		$eEmail = new Zend_Form_Element_Text('email');
+		$eEmail = new Zend_Form_Element_Text('login_utilisateur');
 		$eEmail		->setLabel('Identifiant')
 		        	->setRequired(true)
-		        	->setAttrib('required', 'required')
+		        	->setAttrib('required', 'required')->setAttrib('autofocus','true')
 		            ->addFilter('StripTags')
 		            ->addFilter('StringTrim')
 		            ->setDecorators($decorators);
 
 
-		$ePass = new Zend_Form_Element_Password('password');
+		$ePass = new Zend_Form_Element_Password('password_utilisateur');
 		$ePass 		->setLabel('Mot de passe')
 					->setRequired(true)
 					->setAttrib('required', 'required')
@@ -54,18 +50,12 @@ class FConnexion extends Zend_Form
 
 		$eSubmit = new Zend_Form_Element_Submit('connexion');
 		$eSubmit 	->setAttrib('id', 'connexion')
-					->setLabel('Ok')
-					->setDecorators($decorators);
+					->setLabel('Ok');
 
 		$elements = array($eEmail,$ePass, $eSubmit);
 		$this->addElements($elements);
 
-		$this->setDecorators(array(
-		'FormElements',
-		array('HtmlTag', array('tag' => 'ul', 'class' => 'zend_form')),
-		array('Errors', array('placement' => 'apend')),
-		'Form'
-		));
+		$this->setDecorators($decoratorsForm);
 	}
 
 }
