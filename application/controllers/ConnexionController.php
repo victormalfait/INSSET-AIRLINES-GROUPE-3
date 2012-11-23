@@ -3,25 +3,25 @@
 class ConnexionController extends Zend_Controller_Action
 {
 
-    // public function preDispatch() {
-    //     // si l'utilisateur est connecté
-    //     if (Zend_Auth::getInstance ()->hasIdentity ()) {
-    //         // si l'action effectué est different de deconnexion ...
-    //         if ('deconnexion' != $this->getRequest ()->getActionName ()) {
-    //             // ... on le redirige vers la page d'accueil du site
-    //             // $this->_helper->redirector ( 'index', 'index' );
-    //             $redirector = $this->_helper->getHelper('Redirector');
-    //             $redirector->gotoUrl("index/index");
-    //         }
-    //     }
-    //     else { // sinon (l'utilisateur n'est pas connecter)
-    //         // si il veut se deconnecter ...
-    //         if ('deconnexion' == $this->getRequest ()->getActionName ()) {
-    //             // on le redirige vers le formulaire de deconnexion
-    //             $this->_helper->redirector ( 'index' );
-    //         }
-    //     }
-    // }
+    public function preDispatch() {
+        // si l'utilisateur est connecté
+        if (Zend_Auth::getInstance ()->hasIdentity ()) {
+            // si l'action effectué est different de deconnexion ...
+            if ('deconnexion' != $this->getRequest ()->getActionName ()) {
+                // ... on le redirige vers la page d'accueil du site
+                // $this->_helper->redirector ( 'index', 'index' );
+                $redirector = $this->_helper->getHelper('Redirector');
+                $redirector->gotoUrl("menu/index");
+            }
+        }
+        else { // sinon (l'utilisateur n'est pas connecter)
+            // si il veut se deconnecter ...
+            if ('deconnexion' == $this->getRequest ()->getActionName ()) {
+                // on le redirige vers le formulaire de deconnexion
+                $this->_helper->redirector ( 'index' );
+            }
+        }
+    }
 
 	public function indexAction()
 	{
