@@ -1,35 +1,8 @@
-<div class="mapage">
-	<link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl('/css/strategie.css')?>" />
-	<script type="text/javascript">
-		<!--
-			sfHover = function() {
-			    var sfEls = document.getElementById("menu").getElementsByTagName("LI");
-			    
-			    for (var i=0; i<sfEls.length; i++) {
-			        sfEls[i].onmouseover=function() {
-			            this.className+=" sfhover";
-			        }
-			        sfEls[i].onmouseout=function() {
-			            this.className=this.className.replace(new RegExp(" sfhover\\b"), "");
-			        }
-			    }
-			}
-			
-			if (window.attachEvent) window.attachEvent("onload", sfHover);
-		-->
-	</script>
+<link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl('/css/strategie.css')?>" />	
+<script src="/resources/demos/external/jquery.bgiframe-2.1.2.js"></script>
+<script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
 
-	<script type="text/javascript">
-		<!--
-			$(document).ready(function(){
-				//retire la question de la liste de selection
-				$('#periodicite').focus(function(){
-					$('#question').remove();
-				});
-			});
-		-->
-	</script>
-	
+<div class="mapage">
 	<!-- parti gauche -->
 		<div class="gauche min-width">
 			<div class="gauchefils">
@@ -42,15 +15,7 @@
 									<span>Direction Strategique</span>
 								</div>
 								<div>
-									<ul class="menu">
-										<li>
-											<a href="#">vol</a>
-											<ul>
-												<li><a href="<?php echo $this->baseUrl('strategie/creation'); ?>">Nouveau vol</a></li>
-												<li><a href="<?php echo $this->baseUrl('strategie/fermeture'); ?>">Fermer vol</a></li>
-											</ul>
-										</li>
-									</ul>
+					
 								</div>
 							</div>
 						</div>
@@ -62,92 +27,28 @@
 						<div class="newVol1 NV-pos"></div>
 						<div class="newVol2 NV-pos">
 							<div class="newVolfils">
-								<!-- <form method="post"> -->
-									<!-- titre -->
-										<!-- <div class="formTitre">
-											<span>Création d'un Vol</span>
-										</div> -->
-									<!-- titre -->
-
-									<!-- formulaire depart -->
-										<!--<div class="depart">
-											<fieldset>
-												<legend>Départ</legend>
-												<div class="cellule">
-													<label for="Dpays">Pays</label>
-													<select name="Dpays" id="Dpays" class="formSelect" required></select>
-												</div>
-												<div class="cellule">
-													<label for="Daeroport">Aeroport</label>
-													<select name="Daeroport" id="Daeroport" class="formSelect" required></select>
-												</div>
-												<div class="cellule">
-													<label for="Dhoraire">Horaire</label>
-													<input type="text" id="Dhoraire" name="Dheure" maxlength="2" class="formText" required/><span class="gris" >H</span>
-													<input type="text" name="Dminute" maxlength="2" class="formText" required/><span class="gris">M</span>
-												</div>
-											</fieldset>
-										</div> -->
-									<!-- formulaire depart -->
-
-									<!-- formulaire arrivee -->
-										<!-- <div class="arrivee">
-											<fieldset>
-												<legend>Arrivée</legend>
-												<div class="cellule">
-													<label for="Apays">Pays</label>
-													<select name="Apays" id="Apays" class="formSelect" required></select>
-												</div>
-												<div class="cellule">
-													<label for="Aaeroport">Aeroport</label>
-													<select name="Aaeroport" id="Aaeroport" class="formSelect" required></select>
-												</div>
-												<div class="cellule">
-													<label for="Ahoraire">Horaire</label>
-													<input type="text" id="Ahoraire" name="Aheure" maxlength="2" class="formText" required/><span class="gris" >H</span>
-													<input type="text" name="Aminute" maxlength="2" class="formText" required/><span class="gris">M</span>
-												</div>
-											</fieldset>
-										</div> -->
-									<!-- formulaire arrivee -->
-
-									<!-- formulaire validation -->
-										<!-- <div class="validation">
-											<div style="float:left; width:240px;">
-												<fieldset>
-													<legend>Periodicité</legend>
-													<div class="cellule">
-														<select name="periodicite" id="periodicite" required>
-															<optgroup label="Quelle type de periode ?">
-																<option id="question" value="-1">Quelle type de periode ?</option>
-																<optgroup label="Unique">
-																	<option value="1">Une fois</option>
-																</optgroup>
-																<optgroup label="semaine">
-																	<option value="2">Lundi</option>
-																	<option value="3">Mardi</option>
-																	<option value="4">Mercredi</option>
-																	<option value="5">Jeudi</option>
-																	<option value="6">Vendredi</option>
-																	<option value="7">Samedi</option>
-																	<option value="8">Dimanche</option>
-																</optgroup>
-															</optgroup>
-														</select>
-													</div>
-												</fieldset>
-											</div>
-											<div style="float:left; width:240px">
-												<fieldset>
-													<legend>Terminer</legend>
-													<div class="cellule">
-														<input type="submit" name="NV_rec" id="NV_rec" value="Enregistrer" />
-													</div>
-												</fieldset>
-											</div>
-										</div> -->
-									<!-- formulaire validation -->
-								<!-- </form> -->
+								<a href="#?editvol" rel="popup_editvol" class="rouleau"><button>Nouveau</button></a>
+								<a href="<?php echo $this->baseUrl('strategie/nouveau')?>"><button>Modifier</button></a>
+								<a href="<?php echo $this->baseUrl('strategie/supprimer')?>"><button>Supprimer</button></a>
+								<table class="liste-vol">
+									<tr>
+										<th>Numéro de vol</th>
+										<th>Aéorport de départ</th>
+										<th>Aéorport d'arrivé</th>
+										<th>Heure de départ</th>
+										<th>Heure d'arrivée</th>
+										<th>Périodicité</th>
+										<th>Date de départ</th>
+									</tr>
+									<?php 
+									$destination = $this->destination;
+									foreach ($destination as $value) {
+										?>
+										<tr>
+											<td><?php echo $value['tri_aero_dep']?></td>
+										</tr>
+									<?php }?>
+								</table>
 							</div>
 						</div>
 					</section>
@@ -158,9 +59,10 @@
 
 	<!-- parti droite -->
 		<div class="droite min-width">
-			<div class="droitefils test">
-				
+			<div class="droitefils test" style="min-height:200px;">
+				<?php echo $this->action('nouveau', 'strategie'); ?>
 			</div>
 		</div>
 	<!-- parti droite -->
 </div>
+

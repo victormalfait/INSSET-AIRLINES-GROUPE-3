@@ -5,20 +5,20 @@ class StrategieController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        $tableUser = new TUtilisateur;
+        $tableDestination = new TDestination;
+        $destinationRequest = $tableDestination->select()->from($tableDestination);
+        $destinationRequest->setIntegrityCheck(false);
+        $destinationRequest->order('date_dep');
+        $destination = $tableDestination->fetchAll($destinationRequest);
+        $this->view->destination = $destination;
 
-        $users = $tableUser->fetchAll();
-
-        foreach ($users as $user) {
-            echo $user->nom_utilisateur . '<br/>';
-        }
     }
 
-    public function creationAction()
+    public function nouveauAction()
     {
 
         // creation de l'objet formulaire
-        $form = new FNouveauVol;
+        $form = new FNouveauvol;
 
         // affichage du formulaire
         $this->view->formNouveauVol = $form;
@@ -51,7 +51,13 @@ class StrategieController extends Zend_Controller_Action
         }
     }
 
-    public function fermetureAction()
+    public function modifierAction()
+    {
+        
+    }
+
+
+    public function supprimerAction()
     {
         
     }
