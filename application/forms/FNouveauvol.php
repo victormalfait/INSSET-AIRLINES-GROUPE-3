@@ -85,13 +85,13 @@ class FNouveauvol extends Zend_Form
 		// 	'eDepartM'
   //           ),'Depart',array('legend' => 'Départ'));
         
-  //       $Depart = $this->getDisplayGroup('Depart');
-  //       $Depart->setDecorators(array(
+        // $Depart = $this->getDisplayGroup('Depart');
+        // $Depart->setDecorators(array(
         
-  //                   'FormElements',
-  //                   'Fieldset',
-  //                   array('HtmlTag',array('tag'=>'div','style'=>'width:50%;;float:left;'))
-  //       ));
+        //             'FormElements',
+        //             'Fieldset',
+        //             array('HtmlTag',array('tag'=>'div','style'=>'width:50%;float:left;'))
+        // ));
 
   //       $this->addDisplayGroup(array(
 		// 	'ePaysArrivee',
