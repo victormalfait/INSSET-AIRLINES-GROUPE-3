@@ -20,6 +20,8 @@ class StrategieController extends Zend_Controller_Action
         // creation de l'objet formulaire
         $form = new FNouveauvol;
 
+
+
         // affichage du formulaire
         $this->view->formNouveauVol = $form;
 
@@ -53,7 +55,7 @@ class StrategieController extends Zend_Controller_Action
 
     public function modifierAction()
     {
-        
+   
     }
 
 

@@ -1,3 +1,15 @@
+<script>
+    $(function() {
+        $( "#datepickerdeb" ).datepicker({dateFormat :'dd-mm-yy', minDate: 0});
+        $("#datepickerdeb").change(function(){
+            var d = $("#datepickerdeb").datepicker('getDate');
+        
+            var n = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1);
+     
+            $("#datepickerfin").datepicker({dateFormat :'dd-mm-yy', minDate: n});
+        });
+    });
+</script>
 <div id="popup_editvol" style="display:none">
 	<header class="strategie">
 		<div class="strategie1 strat-pos"></div>

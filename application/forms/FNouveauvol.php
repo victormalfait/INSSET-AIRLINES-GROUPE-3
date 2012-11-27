@@ -12,6 +12,18 @@ class FNouveauvol extends Zend_Form
 		$this->setAttrib('id', 'ConnexionNouveauVol');
 
 	//===============Creation des element
+
+
+		$tablePays = new TPays;
+        $paysRequest = $tablePays->select()->from($tablePays);
+        $pays = $tablePays->fetchAll($paysRequest);
+
+        $paysTab = array();
+
+        foreach ($pays as $p) {
+        	$paysTab[$p['id']] = $p['nom'];
+        }
+
 		//Depart
 		$ePaysDepart = new Zend_Form_Element_Select('paysDepart');
 		$ePaysDepart	->setLabel('Pays : ')
@@ -19,6 +31,7 @@ class FNouveauvol extends Zend_Form
 						->setAttrib('required', 'required')
 						// ->addMultiOptions(Zend_Locale::getCountryTranslationList(Zend_Registry::get('Zend_Locale')))
 						//->addMultiOptions('monchoix', '1')
+						->setMultiOptions($paysTab)
 						->addValidator('notEmpty');
 
 		$eAeroportDepart = new Zend_Form_Element_Select('aeroportDepart');
@@ -28,13 +41,13 @@ class FNouveauvol extends Zend_Form
 							->addValidator('notEmpty');
 		
 		$eDepartH = new Zend_Form_Element_Text('departH');
-		$eDepartH	->setLabel('H')
+		$eDepartH	->setLabel('Heure :')
 					->setRequired(true)
 					->setAttrib('required', 'required')
 					->addValidator('notEmpty');
 
-		$eDepartM = new Zend_Form_Element_Text('departM');
-		$eDepartM	->setLabel('M')
+		$eDepartM = new Zend_Form_Element_Text('datepickerdeb');
+		$eDepartM	->setLabel('Date :')
 					->setRequired(true)
 					->setAttrib('required', 'required')
 					->addValidator('notEmpty');
@@ -44,6 +57,7 @@ class FNouveauvol extends Zend_Form
 		$ePaysArrivee	->setLabel('Pays : ')
 						->setRequired(true)
 						->setAttrib('required', 'required')
+						->setMultiOptions($paysTab)
 						->addValidator('notEmpty');
 
 		$eAeroportArrivee = new Zend_Form_Element_Select('aeroportArrivee');
@@ -53,13 +67,13 @@ class FNouveauvol extends Zend_Form
 							->addValidator('notEmpty');
 		
 		$eArriveeH = new Zend_Form_Element_Text('arriveeH');
-		$eArriveeH	->setLabel('H')
+		$eArriveeH	->setLabel('Heure :')
 					->setRequired(true)
 					->setAttrib('required', 'required')
 					->addValidator('notEmpty');
 
-		$eArriveeM = new Zend_Form_Element_Text('arriveeM');
-		$eArriveeM	->setLabel('M')
+		$eArriveeM = new Zend_Form_Element_Text('datepickerfin');
+		$eArriveeM	->setLabel('Date :')
 					->setRequired(true)
 					->setAttrib('required', 'required')
 					->addValidator('notEmpty');
@@ -69,6 +83,7 @@ class FNouveauvol extends Zend_Form
 		$ePeriodicite	//->setLabel('Aeroport : ')
 							->setRequired(true)
 							->setAttrib('required', 'required')
+							->setMultiOptions(array('Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'))
 							->addValidator('notEmpty');
 
 		// Terminer

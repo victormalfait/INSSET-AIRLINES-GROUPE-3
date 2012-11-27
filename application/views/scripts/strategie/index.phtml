@@ -27,9 +27,6 @@
 						<div class="newVol1 NV-pos"></div>
 						<div class="newVol2 NV-pos">
 							<div class="newVolfils">
-								<a href="#?editvol" rel="popup_editvol" class="rouleau"><button>Nouveau</button></a>
-								<a href="<?php echo $this->baseUrl('strategie/nouveau')?>"><button>Modifier</button></a>
-								<a href="<?php echo $this->baseUrl('strategie/supprimer')?>"><button>Supprimer</button></a>
 								<table class="liste-vol">
 									<tr>
 										<th>Numéro de vol</th>
@@ -39,16 +36,28 @@
 										<th>Heure d'arrivée</th>
 										<th>Périodicité</th>
 										<th>Date de départ</th>
+										<th>Date d'arrivée</th>
+										<th></th>
 									</tr>
 									<?php 
 									$destination = $this->destination;
 									foreach ($destination as $value) {
 										?>
 										<tr>
+											<td><?php echo $value['numero_vol']?></td>
 											<td><?php echo $value['tri_aero_dep']?></td>
+											<td><?php echo $value['tri_aero_arr']?></td>
+											<td><?php echo $value['heure_dep']?></td>
+											<td><?php echo $value['heure_arr']?></td>
+											<td><?php echo $value['periodicite']?></td>
+											<td><?php echo $value['date_dep']?></td>
+											<td><?php echo $value['date_arr']?></td>
+											<td><a href="#?editvol" rel="popup_editvol" class="rouleau"><button>Modifier</button></a></td>
+											<td><a href="<?php echo $this->baseUrl('strategie/supprimer')?>"><button>Supprimer</button></a></td>
 										</tr>
 									<?php }?>
 								</table>
+								<a href="#?editvol" rel="popup_editvol" class="rouleau"><button>Nouveau</button></a>
 							</div>
 						</div>
 					</section>
@@ -61,6 +70,7 @@
 		<div class="droite min-width">
 			<div class="droitefils">
 				<?php echo $this->action('nouveau', 'strategie'); ?>
+				<?php echo $this->action('modifier', 'strategie'); ?>
 			</div>
 		</div>
 	<!-- parti droite -->
