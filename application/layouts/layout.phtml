@@ -200,9 +200,26 @@
 			</script>
 		</div>
 		<div id="body">
-			<div id="content">
-				<?php echo $this->layout()->content; ?>
-			</div>
+            <!-- Header -->
+            <header id="header">
+                <?php echo $this->partial('header.phtml'); ?>
+            </header>
+            <!-- Header ends here -->
+
+            <!-- Content -->
+            <section id="content">
+                <?php echo $this->layout()->content; ?>
+            </section>
+            <!-- Content ends here -->
+
+            <!-- Footer -->
+            <footer id="footer">
+                <?php
+                    $registre = Zend_Registry::getInstance();
+                    echo $this->partial('footer.phtml', array('annee' => $registre->config->app->copyright->annee));
+                ?>
+            </footer>
+            <!-- Footer ends here -->
 		</div>
 	</body>
 </html>
