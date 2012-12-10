@@ -1,0 +1,33 @@
+<?php
+	if (Zend_Auth::getInstance ()->hasIdentity ()){
+		?>
+			<nav id="menuAdmin">
+				<ul>
+					<li><a href="<?php echo $this->baseUrl('strategie'); ?>">Direction Stratégique</a></li>
+					<span></span>
+					<li><a href="<?php echo $this->baseUrl('drh'); ?>">Ressources Humaines</a></li>
+					<span></span>
+					<li><a href="<?php echo $this->baseUrl('maintenance'); ?>">Maintenance</a></li>
+					<span></span>
+					<li><a href="<?php echo $this->baseUrl('planning'); ?>">Planning</a></li>
+					<span></span>
+					<li><a href="<?php echo $this->baseUrl('commercial'); ?>">Service Commercial</a></li>
+					<span></span>
+					<li><a href="<?php echo $this->baseUrl('exploitation'); ?>">Service d'Exploitation</a></li>
+					<span></span>
+					<li><a href="<?php echo $this->baseUrl('logistique'); ?>">Service de logistique</a></li>
+				</ul>
+			</nav>
+		<?php
+	}
+?>
+
+<nav id="menuGuest">
+	<ul>
+		<li><a href="<?php echo $this->baseUrl(''); ?>">Accueil</a></li>
+		<span></span>
+		<li><a href="<?php echo $this->baseUrl('commercial/index'); ?>">Réserver</a></li>
+		<span></span>
+		<li><a href="<?php echo $this->baseUrl('index/catalogue'); ?>">Catalogue</a></li>
+	</ul>
+</nav>

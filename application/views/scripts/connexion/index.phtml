@@ -1,18 +1,4 @@
-<link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl('/css/connexion.css')?>" />
-
 <section id="connexion">
-	<!-- <div class="bgbleu shadow position"></div> -->
-	<div class="bloc laterals position"></div>
- 	<div class="bggris position">
-		<div class="Fconnexion">
-			<?php
-				// si le formulaire a bien été envoyé envoyer a la vue ...
-				if (isset($this->formConnexion)) {
-					// ... on l'affiche
-				  	echo $this->formConnexion;
-				}
-			?>
-			<!-- <input type="submit" class="bouton"> -->
-		</div>
-	</div>
+	<h2>MON ESPACE PRIVÉ</h2>
+	<?php echo $this->formConnexion; ?>
 </section>

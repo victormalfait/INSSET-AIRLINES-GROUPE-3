@@ -1,89 +1,80 @@
 @CHARSET "UTF-8";
 html, body{ width: 100%; height: 100%;}
 
+a{text-decoration: none;}
 
 body
 {
 	font-family:arial,sans-serif;
 }
 
-.test{ border: 1px solid black;}
+.testr{ border: 1px solid red;}
+.testb{ border: 1px solid blue;}
+.testg{ border: 1px solid green;}
+.testy{ border: 1px solid yellow;}
 
-#content{
-	position: absolute;
-	top:0;
-	left:0;
-	width: 100%;
-	height: 100%;
-}
+/* ========= HEADER STYLES ========== */
+    #header {
+    	position: relative;
+    	/*height: 100px;*/
+    	box-shadow: 0px 0px 20px 7px #B3B3B3;
+    }
+    	.header { width: 980px; margin: 0 auto;}
+    	#headerInfo { float: left; }
+    	#headerInfo h1{ font-size: 2em; margin: 10px; color: #002454; text-transform: uppercase; font-weight: bold;}
+    	#headerLogin { float: right;}
+    	#headerMenu { clear: both;}
+/* ========= HEADER STYLES END HERE========== */
 
-/*========================= BOUTON =========================*/
-/*input[type='submit'] {
-	border: none;
-	width: 100px;
-	font-family: Arial;
-	color: #ffffff;
-	font-size: .9em;
-	padding: 3px 10px;
-	text-decoration: none;
-	-webkit-border-radius: 28px;
-	-moz-border-radius: 28px;
-	-webkit-box-shadow: 0px 1px 3px #666666;
-	-moz-box-shadow: 0px 1px 3px #666666;
-	text-shadow: 1px 1px 3px #666666;
-	background: -webkit-gradient(linear, 0 0, 0 100%, from(#fafafa), to(#707070));
-	background: -moz-linear-gradient(top, #fafafa, #707070);
-	display:inline-block; /* IE is so silly *//*
-}
 
-input[type='submit']:hover {
-	background: -webkit-gradient(linear, 0 0, 0 100%, from(#8c8c8c), to(#b3b3b3));
-	background: -moz-linear-gradient(top, #8c8c8c, #b3b3b3)
-}*/
+/* ========= CONTENT STYLES ========== */
+    #content_wrap { position: relative;}
+    	#content { min-height: 500px; width: 980px; margin: 0 auto; }
+/* ========= CONTENT STYLES END HERE========== */
+    
 
-input[type='submit'] {
-    color: rgb(51, 51, 51);
-    text-shadow: 0px 1px 0px rgb(255, 255, 255);
-    border-width: 1px;
-    border-style: solid;
-    border-color: rgb(212, 212, 212) rgb(212, 212, 212) rgb(188, 188, 188);
-    -moz-border-top-colors: none;
-    -moz-border-right-colors: none;
-    -moz-border-bottom-colors: none;
-    -moz-border-left-colors: none;
-    border-image: none;
-    background: linear-gradient(rgb(250, 250, 250), rgb(234, 234, 234)) repeat scroll 0% 0% transparent;
-}
+/* ========= FOOTER STYLES =========  */
+    #footer { position: relative;}
 
-input[type='submit'] {
-    position: relative;
-    display: inline-block;
-    padding: 0px 10px;
-    font-family: Helvetica,arial,freesans,clean,sans-serif;
-    font-size: 13px;
-    font-weight: bold;
-    line-height: 24px;
-    white-space: nowrap;
-    border-radius: 3px 3px 3px 3px;
-    cursor: pointer;
-    -moz-user-select: none;
-}
+    #footer_info { width: 980px; margin: 20px auto; }
+        #footer_copyright { border-top: 4px solid #E9EAEC; padding: 9px 0 0 0;}
+        #footer_copyright p { margin: 7px auto 14px; color: #595959; font-size: 11px; }
+/* ========= FOOTER STYLES ENDS HERE =========  */
 
-input[type='submit']:hover{
-	 background: linear-gradient(rgb(250, 250, 250), rgb(234, 234, 234)) repeat scroll 0% 0% transparent;
-}
 
-.menu{
-	width:150px;
-	height: 150px;
-	float:left;
-	text-align: center;
-	border-right: 1px solid #9f9f9f;
-}
-.menu a{
-	color: #fff;
-	opacity: 0.5;
-}
-.menu a:hover{
-	opacity: 1;
-}
+/* ========= MENU STYLES =========  */
+	#menuAdmin { width: 1144px;}
+	#menuGuest { width: 306px;}
+    #menuAdmin, #menuGuest {margin: 0 auto;}
+    #menuAdmin li, #menuGuest li {display: inline-block; padding: 6px 20px;}
+    #menuAdmin ul span:before, #menuGuest ul span:before {content: "|"; color: #D6D6D6; font-weight: normal;}
+    #menuAdmin a, #menuGuest a {color: #002454; font-weight: bold; font-size: .8em;}
+/* ========= MENU STYLES ENDS HERE =========  */
+
+
+/* ========= LOGIN STYLES =========  */
+    #connexion { width: 230px; height: 85px; background-color: #EAE9E8; box-shadow: 3px 3px 5px #B3B3B3;}
+        #connexion h2 {color: #051039; font-weight: bold; text-align: center; padding: 6px 0;}
+        #connexion ul {margin: 0 8px;}
+        #connexion li { position: relative; display: inline-block; height: 40px}
+        #connexion label { font-size: .6em; color: #051039; position: absolute; top: 0px;}
+        #connexion input {border-radius: 0; border: 1px solid #A5ACB2; width: 100px; margin-top: 12px; font-size: .6em; height: 15px;}
+        #connexion input[type='password'] {width: 60px;}
+        #connexion input[type='password'] {width: 60px;}
+        #connexion input[type='submit'] {background: none; border: none; width: 40px; height: 20px; text-transform: uppercase; box-shadow: none;}
+        #connexion .optional {display: none;}
+/* ========= LOGIN STYLES ENDS HERE =========  */
+
+
+/* ========= ACCUEIL STYLES =========  */
+    #accueil { background: url(/img/accueil.jpg) center no-repeat; height: 340px;}
+/* ========= ACCUEIL STYLES ENDS HERE =========  */
+
+
+/* ========= RESERVATION STYLES =========  */
+    #reservation {}
+        .reservation { background-color: #F7F8FC; opacity: .9;}
+/* ========= RESERVATION STYLES ENDS HERE =========  */
+
+
+
