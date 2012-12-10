@@ -1,3 +1,4 @@
+<script type="text/javascript" src="js/tutorial.js"></script>
 <script>
     $(function() {
         $( "#datepickerdeb" ).datepicker({dateFormat :'dd-mm-yy', minDate: 0});
@@ -28,7 +29,8 @@
 				<div class="newVol2 NV-pos">
 					<div class="newVolfils">
 						<?php echo $this->formNouveauVol; ?>
-						<a href="#?editvol" rel="popup_ajouter" class="rouleau"><button class="ajouter">Ajouter un pays</button></a>
+						<a href="#?editvol" rel="popup_ajouter_pays" class="rouleau"><button class="ajouter_pays">Ajouter un pays</button></a>
+						<a href="#?editvol" rel="popup_ajouter_ville" class="rouleau"><button class="ajouter_ville">Ajouter une ville</button></a>
 					</div>
 				</div>
 			</section>
@@ -36,10 +38,29 @@
 	</div>
 </div>
 
-<div id="popup_ajouter" style="display:none;">
+<div id="popup_ajouter_pays" style="display:none;">
 	<form>
 		<label>Pays :</label>
-		<input type="text" name="pays">
-		<input type="submit">
+		<input type="text" name="pays" id="pays">
+		<input type="submit" name="ajouter_pays" class="button_pays" value="Ajouter">
+	</form>
+</div>
+
+<div id="popup_ajouter_ville" style="display:none;">
+	<form>
+		<label>Pays :</label>
+		<select id="selectpays">
+			<?php
+			$tablePays = new TPays;
+	        $paysRequest = $tablePays->select()->from($tablePays);
+	        $pays = $tablePays->fetchAll($paysRequest);
+	        foreach ($pays as $value) {
+	        	echo '<option value="'.$value['id'].'">'.$value['nom'].'</option>';
+	        }
+			?>
+		</select>
+		<label>Ville :</label>
+		<input type="text" name="ville" id="ville">
+		<input type="submit" name="ajouter_ville" class="button_ville" value="Ajouter">
 	</form>
 </div>

@@ -37,6 +37,25 @@ class FNouveauvol extends Zend_Form
 						->setMultiOptions($paysTab)
 						->addValidator('notEmpty');
 
+		$tableVille = new TVille;
+        $villeRequest = $tableVille->select()->from($tableVille);
+        $ville = $tableVille->fetchAll($villeRequest);
+
+        $villeTab = array();
+
+        foreach ($ville as $v) {
+        	$villeTab[$v['id']] = $v['nom'];
+        }
+
+		$eVilleDepart = new Zend_Form_Element_Select('villeDepart');
+		$eVilleDepart	->setLabel('Ville : ')
+						->setRequired(true)
+						->setAttrib('required', 'required')
+						// ->addMultiOptions(Zend_Locale::getCountryTranslationList(Zend_Registry::get('Zend_Locale')))
+						//->addMultiOptions('monchoix', '1')
+						->setMultiOptions($villeTab)
+						->addValidator('notEmpty');
+
 		$eAeroportDepart = new Zend_Form_Element_Select('aeroportDepart');
 		$eAeroportDepart	->setLabel('Aeroport : ')
 							->setRequired(true)
@@ -61,6 +80,15 @@ class FNouveauvol extends Zend_Form
 						->setRequired(true)
 						->setAttrib('required', 'required')
 						->setMultiOptions($paysTab)
+						->addValidator('notEmpty');
+
+		$eVilleArrive = new Zend_Form_Element_Select('villeArrive');
+		$eVilleArrive	->setLabel('Ville : ')
+						->setRequired(true)
+						->setAttrib('required', 'required')
+						// ->addMultiOptions(Zend_Locale::getCountryTranslationList(Zend_Registry::get('Zend_Locale')))
+						//->addMultiOptions('monchoix', '1')
+						->setMultiOptions($villeTab)
 						->addValidator('notEmpty');
 
 		$eAeroportArrivee = new Zend_Form_Element_Select('aeroportArrivee');
@@ -93,7 +121,7 @@ class FNouveauvol extends Zend_Form
 		$eSubmit = new Zend_Form_Element_Submit('Enregistrer');
 
 		// Ajout des éléments au formulaire
-		$elements = array ( $ePaysDepart, $eAeroportDepart, $eDepartH, $eDepartM, $ePaysArrivee, $eAeroportArrivee, $eArriveeH, $eArriveeM, $ePeriodicite, $eSubmit );
+		$elements = array ( $ePaysDepart, $eVilleDepart,$eAeroportDepart, $eDepartH, $eDepartM, $ePaysArrivee, $eVilleArrive, $eAeroportArrivee, $eArriveeH, $eArriveeM, $ePeriodicite, $eSubmit );
 		$this->addElements ( $elements );
 
 		 // si on a une valeur ...

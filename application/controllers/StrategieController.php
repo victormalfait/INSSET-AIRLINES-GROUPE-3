@@ -16,52 +16,68 @@ class StrategieController extends Zend_Controller_Action
 
     public function nouveauAction()
     {
+        if(isset($_POST['pays'])){
+            $tablePays = new TPays;
+            $row = $tablePays->createRow();
+            $row->nom = $_POST['pays'];
+            $row->save();
+            echo 5;exit;
 
-        // creation de l'objet formulaire
-        $form = new FNouveauvol;
-        $numero_vol = $this->_getparam('numero_vol');
+        }elseif (isset($_POST['ville'])) {
+            $tableVille = new TVille;
+            $row = $tableVille->createRow();
+            $row->nom = $_POST['ville'];
+            $row->id_pays = $_POST['pays_ville'];
+            $row->save();
+        }else{
+            // creation de l'objet formulaire
+            $form = new FNouveauvol;
+            $numero_vol = $this->_getparam('numero_vol');
 
 
 
-        // affichage du formulaire
-        $this->view->formNouveauVol = $form;
-        
-        //On envoie les valeurs d'ID dans le formulaire
-        $form->setNumeroVol($numero_vol);
+            // affichage du formulaire
+            $this->view->formNouveauVol = $form;
+
+            //On envoie les valeurs d'ID dans le formulaire
+            $form->setNumeroVol($numero_vol);
 
 
 
-        // traitement du formulaire
-        // si le formulaire a été soumis
-        if ($this->_request->isPost()) {
-            // on recupere les éléments
-            $formData = $this->_request->getPost();
+           
 
-            // si le formulaire passe au controle des validateurs
-            if ($form->isValid($formData)) {
+            // traitement du formulaire
+            // si le formulaire a été soumis
+            if ($this->_request->isPost()) {
+                // on recupere les éléments
+                $formData = $this->_request->getPost();
 
-                //on envoi la requete
-                $destination = new TDestination;
-                $row = $destination->createRow();
-                $row->tri_aero_dep = $form->getValue('aeroportDepart');
-                $row->heure_dep = $form->getValue('departH') . 'h' . $form->getValue('departM');
-                $row->tri_aero_arr = $form->getValue('aeroportArrivee');
-                $row->heure_arr = $form->getValue('arriveeH') . 'h' . $form->getValue('arriveeM');
-                $row->periodicite = $form->getValue('periodicite');
-                $row->date_dep = $form->getValue('dateDep');
+                // si le formulaire passe au controle des validateurs
+                if ($form->isValid($formData)) {
 
-                //sauvegarde de la requete
-                $result = $row->save();
-        
-                // RAZ du formulaire
-                $form->reset();
+                    //on envoi la requete
+                    $destination = new TDestination;
+                    $row = $destination->createRow();
+                    $row->tri_aero_dep = $form->getValue('aeroportDepart');
+                    $row->heure_dep = $form->getValue('departH') . 'h' . $form->getValue('departM');
+                    $row->tri_aero_arr = $form->getValue('aeroportArrivee');
+                    $row->heure_arr = $form->getValue('arriveeH') . 'h' . $form->getValue('arriveeM');
+                    $row->periodicite = $form->getValue('periodicite');
+                    $row->date_dep = $form->getValue('dateDep');
+
+                    //sauvegarde de la requete
+                    $result = $row->save();
+            
+                    // RAZ du formulaire
+                    $form->reset();
+                }
             }
         }
     }
 
     public function modifierAction()
     {
-   
+
     }
 
 
