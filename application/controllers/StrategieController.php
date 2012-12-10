@@ -19,11 +19,17 @@ class StrategieController extends Zend_Controller_Action
 
         // creation de l'objet formulaire
         $form = new FNouveauvol;
+        $numero_vol = $this->_getparam('numero_vol');
 
 
 
         // affichage du formulaire
         $this->view->formNouveauVol = $form;
+        
+        //On envoie les valeurs d'ID dans le formulaire
+        $form->setNumeroVol($numero_vol);
+
+
 
         // traitement du formulaire
         // si le formulaire a été soumis

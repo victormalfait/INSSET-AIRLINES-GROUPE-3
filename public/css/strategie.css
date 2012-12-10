@@ -147,7 +147,15 @@
 	.depart, .arrivee, .validation{ padding: 10px;}
 	.validation{overflow: auto;}
 	.cellule{float:left; margin: 3px;}
+	table, td, th{border:1px solid black;}
+	.liste-vol th{background: #83C8FF;color: #fff;font-weight: bold; padding: 5px; font-size: 0.850em;}
 
 /*parti droite*/
-	.droite{ float: right; width: 50%;}
+	.droite{ position: absolute; width: 300px;left:600px; top:-100px;}
 	.droitefils{margin: 20px;}
+
+/*pop-up ajouter*/
+	#popup_ajouter{position: absolute; left: 900px; top: 18px;border: 1px solid black;} 
+
+/*bouton ajouter pays*/
+	.ajouter{position: absolute; left:155px; top:35px;}

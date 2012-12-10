@@ -2,6 +2,8 @@
 
 class FNouveauvol extends Zend_Form
 {
+	private $idNumeroVolParam;
+
 	public function init()
 	{
 	
@@ -10,6 +12,7 @@ class FNouveauvol extends Zend_Form
 		$this->setMethod('post');
 		$this->setAction('');
 		$this->setAttrib('id', 'ConnexionNouveauVol');
+		$numero_vol = $this->getNumeroVol();
 
 	//===============Creation des element
 
@@ -93,6 +96,37 @@ class FNouveauvol extends Zend_Form
 		$elements = array ( $ePaysDepart, $eAeroportDepart, $eDepartH, $eDepartM, $ePaysArrivee, $eAeroportArrivee, $eArriveeH, $eArriveeM, $ePeriodicite, $eSubmit );
 		$this->addElements ( $elements );
 
+		 // si on a une valeur ...
+        // if (isset ( $numero_vol ) && $numero_vol != "") {
+        	
+
+        //     // ... on charde le model de base de donnée Client,
+        //     $tableDestination = new TDestination ( );
+        //     // on envoi la requete pour recupere les informations de l'utilisateur
+        //     $destination = $tableDestination  ->find($numero_vol)
+        //                           ->current();
+        //     // si on a un retour
+        //     if ($destination != null) {
+        //         // on peuple le formulaire avec les information demandé
+        //         $destination = array(
+        //         	'numero_vol' => $destination->numero_vol,
+        //         	'tri_aero_dep'
+        //         	'tri_aero_arr'
+        //         	'heure_dep'
+        //         	'heure_arr'
+        //         	'periodicite'
+        //         	'date_dep'
+        //         	'date_arr'
+        //         	);
+
+        //         $this->populate ( $destination );
+
+        //     }
+           
+        //     // on change le label du bouton
+        //     $eSubmit->setLabel ( 'Modifier' );
+        // }
+
 		// $this->addDisplayGroup(array(
 		// 	'ePaysDepart',
 		// 	'eAeroportDepart',
@@ -148,4 +182,14 @@ class FNouveauvol extends Zend_Form
   //       ));
 
 	}
+
+
+	public function setNumeroVol($id){
+		$this->idNumeroVolParam = $id;
+	}
+
+	public function getNumeroVol(){
+		return $this->idNumeroVolParam;
+	}
+
 }
