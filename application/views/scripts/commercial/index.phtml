@@ -1,8 +1,4 @@
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
-    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
-    <script src="/resources/demos/external/jquery.bgiframe-2.1.2.js"></script>
-    <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
-    <script>
+<script>
     $(function() {
         $( "#datepickerdeb" ).datepicker({dateFormat :'dd-mm-yy', minDate: 0});
         $("#datepickerdeb").change(function(){
@@ -37,63 +33,13 @@
                 $( "#dialog-form" ).dialog( "open" );
             });
     });
-    </script>
-</head>
-<div class="mapage">
-	<link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl('/css/commercial.css')?>" />
-	<!-- parti gauche -->
-		<div class="gauche min-width">
-			<div class="gauchefils">
-				<!-- menu -->
-					<header class="strategie">
-						<div class="strategie1 strat-pos"></div>
-						<div class="strategie2 strat-pos">
-							<div class="strategiefils">
-								<div class="titre">
-									<span>Service Commercial</span>
-								</div>
-								<div>
-									<!-- <ul class="menu">
-										<li>
-											<a href="#">vol</a>
-											<ul>
-												<li><a href="#">Nouveau vol</a></li>
-												<li><a href="#">Fermer vol</a></li>
-											</ul>
-										</li>
-									</ul> -->
-								</div>
-							</div>
-						</div>
-					</header>
-				<!-- menu -->
-				
-				<!-- formulaire -->
-					<section class="newVol">
-						<div class="newVol1 NV-pos"></div>
-						<div class="newVol2 NV-pos">
-							<div class="newVolfils">
-									<!-- titre -->
-										<div class="formTitre">
-											<span>Création d'un Vol</span>
-										</div>
-									<!-- titre -->
-									<?php
-									echo $this->formCommercial;
-									?>
-							</div>
-						</div>
-					</section>
-				<!-- formulaire -->
-			</div>
-		</div>
-	<!-- parti gauche -->
+</script>
+<div id="accueil">
 
-	<!-- parti droite -->
-		<div class="droite min-width">
-			<div class="droitefils test">
-				
-			</div>
+	<div id="reservation">
+		<div class="reservation">
+			<h2>Réservation</h2>
+			<?php echo $this->formCommercial; ?>
 		</div>
-	<!-- parti droite -->
+	</div>
 </div>
