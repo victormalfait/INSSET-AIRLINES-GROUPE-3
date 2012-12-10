@@ -48,9 +48,10 @@ class FConnexion extends Zend_Form
 					->addFilter('StringTrim')
 					->setDecorators($decorators);
 
-		$eSubmit = new Zend_Form_Element_Submit('connexion');
-		$eSubmit 	->setAttrib('id', 'connexion')
-					->setLabel('Ok');
+		$eSubmit = new Zend_Form_Element_Submit('SBTconnexion');
+		$eSubmit 	->setAttrib('id', 'SBTconnexion')
+					->setLabel('Ok')
+					->setDecorators($decorators);
 
 		$elements = array($eEmail,$ePass, $eSubmit);
 		$this->addElements($elements);
