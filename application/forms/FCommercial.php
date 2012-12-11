@@ -9,128 +9,116 @@ class FCommercial extends Zend_Form
 		$this->setAction('/strategie/index');
 		$this->setAttrib('id', 'ConnexionNouveauVol');
 
+		//=============== creation des decorateurs
+		// Descativation des decorateurs par defaut
+		$this->clearDecorators();
+
+		//decorateur d'element
+		$decorators = array(
+		    'ViewHelper',
+		    'Errors',
+		    array('Label', array('class' => 'label')),
+		    array('HtmlTag', array('tag' => 'li'))
+		);
+
+		//decorateur de formulaire
+		$decoratorsForm = array(
+			'FormElements',
+			array('HtmlTag', array('tag' => 'ul')),
+			array(
+				array('DivTag' => 'HtmlTag'),
+				array('tag' => 'div')
+			),
+			'Form'
+		);
+
 		//===============Creation des element
 		$tabVille = array('Paris','Madrid','Rome','New-York','Washington');
 
 		$eAeroportDepart = new Zend_Form_Element_Select('aeroportDepart');
-		$eAeroportDepart->setLabel('De : ')
+		$eAeroportDepart->setLabel('De')
 						->setRequired(true)
 						->addValidator('notEmpty')
-						->setMultiOptions($tabVille);
+						->setMultiOptions($tabVille)
+						->setDecorators($decorators);
 
 		$eAeroportArrivee = new Zend_Form_Element_Select('aeroportArrivee');
-		$eAeroportArrivee->setLabel('A : ')
+		$eAeroportArrivee->setLabel('A')
 						 ->setRequired(true)
 						 ->addValidator('notEmpty')
-						 ->setMultiOptions($tabVille);
+						 ->setMultiOptions($tabVille)
+						 ->setDecorators($decorators);
 
 		$eTypeTrajet = new Zend_Form_Element_Radio('typeTrajet');
-		$eTypeTrajet->setMultiOptions(array('1'=>'Aller simple','2'=>'Aller retour')  );
-        $eTypeTrajet->setOptions(array('separator'=>''));
+		$eTypeTrajet->setMultiOptions(array('1'=>'Aller simple','2'=>'Aller retour')  )
+        			->setOptions(array('separator'=>''))
+        			->setDecorators($decorators);
 
         $eDatedeb = new Zend_Form_Element_Text('datepickerdeb');
-		$eDatedeb->setLabel('Date de début');
-		$eDatedeb->setRequired(true);
+		$eDatedeb	->setLabel('Date aller')
+					->setRequired(true)
+					->setDecorators($decorators);
 
 		$eDatefin = new Zend_Form_Element_Text('datepickerfin');
-		$eDatefin->setLabel('Date de fin');
-		$eDatefin->setRequired(true);
+		$eDatefin	->setLabel('Date retour')
+					->setRequired(true)
+					->setDecorators($decorators);
 
 		$nbr=array();
 		for($i=1;$i<10;$i++)
 			$nbr[$i]=$i;
 
 		$eNbrPassager = new Zend_Form_Element_Select('nbrPassager');
-		$eNbrPassager->setLabel('Nombre de passagers : ')
-						 ->setRequired(true)
-						 ->addValidator('notEmpty')
-						 ->setMultiOptions($nbr);
+		$eNbrPassager	->setLabel('Nombre de passagers : ')
+						->setRequired(true)
+						->addValidator('notEmpty')
+						->setMultiOptions($nbr)
+						->setDecorators($decorators);
 
 		$typePassager = array('Adultes (25-64 ans)','Enfants (2-11 ans)','Séniors (65 ans et plus)');
 
 		$eTypePassager = new Zend_Form_Element_Select('typePassager');
-		$eTypePassager->setLabel('Nombre de passagers : ')
-						 ->setRequired(true)
-						 ->addValidator('notEmpty')
-						 ->setMultiOptions($typePassager);
+		$eTypePassager	->setLabel('Nombre de passagers : ')
+						->setRequired(true)
+						->addValidator('notEmpty')
+						->setMultiOptions($typePassager)
+						->setDecorators($decorators);
 
 		$classe = array('Economique','Première','Affaire');
 
 		$eClasse = new Zend_Form_Element_Select('classe');
-		$eClasse->setLabel('Classe : ')
-						 ->setRequired(true)
-						 ->addValidator('notEmpty')
-						 ->setMultiOptions($classe);
+		$eClasse	->setLabel('Classe : ')
+					->setRequired(true)
+					->addValidator('notEmpty')
+					->setMultiOptions($classe)
+					->setDecorators($decorators);
 
-		$eSubmit = new Zend_Form_Element_Submit('Rechercher');
+		$eSubmit = new Zend_Form_Element_Submit('reserver');
+		$eSubmit 	->setAttrib('id', 'SBTReserver')
+					->setAttrib('class', 'bgRedBtn')
+					->setLabel('Réserver');
 
-		$this->addElement($eAeroportDepart);
-		$this->addElement($eAeroportArrivee);
-		$this->addElement($eTypeTrajet);
-		$this->addElement($eDatedeb);
-		$this->addElement($eDatefin);
-		$this->addElement($eNbrPassager);
-		$this->addElement($eTypePassager);
-		$this->addElement($eClasse);
-		$this->addElement($eSubmit);
+		$elements = array($eAeroportDepart, $eAeroportArrivee, $eTypeTrajet, $eDatedeb, $eDatefin, $eNbrPassager, $eTypePassager, $eClasse, $eSubmit);
+		$this->addElements($elements);
 
-		// Ajout des éléments au formulaire
-		// $elements = array ( $ePaysDepart, $eAeroportDepart, $eDepartH, $eDepartM, $ePaysArrivee, $eAeroportArrivee, $eArriveeH, $eArriveeM, $ePeriodicite, $eSubmit );
-		// $this->addElements ( $elements );
+		// on insere le decorateurde form au formulaire
+		$this->setDecorators($decoratorsForm);
 
-		// $this->addDisplayGroup(array(
-		// 	'ePaysDepart',
-		// 	'eAeroportDepart',
-		// 	'eDepartH',
-		// 	'eDepartM'
-  //           ),'Depart',array('legend' => 'Départ'));
-        
-  //       $Depart = $this->getDisplayGroup('Depart');
-  //       $Depart->setDecorators(array(
-        
-  //                   'FormElements',
-  //                   'Fieldset',
-  //                   array('HtmlTag',array('tag'=>'div','style'=>'width:50%;;float:left;'))
-  //       ));
-
-  //       $this->addDisplayGroup(array(
-		// 	'ePaysArrivee',
-		// 	'eAeroportArrivee',
-		// 	'eArriveeH',
-		// 	'eArriveeM'
-  //           ),'Arrivee',array('legend' => 'Arrivée'));
-        
-  //       $Arrivee = $this->getDisplayGroup('Arrivee');
-  //       $Arrivee->setDecorators(array(
-        
-  //                   'FormElements',
-  //                   'Fieldset',
-  //                   array('HtmlTag',array('tag'=>'div','style'=>'width:50%;;float:left;'))
-  //       ));
-
-  //       $this->addDisplayGroup(array(
-		// 	'periodicite'
-  //           ),'periodicite',array('legend' => 'Périodicité'));
-        
-  //       $periodicite = $this->getDisplayGroup('periodicite');
-  //       $periodicite->setDecorators(array(
-        
-  //                   'FormElements',
-  //                   'Fieldset',
-  //                   array('HtmlTag',array('tag'=>'div','style'=>'width:50%;;float:left;'))
-  //       ));
-
-		// $this->addDisplayGroup(array(
-		// 	'Enregistrer'
-  //           ),'Enregistrer',array('legend' => 'Terminer'));
-        
-  //       $Enregistrer = $this->getDisplayGroup('Enregistrer');
-  //       $Enregistrer->setDecorators(array(
-        
-  //                   'FormElements',
-  //                   'Fieldset',
-  //                   array('HtmlTag',array('tag'=>'div','style'=>'width:50%;;float:left;'))
-  //       ));
+		$this->addDisplayGroup(array(
+								'aeroportDepart',
+								'aeroportArrivee'), 'un', array("legend" => ""));
+		$this->addDisplayGroup(array(
+								'typeTrajet'), 'deux', array("legend" => ""));
+		$this->addDisplayGroup(array(
+								'datepickerdeb',
+								'datepickerfin'), 'trois', array("legend" => ""));
+		$this->addDisplayGroup(array(
+								'nbrPassager',
+								'typePassager'), 'quatre', array("legend" => ""));
+		$this->addDisplayGroup(array(
+								'classe'), 'cinq', array("legend" => ""));
+		$this->addDisplayGroup(array(
+								'reserver'), 'six', array("legend" => ""));
 
 	}
 }
