@@ -12,7 +12,7 @@ class FConnexion extends Zend_Form
 		$this->setAttrib('id', 'FConnexion');
 
 		// Descativer les decorateurs par defaut
-		// $this->clearDecorators();
+		$this->clearDecorators();
 
 		$decorators = array(
 		    array('ViewHelper'),
@@ -36,8 +36,9 @@ class FConnexion extends Zend_Form
 		        	->setRequired(true)
 		        	->setAttrib('required', 'required')->setAttrib('autofocus','true')
 		            ->addFilter('StripTags')
-		            ->addFilter('StringTrim');
-		            // ->setDecorators($decorators);
+		            ->addFilter('StringTrim')
+		            ->addValidator('notEmpty')
+		            ->setDecorators($decorators);
 
 
 		$ePass = new Zend_Form_Element_Password('password_utilisateur');
@@ -45,18 +46,19 @@ class FConnexion extends Zend_Form
 					->setRequired(true)
 					->setAttrib('required', 'required')
 					->addFilter('StripTags')
-					->addFilter('StringTrim');
-					// ->setDecorators($decorators);
+					->addFilter('StringTrim')
+		            ->addValidator('notEmpty')
+					->setDecorators($decorators);
 
 		$eSubmit = new Zend_Form_Element_Submit('SBTconnexion');
 		$eSubmit 	->setAttrib('id', 'SBTconnexion')
-					->setLabel('Ok');
-					// ->setDecorators($decorators);
+					->setLabel('Ok')
+					->setDecorators($decorators);
 
 		$elements = array($eEmail, $ePass, $eSubmit);
 		$this->addElements($elements);
 
-		// $this->setDecorators($decoratorsForm);
+		$this->setDecorators($decoratorsForm);
 	}
 
 }
