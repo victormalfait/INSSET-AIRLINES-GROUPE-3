@@ -21,13 +21,22 @@ class StrategieController extends Zend_Controller_Action
             $row = $tablePays->createRow();
             $row->nom = $_POST['pays'];
             $row->save();
-            echo 5;exit;
+            echo $row->id;exit;
 
         }elseif (isset($_POST['ville'])) {
             $tableVille = new TVille;
             $row = $tableVille->createRow();
             $row->nom = $_POST['ville'];
             $row->id_pays = $_POST['pays_ville'];
+            $row->save();
+            echo $row->id;exit;
+        }
+        elseif (isset($_POST['aeroport'])) {
+            $tableAeroport = new TAeroport;
+            $row = $tableAeroport->createRow();
+            $row->nom = $_POST['aeroport'];
+            $row->id_ville = $_POST['ville_aeroport'];
+            $row->trigramme = $_POST['trigramme'];
             $row->save();
         }else{
             // creation de l'objet formulaire

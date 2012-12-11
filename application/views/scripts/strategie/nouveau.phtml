@@ -31,6 +31,7 @@
 						<?php echo $this->formNouveauVol; ?>
 						<a href="#?editvol" rel="popup_ajouter_pays" class="rouleau"><button class="ajouter_pays">Ajouter un pays</button></a>
 						<a href="#?editvol" rel="popup_ajouter_ville" class="rouleau"><button class="ajouter_ville">Ajouter une ville</button></a>
+						<a href="#?editvol" rel="popup_ajouter_aeroport" class="rouleau"><button class="ajouter_aeroport">Ajouter un aéroport</button></a>
 					</div>
 				</div>
 			</section>
@@ -62,5 +63,25 @@
 		<label>Ville :</label>
 		<input type="text" name="ville" id="ville">
 		<input type="submit" name="ajouter_ville" class="button_ville" value="Ajouter">
+	</form>
+</div>
+
+<div id="popup_ajouter_aeroport" style="display:none;">
+	<form>
+		<label>Ville :</label>
+		<select id="select_ville_aeroport">
+			<?php
+			$tableVille = new TVille;
+	        $ville = $tableVille->fetchAll();
+	        foreach ($ville as $value) {
+	        	echo '<option value="'.$value['id'].'">'.$value['nom'].'</option>';
+	        }
+			?>
+		</select>
+		<label>Aeroport :</label>
+		<input type="text" name="aeroport" id="aeroport">
+		<label>Code IATA :</label>
+		<input type="text" name="trigramme" id="trigramme">
+		<input type="submit" name="ajouter_aeroport" class="button_aeroport" value="Ajouter">
 	</form>
 </div>
