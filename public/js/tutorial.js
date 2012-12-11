@@ -9,6 +9,7 @@ $(function() {
             success: function(id_pays) {
                 $("#popup_ajouter_pays").hide(); 
                 $('#paysDepart').append('<option label="'+id_pays+'" value="'+data+'">'+pays+'</option>');
+                $('#paysArrivee').append('<option label="'+id_pays+'" value="'+data+'">'+pays+'</option>');
             }
         });
         return false;});});
@@ -26,6 +27,27 @@ $(function() {
             success: function(id_ville) {
                 $("#popup_ajouter_ville").hide();
                 $('#villeDepart').append('<option label="'+ville+'" value="'+id_ville+'">'+ville+'</option>');
+                $('#villeArrivee').append('<option label="'+ville+'" value="'+id_ville+'">'+ville+'</option>');
+            }
+        });
+        return false;});});
+
+$(function() {
+    $(".button_aeroport").click(function() {        
+        var ville = $("select#select_ville_aeroport").val();
+        var aeroport = $("input#aeroport").val();
+            if (aeroport == "") {$("input#aeroport").focus();return false;} 
+        var trigramme = $("input#trigramme").val();
+            if (trigramme == "") {$("input#trigramme").focus();return false;}    
+        var dataString = '&ville_aeroport='+ville+'&aeroport='+aeroport+'&trigramme='+trigramme;
+        $.ajax({
+            type: "POST",
+            url: "/strategie/nouveau",
+            data: dataString,
+            success: function() {
+                $("#popup_ajouter_aeroport").hide();
+                $('#aeroportDepart').append('<option label="'+ville+'" value="'+trigramme+'">'+aeroport+' - '+trigramme+'</option>');
+               $('#aeroportArrivee').append('<option label="'+ville+'" value="'+trigramme+'">'+aeroport+' - '+trigramme+'</option>');
             }
         });
         return false;});});

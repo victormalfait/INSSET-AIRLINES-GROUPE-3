@@ -18,8 +18,7 @@ class FNouveauvol extends Zend_Form
 
 
 		$tablePays = new TPays;
-        $paysRequest = $tablePays->select()->from($tablePays);
-        $pays = $tablePays->fetchAll($paysRequest);
+        $pays = $tablePays->fetchAll();
 
         $paysTab = array();
 
@@ -38,8 +37,7 @@ class FNouveauvol extends Zend_Form
 						->addValidator('notEmpty');
 
 		$tableVille = new TVille;
-        $villeRequest = $tableVille->select()->from($tableVille);
-        $ville = $tableVille->fetchAll($villeRequest);
+        $ville = $tableVille->fetchAll();
 
         $villeTab = array();
 
@@ -56,10 +54,22 @@ class FNouveauvol extends Zend_Form
 						->setMultiOptions($villeTab)
 						->addValidator('notEmpty');
 
+		$tableAeroport = new TAeroport;
+        $aeroport = $tableAeroport->fetchAll();
+        $n = 0;
+
+        $aeroportTab = array();
+
+        foreach ($aeroport as $a) {
+        	$aeroportTab[$n] = $a['nom'];
+        	$n++;
+        }
+
 		$eAeroportDepart = new Zend_Form_Element_Select('aeroportDepart');
 		$eAeroportDepart	->setLabel('Aeroport : ')
 							->setRequired(true)
 							->setAttrib('required', 'required')
+							->setMultiOptions($aeroportTab)
 							->addValidator('notEmpty');
 		
 		$eDepartH = new Zend_Form_Element_Text('departH');
@@ -95,6 +105,7 @@ class FNouveauvol extends Zend_Form
 		$eAeroportArrivee	->setLabel('Aeroport : ')
 							->setRequired(true)
 							->setAttrib('required', 'required')
+							->setMultiOptions($aeroportTab)
 							->addValidator('notEmpty');
 		
 		$eArriveeH = new Zend_Form_Element_Text('arriveeH');
