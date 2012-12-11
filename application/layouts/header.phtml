@@ -1,1 +1,13 @@
-header.phtml
+<div class="header">
+	<div id="headerInfo">
+		<h1>Insset Airline Groupe 3</h1>
+	</div>
+	<div id="headerLogin">
+		<!-- connexion -->
+		<?php echo $this->action('index','connexion'); ?>
+	</div>
+</div>
+<div id="headerMenu">
+	<!-- menu -->
+	<?php echo $this->action('afficher','menu'); ?>
+</div>
