@@ -82,38 +82,6 @@ class ConnexionController extends Zend_Controller_Action
         // on efface l'identification de l'utilisateur
 		Zend_Auth::getInstance ()->clearIdentity ();
         // on redirige l'utilisateur sur la page principale
-        $this->_helper->redirector ( 'index', 'connexion' );
+        $this->_helper->redirector ( 'index', 'index' );
 	}
-
-	// public function inscriptionAction()
-	// {
-	// 	// creation de l'objet formulaire
- //        $form = new FInscription;
-
- //        // affichage du formulaire
- //        $this->view->formInscription = $form;
-
- //        // traitement du formulaire
- //        // si le formulaire a été soumis
- //        if ($this->_request->isPost()) {
- //        	// on recupere les éléments
- //            $formData = $this->_request->getPost();
-
- //            // si le formulaire passe au controle des validateurs
- //            if ($form->isValid($formData)) {
-
- //            	//on envoi la requete
- //                $users = new TUtilisateur;
- //                $row = $users->createRow();
- //                $row->nom = $form->getValue('nom');
- //                $row->prenom = $form->getValue('prenom');
- //                $row->email = $form->getValue('email');
- //                $row->password = md5($form->getValue('password'));
- //                $result = $row->save();
-		
-	// 			// RAZ du formulaire
- //                $form->reset();
- //            }
- //        }
-	// }
 }
