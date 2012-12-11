@@ -6,10 +6,9 @@ $(function() {
             type: "POST",
             url: "/strategie/nouveau",
             data: 'pays='+pays,
-            success: function(data) {
-                console.log(data);
+            success: function(id_pays) {
                 $("#popup_ajouter_pays").hide(); 
-                $idselect.append('<option label="'+pays+'" value="data">France</option>')
+                $('#paysDepart').append('<option label="'+id_pays+'" value="'+data+'">'+pays+'</option>');
             }
         });
         return false;});});
@@ -24,8 +23,9 @@ $(function() {
             type: "POST",
             url: "/strategie/nouveau",
             data: dataString,
-            success: function() {
-                $("#popup_ajouter_ville").hide(); 
+            success: function(id_ville) {
+                $("#popup_ajouter_ville").hide();
+                $('#villeDepart').append('<option label="'+ville+'" value="'+id_ville+'">'+ville+'</option>');
             }
         });
         return false;});});
