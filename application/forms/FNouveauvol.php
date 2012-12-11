@@ -2,24 +2,27 @@
 
 class FNouveauvol extends Zend_Form
 {
-	private $idNumeroVolParam;
+	private $numeroVol;
 
-	public function init()
-	{
-	
+	public function init(){
+		$numero_vol = $this->getNumeroVol();
 	//===============Parametre du formulaire
 
 		$this->setMethod('post');
 		$this->setAction('');
 		$this->setAttrib('id', 'ConnexionNouveauVol');
-		$numero_vol = $this->getNumeroVol();
 
 	//===============Creation des element
+
+		$eNumeroVol = new Zend_Form_Element_Text('numeroVol');
+		$eNumeroVol	->setLabel('Numéro vol :')
+					->setRequired(true)
+					->setAttrib('required', 'required')
+					->addValidator('notEmpty');
 
 
 		$tablePays = new TPays;
         $pays = $tablePays->fetchAll();
-
         $paysTab = array();
 
         foreach ($pays as $p) {
@@ -31,14 +34,11 @@ class FNouveauvol extends Zend_Form
 		$ePaysDepart	->setLabel('Pays : ')
 						->setRequired(true)
 						->setAttrib('required', 'required')
-						// ->addMultiOptions(Zend_Locale::getCountryTranslationList(Zend_Registry::get('Zend_Locale')))
-						//->addMultiOptions('monchoix', '1')
 						->setMultiOptions($paysTab)
 						->addValidator('notEmpty');
 
 		$tableVille = new TVille;
         $ville = $tableVille->fetchAll();
-
         $villeTab = array();
 
         foreach ($ville as $v) {
@@ -49,15 +49,12 @@ class FNouveauvol extends Zend_Form
 		$eVilleDepart	->setLabel('Ville : ')
 						->setRequired(true)
 						->setAttrib('required', 'required')
-						// ->addMultiOptions(Zend_Locale::getCountryTranslationList(Zend_Registry::get('Zend_Locale')))
-						//->addMultiOptions('monchoix', '1')
 						->setMultiOptions($villeTab)
 						->addValidator('notEmpty');
 
 		$tableAeroport = new TAeroport;
         $aeroport = $tableAeroport->fetchAll();
         $n = 0;
-
         $aeroportTab = array();
 
         foreach ($aeroport as $a) {
@@ -72,16 +69,18 @@ class FNouveauvol extends Zend_Form
 							->setMultiOptions($aeroportTab)
 							->addValidator('notEmpty');
 		
-		$eDepartH = new Zend_Form_Element_Text('departH');
+		$eDepartH = new Zend_Form_Element_Text('timepickerdeb');
 		$eDepartH	->setLabel('Heure :')
 					->setRequired(true)
 					->setAttrib('required', 'required')
+					->setAttrib('class','timepickerdeb'.$numero_vol)
 					->addValidator('notEmpty');
 
 		$eDepartM = new Zend_Form_Element_Text('datepickerdeb');
 		$eDepartM	->setLabel('Date :')
 					->setRequired(true)
 					->setAttrib('required', 'required')
+					->setAttrib('class','datepickerdeb'.$numero_vol)
 					->addValidator('notEmpty');
 
 		//Arrivee
@@ -96,8 +95,6 @@ class FNouveauvol extends Zend_Form
 		$eVilleArrive	->setLabel('Ville : ')
 						->setRequired(true)
 						->setAttrib('required', 'required')
-						// ->addMultiOptions(Zend_Locale::getCountryTranslationList(Zend_Registry::get('Zend_Locale')))
-						//->addMultiOptions('monchoix', '1')
 						->setMultiOptions($villeTab)
 						->addValidator('notEmpty');
 
@@ -108,16 +105,18 @@ class FNouveauvol extends Zend_Form
 							->setMultiOptions($aeroportTab)
 							->addValidator('notEmpty');
 		
-		$eArriveeH = new Zend_Form_Element_Text('arriveeH');
+		$eArriveeH = new Zend_Form_Element_Text('timepickerfin');
 		$eArriveeH	->setLabel('Heure :')
 					->setRequired(true)
 					->setAttrib('required', 'required')
+					->setAttrib('class','timepickerfin'.$numero_vol)
 					->addValidator('notEmpty');
 
 		$eArriveeM = new Zend_Form_Element_Text('datepickerfin');
 		$eArriveeM	->setLabel('Date :')
 					->setRequired(true)
 					->setAttrib('required', 'required')
+					->setAttrib('class','datepickerfin'.$numero_vol)
 					->addValidator('notEmpty');
 
 		// Périodicité
@@ -132,35 +131,45 @@ class FNouveauvol extends Zend_Form
 		$eSubmit = new Zend_Form_Element_Submit('Enregistrer');
 
 		// Ajout des éléments au formulaire
-		$elements = array ( $ePaysDepart, $eVilleDepart,$eAeroportDepart, $eDepartH, $eDepartM, $ePaysArrivee, $eVilleArrive, $eAeroportArrivee, $eArriveeH, $eArriveeM, $ePeriodicite, $eSubmit );
+		$elements = array ( $eNumeroVol, $ePaysDepart, $eVilleDepart,$eAeroportDepart, $eDepartH, $eDepartM, $ePaysArrivee, $eVilleArrive, $eAeroportArrivee, $eArriveeH, $eArriveeM, $ePeriodicite, $eSubmit );
 		$this->addElements ( $elements );
+	}
+
+	public function setNumeroVol($id){
+		$this->numeroVol = $id;
+	}
+
+	public function getNumeroVol(){
+		echo $this->numeroVol;
+		return $this->numeroVol;
+		
+	}
+
+}
 
 		 // si on a une valeur ...
-        // if (isset ( $numero_vol ) && $numero_vol != "") {
+   //      if (isset ( $numero_vol ) && $numero_vol != "") {
         	
 
-        //     // ... on charde le model de base de donnée Client,
-        //     $tableDestination = new TDestination ( );
-        //     // on envoi la requete pour recupere les informations de l'utilisateur
-        //     $destination = $tableDestination  ->find($numero_vol)
-        //                           ->current();
-        //     // si on a un retour
-        //     if ($destination != null) {
-        //         // on peuple le formulaire avec les information demandé
-        //         $destination = array(
-        //         	'numero_vol' => $destination->numero_vol,
-        //         	'tri_aero_dep'
-        //         	'tri_aero_arr'
-        //         	'heure_dep'
-        //         	'heure_arr'
-        //         	'periodicite'
-        //         	'date_dep'
-        //         	'date_arr'
-        //         	);
+   //          // ... on charde le model de base de donnée Client,
+   //          $tableDestination = new TDestination ( );
+   //          // on envoi la requete pour recupere les informations de l'utilisateur
+   //          $destination = $tableDestination  ->find($numero_vol)
+   //                                ->current();
+   //          // si on a un retour
+   //          if ($destination != null) {
+   //              // on peuple le formulaire avec les information demandé
+   //              $destination = array(
+   //              	'numeroVol' => $destination->numero_vol,
+   //              	'arriveeH'
+   //              	'datepickerfin'
+   //              	'datepickerdeb'
+   //              	'departH'
+   //              	);
 
-        //         $this->populate ( $destination );
+   //              $this->populate ( $destination );
 
-        //     }
+   //          }
            
         //     // on change le label du bouton
         //     $eSubmit->setLabel ( 'Modifier' );
@@ -219,16 +228,3 @@ class FNouveauvol extends Zend_Form
   //                   'Fieldset',
   //                   array('HtmlTag',array('tag'=>'div','style'=>'width:50%;;float:left;'))
   //       ));
-
-	}
-
-
-	public function setNumeroVol($id){
-		$this->idNumeroVolParam = $id;
-	}
-
-	public function getNumeroVol(){
-		return $this->idNumeroVolParam;
-	}
-
-}

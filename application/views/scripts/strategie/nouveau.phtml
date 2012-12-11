@@ -1,19 +1,27 @@
 <script type="text/javascript" src="js/tutorial.js"></script>
-<script>
+<script type="text/javascript" src="js/Jquery/jquery-ui-timepicker-addon.js"></script>
+<link rel="stylesheet" type="text/css" href="css/jquery-ui-timepicker-addon.css">
+<?php
+echo '<script>
     $(function() {
-        $( "#datepickerdeb" ).datepicker({dateFormat :'dd-mm-yy', minDate: 0});
-        $("#datepickerdeb").change(function(){
-            var d = $("#datepickerdeb").datepicker('getDate');
+        $( ".datepickerdeb'.$this->numero_vol.'" ).datepicker({dateFormat :"dd-mm-yy", minDate: 0});
+        $(".datepickerdeb'.$this->numero_vol.'").change(function(){
+            var d = $(".datepickerdeb'.$this->numero_vol.'").datepicker("getDate");
         
-            var n = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1);
+            var n = new Date(d.getFullYear(), d.getMonth(), d.getDate());
      
-            $("#datepickerfin").datepicker({dateFormat :'dd-mm-yy', minDate: n});
+            $(".datepickerfin'.$this->numero_vol.'").datepicker({dateFormat :"dd-mm-yy", minDate: n});
         });
     });
-</script>
-<div class="droite min-width">
+</script>';
+echo '<script>
+	$(".timepickerdeb'.$this->numero_vol.'").timepicker();
+	$(".timepickerfin'.$this->numero_vol.'").timepicker();
+</script>';
+?>
+<div class="droite min-width close">
 	<div class="droitefils">
-		<div id="popup_editvol" style="display:none">
+		<div id="popup_editvol_<?php echo $this->numero_vol;?>" style="display:none">
 			<header class="strategie">
 				<div class="strategie1 strat-pos"></div>
 				<div class="strategie2 strat-pos">

@@ -42,18 +42,13 @@ class StrategieController extends Zend_Controller_Action
             // creation de l'objet formulaire
             $form = new FNouveauvol;
             $numero_vol = $this->_getparam('numero_vol');
-
-
+            $this->view->numero_vol = $numero_vol;
 
             // affichage du formulaire
             $this->view->formNouveauVol = $form;
 
             //On envoie les valeurs d'ID dans le formulaire
             $form->setNumeroVol($numero_vol);
-
-
-
-           
 
             // traitement du formulaire
             // si le formulaire a été soumis
@@ -66,7 +61,13 @@ class StrategieController extends Zend_Controller_Action
 
                     //on envoi la requete
                     $destination = new TDestination;
-                    $row = $destination->createRow();
+
+                    if(isset($numero_vol) && $numero_vol!=""){
+                        $row = $destination->find($numero_vol)->current();  
+                    }else{
+                        $row = $destination->createRow();
+
+                    }
                     $row->tri_aero_dep = $form->getValue('aeroportDepart');
                     $row->heure_dep = $form->getValue('departH') . 'h' . $form->getValue('departM');
                     $row->tri_aero_arr = $form->getValue('aeroportArrivee');
