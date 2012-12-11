@@ -53,7 +53,7 @@ class FConnexion extends Zend_Form
 					->setLabel('Ok')
 					->setDecorators($decorators);
 
-		$elements = array($eEmail,$ePass, $eSubmit);
+		$elements = array($eEmail, $ePass, $eSubmit);
 		$this->addElements($elements);
 
 		$this->setDecorators($decoratorsForm);
