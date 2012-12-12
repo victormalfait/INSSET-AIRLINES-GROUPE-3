@@ -5,12 +5,11 @@ class FNouveauvol extends Zend_Form
 	private $numeroVol;
 
 	public function init(){
-		$numero_vol = $this->getNumeroVol();
 	//===============Parametre du formulaire
 
 		$this->setMethod('post');
 		$this->setAction('');
-		$this->setAttrib('id', 'ConnexionNouveauVol');
+		$this->setAttrib('id', 'FNouveauVol');
 
 	//===============Creation des element
 
@@ -133,98 +132,52 @@ class FNouveauvol extends Zend_Form
 		// Ajout des éléments au formulaire
 		$elements = array ( $eNumeroVol, $ePaysDepart, $eVilleDepart,$eAeroportDepart, $eDepartH, $eDepartM, $ePaysArrivee, $eVilleArrive, $eAeroportArrivee, $eArriveeH, $eArriveeM, $ePeriodicite, $eSubmit );
 		$this->addElements ( $elements );
+
+
+/*===========================PRÉ REMPLISSAGE DU FORMULAIRE==============================*/
+		// on recupere la valeur de l'id utilisateur
+		$numeroVol = $this->getNumeroVol();
+
+		// si on a une valeur ...
+		if (isset ( $numeroVol ) && $numeroVol != "") {
+
+			// ... on charde le model de base de donnée Client,
+			$tableDestination = new TDestination ( );
+			// on envoi la requete pour recupere les informations de l'utilisateur
+            $destination = $tableDestination  ->find($numeroVol)
+                                    ->current();
+
+			// si on a un retour
+			if ($destination != null) {
+                // on peuple le formulaire avec les information demandé
+                $destination = array(
+                	'numeroVol' => $destination->numero_vol,
+                	'arriveeH'
+                	'datepickerfin'
+                	'datepickerdeb'
+                	'departH'
+                	);
+
+                $this->populate ( $destination );
+			}
+			
+			// on change le label du bouton
+			$eSubmit->setLabel ( 'Modifier' );
+		}
 	}
 
-	public function setNumeroVol($id){
-		$this->numeroVol = $id;
+
+	/**
+	 * @param $numeroVol the $numeroVol to set
+	 */
+	public function setNumeroVol($numeroVol) {
+		$this->numeroVol = $numeroVol;
 	}
 
-	public function getNumeroVol(){
-		echo $this->numeroVol;
+	/**
+	 * @return the $numeroVol
+	 */
+	public function getNumeroVol() {
 		return $this->numeroVol;
-		
 	}
-
 }
-
-		 // si on a une valeur ...
-   //      if (isset ( $numero_vol ) && $numero_vol != "") {
-        	
-
-   //          // ... on charde le model de base de donnée Client,
-   //          $tableDestination = new TDestination ( );
-   //          // on envoi la requete pour recupere les informations de l'utilisateur
-   //          $destination = $tableDestination  ->find($numero_vol)
-   //                                ->current();
-   //          // si on a un retour
-   //          if ($destination != null) {
-   //              // on peuple le formulaire avec les information demandé
-   //              $destination = array(
-   //              	'numeroVol' => $destination->numero_vol,
-   //              	'arriveeH'
-   //              	'datepickerfin'
-   //              	'datepickerdeb'
-   //              	'departH'
-   //              	);
-
-   //              $this->populate ( $destination );
-
-   //          }
-           
-        //     // on change le label du bouton
-        //     $eSubmit->setLabel ( 'Modifier' );
-        // }
-
-		// $this->addDisplayGroup(array(
-		// 	'ePaysDepart',
-		// 	'eAeroportDepart',
-		// 	'eDepartH',
-		// 	'eDepartM'
-  //           ),'Depart',array('legend' => 'Départ'));
-        
-        // $Depart = $this->getDisplayGroup('Depart');
-        // $Depart->setDecorators(array(
-        
-        //             'FormElements',
-        //             'Fieldset',
-        //             array('HtmlTag',array('tag'=>'div','style'=>'width:50%;float:left;'))
-        // ));
-
-  //       $this->addDisplayGroup(array(
-		// 	'ePaysArrivee',
-		// 	'eAeroportArrivee',
-		// 	'eArriveeH',
-		// 	'eArriveeM'
-  //           ),'Arrivee',array('legend' => 'Arrivée'));
-        
-  //       $Arrivee = $this->getDisplayGroup('Arrivee');
-  //       $Arrivee->setDecorators(array(
-        
-  //                   'FormElements',
-  //                   'Fieldset',
-  //                   array('HtmlTag',array('tag'=>'div','style'=>'width:50%;;float:left;'))
-  //       ));
-
-  //       $this->addDisplayGroup(array(
-		// 	'periodicite'
-  //           ),'periodicite',array('legend' => 'Périodicité'));
-        
-  //       $periodicite = $this->getDisplayGroup('periodicite');
-  //       $periodicite->setDecorators(array(
-        
-  //                   'FormElements',
-  //                   'Fieldset',
-  //                   array('HtmlTag',array('tag'=>'div','style'=>'width:50%;;float:left;'))
-  //       ));
-
-		// $this->addDisplayGroup(array(
-		// 	'Enregistrer'
-  //           ),'Enregistrer',array('legend' => 'Terminer'));
-        
-  //       $Enregistrer = $this->getDisplayGroup('Enregistrer');
-  //       $Enregistrer->setDecorators(array(
-        
-  //                   'FormElements',
-  //                   'Fieldset',
-  //                   array('HtmlTag',array('tag'=>'div','style'=>'width:50%;;float:left;'))
-  //       ));
