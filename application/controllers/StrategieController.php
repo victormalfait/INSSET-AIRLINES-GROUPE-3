@@ -48,7 +48,7 @@ class StrategieController extends Zend_Controller_Action
             $this->view->formNouveauVol = $form;
 
             //On envoie les valeurs d'ID dans le formulaire
-            $form->setNumeroVol($numero_vol);
+            $form->setnumeroVol($numero_vol);
 
             // traitement du formulaire
             // si le formulaire a été soumis
@@ -64,17 +64,41 @@ class StrategieController extends Zend_Controller_Action
 
                     if(isset($numero_vol) && $numero_vol!=""){
                         $row = $destination->find($numero_vol)->current();  
+                        $row->numero_vol = $form->getValue('numeroVol');
                     }else{
                         $row = $destination->createRow();
-
+                        $nbr_enr = count($destination->fetchAll());
+                        $row->numero_vol = 'AI'.$nbr_enr;
                     }
-                    $row->tri_aero_dep = $form->getValue('aeroportDepart');
-                    $row->heure_dep = $form->getValue('departH') . 'h' . $form->getValue('departM');
-                    $row->tri_aero_arr = $form->getValue('aeroportArrivee');
-                    $row->heure_arr = $form->getValue('arriveeH') . 'h' . $form->getValue('arriveeM');
-                    $row->periodicite = $form->getValue('periodicite');
-                    $row->date_dep = $form->getValue('dateDep');
 
+                    $heure_dep = $_POST['timepickerdeb'.$numero_vol];
+                    $heure_arr = $_POST['timepickerfin'.$numero_vol];
+
+                    //On explose le format envoyé par les datepicker
+                    list($heureD, $minuteD) = explode(":", $heure_dep);
+                    list($heureF, $minuteF) = explode(":", $heure_arr);
+
+                    if($form->getValue('periodicite')=='Vol unique'){
+                        $date_debut = $_POST['datepickerdeb'.$numero_vol];
+                        $date_fin = $_POST['datepickerfin'.$numero_vol];
+                        list($jourD, $moisD, $anneeD) = explode("-", $date_debut);
+                        list($jourF, $moisF, $anneeF) = explode("-", $date_fin);           
+                    }else{
+                        $jourD = 0;$jourF = 0;
+                        $moisD = 0;$moisF = 0;
+                        $anneeD = 0;$anneeF = 0;
+                    }
+                    $date_depart = mktime($heureD, $minuteD, 0,  $moisD, $jourD, $anneeD);
+                    $date_fin = mktime($heureF, $minuteF, 0, $moisF, $jourF, $anneeF); 
+
+                    $row->tri_aero_dep = $form->getValue('aeroportDepart');
+                    $row->tri_aero_arr = $form->getValue('aeroportArrivee');
+                    $row->heure_dep = $date_depart;
+                    $row->heure_arr = $date_arrivee;
+                    $row->date_dep = $date_depart;
+                    $row->date_arr = $date_arrivee;
+                    $row->periodicite = $form->getValue('periodicite');
+                    
                     //sauvegarde de la requete
                     $result = $row->save();
             
