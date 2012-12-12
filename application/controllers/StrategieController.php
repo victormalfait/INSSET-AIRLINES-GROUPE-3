@@ -50,6 +50,8 @@ class StrategieController extends Zend_Controller_Action
             //On envoie les valeurs d'ID dans le formulaire
             $form->setNumeroVol($numero_vol);
 
+            $form->init();
+
             // traitement du formulaire
             // si le formulaire a été soumis
             if ($this->_request->isPost()) {
