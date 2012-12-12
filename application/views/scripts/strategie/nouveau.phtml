@@ -1,95 +1,30 @@
-<script type="text/javascript" src="js/tutorial.js"></script>
-<script type="text/javascript" src="js/Jquery/jquery-ui-timepicker-addon.js"></script>
-<link rel="stylesheet" type="text/css" href="css/jquery-ui-timepicker-addon.css">
 <?php
-echo '<script>
-    $(function() {
-        $( ".datepickerdeb'.$this->numero_vol.'" ).datepicker({dateFormat :"dd-mm-yy", minDate: 0});
-        $(".datepickerdeb'.$this->numero_vol.'").change(function(){
-            var d = $(".datepickerdeb'.$this->numero_vol.'").datepicker("getDate");
-        
-            var n = new Date(d.getFullYear(), d.getMonth(), d.getDate());
-     
-            $(".datepickerfin'.$this->numero_vol.'").datepicker({dateFormat :"dd-mm-yy", minDate: n});
-        });
-    });
-</script>';
-echo '<script>
-	$(".timepickerdeb'.$this->numero_vol.'").timepicker();
-	$(".timepickerfin'.$this->numero_vol.'").timepicker();
-</script>';
+	echo '<script>
+	    $(function() {
+	        $( ".datepickerdeb'.$this->numero_vol.'" ).datepicker({dateFormat :"dd-mm-yy", minDate: 0});
+	        $(".datepickerdeb'.$this->numero_vol.'").change(function(){
+	            var d = $(".datepickerdeb'.$this->numero_vol.'").datepicker("getDate");
+	        
+	            var n = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+	     
+	            $(".datepickerfin'.$this->numero_vol.'").datepicker({dateFormat :"dd-mm-yy", minDate: n});
+	        });
+	    });
+	</script>';
+	echo '<script>
+		$(".timepickerdeb'.$this->numero_vol.'").timepicker();
+		$(".timepickerfin'.$this->numero_vol.'").timepicker();
+	</script>';
 ?>
-<div class="droite min-width close">
-	<div class="droitefils">
-		<div id="popup_editvol_<?php echo $this->numero_vol;?>" style="display:none">
-			<header class="strategie">
-				<div class="strategie1 strat-pos"></div>
-				<div class="strategie2 strat-pos">
-					<div class="strategiefils">
-						<div class="titre">
-							<span><?php echo $this->translate('Création d\'un Vol')?></span>
-						</div>
-					</div>
-				</div>
-			</header>
-			<section class="newVol">
-				<div class="newVol1 NV-pos"></div>
-				<div class="newVol2 NV-pos">
-					<div class="newVolfils">
-						<?php echo $this->formNouveauVol; ?>
-						<a href="#?editvol" rel="popup_ajouter_pays" class="rouleau"><button class="ajouter_pays">Ajouter un pays</button></a>
-						<a href="#?editvol" rel="popup_ajouter_ville" class="rouleau"><button class="ajouter_ville">Ajouter une ville</button></a>
-						<a href="#?editvol" rel="popup_ajouter_aeroport" class="rouleau"><button class="ajouter_aeroport">Ajouter un aéroport</button></a>
-					</div>
-				</div>
-			</section>
-		</div>
-	</div>
-</div>
-
-<div id="popup_ajouter_pays" style="display:none;">
-	<form>
-		<label>Pays :</label>
-		<input type="text" name="pays" id="pays">
-		<input type="submit" name="ajouter_pays" class="button_pays" value="Ajouter">
-	</form>
-</div>
-
-<div id="popup_ajouter_ville" style="display:none;">
-	<form>
-		<label>Pays :</label>
-		<select id="selectpays">
-			<?php
-			$tablePays = new TPays;
-	        $paysRequest = $tablePays->select()->from($tablePays);
-	        $pays = $tablePays->fetchAll($paysRequest);
-	        foreach ($pays as $value) {
-	        	echo '<option value="'.$value['id'].'">'.$value['nom'].'</option>';
-	        }
-			?>
-		</select>
-		<label>Ville :</label>
-		<input type="text" name="ville" id="ville">
-		<input type="submit" name="ajouter_ville" class="button_ville" value="Ajouter">
-	</form>
-</div>
-
-<div id="popup_ajouter_aeroport" style="display:none;">
-	<form>
-		<label>Ville :</label>
-		<select id="select_ville_aeroport">
-			<?php
-			$tableVille = new TVille;
-	        $ville = $tableVille->fetchAll();
-	        foreach ($ville as $value) {
-	        	echo '<option value="'.$value['id'].'">'.$value['nom'].'</option>';
-	        }
-			?>
-		</select>
-		<label>Aeroport :</label>
-		<input type="text" name="aeroport" id="aeroport">
-		<label>Code IATA :</label>
-		<input type="text" name="trigramme" id="trigramme">
-		<input type="submit" name="ajouter_aeroport" class="button_aeroport" value="Ajouter">
-	</form>
+<!-- popup nouveau vol -->
+<div id="popup_editVol_<?php echo $this->numero_vol;?>" class="popup_block rouleau-fenetre">
+	<header class="rouleau-fenetre-titre">
+		<span><?php echo $this->translate('Création d\'un Vol')?></span>
+	</header>
+	<section class="rouleau-fenetre-section">
+				<a href="#?editvol" rel="popup_ajouterPays" class="poplight"><button class="ajouter_pays">Ajouter un pays</button></a>
+				<a href="#?editvol" rel="popup_ajouterVille" class="poplight"><button class="ajouter_ville">Ajouter une ville</button></a>
+				<a href="#?editvol" rel="popup_ajouterAeroport" class="poplight"><button class="ajouter_aeroport">Ajouter un aéroport</button></a>
+				<?php echo $this->formNouveauVol; ?>
+	</section>
 </div>

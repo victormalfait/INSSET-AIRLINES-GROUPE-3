@@ -4,38 +4,42 @@
 *                               *
 ********************************/
 
+/* ========= GENERAL STYLES ========== */
+    html, body{ width: 100%; height: 100%;}
 
-html, body{ width: 100%; height: 100%;}
+    a{text-decoration: none;}
 
-a{text-decoration: none;}
+    body
+    {
+        font-family:arial,sans-serif;
+    }
 
-body
-{
-	font-family:arial,sans-serif;
-}
+    .testr{ border: 1px solid red;}
+    .testb{ border: 1px solid blue;}
+    .testg{ border: 1px solid green;}
+    .testy{ border: 1px solid yellow;}
+    
+    .bgRedBtn { background: url(/img/bgRedBtn.png); border: none; height: 30px; padding: 0 30px; color: #fff; float: right;}
+/* ========= GENERAL STYLES END HERE========== */
 
-.testr{ border: 1px solid red;}
-.testb{ border: 1px solid blue;}
-.testg{ border: 1px solid green;}
-.testy{ border: 1px solid yellow;}
 
 /* ========= HEADER STYLES ========== */
     #header {
-    	position: relative;
-    	/*height: 100px;*/
-    	box-shadow: 0px 0px 20px 7px #B3B3B3;
+        position: relative;
+        /*height: 100px;*/
+        box-shadow: 0px 0px 20px 7px #B3B3B3;
     }
-    	.header { width: 980px; margin: 0 auto;}
-    	#headerInfo { float: left; }
-    	#headerInfo h1{ font-size: 2em; margin: 10px; color: #002454; text-transform: uppercase; font-weight: bold;}
-    	#headerLogin { float: right;}
-    	#headerMenu { clear: both;}
+        .header { width: 980px; margin: 0 auto;}
+        #headerInfo { float: left; }
+        #headerInfo h1{ font-size: 2em; margin: 10px; color: #002454; text-transform: uppercase; font-weight: bold;}
+        #headerLogin { float: right;}
+        #headerMenu { clear: both;}
 /* ========= HEADER STYLES END HERE========== */
 
 
 /* ========= CONTENT STYLES ========== */
     #content_wrap { position: relative;}
-    	#content { min-height: 450px; width: 980px; margin: 0 auto; }
+        #content { min-height: 450px; width: 980px; margin: 0 auto; }
 /* ========= CONTENT STYLES END HERE========== */
     
 
@@ -45,17 +49,17 @@ body
     #footer_info { width: 980px; margin: 20px auto; }
         #footer_copyright { border-top: 4px solid #E9EAEC; padding: 9px 0 0 0;}
         #footer_copyright p { margin: 7px auto 14px; color: #595959; font-size: 11px; }
-/* ========= FOOTER STYLES ENDS HERE =========  */
+/* ========= FOOTER STYLES END HERE =========  */
 
 
 /* ========= MENU STYLES =========  */
-	#menuAdmin { width: 1144px;}
-	#menuGuest { width: 306px;}
+    #menuAdmin { width: 1144px;}
+    #menuGuest { width: 306px;}
     #menuAdmin, #menuGuest {margin: 0 auto;}
     #menuAdmin li, #menuGuest li {display: inline-block; padding: 6px 20px;}
     #menuAdmin ul span:before, #menuGuest ul span:before {content: "|"; color: #D6D6D6; font-weight: normal;}
     #menuAdmin a, #menuGuest a {color: #002454; font-weight: bold; font-size: .8em;}
-/* ========= MENU STYLES ENDS HERE =========  */
+/* ========= MENU STYLES END HERE =========  */
 
 
 /* ========= LOGIN STYLES =========  */
@@ -69,12 +73,12 @@ body
         #connexion input[type='password'] {width: 60px;}
         #connexion input[type='submit'] {background: none; border: none; width: 40px; height: 20px; text-transform: uppercase; box-shadow: none;}
         #connexion .optional {display: none;}
-/* ========= LOGIN STYLES ENDS HERE =========  */
+/* ========= LOGIN STYLES END HERE =========  */
 
 
 /* ========= ACCUEIL STYLES =========  */
     #accueil { overflow: auto; background: url(/img/accueil.jpg) center no-repeat; height: 340px;}
-/* ========= ACCUEIL STYLES ENDS HERE =========  */
+/* ========= ACCUEIL STYLES END HERE =========  */
 
 
 /* ========= RESERVATION STYLES =========  */
@@ -84,9 +88,8 @@ body
         .reservation { position: absolute; left: 210px; background-color: #F7F8FC; opacity: .9; border: 2px solid #AFAFAF; width: 700px; box-shadow: 2px 2px 10px 2px #000;}
         .reservation li { display: inline-block; color: #002454; font-weight: bold; font-size: .8em; }
         .reservation ul { margin: 0 0 0 60px; }
-        .bgRedBtn { background: url(/img/bgRedBtn.png); border: none; height: 30px; padding: 0 30px; color: #fff; float: right;}
+/* ========= RESERVATION STYLES END HERE =========  */
 
-/* ========= RESERVATION STYLES ENDS HERE =========  */
-
-
-
+/* ========= STRATEGIE STYLES =========  */
+    #strategie { margin-top: 20px;}
+/* ========= STRATEGIE STYLES END HERE =========  */

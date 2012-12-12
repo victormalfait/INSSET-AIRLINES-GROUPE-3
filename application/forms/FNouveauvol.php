@@ -6,67 +6,84 @@ class FNouveauvol extends Zend_Form
 
 	public function init(){
 	//===============Parametre du formulaire
-
+		$this->setName('nouveauVol');
 		$this->setMethod('post');
 		$this->setAction('');
-		$this->setAttrib('id', 'FNouveauVol');
+		$this->setAttrib('id', 'FNouveauvol');
 
-	//===============Creation des element
-
+	//=============== Creation des element
 		$eNumeroVol = new Zend_Form_Element_Text('numeroVol');
 		$eNumeroVol	->setLabel('Numéro vol :')
 					->setRequired(true)
 					->setAttrib('required', 'required')
+					->addFilter('StripTags')
+		            ->addFilter('StringTrim')
 					->addValidator('notEmpty');
+		// depart
+		//////////// recuperation des pays pour liste //////////////
+			// on charge le model
+			$tablePays = new TPays;
+			// on recupere tout les pays
+	        $pays = $tablePays->fetchAll();
+	        // on instancie le resulta en tableau de pays
+	        $paysTab = array();
 
-
-		$tablePays = new TPays;
-        $pays = $tablePays->fetchAll();
-        $paysTab = array();
-
-        foreach ($pays as $p) {
-        	$paysTab[$p['id']] = $p['nom'];
-        }
-
-		//Depart
-		$ePaysDepart = new Zend_Form_Element_Select('paysDepart');
-		$ePaysDepart	->setLabel('Pays : ')
-						->setRequired(true)
-						->setAttrib('required', 'required')
-						->setMultiOptions($paysTab)
-						->addValidator('notEmpty');
-
-		$tableVille = new TVille;
-        $ville = $tableVille->fetchAll();
-        $villeTab = array();
-
-        foreach ($ville as $v) {
-        	$villeTab[$v['id']] = $v['nom'];
-        }
-
-		$eVilleDepart = new Zend_Form_Element_Select('villeDepart');
-		$eVilleDepart	->setLabel('Ville : ')
-						->setRequired(true)
-						->setAttrib('required', 'required')
-						->setMultiOptions($villeTab)
-						->addValidator('notEmpty');
-
-		$tableAeroport = new TAeroport;
-        $aeroport = $tableAeroport->fetchAll();
-        $n = 0;
-        $aeroportTab = array();
-
-        foreach ($aeroport as $a) {
-        	$aeroportTab[$n] = $a['nom'];
-        	$n++;
-        }
-
-		$eAeroportDepart = new Zend_Form_Element_Select('aeroportDepart');
-		$eAeroportDepart	->setLabel('Aeroport : ')
+	        foreach ($pays as $p) {
+	        	$paysTab[$p->id] = htmlentities($p->nom);
+	        }
+			// creation de l'élément
+			$ePaysDepart = new Zend_Form_Element_Select('paysDepart');
+			$ePaysDepart	->setLabel('Pays : ')
 							->setRequired(true)
 							->setAttrib('required', 'required')
-							->setMultiOptions($aeroportTab)
+							->setMultiOptions($paysTab)
 							->addValidator('notEmpty');
+        //////////// fin de recuperation des pays pour liste //////////////
+
+
+
+		//////////// recuperation des ville pour liste //////////////
+			// on charge le model
+			$tableVille = new TVille;
+			//on recupere toutes les villes
+	        $ville = $tableVille->fetchAll();
+	        // on instancie le resultat en tableau de ville
+	        $villeTab = array();
+
+	        foreach ($ville as $v) {
+	        	$villeTab[$v->id] = htmlentities($v->nom);
+	        }
+	        // creation de l'élément
+			$eVilleDepart = new Zend_Form_Element_Select('villeDepart');
+			$eVilleDepart	->setLabel('Ville : ')
+							->setRequired(true)
+							->setAttrib('required', 'required')
+							->setMultiOptions($villeTab)
+							->addValidator('notEmpty');
+        //////////// fin de recuperation des ville pour liste //////////////
+
+
+		//////////// recuperation des aeroports pour liste //////////////
+			// on charge le model
+			$tableAeroport = new TAeroport;
+			//on recupere tout les aeroports
+	        $aeroport = $tableAeroport->fetchAll();
+	        // on instancie le resultat en tableau d'aeroport
+	        $n = 0;
+	        $aeroportTab = array();
+
+	        foreach ($aeroport as $a) {
+	        	$aeroportTab[$n] = htmlentities($a->nom);
+	        	$n++;
+	        }
+	        // Creation de l'élément
+			$eAeroportDepart = new Zend_Form_Element_Select('aeroportDepart');
+			$eAeroportDepart	->setLabel('Aeroport : ')
+								->setRequired(true)
+								->setAttrib('required', 'required')
+								->setMultiOptions($aeroportTab)
+								->addValidator('notEmpty');
+		//////////// fin de recuperation des aeroports pour liste //////////////
 		
 		$eDepartH = new Zend_Form_Element_Text('timepickerdeb');
 		$eDepartH	->setLabel('Heure :')
@@ -120,17 +137,19 @@ class FNouveauvol extends Zend_Form
 
 		// Périodicité
 		$ePeriodicite = new Zend_Form_Element_Select('periodicite');
-		$ePeriodicite	//->setLabel('Aeroport : ')
-							->setRequired(true)
-							->setAttrib('required', 'required')
-							->setMultiOptions(array('Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'))
-							->addValidator('notEmpty');
+		$ePeriodicite	->setLabel('periodicite : ')
+						->setRequired(true)
+						->setAttrib('required', 'required')
+						->setMultiOptions(array('Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche', 'Unique'))
+						->addValidator('notEmpty');
 
 		// Terminer
 		$eSubmit = new Zend_Form_Element_Submit('Enregistrer');
+		$eSubmit 	->setLabel('Enregistrer')
+					->setAttrib('id', 'submitbutton');
 
 		// Ajout des éléments au formulaire
-		$elements = array ( $eNumeroVol, $ePaysDepart, $eVilleDepart,$eAeroportDepart, $eDepartH, $eDepartM, $ePaysArrivee, $eVilleArrive, $eAeroportArrivee, $eArriveeH, $eArriveeM, $ePeriodicite, $eSubmit );
+		$elements = array( $eNumeroVol, $ePaysDepart, $eVilleDepart,$eAeroportDepart, $eDepartH, $eDepartM, $ePaysArrivee, $eVilleArrive, $eAeroportArrivee, $eArriveeH, $eArriveeM, $ePeriodicite, $eSubmit );
 		$this->addElements ( $elements );
 
 
@@ -151,11 +170,11 @@ class FNouveauvol extends Zend_Form
 			if ($destination != null) {
                 // on peuple le formulaire avec les information demandé
                 $destination = array(
-                	'numeroVol' => $destination->numero_vol,
-                	'arriveeH'
-                	'datepickerfin'
-                	'datepickerdeb'
-                	'departH'
+                	'numeroVol' 	=> $destination->numero_vol,
+                	'arriveeH'		=> $destination->numero_vol,
+                	'datepickerfin'	=> $destination->numero_vol,
+                	'datepickerdeb'	=> $destination->numero_vol,
+                	'departH'		=> $destination->numero_vol,
                 	);
 
                 $this->populate ( $destination );

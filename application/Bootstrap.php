@@ -38,5 +38,15 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		Zend_Db_Table_Abstract::setDefaultAdapter($db);
 		Zend_Registry::set('db', $db);
 	}
+	
+	/** initialiser Zend_View */
+	protected function _initView()
+	{
+		// Chargement de Zend_View
+	    $view = new Zend_View();
+
+	    //... code de paramétrage de votre vue : titre, doctype ...
+	    $view->doctype('HTML5');
+	}
 }
 
