@@ -33,7 +33,13 @@ class FCommercial extends Zend_Form
 		);
 
 		//===============Creation des element
-		$tabVille = array('Paris','Madrid','Rome','New-York','Washington');
+		$tableVille = new TVille;
+        $ville = $tableVille->fetchAll();
+        $$tabVille = array();
+
+        foreach ($ville as $v) {
+        	$tabVille[$v['id']] = $v['nom'];
+        }
 
 		$eAeroportDepart = new Zend_Form_Element_Select('aeroportDepart');
 		$eAeroportDepart->setLabel('De')
