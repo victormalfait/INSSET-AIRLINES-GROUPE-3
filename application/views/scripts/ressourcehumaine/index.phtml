@@ -1,0 +1,42 @@
+<section id="strategie" class="testr">
+	<a href="#editVol" rel="popup_editVol_" class="poplight">
+		<button class="bgRedBtn" style="float:none;">Créer un vol</button>
+	</a>
+	<br />
+	<br />
+	<?php 
+		if (count($this->destination) > 0) {
+			?>
+				<table>
+					<thead>
+						<th>N°pilote</th>
+						<th>identité</th>
+						<th>adresse</th>
+						<th>disponibilité</th>
+						<th></th>
+						<th></th>
+					</thead>
+					<tbody>
+						<?php 
+							foreach ($this->pilotes as $pilote) {
+								?>
+									<tr>
+										<td><?php echo $pilote->id; ?></td>
+										<td><?php echo $pilote->nom . ' ' . $pilote->prenom; ?></td>
+										<td><?php echo $pilote->adresse; ?></td>
+										<td><?php echo $pilote->disponibilite; ?></td>
+										<td><a href=""><button>mofifier</button></a></td>
+										<td><a href=""><button>supprimer</button></a></td>
+									</tr>
+								<?php
+							}
+						?>
+					</tbody>
+				</table>
+			<?php
+		} 
+		else {
+			echo "Aucun pilote n'est enregistré";
+		}
+	?>
+</section>
