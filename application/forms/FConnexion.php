@@ -8,7 +8,7 @@ class FConnexion extends Zend_Form
 		//parametrer le formulaire
 		$this->setName('connexion');
 		$this->setMethod('post');
-		$this->setAction('index/index');
+		$this->setAction('');
 		$this->setAttrib('id', 'FConnexion');
 
 		// Descativer les decorateurs par defaut

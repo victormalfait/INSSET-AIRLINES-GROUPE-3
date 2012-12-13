@@ -63,7 +63,7 @@
 
 
 /* ========= LOGIN STYLES =========  */
-    #connexion { width: 230px; height: 85px; background-color: #EAE9E8; box-shadow: 3px 3px 5px #B3B3B3;}
+    #connexion { width: 230px;  text-align: center; height: 85px; background-color: #EAE9E8; box-shadow: 3px 3px 5px #B3B3B3;}
         #connexion h2 {color: #051039; font-weight: bold; text-align: center; padding: 6px 0;}
         #connexion ul {margin: 0 8px;}
         #connexion li { position: relative; display: inline-block; height: 40px}
@@ -72,6 +72,9 @@
         #connexion input[type='password'] {width: 60px;}
         #connexion input[type='password'] {width: 60px;}
         #connexion input[type='submit'] {background: none; border: none; width: 40px; height: 20px; text-transform: uppercase; box-shadow: none;}
+        #connexion .deco {  font-size: .8em; width: 200px; text-align: center; margin: 0 auto; position: relative; z-index: 1000;}
+        #connexion a { font-size: .6em; color: #051039; text-transform: uppercase;}
+        #connexion a:hover { text-decoration: underline; }
         #connexion .optional {display: none;}
 /* ========= LOGIN STYLES END HERE =========  */
 

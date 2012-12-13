@@ -10,8 +10,8 @@ class ConnexionController extends Zend_Controller_Action
             if ('deconnexion' != $this->getRequest ()->getActionName ()) {
                 // ... on le redirige vers la page d'accueil du site
                 // $this->_helper->redirector ( 'index', 'index' );
-                $redirector = $this->_helper->getHelper('Redirector');
-                $redirector->gotoUrl("menu/index");
+                // $redirector = $this->_helper->getHelper('Redirector');
+                // $redirector->gotoUrl("index/index");
             }
         }
         else { // sinon (l'utilisateur n'est pas connecter)
@@ -66,7 +66,7 @@ class ConnexionController extends Zend_Controller_Action
                     $storage->write ( $authAdapter->getResultRowObject ( null, 'password_utilisateur' ) );
 
                     // on redirige l'utilisateur sur la page principal de l'application
-                    $this->_helper->redirector ( 'index', 'menu' );
+                    $this->_helper->redirector ( 'index', 'index' );
                 }
                 else{ // sinon l'authentification a echoué
 
