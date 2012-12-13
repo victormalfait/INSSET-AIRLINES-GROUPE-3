@@ -50,97 +50,77 @@ class StrategieController extends Zend_Controller_Action
         // on envoi le formulaire a la vue
         $this->view->formNouveauVol = $form; 
 
-        if(isset($_POST['pays'])){
-            $tablePays = new TPays;
-            $row = $tablePays->createRow();
-            $row->nom = $_POST['pays'];
-            $row->save();
-            echo $row->id;exit;
+        // creation de l'objet formulaire
+        $form = new FNouveauvol;
 
-        }elseif (isset($_POST['ville'])) {
-            $tableVille = new TVille;
-            $row = $tableVille->createRow();
-            $row->nom = $_POST['ville'];
-            $row->id_pays = $_POST['pays_ville'];
-            $row->save();
-            echo $row->id;exit;
-        }
-        elseif (isset($_POST['aeroport'])) {
-            $tableAeroport = new TAeroport;
-            $row = $tableAeroport->createRow();
-            $row->nom = $_POST['aeroport'];
-            $row->id_ville = $_POST['ville_aeroport'];
-            $row->trigramme = $_POST['trigramme'];
-            $row->save();
-        }else{
-            // creation de l'objet formulaire
-            $form = new FNouveauvol;
-            $numero_vol = $this->_getparam('numero_vol');
-            $this->view->numero_vol = $numero_vol;
+        // on recupere le numero de vol passer en parametre
+        $numero_vol = $this->_getparam('numero_vol');
+        // on l'envoi a la vue
+        $this->view->numero_vol = $numero_vol;
 
-            // affichage du formulaire
-            $this->view->formNouveauVol = $form;
+        //On envoie les valeurs d'ID dans le formulaire
+        $form->setnumeroVol($numero_vol);
 
-            //On envoie les valeurs d'ID dans le formulaire
-            $form->setnumeroVol($numero_vol);
+        $form->init();
 
-            $form->init();
+        // envoi du formulaire a la vue
+        $this->view->formNouveauVol = $form;
 
-            // traitement du formulaire
-            // si le formulaire a été soumis
-            if ($this->_request->isPost()) {
-                // on recupere les éléments
-                $formData = $this->_request->getPost();
 
-                // si le formulaire passe au controle des validateurs
-                if ($form->isValid($formData)) {
+        // traitement du formulaire
+        // si le formulaire a été soumis
+        if ($this->_request->isPost()) {
+            // on recupere les éléments
+            $formData = $this->_request->getPost();
 
-                    //on envoi la requete
-                    $destination = new TDestination;
+            // si le formulaire passe au controle des validateurs
+            if ($form->isValid($formData)) {
 
-                    if(isset($numero_vol) && $numero_vol!=""){
-                        $row = $destination->find($numero_vol)->current();  
-                        $row->numero_vol = $form->getValue('numeroVol');
-                    }else{
-                        $row = $destination->createRow();
-                        $nbr_enr = count($destination->fetchAll());
-                        $row->numero_vol = 'AI'.($nbr_enr+1);
-                    }
+                //on envoi la requete
+                $destination = new TDestination;
 
-                    $heure_dep = $form->getValue('timepickerdeb'.$numero_vol);
-                    $heure_arr = $form->getValue('timepickerfin'.$numero_vol);
-
-                    //On explose le format envoyé par les datepicker
-                    list($heureD, $minuteD) = explode(":", $heure_dep);
-                    list($heureF, $minuteF) = explode(":", $heure_arr);
-
-                    if($form->getValue('periodicite')=='Vol unique'){
-                        $date_debut = $form->getValue('datepickerdeb'.$numero_vol);
-                        $date_fin = $form->getValue('datepickerfin'.$numero_vol);
-                        list($jourD, $moisD, $anneeD) = explode("-", $date_debut);
-                        list($jourF, $moisF, $anneeF) = explode("-", $date_fin);        
-                    }else{
-                        $jourD = 0;$jourF = 0;
-                        $moisD = 0;$moisF = 0;
-                        $anneeD = 0;$anneeF = 0;
-                    }
-                    $date_depart = mktime($heureD, $minuteD, 0,  $moisD, $jourD, $anneeD);
-                    $date_fin = mktime($heureF, $minuteF, 0, $moisF, $jourF, $anneeF);
-
-                    $row->tri_aero_dep = $form->getValue('aeroportDepart');
-                    $row->tri_aero_arr = $form->getValue('aeroportArrivee');
-                    $row->heure_dep = $date_depart;
-                    $row->heure_arr = $date_fin;
-                    $row->date_dep = $date_depart;
-                    $row->date_arr = $date_fin;
-                    $row->periodicite = $form->getValue('periodicite');
-                    
-                    //sauvegarde de la requete
-                    $result = $row->save();
-            
-                    // RAZ du formulaire
-                    $form->reset();
+                if(isset($numero_vol) && $numero_vol!=""){
+                    $row = $destination->find($numero_vol)->current();  
+                    $row->numero_vol = $form->getValue('numeroVol');
+                }else{
+                    $row = $destination->createRow();
+                    $nbr_enr = count($destination->fetchAll());
+                    $row->numero_vol = 'AI'.($nbr_enr+1);
                 }
+
+                $heure_dep = $form->getValue('timepickerdeb'.$numero_vol);
+                $heure_arr = $form->getValue('timepickerfin'.$numero_vol);
+
+                //On explose le format envoyé par les datepicker
+                list($heureD, $minuteD) = explode(":", $heure_dep);
+                list($heureF, $minuteF) = explode(":", $heure_arr);
+
+                if($form->getValue('periodicite')=='Vol unique'){
+                    $date_debut = $form->getValue('datepickerdeb'.$numero_vol);
+                    $date_fin = $form->getValue('datepickerfin'.$numero_vol);
+                    list($jourD, $moisD, $anneeD) = explode("-", $date_debut);
+                    list($jourF, $moisF, $anneeF) = explode("-", $date_fin);        
+                }else{
+                    $jourD = 0;$jourF = 0;
+                    $moisD = 0;$moisF = 0;
+                    $anneeD = 0;$anneeF = 0;
+                }
+                $date_depart = mktime($heureD, $minuteD, 0,  $moisD, $jourD, $anneeD);
+                $date_fin = mktime($heureF, $minuteF, 0, $moisF, $jourF, $anneeF);
+
+                $row->tri_aero_dep = $form->getValue('aeroportDepart');
+                $row->tri_aero_arr = $form->getValue('aeroportArrivee');
+                $row->heure_dep = $date_depart;
+                $row->heure_arr = $date_fin;
+                $row->date_dep = $date_depart;
+                $row->date_arr = $date_fin;
+                $row->periodicite = $form->getValue('periodicite');
+                
+                //sauvegarde de la requete
+                $result = $row->save();
+        
+                // RAZ du formulaire
+                $form->reset();
             }
         }
     }

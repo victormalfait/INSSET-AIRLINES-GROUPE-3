@@ -148,8 +148,28 @@ class FNouveauvol extends Zend_Form
 		$eSubmit 	->setLabel('Enregistrer')
 					->setAttrib('id', 'submitbutton');
 
+
+		$eFermer = new Zend_Form_Element_Reset('fermer');
+		$eFermer 	->setLabel('Fermer')
+					->setAttrib('id', 'fermerbutton')
+					->setAttrib('class', 'close');
+
 		// Ajout des éléments au formulaire
-		$elements = array( $eNumeroVol, $ePaysDepart, $eVilleDepart,$eAeroportDepart, $eDepartH, $eDepartM, $ePaysArrivee, $eVilleArrive, $eAeroportArrivee, $eArriveeH, $eArriveeM, $ePeriodicite, $eSubmit );
+		$elements = array(	$eNumeroVol,
+							$ePaysDepart,
+							$eVilleDepart,
+							$eAeroportDepart,
+							$eDepartH,
+							$eDepartM,
+							$ePaysArrivee,
+							$eVilleArrive,
+							$eAeroportArrivee,
+							$eArriveeH,
+							$eArriveeM,
+							$ePeriodicite,
+							$eSubmit,
+							$eFermer
+						);
 		$this->addElements ( $elements );
 
 
