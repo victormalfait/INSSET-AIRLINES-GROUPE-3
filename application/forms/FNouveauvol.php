@@ -69,12 +69,10 @@ class FNouveauvol extends Zend_Form
 			//on recupere tout les aeroports
 	        $aeroport = $tableAeroport->fetchAll();
 	        // on instancie le resultat en tableau d'aeroport
-	        $n = 0;
 	        $aeroportTab = array();
 
 	        foreach ($aeroport as $a) {
-	        	$aeroportTab[$n] = htmlentities($a->nom);
-	        	$n++;
+	        	$aeroportTab[$a['trigramme']] = htmlentities($a->nom);
 	        }
 	        // Creation de l'élément
 			$eAeroportDepart = new Zend_Form_Element_Select('aeroportDepart');
@@ -140,7 +138,7 @@ class FNouveauvol extends Zend_Form
 		$ePeriodicite	->setLabel('periodicite : ')
 						->setRequired(true)
 						->setAttrib('required', 'required')
-						->setMultiOptions(array('Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche', 'Unique'))
+						->setMultiOptions(array('Vol unique'=>'Vol unique','Lundi'=>'Lundi', 'Mardi'=>'Mardi', 'Mercredi'=>'Mercredi', 'Jeudi'=>'Jeudi', 'Vendredi'=>'Vendredi', 'Samedi'=>'Samedi', 'Dimanche'=>'Dimanche'))
 						->addValidator('notEmpty');
 
 		// Terminer
@@ -191,13 +189,27 @@ class FNouveauvol extends Zend_Form
                 // on peuple le formulaire avec les information demandé
                 $destination = array(
                 	'numeroVol' 	=> $destination->numero_vol,
-                	'arriveeH'		=> $destination->numero_vol,
-                	'datepickerfin'	=> $destination->numero_vol,
-                	'datepickerdeb'	=> $destination->numero_vol,
-                	'departH'		=> $destination->numero_vol,
+                	'timepickerfin'	=> date('H:i',$destination->heure_arr),
+                	'datepickerfin'	=> date('d-m-Y',$destination->date_arr),
+                	'datepickerdeb'	=> date('d-m-Y',$destination->date_dep),
+                	'timepickerdeb'	=> date('H:i',$destination->heure_dep)
                 	);
 
                 $this->populate ( $destination );
+                $eAeroportDepart->setValue($destination->tri_aero_dep);
+                $eAeroportArrivee->setValue($destination->tri_aero_arr);
+
+                $tableAeroport = new TAeroport ( );
+
+            	$aeroport_dep = $tableAeroport->find($destination->tri_aero_dep)->current();
+            	$aeroport_arr = $tableAeroport->find($destination->tri_aero_arr)->current();
+
+                $tableVille = new TVille ( );
+
+            	$ville_dep = $tableVille->find($aeroport_dep->id_ville)->current();
+            	$ville_arr = $tableVille->find($aeroport_arr->id_ville)->current();
+            	$eVilleDepart->setValue($aeroport_dep->id_ville);
+            	$eVilleArrive->setValue($aeroport_arr->id_ville);
 			}
 			
 			// on change le label du bouton
