@@ -8,11 +8,11 @@ class FNouveauvol extends Zend_Form
 	//===============Parametre du formulaire
 		// on recupere la valeur de l'id utilisateur
 		$numeroVol = $this->getNumeroVol();
-		
-		$this->setName('nouveauVol');
+
+		//$this->setName('nouveauVol');
 		$this->setMethod('post');
 		$this->setAction('/strategie/nouveau/numero_vol/'.$numeroVol);
-		$this->setAttrib('id', 'FNouveauvol');
+		//$this->setAttrib('id', 'FNouveauvol');
 
 		
 
@@ -20,7 +20,7 @@ class FNouveauvol extends Zend_Form
 		$eNumeroVol = new Zend_Form_Element_Text('numeroVol');
 		$eNumeroVol	->setLabel('Numéro vol :')
 					->setRequired(true)
-					->setAttrib('required', 'required')
+					//->setAttrib('required', 'required')
 					->addFilter('StripTags')
 		            ->addFilter('StringTrim')
 					->addValidator('notEmpty');
@@ -85,8 +85,7 @@ class FNouveauvol extends Zend_Form
 								->setRequired(true)
 								->setAttrib('required', 'required')
 								->setMultiOptions($aeroportTab)
-								->addValidator('notEmpty')
-								->setValue('MRS');
+								->addValidator('notEmpty');
 		//////////// fin de recuperation des aeroports pour liste //////////////
 		
 		$eDepartH = new Zend_Form_Element_Text('timepickerdeb');

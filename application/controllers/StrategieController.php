@@ -42,22 +42,23 @@ class StrategieController extends Zend_Controller_Action
         $this->view->numero_vol = $numero_vol;
 
         // creation de l'objet formulaire
-        $form = new FNouveauvol;
+        $formVol = new FNouveauvol;
 
         //On envoie les valeurs d'ID dans le formulaire
-        $form->setnumeroVol($numero_vol);
-        $form->init();
+        $formVol->setnumeroVol($numero_vol);
+        $formVol->init();
 
         // envoi du formulaire a la vue
-        $this->view->formNouveauVol = $form;
+        $this->view->formNouveauVol = $formVol;
 
         // traitement du formulaire
         // si le formulaire a été soumis
         if ($this->_request->isPost()) {
             // on recupere les éléments
             $formData = $this->_request->getPost();
+           // print_r($formData);
             // si le formulaire passe au controle des validateurs
-            if ($form->isValid($formData)) {
+            if ($formVol->isValid($formData)) {
                 echo "couc";
                 //on envoi la requete
                 $destination = new TDestination;
@@ -72,19 +73,19 @@ class StrategieController extends Zend_Controller_Action
                     //echo "test3";
                 }
 
-                $heure_dep = $form->getValue('timepickerdeb'.$numero_vol);
+                $heure_dep = $formVol->getValue('timepickerdeb'.$numero_vol);
                 //echo $_POST['periodicite'];
-                $heure_arr = $form->getValue('timepickerfin'.$numero_vol);
+                $heure_arr = $formVol->getValue('timepickerfin'.$numero_vol);
                 //echo "test5";
 
                 //On explose le format envoyé par les datepicker
                 list($heureD, $minuteD) = explode(":", $heure_dep);
                 list($heureF, $minuteF) = explode(":", $heure_arr);
-                echo $form->getValue('periodicite');
+                echo $formVol->getValue('periodicite');
 
-                if($form->getValue('periodicite')=='Vol unique'){
-                    $date_debut = $form->getValue('datepickerdeb'.$numero_vol);
-                    $date_fin = $form->getValue('datepickerfin'.$numero_vol);
+                if($formVol->getValue('periodicite')=='Vol unique'){
+                    $date_debut = $formVol->getValue('datepickerdeb'.$numero_vol);
+                    $date_fin = $formVol->getValue('datepickerfin'.$numero_vol);
                     list($jourD, $moisD, $anneeD) = explode("-", $date_debut);
                     list($jourF, $moisF, $anneeF) = explode("-", $date_fin); 
                     //echo "test4";       
@@ -97,19 +98,19 @@ class StrategieController extends Zend_Controller_Action
                 $date_depart = mktime($heureD, $minuteD, 0,  $moisD, $jourD, $anneeD);
                 $date_fin = mktime($heureF, $minuteF, 0, $moisF, $jourF, $anneeF);
 
-                $row->tri_aero_dep = $form->getValue('aeroportDepart');
-                $row->tri_aero_arr = $form->getValue('aeroportArrivee');
+                $row->tri_aero_dep = $formVol->getValue('aeroportDepart');
+                $row->tri_aero_arr = $formVol->getValue('aeroportArrivee');
                 $row->heure_dep = $date_depart;
                 $row->heure_arr = $date_fin;
                 $row->date_dep = $date_depart;
                 $row->date_arr = $date_fin;
-                $row->periodicite = $form->getValue('periodicite');
+                $row->periodicite = $formVol->getValue('periodicite');
                 
                 //sauvegarde de la requete
                 $result = $row->save();
         
                 // RAZ du formulaire
-                $form->reset();
+                $formVol->reset();
 
                 // $redirector = $this->_helper->getHelper('Redirector');
                 // $redirector->gotoUrl('strategie/index');
@@ -151,9 +152,11 @@ class StrategieController extends Zend_Controller_Action
                 $result = $row->save();
         
                 echo $row->id;
+                //echo $_POST['nouveauPays'];
              
                 // RAZ du formulaire
                 $form->reset();
+                exit;
             }
         }
     }
