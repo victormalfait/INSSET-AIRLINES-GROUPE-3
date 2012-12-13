@@ -1,7 +1,9 @@
 <?php
 	echo '<script>
 	    $(function() {
-	        $( ".datepickerdeb'.$this->numero_vol.'" ).datepicker({dateFormat :"dd-mm-yy", minDate: 0});
+	    	$(".timepickerdeb'.$this->numero_vol.'").timepicker();
+			$(".timepickerfin'.$this->numero_vol.'").timepicker();
+	        $(".datepickerdeb'.$this->numero_vol.'" ).datepicker({dateFormat :"dd-mm-yy", minDate: 0});
 	        $(".datepickerdeb'.$this->numero_vol.'").change(function(){
 	            var d = $(".datepickerdeb'.$this->numero_vol.'").datepicker("getDate");
 	        
@@ -12,8 +14,7 @@
 	    });
 	</script>';
 	echo '<script>
-		$(".timepickerdeb'.$this->numero_vol.'").timepicker();
-		$(".timepickerfin'.$this->numero_vol.'").timepicker();
+		
 	</script>';
 ?>
 <!-- popup nouveau vol -->

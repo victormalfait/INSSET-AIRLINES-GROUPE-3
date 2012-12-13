@@ -48,25 +48,8 @@ class StrategieController extends Zend_Controller_Action
         $form->init();
 
         // on envoi le formulaire a la vue
-        $this->view->formNouveauVol = $form;
+        $this->view->formNouveauVol = $form; 
 
-        //=========== traitement du formulaire
-        // si le formulaire a été soumis
-        if ($this->_request->isPost()) {
-            // on recupere les éléments
-            $formData = $this->_request->getPost();
-
-            // si le formulaire passe au controle des validateurs
-            if ($form->isValid($formData)) {
-                //on charge le model TDestination
-                $tableDestination = new TDestination;
-
-                // si on a un numero de vol
-                if(isset($numero_vol) && $numero_vol!=""){
-                    // on recupere la ligne a mettre a jour
-                    $row = $tableDestination    ->find($numero_vol)
-                                                ->current();  
-=======
         if(isset($_POST['pays'])){
             $tablePays = new TPays;
             $row = $tablePays->createRow();
@@ -121,35 +104,35 @@ class StrategieController extends Zend_Controller_Action
                     }else{
                         $row = $destination->createRow();
                         $nbr_enr = count($destination->fetchAll());
-                        $row->numero_vol = 'AI'.$nbr_enr;
+                        $row->numero_vol = 'AI'.($nbr_enr+1);
                     }
 
-                    $heure_dep = $_POST['timepickerdeb'.$numero_vol];
-                    $heure_arr = $_POST['timepickerfin'.$numero_vol];
+                    $heure_dep = $form->getValue('timepickerdeb'.$numero_vol);
+                    $heure_arr = $form->getValue('timepickerfin'.$numero_vol);
 
                     //On explose le format envoyé par les datepicker
                     list($heureD, $minuteD) = explode(":", $heure_dep);
                     list($heureF, $minuteF) = explode(":", $heure_arr);
 
                     if($form->getValue('periodicite')=='Vol unique'){
-                        $date_debut = $_POST['datepickerdeb'.$numero_vol];
-                        $date_fin = $_POST['datepickerfin'.$numero_vol];
+                        $date_debut = $form->getValue('datepickerdeb'.$numero_vol);
+                        $date_fin = $form->getValue('datepickerfin'.$numero_vol);
                         list($jourD, $moisD, $anneeD) = explode("-", $date_debut);
-                        list($jourF, $moisF, $anneeF) = explode("-", $date_fin);           
+                        list($jourF, $moisF, $anneeF) = explode("-", $date_fin);        
                     }else{
                         $jourD = 0;$jourF = 0;
                         $moisD = 0;$moisF = 0;
                         $anneeD = 0;$anneeF = 0;
                     }
                     $date_depart = mktime($heureD, $minuteD, 0,  $moisD, $jourD, $anneeD);
-                    $date_fin = mktime($heureF, $minuteF, 0, $moisF, $jourF, $anneeF); 
+                    $date_fin = mktime($heureF, $minuteF, 0, $moisF, $jourF, $anneeF);
 
                     $row->tri_aero_dep = $form->getValue('aeroportDepart');
                     $row->tri_aero_arr = $form->getValue('aeroportArrivee');
                     $row->heure_dep = $date_depart;
-                    $row->heure_arr = $date_arrivee;
+                    $row->heure_arr = $date_fin;
                     $row->date_dep = $date_depart;
-                    $row->date_arr = $date_arrivee;
+                    $row->date_arr = $date_fin;
                     $row->periodicite = $form->getValue('periodicite');
                     
                     //sauvegarde de la requete
@@ -157,26 +140,7 @@ class StrategieController extends Zend_Controller_Action
             
                     // RAZ du formulaire
                     $form->reset();
->>>>>>> e3c6af58b2e9d67f3f9749155aad9ccd6cf7b795
                 }
-                else{ // sinon (pas de numero de vol)
-                    // on creer une nouvelle ligne
-                    $row = $tableDestination->createRow();
-                }
-
-                // on envoi les données 
-                $row->tri_aero_dep  = $form->getValue('aeroportDepart');
-                $row->heure_dep     = $form->getValue('departH') . 'h' . $form->getValue('departM');
-                $row->tri_aero_arr  = $form->getValue('aeroportArrivee');
-                $row->heure_arr     = $form->getValue('arriveeH') . 'h' . $form->getValue('arriveeM');
-                $row->periodicite   = $form->getValue('periodicite');
-                $row->date_dep      = $form->getValue('dateDep');
-
-                //sauvegarde de la requete
-                $result = $row->save();
-        
-                // RAZ du formulaire
-                $form->reset();
             }
         }
     }
