@@ -34,7 +34,7 @@
 							<td><?php echo date("d-m-Y",$value['date_dep']);?></td>
 							<td><?php echo date("d-m-Y",$value['date_arr']);?></td>
 							<td><?php echo $value['periodicite'];?></td>
-							<td><a href=""><button>mofifier</button></a></td>
+							<td><a href="#editVol" rel="popup_editVol_<?php echo $value['numero_vol'];?>" class="poplight"><button>mofifier</button></a></td>
 							<td><a href=""><button>supprimer</button></a></td>
 						</tr>
 						<?php echo $this->action('nouveau','strategie', null, array('numero_vol' => $value['numero_vol'])); ?>

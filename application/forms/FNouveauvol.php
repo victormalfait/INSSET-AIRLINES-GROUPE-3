@@ -6,10 +6,15 @@ class FNouveauvol extends Zend_Form
 
 	public function init(){
 	//===============Parametre du formulaire
+		// on recupere la valeur de l'id utilisateur
+		$numeroVol = $this->getNumeroVol();
+		
 		$this->setName('nouveauVol');
 		$this->setMethod('post');
-		$this->setAction('');
+		$this->setAction('/strategie/nouveau/numero_vol/'.$numeroVol);
 		$this->setAttrib('id', 'FNouveauvol');
+
+		
 
 	//=============== Creation des element
 		$eNumeroVol = new Zend_Form_Element_Text('numeroVol');
@@ -80,21 +85,22 @@ class FNouveauvol extends Zend_Form
 								->setRequired(true)
 								->setAttrib('required', 'required')
 								->setMultiOptions($aeroportTab)
-								->addValidator('notEmpty');
+								->addValidator('notEmpty')
+								->setValue('MRS');
 		//////////// fin de recuperation des aeroports pour liste //////////////
 		
 		$eDepartH = new Zend_Form_Element_Text('timepickerdeb');
 		$eDepartH	->setLabel('Heure :')
 					->setRequired(true)
 					->setAttrib('required', 'required')
-					->setAttrib('class','timepickerdeb'.$numero_vol)
+					->setAttrib('class','timepickerdeb'.$numeroVol)
 					->addValidator('notEmpty');
 
 		$eDepartM = new Zend_Form_Element_Text('datepickerdeb');
 		$eDepartM	->setLabel('Date :')
 					->setRequired(true)
 					->setAttrib('required', 'required')
-					->setAttrib('class','datepickerdeb'.$numero_vol)
+					->setAttrib('class','datepickerdeb'.$numeroVol)
 					->addValidator('notEmpty');
 
 		//Arrivee
@@ -123,14 +129,14 @@ class FNouveauvol extends Zend_Form
 		$eArriveeH	->setLabel('Heure :')
 					->setRequired(true)
 					->setAttrib('required', 'required')
-					->setAttrib('class','timepickerfin'.$numero_vol)
+					->setAttrib('class','timepickerfin'.$numeroVol)
 					->addValidator('notEmpty');
 
 		$eArriveeM = new Zend_Form_Element_Text('datepickerfin');
 		$eArriveeM	->setLabel('Date :')
 					->setRequired(true)
 					->setAttrib('required', 'required')
-					->setAttrib('class','datepickerfin'.$numero_vol)
+					->setAttrib('class','datepickerfin'.$numeroVol)
 					->addValidator('notEmpty');
 
 		// Périodicité
@@ -143,8 +149,8 @@ class FNouveauvol extends Zend_Form
 
 		// Terminer
 		$eSubmit = new Zend_Form_Element_Submit('Enregistrer');
-		$eSubmit 	->setLabel('Enregistrer')
-					->setAttrib('id', 'submitbutton');
+		// $eSubmit 	->setLabel('Enregistrer')
+		// 			->setAttrib('id', 'submitbutton');
 
 
 		$eFermer = new Zend_Form_Element_Reset('fermer');
@@ -172,11 +178,14 @@ class FNouveauvol extends Zend_Form
 
 
 /*===========================PRÉ REMPLISSAGE DU FORMULAIRE==============================*/
-		// on recupere la valeur de l'id utilisateur
-		$numeroVol = $this->getNumeroVol();
+		
 
 		// si on a une valeur ...
 		if (isset ( $numeroVol ) && $numeroVol != "") {
+			$eDepartM->setName('datepickerdeb'.$numeroVol);
+			$eDepartH->setName('timepickerdeb'.$numeroVol);
+			$eArriveeM->setName('datepickerfin'.$numeroVol);
+			$eArriveeH->setName('timepickerfin'.$numeroVol);
 
 			// ... on charde le model de base de donnée Client,
 			$tableDestination = new TDestination ( );
@@ -186,16 +195,9 @@ class FNouveauvol extends Zend_Form
 
 			// si on a un retour
 			if ($destination != null) {
-                // on peuple le formulaire avec les information demandé
-                $destination = array(
-                	'numeroVol' 	=> $destination->numero_vol,
-                	'timepickerfin'	=> date('H:i',$destination->heure_arr),
-                	'datepickerfin'	=> date('d-m-Y',$destination->date_arr),
-                	'datepickerdeb'	=> date('d-m-Y',$destination->date_dep),
-                	'timepickerdeb'	=> date('H:i',$destination->heure_dep)
-                	);
 
-                $this->populate ( $destination );
+                 
+                
                 $eAeroportDepart->setValue($destination->tri_aero_dep);
                 $eAeroportArrivee->setValue($destination->tri_aero_arr);
 
@@ -210,6 +212,18 @@ class FNouveauvol extends Zend_Form
             	$ville_arr = $tableVille->find($aeroport_arr->id_ville)->current();
             	$eVilleDepart->setValue($aeroport_dep->id_ville);
             	$eVilleArrive->setValue($aeroport_arr->id_ville);
+
+            	// on peuple le formulaire avec les information demandé
+                $destination = array(
+                	'numeroVol' 	=> $destination->numero_vol,
+                	'timepickerfin'	=> date('H:i',$destination->heure_arr),
+                	'datepickerfin'	=> date('d-m-Y',$destination->date_arr),
+                	'datepickerdeb'	=> date('d-m-Y',$destination->date_dep),
+                	'timepickerdeb'	=> date('H:i',$destination->heure_dep)
+                	);
+
+
+            	$this->populate ( $destination );
 			}
 			
 			// on change le label du bouton
