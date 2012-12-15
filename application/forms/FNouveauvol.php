@@ -12,18 +12,15 @@ class FNouveauvol extends Zend_Form
 		//$this->setName('nouveauVol');
 		$this->setMethod('post');
 		$this->setAction('/strategie/nouveau/numero_vol/'.$numeroVol);
-		//$this->setAttrib('id', 'FNouveauvol');
+		$this->setAttrib('id', 'FNouveauvol'.$numeroVol);
 
 		
 
 	//=============== Creation des element
 		$eNumeroVol = new Zend_Form_Element_Text('numeroVol');
 		$eNumeroVol	->setLabel('Numéro vol :')
-					->setRequired(true)
-					//->setAttrib('required', 'required')
 					->addFilter('StripTags')
-		            ->addFilter('StringTrim')
-					->addValidator('notEmpty');
+		            ->addFilter('StringTrim');
 		// depart
 		//////////// recuperation des pays pour liste //////////////
 			// on charge le model
@@ -39,16 +36,13 @@ class FNouveauvol extends Zend_Form
 			// creation de l'élément
 			$ePaysDepart = new Zend_Form_Element_Select('paysDepart');
 			$ePaysDepart	->setLabel('Pays : ')
-							->setRequired(true)
-							->setAttrib('required', 'required')
-							->setMultiOptions($paysTab)
-							->addValidator('notEmpty');
+							->setMultiOptions($paysTab);
         //////////// fin de recuperation des pays pour liste //////////////
 
 
 
 		//////////// recuperation des ville pour liste //////////////
-			// on charge le model
+			//on charge le model
 			$tableVille = new TVille;
 			//on recupere toutes les villes
 	        $ville = $tableVille->fetchAll();
@@ -61,10 +55,7 @@ class FNouveauvol extends Zend_Form
 	        // creation de l'élément
 			$eVilleDepart = new Zend_Form_Element_Select('villeDepart');
 			$eVilleDepart	->setLabel('Ville : ')
-							->setRequired(true)
-							->setAttrib('required', 'required')
-							->setMultiOptions($villeTab)
-							->addValidator('notEmpty');
+							->setMultiOptions($villeTab);
         //////////// fin de recuperation des ville pour liste //////////////
 
 
@@ -82,58 +73,42 @@ class FNouveauvol extends Zend_Form
 	        // Creation de l'élément
 			$eAeroportDepart = new Zend_Form_Element_Select('aeroportDepart');
 			$eAeroportDepart	->setLabel('Aeroport : ')
-								->setRequired(true)
-								->setAttrib('required', 'required')
-								->setMultiOptions($aeroportTab)
-								->addValidator('notEmpty');
+								->setMultiOptions($aeroportTab);
 		//////////// fin de recuperation des aeroports pour liste //////////////
 		
 		$eDepartH = new Zend_Form_Element_Text('timepickerdeb');
 		$eDepartH	->setLabel('Heure :')
-					->setRequired(true)
 					->setAttrib('required', 'required')
 					->setAttrib('class','timepickerdeb'.$numeroVol)
 					->addValidator('notEmpty');
 
 		$eDepartM = new Zend_Form_Element_Text('datepickerdeb');
 		$eDepartM	->setLabel('Date :')
-					->setRequired(true)
 					->setAttrib('required', 'required')
 					->setAttrib('class','datepickerdeb'.$numeroVol)
 					->addValidator('notEmpty');
 
-		//Arrivee
+		// //Arrivee
 		$ePaysArrivee = new Zend_Form_Element_Select('paysArrivee');
 		$ePaysArrivee	->setLabel('Pays : ')
-						->setRequired(true)
-						->setAttrib('required', 'required')
-						->setMultiOptions($paysTab)
-						->addValidator('notEmpty');
+						->setMultiOptions($paysTab);
 
 		$eVilleArrive = new Zend_Form_Element_Select('villeArrive');
 		$eVilleArrive	->setLabel('Ville : ')
-						->setRequired(true)
-						->setAttrib('required', 'required')
-						->setMultiOptions($villeTab)
-						->addValidator('notEmpty');
+						->setMultiOptions($villeTab);
 
 		$eAeroportArrivee = new Zend_Form_Element_Select('aeroportArrivee');
 		$eAeroportArrivee	->setLabel('Aeroport : ')
-							->setRequired(true)
-							->setAttrib('required', 'required')
-							->setMultiOptions($aeroportTab)
-							->addValidator('notEmpty');
+							->setMultiOptions($aeroportTab);
 		
 		$eArriveeH = new Zend_Form_Element_Text('timepickerfin');
 		$eArriveeH	->setLabel('Heure :')
-					->setRequired(true)
 					->setAttrib('required', 'required')
 					->setAttrib('class','timepickerfin'.$numeroVol)
 					->addValidator('notEmpty');
 
 		$eArriveeM = new Zend_Form_Element_Text('datepickerfin');
 		$eArriveeM	->setLabel('Date :')
-					->setRequired(true)
 					->setAttrib('required', 'required')
 					->setAttrib('class','datepickerfin'.$numeroVol)
 					->addValidator('notEmpty');
@@ -141,10 +116,7 @@ class FNouveauvol extends Zend_Form
 		// Périodicité
 		$ePeriodicite = new Zend_Form_Element_Select('periodicite');
 		$ePeriodicite	->setLabel('periodicite : ')
-						->setRequired(true)
-						->setAttrib('required', 'required')
-						->setMultiOptions(array('Vol unique'=>'Vol unique','Lundi'=>'Lundi', 'Mardi'=>'Mardi', 'Mercredi'=>'Mercredi', 'Jeudi'=>'Jeudi', 'Vendredi'=>'Vendredi', 'Samedi'=>'Samedi', 'Dimanche'=>'Dimanche'))
-						->addValidator('notEmpty');
+						->setMultiOptions(array('Vol unique'=>'Vol unique','Lundi'=>'Lundi', 'Mardi'=>'Mardi', 'Mercredi'=>'Mercredi', 'Jeudi'=>'Jeudi', 'Vendredi'=>'Vendredi', 'Samedi'=>'Samedi', 'Dimanche'=>'Dimanche'));
 
 		// Terminer
 		$eSubmit = new Zend_Form_Element_Submit('Enregistrer');
@@ -154,7 +126,7 @@ class FNouveauvol extends Zend_Form
 
 		$eFermer = new Zend_Form_Element_Reset('fermer');
 		$eFermer 	->setLabel('Fermer')
-					->setAttrib('id', 'fermerbutton')
+					//->setAttrib('id', 'fermerbutton')
 					->setAttrib('class', 'close');
 
 		// Ajout des éléments au formulaire
@@ -187,7 +159,7 @@ class FNouveauvol extends Zend_Form
 			$eArriveeH->setName('timepickerfin'.$numeroVol);
 
 			// ... on charde le model de base de donnée Client,
-			$tableDestination = new TDestination ( );
+			$tableDestination = new TDestination;
 			// on envoi la requete pour recupere les informations de l'utilisateur
             $destination = $tableDestination  ->find($numeroVol)
                                     ->current();
@@ -200,12 +172,12 @@ class FNouveauvol extends Zend_Form
                 $eAeroportDepart->setValue($destination->tri_aero_dep);
                 $eAeroportArrivee->setValue($destination->tri_aero_arr);
 
-                $tableAeroport = new TAeroport ( );
+                $tableAeroport = new TAeroport;
 
             	$aeroport_dep = $tableAeroport->find($destination->tri_aero_dep)->current();
             	$aeroport_arr = $tableAeroport->find($destination->tri_aero_arr)->current();
 
-                $tableVille = new TVille ( );
+                $tableVille = new TVille;
 
             	$ville_dep = $tableVille->find($aeroport_dep->id_ville)->current();
             	$ville_arr = $tableVille->find($aeroport_arr->id_ville)->current();

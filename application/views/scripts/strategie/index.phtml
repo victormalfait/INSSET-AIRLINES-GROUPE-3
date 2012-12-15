@@ -25,6 +25,7 @@
 					</tfoot>
 					<tbody>
 						<?php foreach ($this->destination as $value) {?>
+						
 						<tr>
 							<td><?php echo $value['numero_vol'];?></td>
 							<td><?php echo $value['tri_aero_dep'];?></td>
@@ -34,13 +35,17 @@
 							<td><?php echo date("d-m-Y",$value['date_dep']);?></td>
 							<td><?php echo date("d-m-Y",$value['date_arr']);?></td>
 							<td><?php echo $value['periodicite'];?></td>
-							<td><a href="#editVol" rel="popup_editVol_<?php echo $value['numero_vol'];?>" class="poplight"><button>mofifier</button></a></td>
+							<td><a href="#editVol" rel="popup_editVol_<?php echo $value['numero_vol'];?>" class="poplight"><button>modifier</button></a></td>
 							<td><a href=""><button>supprimer</button></a></td>
 						</tr>
-						<?php echo $this->action('nouveau','strategie', null, array('numero_vol' => $value['numero_vol'])); ?>
+
 						<?php }?>
 					</tbody>
 				</table>
+				<?php foreach ($this->destination as $value) {
+					echo $this->action('nouveau','strategie', null, array('numero_vol' => $value['numero_vol']));
+				} ?>
+
 			<?php
 		} 
 		else {
