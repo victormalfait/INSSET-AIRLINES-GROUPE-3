@@ -23,6 +23,7 @@ class FConnexion extends Zend_Form
 
 		$decoratorsForm = array(
 			'FormElements',
+		    array('Errors', array('class' => "error")),
 			array('HtmlTag', array('tag' => 'ul')),
 			array(
 				array('DivTag' => 'HtmlTag'),

@@ -19,7 +19,12 @@
     .testg{ border: 1px solid green;}
     .testy{ border: 1px solid yellow;}
     
-    .bgRedBtn { background: url(/img/bgRedBtn.png); border: none; height: 30px; padding: 0 30px; color: #fff; float: right;}
+    .submit {display: none;}
+    form li {padding: 5px 0;}
+    .bgRedBtn { background: url(/img/bgRedBtn.png); border: none; padding: 5px 30px; color: #fff; float: right; text-shadow: 0px -1px 0px #000;}
+    .error { color: #FF0000; font-size: .7em;}
+    fieldset {border: 1px dashed #B4B4B4; border-radius: 30px; }
+    legend { padding: 0 10px; margin-left: 20px;}
 /* ========= GENERAL STYLES END HERE========== */
 
 
@@ -61,7 +66,7 @@
 /* ========= LOGIN STYLES =========  */
     #connexion { width: 230px;  text-align: center; height: 85px; background-color: #EAE9E8; box-shadow: 3px 3px 5px #B3B3B3;}
         #connexion h2 {color: #051039; font-weight: bold; text-align: center; padding: 6px 0;}
-        #connexion ul {margin: 0 8px;}
+        #connexion ul {margin: 0 5px;}
         #connexion li { position: relative; display: inline-block; height: 40px}
         #connexion label { font-size: .6em; color: #051039; position: absolute; top: 0px;}
         #connexion input {border-radius: 0; border: 1px solid #A5ACB2; width: 100px; margin-top: 12px; font-size: .6em; height: 15px;}
@@ -71,7 +76,6 @@
         #connexion .deco {  font-size: .8em; width: 200px; text-align: center; margin: 0 auto; position: relative; z-index: 1000;}
         #connexion a { font-size: .6em; color: #051039; text-transform: uppercase;}
         #connexion a:hover { text-decoration: underline; }
-        #connexion .optional {display: none;}
 /* ========= LOGIN STYLES END HERE =========  */
 
 
@@ -90,11 +94,15 @@
 /* ========= RESERVATION STYLES END HERE =========  */
 
 /* ========= STRATEGIE STYLES =========  */
-    #strategie { margin-top: 20px;}
-        #strategie table { text-align: center; border: 1px solid #C8C8C8;}
-        #strategie thead { background-color: #C8C8C8; box-shadow: inset 0px -4px 20px #3D3D3D; color: #002454; text-shadow: 0px 1px 0px rgb(255, 255, 255); font-weight: bold;}
-        #strategie th { border-left: 1px solid #C8C8C8; border-right: 1px solid #fff; padding: 8px 5px; }
-        #strategie td { border-left: 1px solid #C8C8C8; padding: 0 5px; }
-        td .modifier {border: none; background: url(/img/modifier.png) no-repeat center; text-indent: -9999px; cursor: pointer;}
-        td .supprimer {border: none; background: url(/img/supprimer.png) no-repeat center; text-indent: -9999px; cursor: pointer;}
+    #strategie { margin-top: 20px; overflow: auto;}
+        #strategie table { text-align: center; border: 1px solid #C8C8C8; border-radius: 5px; float: left;}
+        #strategie thead {border-radius: 3px 3px 0 0; background-color: #C8C8C8; box-shadow: inset 0px -4px 20px #3D3D3D; color: #002454; text-shadow: 0px 1px 0px #fff; font-weight: bold;}
+        #strategie th { border-left: 1px solid #C8C8C8; border-right: 1px solid #fff; padding: 8px 5px; font-size: 1em;}
+        #strategie td { border-left: 1px solid #C8C8C8; padding: 5px 5px; }
+        tbody {color: #5A5A5A;box-shadow: inset 0px 2px 2px #000000;}
+        tbody tr:hover { color: #000; background-color: #5EBAFC; box-shadow: inset 0px -4px 10px #737373;}
+        td .modifier {border: none; background: url(/img/modifier.png) no-repeat center; text-indent: -9999px; cursor: pointer; opacity: .5;}
+        td .supprimer:hover, td .modifier:hover { opacity: 1; }
+        td .supprimer {border: none; background: url(/img/supprimer.png) no-repeat center; text-indent: -9999px; cursor: pointer; opacity: .5}
+        #strategie .formulaire {width: 350px; float: right;}
 /* ========= STRATEGIE STYLES END HERE =========  */

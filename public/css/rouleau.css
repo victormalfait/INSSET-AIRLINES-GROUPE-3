@@ -8,40 +8,38 @@
 		background: #E1E1E1;
 		height: auto;
 		min-width: 300px;
-		border-radius: 3px;
-		box-shadow: 0px 0px 5px 1px #000;
+		border-radius: 5px;
+		border: 1px solid #C8C8C8;
 	}
 
 	.rouleau-fenetre-titre{
-		overflow: auto;
-		margin: 4px;
-		padding: 5px;
-		border: 1px dashed #B4B4B4;
+		text-align:center;
+		padding: 8px 0;
+		border-radius: 3px 3px 0 0;
+		background-color: #C8C8C8; 
+		box-shadow: inset 0px -4px 20px #3D3D3D;
 	}
 
 	.rouleau-fenetre-titre span{
+		text-shadow: 0px 1px 0px #fff;
 		color: #383838;
-		font-size: 1.3em;
+		font-size: 1em;
 		font-weight: bold;
 	}
 
 	.rouleau-fenetre-section{
-		position: relative;
 		padding: 10px;
-		overflow: auto;
-		min-height: 100px;
-		height: auto;
-		background-color: #272822;
+		background-color: #fff;
 		box-shadow: inset 0px 2px 2px #000000;
 	}
 
 	.rouleau-fenetre-section div{ text-align: center; display: inline-block;}
+	.rouleau-fenetre-section li {display: inline-block;}
 
 
 /*================ POPUP =================*/
 
 	.popup_block{
-		display: none; /*--masqué par défaut--*/
-		/*float: left;*/
+		display: none;
 		z-index: 12;
 	}

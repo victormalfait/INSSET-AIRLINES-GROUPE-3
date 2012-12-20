@@ -4,12 +4,13 @@ class FCommercial extends Zend_Form
 {
 	public function init()
 	{
-		//===============Parametre du formulaire
+	
+	//===============Parametre du formulaire
 		$this->setMethod('post');
 		$this->setAction('/strategie/index');
 		$this->setAttrib('id', 'ConnexionNouveauVol');
 
-		//=============== creation des decorateurs
+	//=============== creation des decorateurs
 		// Descativation des decorateurs par defaut
 		$this->clearDecorators();
 
@@ -32,7 +33,10 @@ class FCommercial extends Zend_Form
 			'Form'
 		);
 
-		//===============Creation des element
+		// on insere le decorateurde form au formulaire
+		$this->setDecorators($decoratorsForm);
+
+	//===============Creation des element
 		$tableVille = new TVille;
         $ville = $tableVille->fetchAll();
         $$tabVille = array();
@@ -107,9 +111,8 @@ class FCommercial extends Zend_Form
 		$elements = array($eAeroportDepart, $eAeroportArrivee, $eTypeTrajet, $eDatedeb, $eDatefin, $eNbrPassager, $eTypePassager, $eClasse, $eSubmit);
 		$this->addElements($elements);
 
-		// on insere le decorateurde form au formulaire
-		$this->setDecorators($decoratorsForm);
 
+	//=============== creation des groupes de formulaire
 		$this->addDisplayGroup(array(
 								'aeroportDepart',
 								'aeroportArrivee'), 'un', array("legend" => ""));
