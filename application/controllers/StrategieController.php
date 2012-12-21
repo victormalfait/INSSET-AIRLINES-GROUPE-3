@@ -31,7 +31,7 @@ class StrategieController extends Zend_Controller_Action
                                                 ->order('date_dep');
 
         // on le resultat de la requete envoi à la vue
-        $this->view->destination = $tableDestination->fetchAll($destinationRequest);
+        $this->view->destinations = $tableDestination->fetchAll($destinationRequest);
     }
 
     public function nouveauAction()
@@ -56,7 +56,7 @@ class StrategieController extends Zend_Controller_Action
         if ($this->_request->isPost()) {
             // on recupere les éléments
             $formData = $this->_request->getPost();
-            var_dump( $formVol->isValid($formData));
+            // var_dump( $formVol->isValid($formData));
 
             // si le formulaire passe au controle des validateurs
             if ($formVol->isValid($formData)) {
@@ -115,6 +115,22 @@ class StrategieController extends Zend_Controller_Action
 
     public function supprimerAction()
     {
+        // Récuperation de l'id de la tache
+        $numero_vol = $this->_getParam('id');
+
+        // Chargement du model TTache
+        $tableDestination = new TDestination;
+
+        //Requetage par clé primaire
+        $destination = $tableDestination    ->find($numero_vol)
+                                            ->current();
+
+        //suppression de la destination
+        $destination->delete();
+
+        // on recharge la page
+        $redirector = $this->_helper->getHelper('Redirector');
+        $redirector->gotoUrl("strategie");
     }
 
     public function nouveaupaysAction()
