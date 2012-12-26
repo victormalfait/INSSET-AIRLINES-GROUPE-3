@@ -93,16 +93,26 @@
         .reservation ul { margin: 0 0 0 60px; }
 /* ========= RESERVATION STYLES END HERE =========  */
 
-/* ========= STRATEGIE STYLES =========  */
-    #strategie { margin-top: 20px; overflow: auto;}
-        #strategie table { text-align: center; border: 1px solid #C8C8C8; border-radius: 5px; float: left;}
-        #strategie thead {border-radius: 3px 3px 0 0; background-color: #C8C8C8; box-shadow: inset 0px -4px 20px #3D3D3D; color: #002454; text-shadow: 0px 1px 0px #fff; font-weight: bold;}
-        #strategie th { border-left: 1px solid #C8C8C8; border-right: 1px solid #fff; padding: 8px 5px; font-size: 1em;}
-        #strategie td { border-left: 1px solid #C8C8C8; padding: 5px 5px; }
+/* ========= TABLEAU STYLES =========  */
+        table { text-align: center; border: 1px solid #C8C8C8; border-radius: 5px; float: left;}
+        thead {border-radius: 3px 3px 0 0; background-color: #C8C8C8; box-shadow: inset 0px -4px 20px #3D3D3D; color: #002454; text-shadow: 0px 1px 0px #fff; font-weight: bold;}
+        th { border-left: 1px solid #C8C8C8; border-right: 1px solid #fff; padding: 8px 5px; font-size: 1em;}
+        td { border-left: 1px solid #C8C8C8; padding: 5px 5px; }
         tbody {color: #5A5A5A;box-shadow: inset 0px 2px 2px #000000;}
         tbody tr:hover { color: #000; background-color: #5EBAFC; box-shadow: inset 0px -4px 10px #737373;}
         td .modifier {border: none; background: url(/img/modifier.png) no-repeat center; text-indent: -9999px; cursor: pointer; opacity: .5;}
         td .supprimer:hover, td .modifier:hover { opacity: 1; }
         td .supprimer {border: none; background: url(/img/supprimer.png) no-repeat center; text-indent: -9999px; cursor: pointer; opacity: .5}
-        #strategie .formulaire {width: 350px; float: right;}
+/* ========= TABLEAU STYLES END HERE =========  */
+
+
+/* ========= STRATEGIE STYLES =========  */
+    #strategie { margin-top: 20px; overflow: auto;}
+    #strategie .formulaire {width: 350px; float: right;}
+/* ========= STRATEGIE STYLES END HERE =========  */
+
+
+/* ========= STRATEGIE STYLES =========  */
+    #RessourceHumaine { margin-top: 20px; overflow: auto;}
+    #RessourceHumaine .formulaire {width: 350px; float: right;}
 /* ========= STRATEGIE STYLES END HERE =========  */
