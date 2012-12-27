@@ -72,18 +72,18 @@ class StrategieController extends Zend_Controller_Action
                     $row->numero_vol = 'AI'.($nbr_enr+1);
                 }
 
-                $heure_dep = $formVol->getValue('timepickerdeb'.$numero_vol);
-                $heure_arr = $formVol->getValue('timepickerfin'.$numero_vol);
+                $heure_dep = $_POST['timepickerdeb'.$numero_vol];//$formVol->getValue('timepickerdeb'.$numero_vol);
+                $heure_arr = $_POST['timepickerfin'.$numero_vol];//$formVol->getValue('timepickerfin'.$numero_vol);
 
                 //On explose le format envoyé par les datepicker
                 list($heureD, $minuteD) = explode(":", $heure_dep);
                 list($heureF, $minuteF) = explode(":", $heure_arr);
 
                 if($formVol->getValue('periodicite')=='Vol unique'){
-                    $date_debut = $formVol->getValue('datepickerdeb'.$numero_vol);
-                    $date_fin = $formVol->getValue('datepickerfin'.$numero_vol);
+                    $date_debut = $_POST['datepickerdeb'.$numero_vol];//$formVol->getValue('datepickerdeb'.$numero_vol);
+                    $date_fin = $_POST['datepickerfin'.$numero_vol];//$formVol->getValue('datepickerfin'.$numero_vol);
                     list($jourD, $moisD, $anneeD) = explode("-", $date_debut);
-                    list($jourF, $moisF, $anneeF) = explode("-", $date_fin);      
+                    list($jourF, $moisF, $anneeF) = explode("-", $date_fin);     
                 }else{
                     $jourD = 0;$jourF = 0;
                     $moisD = 0;$moisF = 0;
@@ -106,8 +106,8 @@ class StrategieController extends Zend_Controller_Action
                 // RAZ du formulaire
                 $formVol->reset();
 
-                // $redirector = $this->_helper->getHelper('Redirector');
-                // $redirector->gotoUrl('strategie/index');
+                $redirector = $this->_helper->getHelper('Redirector');
+                $redirector->gotoUrl('strategie/index');
             }
         }
     }
