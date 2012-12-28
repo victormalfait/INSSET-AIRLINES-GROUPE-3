@@ -1,5 +1,5 @@
 <section id="RessourceHumaine">
-	<a href="#editEmploye" rel="popup_editEmploye_" class="poplight">
+	<a href="#editEmploye" rel="popup_editEmploye_" class="poplight poplightedit">
 		<button class="bgRedBtn" style="float:none;">Créer un employé</button>
 	</a>
 	<br />
@@ -41,7 +41,7 @@
 											<?php echo $utilisateur->cp_utilisateur . ' - ' . $utilisateur->ville_utilisateur; ?>
 										</td>
 										<td><?php echo $service->nom; ?></td>
-										<td><a href="#editVol" rel="popup_editEmploye_<?php echo $utilisateur->id_utilisateur;?>" class="poplight poplightedit" title="Modifier"><button class="modifier">modifier</button></a></td>
+										<td><a href="#editEmploye" rel="popup_editEmploye_<?php echo $utilisateur->id_utilisateur;?>" class="poplight poplightedit" title="Modifier"><button class="modifier">modifier</button></a></td>
 										<td><a href="<?php echo $this->baseUrl('ressourcehumaine/supprimer/id/' . $utilisateur->id_utilisateur); ?>" title="Supprimer"><button class="supprimer">supprimer</button></a></td>
 									</tr>
 								<?php
