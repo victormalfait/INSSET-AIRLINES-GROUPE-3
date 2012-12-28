@@ -5,12 +5,14 @@ class FConnexion extends Zend_Form
  
 	public function init()
 	{
-		//parametrer le formulaire
+	//===============Parametre du formulaire
 		$this->setName('connexion');
 		$this->setMethod('post');
 		$this->setAction('');
 		$this->setAttrib('id', 'FConnexion');
 
+
+	//=============== creation des decorateurs
 		// Descativer les decorateurs par defaut
 		$this->clearDecorators();
 
@@ -21,6 +23,15 @@ class FConnexion extends Zend_Form
 		    array('HtmlTag', array('tag' => 'li'))
 		);
 
+		// decorateur d'element bouton
+		$decoratorsBouton = array(
+		    'ViewHelper',
+		    'Errors',
+		    array('Label', array('class' => 'label submit')),
+		    array('HtmlTag', array('tag' => 'li'))
+		);
+
+		//decorateur de formulaire
 		$decoratorsForm = array(
 			'FormElements',
 		    array('Errors', array('class' => "error")),
@@ -32,6 +43,11 @@ class FConnexion extends Zend_Form
 			'Form'
 		);
 
+		// on insere le decorateur de form au formulaire
+		$this->setDecorators($decoratorsForm);
+
+
+	//=============== Creation des element
 		$eEmail = new Zend_Form_Element_Text('login_utilisateur');
 		$eEmail		->setLabel('Identifiant')
 		        	->setRequired(true)
@@ -54,12 +70,11 @@ class FConnexion extends Zend_Form
 		$eSubmit = new Zend_Form_Element_Submit('SBTconnexion');
 		$eSubmit 	->setAttrib('id', 'SBTconnexion')
 					->setLabel('Ok')
-					->setDecorators($decorators);
+					->setDecorators($decoratorsBouton);
 
 		$elements = array($eEmail, $ePass, $eSubmit);
 		$this->addElements($elements);
 
-		$this->setDecorators($decoratorsForm);
 	}
 
 }
