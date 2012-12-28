@@ -1,1 +1,9 @@
-editer.phtml
+<!-- popup nouveau vol -->
+<div id="popup_editEmploye_<?php echo $this->numero_vol;?>" class="popup_block rouleau-fenetre">
+	<header class="rouleau-fenetre-titre">
+		<span><?php echo $this->translate('Création d\'un Employé')?></span>
+	</header>
+	<section class="rouleau-fenetre-section">
+		<?php echo $this->formNouvelEmploye; ?>
+	</section>
+</div>

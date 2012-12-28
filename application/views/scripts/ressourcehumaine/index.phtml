@@ -1,42 +1,69 @@
-<section id="strategie" class="testr">
-	<a href="#editVol" rel="popup_editVol_" class="poplight">
-		<button class="bgRedBtn" style="float:none;">Créer un vol</button>
+<section id="RessourceHumaine">
+	<a href="#editEmploye" rel="popup_editEmploye_" class="poplight">
+		<button class="bgRedBtn" style="float:none;">Créer un employé</button>
 	</a>
 	<br />
 	<br />
-	<?php 
-		if (count($this->destination) > 0) {
+	<?php
+		// on recupere tous les employés de la base de donnée
+		$utilisateurs = $this->utilisateurs;
+
+		// si on en a plus d'une, on les affiches
+		if (count($utilisateurs) > 0) {
 			?>
 				<table>
 					<thead>
-						<th>N°pilote</th>
-						<th>identité</th>
-						<th>adresse</th>
-						<th>disponibilité</th>
-						<th></th>
-						<th></th>
+						<th>N° Employé</th>
+						<th>Identité</th>
+						<th>Adresse</th>
+						<th>Service</th>
+						<th colspan="2">Action</th>
 					</thead>
 					<tbody>
 						<?php 
-							foreach ($this->pilotes as $pilote) {
+							foreach ($this->utilisateurs as $utilisateur) {
+								// on charge le modelutilisateur
+								$tableUtilisateur = new TUtilisateur;
+
+								// Requete par clé primaire
+					            $user = $tableUtilisateur	->find($utilisateur->id_utilisateur)
+					                                    	->current();
+
+				                // Recherche du service de l'utilisateur
+				                $service = $user->findParentRow('TService');
+				                
 								?>
 									<tr>
-										<td><?php echo $pilote->id; ?></td>
-										<td><?php echo $pilote->nom . ' ' . $pilote->prenom; ?></td>
-										<td><?php echo $pilote->adresse; ?></td>
-										<td><?php echo $pilote->disponibilite; ?></td>
-										<td><a href=""><button>mofifier</button></a></td>
-										<td><a href=""><button>supprimer</button></a></td>
+										<td><?php echo $utilisateur->id_utilisateur; ?></td>
+										<td><?php echo $utilisateur->nom_utilisateur . ' ' . $utilisateur->prenom_utilisateur; ?></td>
+										<td>
+											<?php echo $utilisateur->adresse_utilisateur; ?><br />
+											<?php echo $utilisateur->cp_utilisateur . ' - ' . $utilisateur->ville_utilisateur; ?>
+										</td>
+										<td><?php echo $service->nom; ?></td>
+										<td><a href="#editVol" rel="popup_editEmploye_<?php echo $utilisateur->id_utilisateur;?>" class="poplight poplightedit" title="Modifier"><button class="modifier">modifier</button></a></td>
+										<td><a href="<?php echo $this->baseUrl('ressourcehumaine/supprimer/id/' . $utilisateur->id_utilisateur); ?>" title="Supprimer"><button class="supprimer">supprimer</button></a></td>
 									</tr>
 								<?php
 							}
 						?>
 					</tbody>
 				</table>
+				<div class="formulaire">
+					<!-- popup nouvel employé -->
+					<?php echo $this->action('editer','Ressourcehumaine'); ?>
+
+					<?php 
+						foreach ($utilisateurs as $utilisateur) {
+							echo $this->action('editer','Ressourcehumaine', null, array('idUtilisateur' => $utilisateur->id_utilisateur));
+						} 
+					?>
+				</div>
 			<?php
 		} 
-		else {
-			echo "Aucun pilote n'est enregistré";
+		else { // sinon (aucun employé)
+			// on affiche un message 
+			echo "Aucun utilisateur n'est enregistré";
 		}
 	?>
 </section>

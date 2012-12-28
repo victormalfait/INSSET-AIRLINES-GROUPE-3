@@ -9,10 +9,7 @@
 
     a{text-decoration: none;}
 
-    body
-    {
-        font-family:arial,sans-serif;
-    }
+    body{font-family:arial,sans-serif;}
 
     .testr{ border: 1px solid red;}
     .testb{ border: 1px solid blue;}
@@ -29,7 +26,7 @@
 
 
 /* ========= HEADER STYLES ========== */
-    #header { position: relative; box-shadow: 0px 0px 20px 7px #B3B3B3; }
+    #header { position: relative; min-width: 980px; box-shadow: 0px 0px 20px 7px #B3B3B3; }
         .header { width: 980px; margin: 0 auto;}
         #headerInfo { float: left; }
         #headerInfo h1{ font-size: 2em; margin: 10px; color: #002454; text-transform: uppercase; font-weight: bold;}
@@ -46,7 +43,6 @@
 
 /* ========= FOOTER STYLES =========  */
     #footer { position: relative;}
-
     #footer_info { width: 980px; margin: 20px auto; }
         #footer_copyright { border-top: 4px solid #E9EAEC; padding: 9px 0 0 0;}
         #footer_copyright p { margin: 7px auto 14px; color: #595959; font-size: 11px; }
@@ -97,7 +93,7 @@
         table { text-align: center; border: 1px solid #C8C8C8; border-radius: 5px; float: left;}
         thead {border-radius: 3px 3px 0 0; background-color: #C8C8C8; box-shadow: inset 0px -4px 20px #3D3D3D; color: #002454; text-shadow: 0px 1px 0px #fff; font-weight: bold;}
         th { border-left: 1px solid #C8C8C8; border-right: 1px solid #fff; padding: 8px 5px; font-size: 1em;}
-        td { border-left: 1px solid #C8C8C8; padding: 5px 5px; }
+        td { border-left: 1px solid #C8C8C8; padding: 5px 5px; vertical-align: middle;}
         tbody {color: #5A5A5A;box-shadow: inset 0px 2px 2px #000000;}
         tbody tr:hover { color: #000; background-color: #5EBAFC; box-shadow: inset 0px -4px 10px #737373;}
         td .modifier {border: none; background: url(/img/modifier.png) no-repeat center; text-indent: -9999px; cursor: pointer; opacity: .5;}
