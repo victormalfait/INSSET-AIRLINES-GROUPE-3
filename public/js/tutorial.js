@@ -2,7 +2,7 @@ jQuery(document).ready(function($) {
 
     //////////////// AJAX PAYS////////////////////////
         $(".button_pays").click(function() {        
-            var pays = $("input #nouveauPays").val();
+            var pays = $("input#nouveauPays").val();
             
             if (pays == "") {
                 $("input #nouveauPays").focus();
