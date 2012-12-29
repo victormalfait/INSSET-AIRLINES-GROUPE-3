@@ -122,8 +122,7 @@ class StrategieController extends Zend_Controller_Action
         $tableDestination = new TDestination;
 
         //Requetage par clé primaire
-        $destination = $tableDestination    ->find($numero_vol)
-                                            ->current();
+        $destination = $tableDestination->find($numero_vol)->current();
 
         //suppression de la destination
         $destination->delete();
@@ -161,7 +160,7 @@ class StrategieController extends Zend_Controller_Action
                 //sauvegarde de la requete
                 $result = $row->save();
         
-                //echo $row->id;
+                echo $row->id_pays;
                 //echo $_POST['nouveauPays'];
              
                 // RAZ du formulaire
@@ -199,11 +198,12 @@ class StrategieController extends Zend_Controller_Action
 
                 //sauvegarde de la requete
                 $result = $row->save();
+
+                echo $row->id_ville;
              
                 // RAZ du formulaire
-                $form->reset();
-        
-                //echo $row->id;
+                $form->reset(); 
+                exit;       
             }
         }
     }
@@ -238,10 +238,7 @@ class StrategieController extends Zend_Controller_Action
                 $row->longueur_piste    = $_POST['longueurpiste'];
 
                 //sauvegarde de la requete
-                $result = $row->save();
-        
-                //echo $row->id;
-             
+                $result = $row->save();             
                 // RAZ du formulaire
                 $form->reset();
             }

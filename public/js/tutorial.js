@@ -48,7 +48,7 @@ jQuery(document).ready(function($) {
                 success: function(id_ville) {
                     $("#popup_ajouterVille").hide();
                     $('#villeDepart').append('<option label="'+ville+'" value="'+id_ville+'">'+ville+'</option>');
-                    $('#villeArrivee').append('<option label="'+ville+'" value="'+id_ville+'">'+ville+'</option>');
+                    $('#villeArrive').append('<option label="'+ville+'" value="'+id_ville+'">'+ville+'</option>');
                 }
             });
 
@@ -91,8 +91,8 @@ jQuery(document).ready(function($) {
                 
                 success: function() {
                     $("#popup_ajouterAeroport").hide();
-                    $('#aeroportDepart').append('<option label="'+ville+'" value="'+trigramme+'">'+aeroport+' - '+trigramme+'</option>');
-                   $('#aeroportArrivee').append('<option label="'+ville+'" value="'+trigramme+'">'+aeroport+' - '+trigramme+'</option>');
+                    $('#aeroportDepart').append('<option label="'+ville+'" value="'+trigramme+'">'+aeroport+'</option>');
+                    $('#aeroportArrivee').append('<option label="'+ville+'" value="'+trigramme+'">'+aeroport+'</option>');
                 }
             });
 
