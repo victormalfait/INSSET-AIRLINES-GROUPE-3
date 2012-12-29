@@ -69,7 +69,7 @@ class FNouveauvol extends Zend_Form
 	        $paysTab = array();
 
 	        foreach ($pays as $p) {
-	        	$paysTab[$p->id] = utf8_encode($p->nom);
+	        	$paysTab[$p->id_pays] = utf8_encode($p->nom);
 	        }
 			// creation de l'élément
 			$ePaysDepart = new Zend_Form_Element_Select('paysDepart');
@@ -89,7 +89,7 @@ class FNouveauvol extends Zend_Form
 		        $villeTab = array();
 
 		        foreach ($ville as $v) {
-		        	$villeTab[$v->id] = utf8_encode($v->nom);
+		        	$villeTab[$v->id_ville] = utf8_encode($v->nom);
 		        }
 
 	        // creation de l'élément

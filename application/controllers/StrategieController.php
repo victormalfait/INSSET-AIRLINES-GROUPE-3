@@ -161,7 +161,7 @@ class StrategieController extends Zend_Controller_Action
                 //sauvegarde de la requete
                 $result = $row->save();
         
-                echo $row->id;
+                //echo $row->id;
                 //echo $_POST['nouveauPays'];
              
                 // RAZ du formulaire
@@ -203,7 +203,7 @@ class StrategieController extends Zend_Controller_Action
                 // RAZ du formulaire
                 $form->reset();
         
-                echo $row->id;
+                //echo $row->id;
             }
         }
     }
@@ -240,7 +240,7 @@ class StrategieController extends Zend_Controller_Action
                 //sauvegarde de la requete
                 $result = $row->save();
         
-                echo $row->id;
+                //echo $row->id;
              
                 // RAZ du formulaire
                 $form->reset();
