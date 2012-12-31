@@ -52,19 +52,17 @@ class FNouveauvol extends Zend_Form
 
 
 	//=============== Creation des element
-		$eNumeroVol = new Zend_Form_Element_Text('numeroVol');
-		$eNumeroVol	->setLabel('Numéro vol :')
-					->setAttrib('size', '1')
-					->setAttrib('maxlength', '5')
-					->addFilter('StripTags')
-		            ->addFilter('StringTrim')
-					->setDecorators($decorators);
 		// depart
 		//////////// recuperation des pays pour liste //////////////
 			// on charge le model
 			$tablePays = new TPays;
 			// on recupere tout les pays
-	        $pays = $tablePays->fetchAll();
+	        $reqPays = $tablePays	->select()
+        							->from($tablePays)
+        							->order("nom");
+
+		    $pays = $tablePays->fetchAll($reqPays);
+
 	        // on instancie le resulta en tableau de pays
 	        $paysTab = array();
 
@@ -84,7 +82,11 @@ class FNouveauvol extends Zend_Form
 				//on charge le model
 				$tableVille = new TVille;
 				//on recupere toutes les villes
-		        $ville = $tableVille->fetchAll();
+				$reqVille = $tableVille	->select()
+	        							->from($tableVille)
+	        							->order("nom");
+
+		        $ville = $tableVille->fetchAll($reqVille);
 		        // on instancie le resultat en tableau de ville
 		        $villeTab = array();
 
@@ -104,7 +106,12 @@ class FNouveauvol extends Zend_Form
 				// on charge le model
 				$tableAeroport = new TAeroport;
 				//on recupere tout les aeroports
-		        $aeroport = $tableAeroport->fetchAll();
+		        $reqAeroport = $tableAeroport	->select()
+			        							->from($tableAeroport)
+			        							->order("nom");
+
+		        $aeroport = $tableAeroport->fetchAll($reqAeroport);
+
 		        // on instancie le resultat en tableau d'aeroport
 		        $aeroportTab = array();
 
@@ -187,8 +194,7 @@ class FNouveauvol extends Zend_Form
 					->setDecorators($decoratorsBouton);
 
 		// Ajout des éléments au formulaire
-		$elements = array(	$eNumeroVol,
-							$ePaysDepart,
+		$elements = array(	$ePaysDepart,
 							$eVilleDepart,
 							$eAeroportDepart,
 							$eDepartH,
@@ -235,35 +241,44 @@ class FNouveauvol extends Zend_Form
 			$eArriveeM->setName('datepickerfin'.$numeroVol);
 			$eArriveeH->setName('timepickerfin'.$numeroVol);
 
-			// ... on charde le model de base de donnée Client,
+			// ... on charde le model,
 			$tableDestination = new TDestination;
-			// on envoi la requete pour recupere les informations de l'utilisateur
-            $destination = $tableDestination  ->find($numeroVol)
-                                    ->current();
+			// on envoi la requete pour recupere les informations
+            $destination = $tableDestination  	->find($numeroVol)
+                                    			->current();
 
 			// si on a un retour
-			if ($destination != null) {
+			if ($destination != null) { 
 
-                 
-                
+				// on peuple les selects d'aeroport concernées
                 $eAeroportDepart->setValue($destination->tri_aero_dep);
                 $eAeroportArrivee->setValue($destination->tri_aero_arr);
 
+                // on charge le model aeroport...
                 $tableAeroport = new TAeroport;
+                // ... on cherche les information concernant les aeroports de la destination concernée
+            	$aeroport_dep = $tableAeroport	->find($destination->tri_aero_dep)->current();
+            	$aeroport_arr = $tableAeroport	->find($destination->tri_aero_arr)->current();
 
-            	$aeroport_dep = $tableAeroport->find($destination->tri_aero_dep)->current();
-            	$aeroport_arr = $tableAeroport->find($destination->tri_aero_arr)->current();
-
+            	// on charge le model ville ...
                 $tableVille = new TVille;
-
+                // ...on cherche les informations des ville des aeroport concerner
             	$ville_dep = $tableVille->find($aeroport_dep->id_ville)->current();
             	$ville_arr = $tableVille->find($aeroport_arr->id_ville)->current();
+            	// on peuple les selects de ville concernée
             	$eVilleDepart->setValue($aeroport_dep->id_ville);
             	$eVilleArrive->setValue($aeroport_arr->id_ville);
 
+            	// on peuple les selects de pays concernée
+            	$ePaysDepart->setValue($ville_dep->id_pays);
+            	$ePaysArrivee->setValue($ville_arr->id_pays);
+
+
+            	// on peuple la périodicité
+            	$ePeriodicite->setValue($destination->periodicite);
+
             	// on peuple le formulaire avec les information demandé
                 $destination = array(
-                	'numeroVol' 	=> $destination->numero_vol,
                 	'timepickerfin'	=> date('H:i',$destination->heure_arr),
                 	'datepickerfin'	=> date('d-m-Y',$destination->date_arr),
                 	'datepickerdeb'	=> date('d-m-Y',$destination->date_dep),

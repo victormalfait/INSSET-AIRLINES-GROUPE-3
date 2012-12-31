@@ -90,6 +90,7 @@
 /* ========= RESERVATION STYLES END HERE =========  */
 
 /* ========= TABLEAU STYLES =========  */
+        .tableVide {margin: 3px; text-align: center; }
         table { text-align: center; border: 1px solid #C8C8C8; border-radius: 5px; float: left;}
         thead {border-radius: 3px 3px 0 0; background-color: #C8C8C8; box-shadow: inset 0px -4px 20px #3D3D3D; color: #002454; text-shadow: 0px 1px 0px #fff; font-weight: bold;}
         th { border-left: 1px solid #C8C8C8; border-right: 1px solid #fff; padding: 8px 5px; font-size: 1em;}

@@ -72,16 +72,16 @@ class StrategieController extends Zend_Controller_Action
                     $row->numero_vol = 'AI'.($nbr_enr+1);
                 }
 
-                $heure_dep = $_POST['timepickerdeb'.$numero_vol];//$formVol->getValue('timepickerdeb'.$numero_vol);
-                $heure_arr = $_POST['timepickerfin'.$numero_vol];//$formVol->getValue('timepickerfin'.$numero_vol);
+                $heure_dep = $_POST['timepickerdeb'.$numero_vol];
+                $heure_arr = $_POST['timepickerfin'.$numero_vol];
 
                 //On explose le format envoyé par les datepicker
                 list($heureD, $minuteD) = explode(":", $heure_dep);
                 list($heureF, $minuteF) = explode(":", $heure_arr);
 
                 if($formVol->getValue('periodicite')=='Vol unique'){
-                    $date_debut = $_POST['datepickerdeb'.$numero_vol];//$formVol->getValue('datepickerdeb'.$numero_vol);
-                    $date_fin = $_POST['datepickerfin'.$numero_vol];//$formVol->getValue('datepickerfin'.$numero_vol);
+                    $date_debut = $_POST['datepickerdeb'.$numero_vol];
+                    $date_fin = $_POST['datepickerfin'.$numero_vol];
                     list($jourD, $moisD, $anneeD) = explode("-", $date_debut);
                     list($jourF, $moisF, $anneeF) = explode("-", $date_fin);     
                 }else{
@@ -155,7 +155,7 @@ class StrategieController extends Zend_Controller_Action
                 $row = $tablePays->createRow();
 
                 // on envoi les données 
-                $row->nom  = $_POST['nouveauPays'];
+                $row->nom  = utf8_decode($_POST['nouveauPays']);
 
                 //sauvegarde de la requete
                 $result = $row->save();
@@ -193,7 +193,7 @@ class StrategieController extends Zend_Controller_Action
                 $row = $tableVille->createRow();
 
                 // on envoi les données 
-                $row->nom       = $_POST['nouveauVille'];
+                $row->nom       = utf8_decode($_POST['nouveauVille']);
                 $row->id_pays   = $_POST['pays_ville'];
 
                 //sauvegarde de la requete
@@ -232,7 +232,7 @@ class StrategieController extends Zend_Controller_Action
                 $row = $tableVille->createRow();
 
                 // on envoi les données 
-                $row->nom               = $_POST['nouvelAeroport'];
+                $row->nom               = utf8_decode($_POST['nouvelAeroport']);
                 $row->id_ville          = $_POST['ville_aeroport'];
                 $row->trigramme         = $_POST['trigramme'];
                 $row->longueur_piste    = $_POST['longueurpiste'];

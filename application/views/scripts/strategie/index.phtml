@@ -38,30 +38,36 @@
 						<?php }?>
 					</tbody>
 				</table>
-				<div class="formulaire">
-					<!-- popup nouveau pays -->
-					<?php echo $this->action('nouveaupays','strategie'); ?>
-
-					<!-- popup nouvelle ville -->
-					<?php echo $this->action('nouvelleville','strategie'); ?>
-
-					<!-- popup nouvel aeroport -->
-					<?php echo $this->action('nouvelaeroport','strategie'); ?>
-				
-					<!-- popup nouveau vol -->
-					<?php echo $this->action('nouveau','strategie'); ?>
-
-					<?php 
-						foreach ($destinations as $destination) {
-							echo $this->action('nouveau','strategie', null, array('numero_vol' => $destination->numero_vol));
-						} 
-					?>
-				</div>
 			<?php
 		} 
 		else { // sinon (aucune destination)
 			// on affiche un message 
-			echo "Aucune destination n'est enregistrée";
+			?>
+				<div class="tableVide">
+					<span>Aucune destination n'est enregistrée</span>
+				</div>
+			<?php
 		}
 	?>
+		<div class="formulaire">
+			<!-- popup nouveau pays -->
+			<?php echo $this->action('nouveaupays','strategie'); ?>
+
+			<!-- popup nouvelle ville -->
+			<?php echo $this->action('nouvelleville','strategie'); ?>
+
+			<!-- popup nouvel aeroport -->
+			<?php echo $this->action('nouvelaeroport','strategie'); ?>
+		
+			<!-- popup nouveau vol -->
+			<?php echo $this->action('nouveau','strategie'); ?>
+
+			<?php
+				if (count($destinations) > 0) {
+					foreach ($destinations as $destination) {
+						echo $this->action('nouveau','strategie', null, array('numero_vol' => $destination->numero_vol));
+					}
+				} 
+			?>
+		</div>
 </section>
