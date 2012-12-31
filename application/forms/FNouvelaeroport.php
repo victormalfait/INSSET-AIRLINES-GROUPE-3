@@ -54,7 +54,7 @@ class FNouvelaeroport extends Zend_Form
 	        $villeTab = array();
 
 	        foreach ($ville as $v) {
-	        	$villeTab[$v->id_ville] = htmlentities($v->nom);
+	        	$villeTab[$v->id_ville] = utf8_encode($v->nom);
 	        }
 	        
 			// creation de l'élément

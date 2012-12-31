@@ -165,8 +165,8 @@ class StrategieController extends Zend_Controller_Action
              
                 // RAZ du formulaire
                 $form->reset();
-                exit;
-            }
+                $redirector = $this->_helper->getHelper('Redirector');
+                $redirector->gotoUrl('strategie/index');            }
         }
     }
 
@@ -203,8 +203,8 @@ class StrategieController extends Zend_Controller_Action
              
                 // RAZ du formulaire
                 $form->reset(); 
-                exit;       
-            }
+                $redirector = $this->_helper->getHelper('Redirector');
+                $redirector->gotoUrl('strategie/index');            }
         }
     }
 
@@ -241,6 +241,8 @@ class StrategieController extends Zend_Controller_Action
                 $result = $row->save();             
                 // RAZ du formulaire
                 $form->reset();
+                $redirector = $this->_helper->getHelper('Redirector');
+                $redirector->gotoUrl('strategie/index');
             }
         }
     }
