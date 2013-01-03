@@ -35,7 +35,15 @@
 								?>
 									<tr>
 										<td><?php echo $utilisateur->id_utilisateur; ?></td>
-										<td><?php echo $utilisateur->nom_utilisateur . ' ' . $utilisateur->prenom_utilisateur; ?></td>
+										<td><?php 
+											if($utilisateur->id_service == '9'){?>
+												<a href="<?php echo $this->baseUrl('ressourcehumaine/pilote/idPilote/' . $utilisateur->id_utilisateur); ?>" >
+													<?php echo $utilisateur->nom_utilisateur . ' ' . $utilisateur->prenom_utilisateur; ?>
+												</a>
+											<?php }else{
+												echo $utilisateur->nom_utilisateur . ' ' . $utilisateur->prenom_utilisateur;
+											} 
+										?></td>
 										<td>
 											<?php echo $utilisateur->adresse_utilisateur; ?><br />
 											<?php echo $utilisateur->cp_utilisateur . ' - ' . $utilisateur->ville_utilisateur; ?>

@@ -46,6 +46,7 @@ class RessourcehumaineController extends Zend_Controller_Action
                     $row = $utilisateur->find($idUtilisateur)->current();
                 }else{
                     $row = $utilisateur->createRow();
+                    
                 }
 
                 $row->login_utilisateur = $form->getValue('login');
@@ -59,6 +60,16 @@ class RessourcehumaineController extends Zend_Controller_Action
                 
                 //sauvegarde de la requete
                 $result = $row->save();
+
+                if(!isset($idUtilisateur) && $idUtilisateur==""){
+                    if($form->getValue('service') == '9'){
+                        $pilote = new TPilote;
+                        $rowPilote = $pilote->createRow();
+                        $rowPilote->id_utilisateur = $row->id_utilisateur;
+                        $rowPilote->save();
+                    }
+                }
+
         
                 // RAZ du formulaire
                 $form->reset();
@@ -87,4 +98,23 @@ class RessourcehumaineController extends Zend_Controller_Action
         $redirector = $this->_helper->getHelper('Redirector');
         $redirector->gotoUrl("ressourcehumaine");
 	}
+
+    public function piloteAction(){
+        $idPilote = $this->_getParam('idPilote');
+
+        $tablePilote = new TPilote;
+
+        $piloteRequest = $tablePilote->select()->where('id_utilisateur ='.$idPilote);
+        $pilote = $tablePilote->fetchRow($piloteRequest);
+        $utilisateur = $pilote->findParentRow('TUtilisateur');
+
+        $tableBrevet = new TPiloteBrevet;
+
+        $brevetRequest = $tableBrevet->select()->where('id_pilote ='.$idPilote);
+        $brevet = $tableBrevet->fetchAll($brevetRequest);
+        
+        $this->view->pilote = $pilote;
+        $this->view->utilisateur = $utilisateur;
+        $this->view->brevet = $brevet;
+    }
 }
