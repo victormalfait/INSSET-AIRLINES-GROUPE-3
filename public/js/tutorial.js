@@ -1,30 +1,36 @@
 jQuery(document).ready(function($) {         
-
     //////////////// AJAX PAYS////////////////////////
+        // au click sur le bouton d'ajout de pays...
         $(".button_pays").click(function() {        
+            // ... on récupère la valeur du nom du pays ajouter
             var pays = $("input#nouveauPays").val();
             
+            // ... si cette valeur est vide
             if (pays == "") {
+                // on renvoi le focus sur le champ de texte
                 $("input #nouveauPays").focus();
-                return false;
-            }       
+            }
+            else { // sinon (valeur nom vide)
+                // on execute la requete ajax
+                $.ajax({
+                    type: "POST",
+                    url: "/strategie/nouveaupays",
+                    data: 'nouveauPays='+pays,
+                    
+                    success: function(id_pays) {
+                        $("#popup_ajouterPays").hide(); 
+                        $('#paysDepart').append('<option label="'+pays+'" value="'+id_pays+'">'+pays+'</option>');
+                        $('#paysArrivee').append('<option label="'+pays+'" value="'+id_pays+'">'+pays+'</option>');
+                    }
+                });
+            }
             
-            $.ajax({
-                type: "POST",
-                url: "/strategie/nouveaupays",
-                data: 'nouveauPays='+pays,
-                
-                success: function(id_pays) {
-                    $("#popup_ajouterPays").hide(); 
-                    $('#paysDepart').append('<option label="'+pays+'" value="'+id_pays+'">'+pays+'</option>');
-                    $('#paysArrivee').append('<option label="'+pays+'" value="'+id_pays+'">'+pays+'</option>');
-                }
-            });
-
             return false;
         });
 
+        // au click sur le bouton close pays
         $(".closePays").click(function(){
+            // on ferme le popup ajout pays
             $("#popup_ajouterPays").slideUp('slow');
         })
     //////////////// AJAX PAYS END HERE ////////////////////////
