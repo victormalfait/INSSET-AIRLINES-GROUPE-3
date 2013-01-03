@@ -40,43 +40,22 @@ class RessourcehumaineController extends Zend_Controller_Action
             if ($form->isValid($formData)) {
 
                 //on envoi la requete
-                $destination = new TDestination;
+                $utilisateur = new TUtilisateur;
 
-                if(isset($numero_vol) && $numero_vol!=""){
-                    $row = $destination->find($numero_vol)->current();
+                if(isset($idUtilisateur) && $idUtilisateur!=""){
+                    $row = $utilisateur->find($idUtilisateur)->current();
                 }else{
-                    $row = $destination->createRow();
-                    $nbr_enr = count($destination->fetchAll());
-                    $row->numero_vol = 'AI'.($nbr_enr+1);
+                    $row = $utilisateur->createRow();
                 }
 
-                $heure_dep = $form->getValue('timepickerdeb'.$numero_vol);
-                $heure_arr = $form->getValue('timepickerfin'.$numero_vol);
-
-                //On explose le format envoyé par les datepicker
-                list($heureD, $minuteD) = explode(":", $heure_dep);
-                list($heureF, $minuteF) = explode(":", $heure_arr);
-
-                if($form->getValue('periodicite')=='Vol unique'){
-                    $date_debut = $form->getValue('datepickerdeb'.$numero_vol);
-                    $date_fin = $form->getValue('datepickerfin'.$numero_vol);
-                    list($jourD, $moisD, $anneeD) = explode("-", $date_debut);
-                    list($jourF, $moisF, $anneeF) = explode("-", $date_fin);      
-                }else{
-                    $jourD = 0;$jourF = 0;
-                    $moisD = 0;$moisF = 0;
-                    $anneeD = 0;$anneeF = 0;
-                }
-                $date_depart = mktime($heureD, $minuteD, 0,  $moisD, $jourD, $anneeD);
-                $date_fin = mktime($heureF, $minuteF, 0, $moisF, $jourF, $anneeF);
-
-                $row->tri_aero_dep = $form->getValue('aeroportDepart');
-                $row->tri_aero_arr = $form->getValue('aeroportArrivee');
-                $row->heure_dep = $date_depart;
-                $row->heure_arr = $date_fin;
-                $row->date_dep = $date_depart;
-                $row->date_arr = $date_fin;
-                $row->periodicite = $form->getValue('periodicite');
+                $row->login_utilisateur = $form->getValue('login');
+                $row->nom_utilisateur = $form->getValue('nom');
+                $row->prenom_utilisateur = $form->getValue('prenom');
+                $row->adresse_utilisateur = $form->getValue('adresse');
+                $row->cp_utilisateur = $form->getValue('codePostal');
+                $row->ville_utilisateur = $form->getValue('ville');
+                $row->password_utilisateur = md5($form->getValue('password'));
+                $row->id_service = $form->getValue('service');
                 
                 //sauvegarde de la requete
                 $result = $row->save();
@@ -84,14 +63,28 @@ class RessourcehumaineController extends Zend_Controller_Action
                 // RAZ du formulaire
                 $form->reset();
 
-                // $redirector = $this->_helper->getHelper('Redirector');
-                // $redirector->gotoUrl('');
+                $redirector = $this->_helper->getHelper('Redirector');
+                $redirector->gotoUrl('ressourcehumaine/index');
             }
         }
 	}
 
 	public function supprimerAction()
 	{
-		
+		// Récuperation de l'id de la tache
+        $idUtilisateur = $this->_getParam('id');
+
+        // Chargement du model TTache
+        $tableUtilisateur = new TUtilisateur;
+
+        //Requetage par clé primaire
+        $user = $tableUtilisateur->find($idUtilisateur)->current();
+
+        //suppression de la destination
+        $user->delete();
+
+        // on recharge la page
+        $redirector = $this->_helper->getHelper('Redirector');
+        $redirector->gotoUrl("ressourcehumaine");
 	}
 }

@@ -7,10 +7,12 @@ class FNouvelUtilisateur extends Zend_Form
 	public function init()
 	{
 	//===============Parametre du formulaire
+		$idUtilisateur = $this->getIdUtilisateur();
+
 		$this->setName('nouvelUtilisateur');
 		$this->setMethod('post');
-		$this->setAction('');
-		$this->setAttrib('id', 'FNouvelUtilisateur');
+		$this->setAction('/ressourcehumaine/editer/idUtilisateur/'.$idUtilisateur);
+		$this->setAttrib('id', 'FNouvelUtilisateur'.$idUtilisateur);
 
 		
 	//=============== creation des decorateurs
@@ -161,49 +163,30 @@ class FNouvelUtilisateur extends Zend_Form
 		
 
 		// si on a une valeur ...
-		if (isset ( $numeroVol ) && $numeroVol != "") {
-			$eDepartM->setName('datepickerdeb'.$numeroVol);
-			$eDepartH->setName('timepickerdeb'.$numeroVol);
-			$eArriveeM->setName('datepickerfin'.$numeroVol);
-			$eArriveeH->setName('timepickerfin'.$numeroVol);
+		if (isset ( $idUtilisateur ) && $idUtilisateur != "") {
 
 			// ... on charde le model de base de donnée Client,
-			$tableDestination = new TDestination;
+			$tableUser = new TUtilisateur;
 			// on envoi la requete pour recupere les informations de l'utilisateur
-            $destination = $tableDestination  ->find($numeroVol)
-                                    ->current();
+            $user = $tableUser->find($idUtilisateur)->current();
 
 			// si on a un retour
-			if ($destination != null) {
-
-                 
-                
-                $eAeroportDepart->setValue($destination->tri_aero_dep);
-                $eAeroportArrivee->setValue($destination->tri_aero_arr);
-
-                $tableAeroport = new TAeroport;
-
-            	$aeroport_dep = $tableAeroport->find($destination->tri_aero_dep)->current();
-            	$aeroport_arr = $tableAeroport->find($destination->tri_aero_arr)->current();
-
-                $tableVille = new TVille;
-
-            	$ville_dep = $tableVille->find($aeroport_dep->id_ville)->current();
-            	$ville_arr = $tableVille->find($aeroport_arr->id_ville)->current();
-            	$eVilleDepart->setValue($aeroport_dep->id_ville);
-            	$eVilleArrive->setValue($aeroport_arr->id_ville);
+			if ($user != null) {
+  
+                $eService->setValue($user->id_service);
 
             	// on peuple le formulaire avec les information demandé
-                $destination = array(
-                	'numeroVol' 	=> $destination->numero_vol,
-                	'timepickerfin'	=> date('H:i',$destination->heure_arr),
-                	'datepickerfin'	=> date('d-m-Y',$destination->date_arr),
-                	'datepickerdeb'	=> date('d-m-Y',$destination->date_dep),
-                	'timepickerdeb'	=> date('H:i',$destination->heure_dep)
+                $utilisateur = array(
+                	'login' 	=> $user->login_utilisateur,
+                	'nom'	=> $user->nom_utilisateur,
+                	'prenom'	=> $user->prenom_utilisateur,
+                	'adresse'	=> $user->adresse_utilisateur,
+                	'codePostal'	=> $user->cp_utilisateur,
+                	'ville'	=> $user->ville_utilisateur
                 	);
 
 
-            	$this->populate ( $destination );
+            	$this->populate ( $utilisateur );
 			}
 			
 			// on change le label du bouton
