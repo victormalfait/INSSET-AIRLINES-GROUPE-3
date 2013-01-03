@@ -271,7 +271,7 @@ class FNouveauvol extends Zend_Form
 		// on recupere tout les pays
         $reqPays = $tablePays	->select()
     							->from($tablePays)
-    							->order("nom");
+    							->order("nom_pays");
 
 	    $pays = $tablePays->fetchAll($reqPays);
 
@@ -280,7 +280,7 @@ class FNouveauvol extends Zend_Form
 
         $paysTab[""] = "-- Choisissez --"; 
         foreach ($pays as $p) {
-        	$paysTab[$p->id_pays] = utf8_encode($p->nom);
+        	$paysTab[$p->id_pays] = utf8_encode($p->nom_pays);
         }
  
         return $paysTab;
@@ -296,7 +296,7 @@ class FNouveauvol extends Zend_Form
 		// on recupere tout les pays
         $reqVille = $tableVille	->select()
     							->from($tableVille)
-    							->order("nom");
+    							->order("nom_ville");
 
 	    $ville = $tableVille->fetchAll($reqVille);
 
@@ -305,7 +305,7 @@ class FNouveauvol extends Zend_Form
 
         $villeTab[""] = "-- Choisissez --"; 
         foreach ($ville as $v) {
-        	$villeTab[$v->id_ville] = utf8_encode($v->nom);
+        	$villeTab[$v->id_ville] = utf8_encode($v->nom_ville);
         }
  
         return $villeTab;
@@ -320,7 +320,7 @@ class FNouveauvol extends Zend_Form
 		// on recupere tout les pays
         $reqAeroport = $tableAeroport	->select()
 		    							->from($tableAeroport)
-		    							->order("nom");
+		    							->order("nom_aeroport");
 
 	    $aeroport = $tableAeroport->fetchAll($reqAeroport);
 
@@ -329,7 +329,7 @@ class FNouveauvol extends Zend_Form
 
         $aeroportTab[""] = "-- Choisissez --"; 
         foreach ($aeroport as $a) {
-        	$aeroportTab[$a->trigramme] = utf8_encode($a->nom);
+        	$aeroportTab[$a->trigramme] = utf8_encode($a->nom_aeroport);
         }
  
         return $aeroportTab;

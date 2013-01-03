@@ -48,6 +48,6 @@ class TAeroport extends Zend_Db_Table_Abstract
 	                                        ->where('a.trigramme = ?', $critere['aeroportDepart']);
 		}
 
-        return $aeroport = $tableAeroport->fetchAll($reqAeroport); 
+        return $aeroport = $tableAeroport->fetchAll($reqAeroport);
 	}
 }

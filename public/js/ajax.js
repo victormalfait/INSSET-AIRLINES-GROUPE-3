@@ -8,55 +8,43 @@ function remplirSelect (dataAjax) {
        , data : dataAjax
        , dataType: "json"
        , success: function(reponse){ // Sur Succès de la réponse AJAX
+		    // Duplique ma réponse	
+   		    var optionData = reponse;
+			// Suppression des éléments de mes listes déroulantes
+ 
+		 	// Mes villes
+		 	i = 0;           
+			for (key in reponse.ville) {
+				if (i <= 0) {
+					$("#villeDepart > option").remove();
+				};
 
-		 //    // Duplique ma réponse	
-   // 		    var optionData = reponse;
- 
-	  //   	// Suppression des éléments de mes listes déroulantes
-	  //  		$("#paysDepart > option").remove();
-	  //  		$("#villeDepart > option").remove();
-	  //  		$("#aeroportDepart > option").remove();
- 
-	  //  		// Ajoute les options pour chaque liste déroulante en fonction de la réponse
-	  //  		// Mes pays    
-	  //  		i = 0;           
-	  //  		for (key in reponse.pays) {	
-			// 	$("#id_pays").append(  '<option label="' + optionData['pays'][key] + '"' + 'value="'+ key + '">'
-			// 								+ optionData['pays'][key]
-			// 							+ '</option>');
-			// 	i++;
-				
-			// 	if (i == 2) { 
-			// 		$("#id_pays:first").prepend( '<option label="Choisissez" value="" >-- Choississez --</option>');
-			// 		$("#id_pays option:first").attr ('selected', 'selected');
-			// 	}
-			// } //Eof:: for 'pays'
- 
-		 // 	// Mes villes
-		 // 	i = 0;           
-			// for (key in reponse.ville) {	
-			// 	$("#id_ville").append(  '<option label="' + optionData['ville'][key]+ '"' + 'value="' + key + '">'
-			// 					  			+ optionData['ville'][key]
-			// 					  		+ '</option>');
-			// 	i++;
-			// 	if (i == 2) { 
-			// 		$("#id_ville:first").prepend( '<option label="Choisissez" value="" >-- Choississez --</option>');
-			// 		$("#id_ville option:first").attr ('selected', 'selected');
-			// 	}
-			// } //Eof:: for 'ville'
+				$("#villeDepart").append(  '<option label="' + optionData['ville'][key]+ '"' + 'value="' + key + '">'
+								  			+ optionData['ville'][key]
+								  		+ '</option>');
+				i++;
+				if (i == 2) { 
+					$("#villeDepart:first").prepend( '<option label="Choisissez" value="" >-- Choississez --</option>');
+					$("#villeDepart option:first").attr ('selected', 'selected');
+				}
+			} //Eof:: for 'ville'
 	 
-		 // 	// Mes aeroports
-		 // 	i = 0;           
-			// for (key in reponse.aeroport) {	
-	 	// 		$("#id_aeroport").append(  '<option label="' + optionData['aeroport'][key] + '"' + 'value="' + key + '">'
-			// 					  				+ optionData['aeroport'][key]
-			// 					  			+ '</option>');
-			//     i++;
-			//     if (i == 2) { 
-			// 		$("#id_aeroport:first").prepend( '<option abel="Choisissez" value="" >-- Choississez --</option>');
-			// 		$("#id_aeroport option:first").attr ('selected', 'selected');
-			// 	}
-			// } //Eof:: for 'aeroport'
+		 	// Mes aeroports
+		 	i = 0;           
+			for (key in reponse.aeroport) {
+				if (i <= 0) {
+					$("#aeroportDepart > option").remove();
+				};
+
+	 			$("#aeroportDepart").append(  '<option label="' + optionData['aeroport'][key] + '"' + 'value="' + key + '">'
+								  				+ optionData['aeroport'][key]
+								  			+ '</option>');
+			    i++;
+			    if (i == 2) { 
+					$("#aeroportDepart:first").prepend( '<option abel="Choisissez" value="" >-- Choississez --</option>');
+					$("#aeroportDepart option:first").attr ('selected', 'selected');
+				}
+			} //Eof:: for 'aeroport'
     	} //Eof:: success
     });  //Eof:: ajax 
 } //Eof:: fucntion remplirSelect
@@ -64,6 +52,7 @@ function remplirSelect (dataAjax) {
  
 //Sur fin du chargement du document
 $(document).ready( function() {
+
  
 	// Sur changement de l'un des 'select'
 	$("select").change(function(){
@@ -85,7 +74,7 @@ $(document).ready( function() {
  
  
 	// Sur click bouton reset
-	$("#reset").click (function() {
+	$("#fermerbutton").click (function() {
  
 		// Aucun choix
 	 	VpaysDepart = "";
@@ -93,9 +82,9 @@ $(document).ready( function() {
 	 	VaeroportDepart = "";
  
 	 	// Données à passer à la requête AJAX
-	 	var dataAjax = {  paysDepart:[VpaysDepart]
-	 	                , villeDepart:[VvilleDepart]
-	 					, aeroportDepart:[VaeroportDepart]
+	 	var dataAjax = {  paysDepart:VpaysDepart
+	 	                , villeDepart:VvilleDepart
+	 					, aeroportDepart:VaeroportDepart
  	         	    };
  
 		// Modification des 'select'

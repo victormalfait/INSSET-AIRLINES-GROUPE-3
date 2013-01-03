@@ -155,7 +155,7 @@ class StrategieController extends Zend_Controller_Action
                 $row = $tablePays->createRow();
 
                 // on envoi les données 
-                $row->nom  = utf8_decode($_POST['nouveauPays']);
+                $row->nom_pays  = utf8_decode($_POST['nouveauPays']);
 
                 //sauvegarde de la requete
                 $result = $row->save();
@@ -193,7 +193,7 @@ class StrategieController extends Zend_Controller_Action
                 $row = $tableVille->createRow();
 
                 // on envoi les données 
-                $row->nom       = utf8_decode($_POST['nouveauVille']);
+                $row->nom_ville = utf8_decode($_POST['nouveauVille']);
                 $row->id_pays   = $_POST['pays_ville'];
 
                 //sauvegarde de la requete
@@ -210,7 +210,6 @@ class StrategieController extends Zend_Controller_Action
 
     public function nouvelaeroportAction()
     {
-
         // creation de l'objet formulaire
         $form = new FNouvelaeroport;
 
@@ -232,7 +231,7 @@ class StrategieController extends Zend_Controller_Action
                 $row = $tableVille->createRow();
 
                 // on envoi les données 
-                $row->nom               = utf8_decode($_POST['nouvelAeroport']);
+                $row->nom_aeroport      = utf8_decode($_POST['nouvelAeroport']);
                 $row->id_ville          = $_POST['ville_aeroport'];
                 $row->trigramme         = $_POST['trigramme'];
                 $row->longueur_piste    = $_POST['longueurpiste'];

@@ -56,7 +56,7 @@ class FNouvelleville extends Zend_Form
 	        $paysTab = array();
 
 	        foreach ($pays as $p) {
-	        	$paysTab[$p->id_pays] = utf8_encode($p->nom);
+	        	$paysTab[$p->id_pays] = utf8_encode($p->nom_pays);
 	        }
 			// creation de l'élément
 			$ePays = new Zend_Form_Element_Select('pays_ville');
