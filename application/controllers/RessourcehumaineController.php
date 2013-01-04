@@ -154,4 +154,36 @@ class RessourcehumaineController extends Zend_Controller_Action
             }
         }
     }
+
+    public function creerbrevetAction(){
+        $form = new FCreerBrevet;
+        $this->view->formCreer = $form;
+
+
+        if ($this->_request->isPost()) {
+            // on recupere les éléments
+            $formData = $this->_request->getPost();
+
+            // si le formulaire passe au controle des validateurs
+            if ($form->isValid($formData)) {
+                //on charge le model TDestination
+                $tableBrevet = new TBrevet;
+
+                // on creer une nouvelle ligne
+                $row = $tableBrevet->createRow();
+
+                // on envoi les données 
+                $row->nom_brevet = $_POST['nomBrevet'];
+                $row->temps_validite = $_POST['duree'];
+
+                //sauvegarde de la requete
+                $row->save();
+
+                echo $row->id_brevet;
+             
+                // RAZ du formulaire
+                $form->reset();          
+            }
+        }
+    }
 }
