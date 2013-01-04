@@ -8,7 +8,7 @@ class TVille extends Zend_Db_Table_Abstract
 
 	protected $_referenceMap = array(
 		"Pays" => array(
-			"columns" => "id_ville",
-			"refTableClass" => "TVille")
+			"columns" => "id_pays",
+			"refTableClass" => "TPays")
 		);
 }

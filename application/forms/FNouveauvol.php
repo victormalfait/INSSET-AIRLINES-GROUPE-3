@@ -4,7 +4,7 @@ class FNouveauvol extends Zend_Form
 {
 	private $numeroVol;
 
-	public function init(){
+	public function init() {
 	//===============Parametre du formulaire
 		// on recupere la valeur de l'id utilisateur
 		$numeroVol = $this->getNumeroVol();
@@ -55,13 +55,8 @@ class FNouveauvol extends Zend_Form
 		// depart
 			$ePaysDepart = new Zend_Form_Element_Select('paysDepart');
 			$ePaysDepart	->setLabel('Pays : ')
+							->setAttrib('class', 'choixPaysDepart')
 							->setMultiOptions($this->listPays())
-							->setDecorators($decorators);
-
-
-			$eVilleDepart = new Zend_Form_Element_Select('villeDepart');
-			$eVilleDepart	->setLabel('Ville : ')
-							->setMultiOptions($this->listVille())
 							->setDecorators($decorators);
 
 
@@ -92,13 +87,8 @@ class FNouveauvol extends Zend_Form
 		//Arrivee
 			$ePaysArrivee = new Zend_Form_Element_Select('paysArrivee');
 			$ePaysArrivee	->setLabel('Pays : ')
+							->setAttrib('class', 'choixPaysArrivee')
 							->setMultiOptions($this->listPays())
-							->setDecorators($decorators);
-
-
-			$eVilleArrive = new Zend_Form_Element_Select('villeArrive');
-			$eVilleArrive	->setLabel('Ville : ')
-							->setMultiOptions($this->listVille())
 							->setDecorators($decorators);
 
 
@@ -129,7 +119,16 @@ class FNouveauvol extends Zend_Form
 		// Périodicité
 			$ePeriodicite = new Zend_Form_Element_Select('periodicite');
 			$ePeriodicite	->setLabel('periodicite : ')
-							->setMultiOptions(array('Vol unique'=>'Vol unique','Lundi'=>'Lundi', 'Mardi'=>'Mardi', 'Mercredi'=>'Mercredi', 'Jeudi'=>'Jeudi', 'Vendredi'=>'Vendredi', 'Samedi'=>'Samedi', 'Dimanche'=>'Dimanche'))
+							->setMultiOptions( array( 'Vol unique'	=> 'Vol unique'
+													, 'Lundi'		=> 'Lundi'
+													, 'Mardi'		=> 'Mardi'
+													, 'Mercredi'	=> 'Mercredi'
+													, 'Jeudi'		=> 'Jeudi'
+													, 'Vendredi'	=> 'Vendredi'
+													, 'Samedi'		=> 'Samedi'
+													, 'Dimanche'	=> 'Dimanche'
+													)
+												)
 							->setDecorators($decorators);
 
 		// Terminer
@@ -142,17 +141,15 @@ class FNouveauvol extends Zend_Form
 			$eFermer = new Zend_Form_Element_Reset('fermer');
 			$eFermer 	->setLabel('Fermer')
 						->setAttrib('id', 'fermerbutton')
-						->setAttrib('class', 'close')
+						->setAttrib('class', 'close fermerbutton')
 						->setDecorators($decoratorsBouton);
 
 		// Ajout des éléments au formulaire
 			$elements = array(	$ePaysDepart,
-								$eVilleDepart,
 								$eAeroportDepart,
 								$eDepartH,
 								$eDepartM,
 								$ePaysArrivee,
-								$eVilleArrive,
 								$eAeroportArrivee,
 								$eArriveeH,
 								$eArriveeM,
@@ -165,14 +162,12 @@ class FNouveauvol extends Zend_Form
 	//=============== creation des groupes de formulaire
 		$this->addDisplayGroup(array(
 								'paysDepart',
-								'villeDepart',
 								'aeroportDepart',
 								'timepickerdeb',
 								'datepickerdeb'), 'depart', array("legend" => "Départ"));
 
 		$this->addDisplayGroup(array(
 								'paysArrivee',
-								'villeArrive',
 								'aeroportArrivee',
 								'timepickerfin',
 								'datepickerfin'), 'arrivee', array("legend" => "Arrivée"));
@@ -183,8 +178,9 @@ class FNouveauvol extends Zend_Form
 								'Enregistrer',
 								'fermer'), 'terminer', array("legend" => "Terminer"));
 
+
+
 /*===========================PRÉ REMPLISSAGE DU FORMULAIRE==============================*/
-		
 
 		// si on a une valeur ...
 		if (isset ( $numeroVol ) && $numeroVol != "") {
@@ -217,9 +213,6 @@ class FNouveauvol extends Zend_Form
                 // ...on cherche les informations des ville des aeroport concerner
             	$ville_dep = $tableVille->find($aeroport_dep->id_ville)->current();
             	$ville_arr = $tableVille->find($aeroport_arr->id_ville)->current();
-            	// on peuple les selects de ville concernée
-            	$eVilleDepart->setValue($aeroport_dep->id_ville);
-            	$eVilleArrive->setValue($aeroport_arr->id_ville);
 
             	// on peuple les selects de pays concernée
             	$ePaysDepart->setValue($ville_dep->id_pays);
@@ -244,6 +237,8 @@ class FNouveauvol extends Zend_Form
 			// on change le label du bouton
 			$eSubmit->setLabel ( 'Modifier' );
 		}
+/*===========================PRÉ REMPLISSAGE DU FORMULAIRE==============================*/
+
 	}
 
 
@@ -278,7 +273,7 @@ class FNouveauvol extends Zend_Form
         // on instancie le resultat en tableau de pays
         $paysTab = array();
 
-        $paysTab[""] = "-- Choisissez --"; 
+        $paysTab["-1"] = "-- Choisissez --"; 
         foreach ($pays as $p) {
         	$paysTab[$p->id_pays] = utf8_encode($p->nom_pays);
         }
@@ -286,37 +281,14 @@ class FNouveauvol extends Zend_Form
         return $paysTab;
     }
  
- 
-    /**
-     * Liste des Villes
-     */
-    private function listVille () {
-		// on charge le model
-		$tableVille = new TVille;
-		// on recupere tout les pays
-        $reqVille = $tableVille	->select()
-    							->from($tableVille)
-    							->order("nom_ville");
-
-	    $ville = $tableVille->fetchAll($reqVille);
-
-        // on instancie le resultat en tableau de pays
-        $villeTab = array();
-
-        $villeTab[""] = "-- Choisissez --"; 
-        foreach ($ville as $v) {
-        	$villeTab[$v->id_ville] = utf8_encode($v->nom_ville);
-        }
- 
-        return $villeTab;
-    }
 
     /**
      * Liste des Aeroports
      */
     private function listAeroport () {
-		// on charge le model
+		// on charge les models
 		$tableAeroport = new TAeroport;
+ 
 		// on recupere tout les pays
         $reqAeroport = $tableAeroport	->select()
 		    							->from($tableAeroport)
@@ -329,7 +301,13 @@ class FNouveauvol extends Zend_Form
 
         $aeroportTab[""] = "-- Choisissez --"; 
         foreach ($aeroport as $a) {
-        	$aeroportTab[$a->trigramme] = utf8_encode($a->nom_aeroport);
+        	$tableAeroport = new TAeroport;
+        	// on recherche l'aeroport par clé primaire
+        	$aeroport = $tableAeroport	->find($a->trigramme)
+        								->current();
+        	$ville = $aeroport->findParentRow('TVille');
+
+        	$aeroportTab[$a->trigramme] = utf8_encode($ville->nom_ville . ' - ' . $a->nom_aeroport);
         }
  
         return $aeroportTab;

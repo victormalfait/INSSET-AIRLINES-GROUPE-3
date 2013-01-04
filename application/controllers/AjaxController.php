@@ -26,9 +26,7 @@ class AjaxController extends Zend_Controller_Action
             // Transforme mes données en tableau PHP 
             $list = array();
             foreach ($Rows as $row) {
-            	$list ['pays'][$row->id_pays] = $row->nom_pays;
-                $list ['ville'][$row->id_ville]  = $row->nom_ville;
-                $list ['aeroport'][$row->trigramme] = $row->nom_aeroport;
+                $list ['aeroport'][$row->trigramme] = $row->nom_ville . ' - ' . $row->nom_aeroport;
             }
  
             // Je renvoie ce tableau à ma vue au format JSON
