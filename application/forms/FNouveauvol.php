@@ -141,7 +141,7 @@ class FNouveauvol extends Zend_Form
 			$eFermer = new Zend_Form_Element_Reset('fermer');
 			$eFermer 	->setLabel('Fermer')
 						->setAttrib('id', 'fermerbutton')
-						->setAttrib('class', 'close fermerbutton')
+						->setAttrib('class', 'close')
 						->setDecorators($decoratorsBouton);
 
 		// Ajout des éléments au formulaire
@@ -158,6 +158,7 @@ class FNouveauvol extends Zend_Form
 								$eFermer
 							);
 			$this->addElements ( $elements );
+
 
 	//=============== creation des groupes de formulaire
 		$this->addDisplayGroup(array(

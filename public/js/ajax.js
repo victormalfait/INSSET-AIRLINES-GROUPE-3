@@ -93,20 +93,9 @@ $(document).ready( function() {
 			
 		}); //Eof:: sur changement de l'un des 'select pays'
 //////////////////////////////////////////////////////////////////////////////////////////////////////
- 
- 
-//////////////////////////////////////////////////////////////////////////////////////////////////////
-	// Sur click bouton reset
-		$(".fermerbutton").click (function() {
-	 		// Je remet les selections a zero
-	 		$("#paysDepart option:first").attr ('selected', 'selected');
-	 		$("#paysArrivee option:first").attr ('selected', 'selected');
 
-	 		$("#aeroportDepart > option").remove();
-	 		$("#aeroportArrivee > option").remove();
-			$("#aeroportDepart:first").prepend( '<option label="Choisissez" value="-1" >-- Choississez --</option>');
-			$("#aeroportArrivee:first").prepend( '<option label="Choisissez" value="-1" >-- Choississez --</option>');
-	 
-		}); //Eof:: sur click btn 'reset'
-//////////////////////////////////////////////////////////////////////////////////////////////////////
+		$("#fermerbutton").live('click', function () {
+			location.reload();
+		});
+
 }); //Eof:: ready
