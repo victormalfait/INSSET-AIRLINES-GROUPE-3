@@ -22,17 +22,21 @@
 				$tableBrevetType = new TBrevet;
 				$brevetTypeRequest = $tableBrevetType->select()->where('id_brevet ='.$brevet->id_brevet );
 				$brevetType = $tableBrevetType->fetchRow($brevetTypeRequest);
-				$dateRevalidation = 60*60*24*365*$brevetType->temps_validite+$brevet->date_obtension;
+				$dateRevalidation = 60*60*24*365*$brevetType->temps_validite+$brevet->date_obtention;
 
 				echo'
 				<tr>
-					<td>'.$brevetType->nom_brevet.'</td><td>'.date("d-m-Y",$brevet->date_obtension).'</td><td>'.date("d-m-Y",$dateRevalidation).'</td>
+					<td>'.$brevetType->nom_brevet.'</td><td>'.date("d-m-Y",$brevet->date_obtention).'</td><td>'.date("d-m-Y",$dateRevalidation).'</td>
 				</tr>';
 			}?>		
 			</tbody>	
 		</table>
 		<li>
-			Prénom : <?php echo $utilisateur->prenom_utilisateur; ?>
+			<a href="#attribBrevet" rel="popup_attribBrevet" class="poplight poplightedit">
+				<button>Attribuer un brevet</button>
+			</a>
 		</li>
 	</ul>
 </section>
+
+<?php echo $this->action('attribuer','ressourcehumaine', null, array('idPilote'=>$pilote->id_pilote, 'idUtilisateur'=>$pilote->id_utilisateur)); ?>

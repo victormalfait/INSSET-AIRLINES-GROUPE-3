@@ -110,11 +110,48 @@ class RessourcehumaineController extends Zend_Controller_Action
 
         $tableBrevet = new TPiloteBrevet;
 
-        $brevetRequest = $tableBrevet->select()->where('id_pilote ='.$idPilote);
+        $brevetRequest = $tableBrevet->select()->where('id_pilote ='.$pilote->id_pilote);
         $brevet = $tableBrevet->fetchAll($brevetRequest);
         
         $this->view->pilote = $pilote;
         $this->view->utilisateur = $utilisateur;
         $this->view->brevet = $brevet;
+    }
+
+    public function attribuerAction(){
+        $form = new FAttribuer;
+        $this->view->formAttribuer = $form;
+        $idPilote = $this->_getParam('idPilote');
+        $idUtilisateur = $this->_getParam('idUtilisateur');
+
+        if ($this->_request->isPost()) {
+            // on recupere les éléments
+            $formData = $this->_request->getPost();
+
+            // si le formulaire passe au controle des validateurs
+            if ($form->isValid($formData)) {
+                //on charge le model TDestination
+                $tablePiloteBrevet = new TPiloteBrevet;
+
+                // on creer une nouvelle ligne
+                $row = $tablePiloteBrevet->createRow();
+
+                list($jourD, $moisD, $anneeD) = explode("-", $_POST['datepicker']);
+                $date_obtention = mktime(0, 0, 0,  $moisD, $jourD, $anneeD);
+
+                // on envoi les données 
+                $row->id_pilote = $idPilote;
+                $row->id_brevet = $_POST['brevet'];
+                $row->date_obtention = $date_obtention;
+
+                //sauvegarde de la requete
+                $row->save();
+             
+                // RAZ du formulaire
+                $form->reset(); 
+                $redirector = $this->_helper->getHelper('Redirector');
+                $redirector->gotoUrl('ressourcehumaine/pilote/idPilote/'.$idUtilisateur);            
+            }
+        }
     }
 }

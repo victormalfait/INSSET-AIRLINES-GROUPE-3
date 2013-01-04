@@ -166,7 +166,8 @@ class StrategieController extends Zend_Controller_Action
                 // RAZ du formulaire
                 $form->reset();
                 $redirector = $this->_helper->getHelper('Redirector');
-                $redirector->gotoUrl('strategie/index');            }
+                $redirector->gotoUrl('strategie/index');
+            }
         }
     }
 
@@ -204,7 +205,8 @@ class StrategieController extends Zend_Controller_Action
                 // RAZ du formulaire
                 $form->reset(); 
                 $redirector = $this->_helper->getHelper('Redirector');
-                $redirector->gotoUrl('strategie/index');            }
+                $redirector->gotoUrl('strategie/index');            
+            }
         }
     }
 
