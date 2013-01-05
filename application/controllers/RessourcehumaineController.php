@@ -3,6 +3,22 @@
 class RessourcehumaineController extends Zend_Controller_Action
 {
 
+     public function init()
+    {
+        // mise en place du contexte ajax
+        $ajaxContext = $this->_helper->getHelper('AjaxContext');
+        $ajaxContext->addActionContext('creerbrevet', 'html')
+                    ->initContext();
+
+        // si on a une requete ajax
+        if ($this->_request->isXmlHttpRequest())
+        {
+            // on desactive le layout
+            $this->_helper->layout->disableLayout();
+            $this->_helper->removeHelper('viewRenderer');
+        }
+    }
+
 	public function indexAction()
 	{
 		// on charge le model
@@ -100,6 +116,14 @@ class RessourcehumaineController extends Zend_Controller_Action
 	}
 
     public function piloteAction(){
+        $tableUtilisateur = new TUtilisateur;
+        $utilisateurRequest = $tableUtilisateur->select()->where('id_service = 9');
+        $user = $tableUtilisateur->fetchAll($utilisateurRequest);
+
+        $this->view->utilisateur = $user;
+    }
+
+    public function detailspiloteAction(){
         $idPilote = $this->_getParam('idPilote');
 
         $tablePilote = new TPilote;
@@ -173,7 +197,7 @@ class RessourcehumaineController extends Zend_Controller_Action
                 $row = $tableBrevet->createRow();
 
                 // on envoi les données 
-                $row->nom_brevet = $_POST['nomBrevet'];
+                $row->nom_brevet = utf8_decode($_POST['nomBrevet']);
                 $row->temps_validite = $_POST['duree'];
 
                 //sauvegarde de la requete
@@ -185,5 +209,9 @@ class RessourcehumaineController extends Zend_Controller_Action
                 $form->reset();          
             }
         }
+    }
+
+    public function menurhAction(){
+
     }
 }

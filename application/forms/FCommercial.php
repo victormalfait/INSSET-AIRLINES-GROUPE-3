@@ -42,7 +42,7 @@ class FCommercial extends Zend_Form
         $$tabVille = array();
 
         foreach ($ville as $v) {
-        	$tabVille[$v['id']] = $v['nom'];
+        	$tabVille[$v['id_ville']] = $v['nom'];
         }
 
 		$eAeroportDepart = new Zend_Form_Element_Select('aeroportDepart');

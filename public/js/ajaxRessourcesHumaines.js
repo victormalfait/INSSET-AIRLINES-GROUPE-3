@@ -18,6 +18,7 @@ jQuery(document).ready(function($) {
                 data: 'nomBrevet='+nom+'&duree='+duree,
                 
                 success: function(id_brevet) {
+                    alert(id_brevet);
                     $("#popup_creerBrevet").hide(); 
                     $('#brevet').append('<option label="'+nom+'" value="'+id_brevet+'">'+nom+'</option>');
                 }
