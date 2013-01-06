@@ -72,7 +72,13 @@ class FCreerBrevet extends Zend_Form
 					->setLabel('Creer brevet')
 					->setDecorators($decoratorsBouton);
 
-		$elements = array($eNomBrevet, $eDuree, $eSubmit);
+		$eFermer = new Zend_Form_Element_Reset('fermer');
+		$eFermer 	->setLabel('Fermer')
+					->setAttrib('id', 'fermerbutton')
+					->setAttrib('class', 'close')
+					->setDecorators($decoratorsBouton);
+
+		$elements = array($eNomBrevet, $eDuree, $eSubmit, $eFermer);
 		$this->addElements($elements);
 
 	}

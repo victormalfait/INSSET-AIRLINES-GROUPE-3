@@ -19,6 +19,7 @@
 					<th>Nom du brevet</th>
 					<th>Obtention du brevet</th>
 					<th>Date de revalidation</th>
+					<th>Supprimer</th>
 				</thead>
 				<tbody>			
 				<?php foreach ($this->brevet as $brevet) {
@@ -26,12 +27,18 @@
 					$brevetTypeRequest = $tableBrevetType->select()->where('id_brevet ='.$brevet->id_brevet );
 					$brevetType = $tableBrevetType->fetchRow($brevetTypeRequest);
 					$dateRevalidation = 60*60*24*365*$brevetType->temps_validite+$brevet->date_obtention;
-
-					echo'
+					?>
 					<tr>
-						<td>'.$brevetType->nom_brevet.'</td><td>'.date("d-m-Y",$brevet->date_obtention).'</td><td>'.date("d-m-Y",$dateRevalidation).'</td>
-					</tr>';
-				}?>		
+						<td><?php echo $brevetType->nom_brevet;?></td>
+						<td><?php echo date("d-m-Y",$brevet->date_obtention);?></td>
+						<td><?php echo date("d-m-Y",$dateRevalidation);?></td>
+						<td>
+							<a href="<?php echo $this->baseUrl('ressourcehumaine/supprimerbrevet/idBrevet/'.$brevet->id_pilote_brevet.'/idUtilisateur/'.$utilisateur->id_utilisateur); ?>" title="Supprimer">
+								<button class="supprimer">supprimer</button>
+							</a>
+						</td>
+					</tr>
+				<?php }?>		
 				</tbody>	
 			</table>
 		</li>
