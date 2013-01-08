@@ -1,21 +1,21 @@
 <?php
 	echo '<script>
 	    $(function() {
-	    	$(".timepickerdeb'.$this->numero_vol.'").timepicker();
-			$(".timepickerfin'.$this->numero_vol.'").timepicker();
-	        $(".datepickerdeb'.$this->numero_vol.'" ).datepicker({dateFormat :"dd-mm-yy", minDate: 0});
-	        $(".datepickerdeb'.$this->numero_vol.'").change(function(){
-	            var d = $(".datepickerdeb'.$this->numero_vol.'").datepicker("getDate");
+	    	$(".timepickerdeb'.$this->id_destination.'").timepicker();
+			$(".timepickerfin'.$this->id_destination.'").timepicker();
+	        $(".datepickerdeb'.$this->id_destination.'" ).datepicker({dateFormat :"dd-mm-yy", minDate: 0});
+	        $(".datepickerdeb'.$this->id_destination.'").change(function(){
+	            var d = $(".datepickerdeb'.$this->id_destination.'").datepicker("getDate");
 	        
 	            var n = new Date(d.getFullYear(), d.getMonth(), d.getDate());
 	     
-	            $(".datepickerfin'.$this->numero_vol.'").datepicker({dateFormat :"dd-mm-yy", minDate: n});
+	            $(".datepickerfin'.$this->id_destination.'").datepicker({dateFormat :"dd-mm-yy", minDate: n});
 	        });
 	    });
 	</script>';
 ?>
 <!-- popup nouveau vol -->
-<div id="popup_editVol_<?php echo $this->numero_vol;?>" class="popup_block rouleau-fenetre">
+<div id="popup_editVol_<?php echo $this->id_destination;?>" class="popup_block rouleau-fenetre">
 	<header class="rouleau-fenetre-titre">
 		<span><?php echo $this->translate('Création d\'un Vol')?></span>
 	</header>

@@ -37,16 +37,16 @@ class StrategieController extends Zend_Controller_Action
     public function nouveauAction()
     {
         // on recupere le numero de vol passer en parametre
-        $numero_vol = $this->_request->getParam('numero_vol');
+        $id_destination = $this->_request->getParam('id_destination');
 
         // on l'envoi a la vue
-        $this->view->numero_vol = $numero_vol;
+        $this->view->id_destination = $id_destination;
 
         // creation de l'objet formulaire
         $formVol = new FNouveauvol;
 
         //On envoie les valeurs d'ID dans le formulaire
-        $formVol->setNumeroVol($numero_vol);
+        $formVol->setIdDestination($id_destination);
         $formVol->init();
 
         $this->view->formNouveauVol = $formVol;
@@ -62,44 +62,75 @@ class StrategieController extends Zend_Controller_Action
             if ($formVol->isValid($formData)) {
 
                 //on envoi la requete
-                $destination = new TDestination;
+                $tableDestination = new TDestination;
+                $destination = $tableDestination->fetchAll();
 
-                if(isset($numero_vol) && $numero_vol!=""){
-                    $row = $destination->find($numero_vol)->current();
-                }else{
-                    $row = $destination->createRow();
-                    $nbr_enr = count($destination->fetchAll());
-                    $row->numero_vol = 'AI'.($nbr_enr+1);
-                }
 
-                $heure_dep = $_POST['timepickerdeb'.$numero_vol];
-                $heure_arr = $_POST['timepickerfin'.$numero_vol];
+                $heure_dep = $_POST['timepickerdeb'.$id_destination];
+                $heure_arr = $_POST['timepickerfin'.$id_destination];
 
                 //On explose le format envoyé par les datepicker
                 list($heureD, $minuteD) = explode(":", $heure_dep);
                 list($heureF, $minuteF) = explode(":", $heure_arr);
 
-                if($formVol->getValue('periodicite')=='Vol unique'){
-                    $date_debut = $_POST['datepickerdeb'.$numero_vol];
-                    $date_fin = $_POST['datepickerfin'.$numero_vol];
-                    list($jourD, $moisD, $anneeD) = explode("-", $date_debut);
-                    list($jourF, $moisF, $anneeF) = explode("-", $date_fin);     
-                }else{
-                    $jourD = 0;$jourF = 0;
-                    $moisD = 0;$moisF = 0;
-                    $anneeD = 0;$anneeF = 0;
-                }
+
+                $date_debut = $_POST['datepickerdeb'.$id_destination];
+                $date_fin = $_POST['datepickerfin'.$id_destination];
+                list($jourD, $moisD, $anneeD) = explode("-", $date_debut);
+                list($jourF, $moisF, $anneeF) = explode("-", $date_fin); 
+
                 $date_depart = mktime($heureD, $minuteD, 0,  $moisD, $jourD, $anneeD);
                 $date_fin = mktime($heureF, $minuteF, 0, $moisF, $jourF, $anneeF);
 
-                $row->tri_aero_dep = $formVol->getValue('aeroportDepart');
-                $row->tri_aero_arr = $formVol->getValue('aeroportArrivee');
-                $row->date_dep = $date_depart;
-                $row->date_arr = $date_fin;
-                $row->periodicite = $formVol->getValue('periodicite');
-                
-                //sauvegarde de la requete
-                $result = $row->save();
+                if(isset($id_destination) && $id_destination!=""){
+                    $row = $tableDestination->find($id_destination)->current();
+                    $numeroVol = $row->numero_vol;
+                }else{
+                    
+                    $nbr_enr = count($destination);
+                    $numeroVol = 'AI'.($nbr_enr+1);
+                }
+
+                   
+                $tri_aero_dep = $formVol->getValue('aeroportDepart');
+                $tri_aero_arr = $formVol->getValue('aeroportArrivee');
+                $periodicite = $formVol->getValue('periodicite');
+
+                if($formVol->getValue('periodicite')=='Vol unique'){
+                    $row = $tableDestination->createRow();
+
+                    $row->numero_vol = $numeroVol;
+                    $row->tri_aero_dep = $tri_aero_dep;
+                    $row->tri_aero_arr = $tri_aero_arr;
+                    $row->date_dep = $date_depart;
+                    $row->date_arr = $date_fin;
+                    $row->periodicite = $periodicite;
+                    $row->plannification = 0;
+
+                    //sauvegarde de la requete
+                    $result = $row->save();
+
+                }else{
+
+                     for($i=0;$i<10;$i++){
+                        $date_depart += 7*24*60*60;
+                        $date_fin += 7*24*60*60;                      
+
+                        $data = array(
+                            'numero_vol' => $numeroVol,
+                        'tri_aero_dep' => $tri_aero_dep,
+                        'tri_aero_arr' => $tri_aero_arr,
+                        'date_dep' => $date_depart,
+                        'date_arr' => $date_fin,
+                        'periodicite' => $periodicite,
+                        'plannification' => 0
+                        );
+
+                        $row = $tableDestination->createRow($data);
+                        //sauvegarde de la requete
+                        $row->save();
+                    }
+                }
         
                 // RAZ du formulaire
                 $formVol->reset();

@@ -2,17 +2,17 @@
 
 class FNouveauvol extends Zend_Form
 {
-	private $numeroVol;
+	private $id_destination;
 
 	public function init() {
 	//===============Parametre du formulaire
 		// on recupere la valeur de l'id utilisateur
-		$numeroVol = $this->getNumeroVol();
+		$id_destination = $this->getIdDestination();
 
 		//$this->setName('nouveauVol');
 		$this->setMethod('post');
-		$this->setAction('/strategie/nouveau/numero_vol/'.$numeroVol);
-		$this->setAttrib('id', 'FNouveauvol'.$numeroVol);
+		$this->setAction('/strategie/nouveau/id_destination/'.$id_destination);
+		$this->setAttrib('id', 'FNouveauvol'.$id_destination);
 
 		
 	//=============== creation des decorateurs
@@ -70,7 +70,7 @@ class FNouveauvol extends Zend_Form
 			$eDepartH	->setLabel('Heure :')
 						->setAttrib('required', 'required')
 						->setAttrib('size', '1')
-						->setAttrib('class','timepickerdeb'.$numeroVol)
+						->setAttrib('class','timepickerdeb'.$id_destination)
 						->addValidator('notEmpty')
 						->setDecorators($decorators);
 
@@ -79,7 +79,7 @@ class FNouveauvol extends Zend_Form
 			$eDepartM	->setLabel('Date :')
 						->setAttrib('required', 'required')
 						->setAttrib('size', '3')
-						->setAttrib('class','datepickerdeb'.$numeroVol)
+						->setAttrib('class','datepickerdeb'.$id_destination)
 						->addValidator('notEmpty')
 						->setDecorators($decorators);
 
@@ -102,7 +102,7 @@ class FNouveauvol extends Zend_Form
 			$eArriveeH	->setLabel('Heure :')
 						->setAttrib('required', 'required')
 						->setAttrib('size', '1')
-						->setAttrib('class','timepickerfin'.$numeroVol)
+						->setAttrib('class','timepickerfin'.$id_destination)
 						->addValidator('notEmpty')
 						->setDecorators($decorators);
 
@@ -111,7 +111,7 @@ class FNouveauvol extends Zend_Form
 			$eArriveeM	->setLabel('Date :')
 						->setAttrib('required', 'required')
 						->setAttrib('size', '3')
-						->setAttrib('class','datepickerfin'.$numeroVol)
+						->setAttrib('class','datepickerfin'.$id_destination)
 						->addValidator('notEmpty')
 						->setDecorators($decorators);
 
@@ -184,16 +184,16 @@ class FNouveauvol extends Zend_Form
 /*===========================PRÉ REMPLISSAGE DU FORMULAIRE==============================*/
 
 		// si on a une valeur ...
-		if (isset ( $numeroVol ) && $numeroVol != "") {
-			$eDepartM->setName('datepickerdeb'.$numeroVol);
-			$eDepartH->setName('timepickerdeb'.$numeroVol);
-			$eArriveeM->setName('datepickerfin'.$numeroVol);
-			$eArriveeH->setName('timepickerfin'.$numeroVol);
+		if (isset ( $id_destination ) && $id_destination != "") {
+			$eDepartM->setName('datepickerdeb'.$id_destination);
+			$eDepartH->setName('timepickerdeb'.$id_destination);
+			$eArriveeM->setName('datepickerfin'.$id_destination);
+			$eArriveeH->setName('timepickerfin'.$id_destination);
 
 			// ... on charde le model,
 			$tableDestination = new TDestination;
 			// on envoi la requete pour recupere les informations
-            $destination = $tableDestination  	->find($numeroVol)
+            $destination = $tableDestination  	->find($id_destination)
                                     			->current();
 
 			// si on a un retour
@@ -244,17 +244,17 @@ class FNouveauvol extends Zend_Form
 
 
 	/**
-	 * @param $numeroVol the $numeroVol to set
+	 * @param $id_destination the $id_destination to set
 	 */
-	public function setNumeroVol($numeroVol) {
-		$this->numeroVol = $numeroVol;
+	public function setIdDestination($id_destination) {
+		$this->id_destination = $id_destination;
 	}
 
 	/**
-	 * @return the $numeroVol
+	 * @return the $id_destination
 	 */
-	public function getNumeroVol() {
-		return $this->numeroVol;
+	public function getIdDestination() {
+		return $this->id_destination;
 	}
 
 

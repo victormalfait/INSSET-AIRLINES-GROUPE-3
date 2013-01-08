@@ -31,8 +31,8 @@
 							<td><?php echo date("d/m/Y - H:i",$destination->date_dep);?></td>
 							<td><?php echo date("d/m/Y - H:i",$destination->date_arr);?></td>
 							<td><?php echo $destination->periodicite;?></td>
-							<td><a href="#editVol" rel="popup_editVol_<?php echo $destination->numero_vol;?>" class="poplight poplightedit " title="Modifier"><button class="modifier">modifier</button></a></td>
-							<td><a href="<?php echo $this->baseUrl('strategie/supprimer/id/'.$destination->numero_vol); ?>" title="Supprimer"><button class="supprimer">supprimer</button></a></td>
+							<td><a href="#editVol" rel="popup_editVol_<?php echo $destination->id_destination;?>" class="poplight poplightedit " title="Modifier"><button class="modifier">modifier</button></a></td>
+							<td><a href="<?php echo $this->baseUrl('strategie/supprimer/id/'.$destination->id_destination); ?>" title="Supprimer"><button class="supprimer">supprimer</button></a></td>
 						</tr>
 
 						<?php }?>
@@ -65,7 +65,7 @@
 			<?php
 				if (count($destinations) > 0) {
 					foreach ($destinations as $destination) {
-						echo $this->action('nouveau','strategie', null, array('numero_vol' => $destination->numero_vol));
+						echo $this->action('nouveau','strategie', null, array('id_destination' => $destination->id_destination));
 					}
 				} 
 			?>
