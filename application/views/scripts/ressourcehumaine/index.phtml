@@ -1,10 +1,15 @@
 <section id="RessourceHumaine">
 	<?php echo $this->action('menurh','ressourcehumaine'); ?>
-	<a href="#editEmploye" rel="popup_editEmploye_" class="poplight poplightedit">
-		<button class="bgRedBtn" style="float:none;">Créer un employé</button>
-	</a>
-	<br />
-	<br />
+	<span class="error">
+		<?php
+			$array =  $this->messages;
+			foreach ($array as $key => $value) {
+				echo $value;
+			}
+		?>
+	</span>
+	<br/>
+	<?php echo $this->action('filtre','ressourcehumaine'); ?>
 	<?php
 		// on recupere tous les employés de la base de donnée
 		$utilisateurs = $this->utilisateurs;

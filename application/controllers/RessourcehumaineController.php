@@ -21,12 +21,79 @@ class RessourcehumaineController extends Zend_Controller_Action
 
 	public function indexAction()
 	{
-		// on charge le model
+        // on charge les model
         $tableUtilisateur = new TUtilisateur;
+        $tablePilote = new TPilote;
 
-        // on envoi a la vue tout les pilote
-        $this->view->utilisateurs = $tableUtilisateur->fetchAll();
+        // Récuperation le filtre
+        $filtre = $this->_getParam('filtre');
+        // si un filtre a été demandé
+        if (isset($filtre)) {
+            $filtrepc = $filtre . '%';
+            // on recupere les clients correspondant au filtre demandé
+            $reqUtilisateurs = $tableUtilisateur    ->select()
+                                                    ->setIntegrityCheck(false)
+                                                    ->from('utilisateur')
+                                                    ->where('id_service = ?', $filtre)
+                                                    ->orwhere('ville_utilisateur LIKE ?', $filtrepc);
+            $utilisateurs = $tableUtilisateur->fetchAll($reqUtilisateurs);
+        }
+        else { //sinon        
+            // on recupere tout les utilisateur 
+            $utilisateurs = $tableUtilisateur->fetchAll();
+        }
+        // on envoi le resultat a la vue
+        $this->view->utilisateurs = $utilisateurs;
+
+        // Message du detail client lorsqu'aucun client n'a été choisi
+        $this->view->messages = $this->_helper->FlashMessenger->getMessages();
 	}
+
+    /** filtrer les utilisateurs */
+    public function filtreAction()
+    {
+        // creation de l'objet formulaire
+        $form = new FFiltre;
+
+        // affichage du formulaire
+        $this->view->formFiltre = $form;
+
+        // traitement du formulaire
+        // si le formulaire a été soumis
+        if ($this->_request->isPost()) {
+            // on recupere les éléments
+            $formData = $this->_request->getPost();
+
+            // si le formulaire passe au controle des validateurs
+            if ($form->isValid($formData)) {
+                // On recupere les données du formulaire
+                $service = $form->getValue('services');
+                $ville   = $form->getValue('ville');
+                
+                if ($ville != 'first') {
+                    $filtre = $ville;
+                }
+
+                if ($service != 'first') {
+                    $filtre = $service;
+                }
+
+                if (($service == 'first') && ($ville == 'first')){
+                    // Message d'erreur si aucun id n'a été trouvé
+                    $message = "Aucun filtre n'a été sélectionné";
+                    $this->_helper->FlashMessenger($message);
+
+                    $redirector = $this->_helper->getHelper('Redirector');
+                    $redirector->gotoUrl("ressourcehumaine/index");
+                }
+
+                // on redirige la page
+                $redirector = $this->_helper->getHelper('Redirector');
+                $redirector->gotoUrl("ressourcehumaine/index/filtre/" . $filtre);
+
+            }
+        }
+    }
 
 	public function editerAction()
 	{

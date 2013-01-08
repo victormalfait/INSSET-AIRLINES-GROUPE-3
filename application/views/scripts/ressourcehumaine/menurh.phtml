@@ -1,11 +1,21 @@
-<link rel="stylesheet" type="text/css" href="/css/rh.css">
-<div id="menuRH">
+<!-- Menu gestion des contact -->
+<nav id="menuRH">
 	<ul>
-		<li>
-			<a href="<?php echo $this->baseUrl('ressourcehumaine/index');?>">Ajouter un utilisateur</a>
-		</li>
-		<li>
-			<a href="<?php echo $this->baseUrl('ressourcehumaine/pilote');?>">Liste pilote</a>
-		</li>
+		<a href="#?filtreUtilisateur" rel="popup_filtreUtilisateur" class="poplight" title="Filtrer les employés">
+			<li id="filtrer">
+					<div>Filtrer les employés</div>
+			</li>
+		</a>
+		<a href="#editEmploye" rel="popup_editEmploye_" class="poplight poplightedit" title="Ajouter un employé">
+			<li id="ajouter">
+					<div>Ajouter un employé</div>
+			</li>
+		</a>
+		<a href="<?php echo $this->baseUrl('ressourcehumaine/index'); ?>" title="Afficher tous les employés">
+			<li  id="listeResumer">
+					<div>Afficher tous les employés</div>
+			</li>
+		</a>
 	</ul>
-</div>
+</nav>
+<!-- Menu gestion des contact ends here -->
