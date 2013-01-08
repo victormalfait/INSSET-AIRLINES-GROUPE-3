@@ -77,7 +77,13 @@ class FAttribuer extends Zend_Form
 					->setLabel('Attribuer')
 					->setDecorators($decoratorsBouton);
 
-		$elements = array($eBrevet, $eDate, $eSubmit);
+		$eFermer = new Zend_Form_Element_Reset('fermer');
+		$eFermer 	->setLabel('Fermer')
+					->setAttrib('id', 'fermerbutton')
+					->setAttrib('class', 'close')
+					->setDecorators($decoratorsBouton);
+
+		$elements = array($eBrevet, $eDate, $eSubmit, $eFermer);
 		$this->addElements($elements);
 
 	}

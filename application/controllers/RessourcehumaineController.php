@@ -174,7 +174,7 @@ class RessourcehumaineController extends Zend_Controller_Action
                 // RAZ du formulaire
                 $form->reset(); 
                 $redirector = $this->_helper->getHelper('Redirector');
-                $redirector->gotoUrl('ressourcehumaine/pilote/idPilote/'.$idUtilisateur);            
+                $redirector->gotoUrl('ressourcehumaine/detailspilote/idPilote/'.$idUtilisateur);            
             }
         }
     }
@@ -209,6 +209,24 @@ class RessourcehumaineController extends Zend_Controller_Action
                 $form->reset();          
             }
         }
+    }
+
+    public function supprimerbrevetAction(){
+        $brevet = $this->_getParam('idBrevet');
+        $utilisateur = $this->_getParam('idUtilisateur');
+        
+        // Chargement du model TTache
+        $tablePiloteBrevet = new TPiloteBrevet;
+
+        //Requetage par clé primaire
+        $pilotebrevet = $tablePiloteBrevet->find($brevet)->current();
+
+        //suppression de la destination
+        $pilotebrevet->delete();
+
+        // on recharge la page
+        $redirector = $this->_helper->getHelper('Redirector');
+        $redirector->gotoUrl("ressourcehumaine/detailspilote/idPilote/".$utilisateur);
     }
 
     public function menurhAction(){
