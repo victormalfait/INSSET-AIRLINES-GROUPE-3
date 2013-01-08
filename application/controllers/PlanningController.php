@@ -19,4 +19,13 @@ class PlanningController extends Zend_Controller_Action
 
 		$this->view->destination =$destination;
 	}
+
+	public function plannifierAction(){
+		$id_destination = $this->_getParam('id_destination');
+		$this->view->id_destination = $id_destination;
+		$tableDestination = new TDestination;
+		$destination = $tableDestination->find($id_destination)->current();
+		$this->view->destination = $destination;
+	}
+
 }

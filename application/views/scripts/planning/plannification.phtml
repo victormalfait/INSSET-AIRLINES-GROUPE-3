@@ -6,6 +6,7 @@
 			<th>Départ</th>
 			<th>Arrivé</th>
 			<th>Périodicité</th>
+			<th colspan="2">Action</th>
 		</thead>
 		<tbody>
 			<?php foreach ($this->destination as $destination) {?>
@@ -14,7 +15,13 @@
 				<td><?php echo $destination->tri_aero_dep.' le '.date("d/m/Y à H:i",$destination->date_dep);?></td>
 				<td><?php echo $destination->tri_aero_arr.' le '.date("d/m/Y à H:i",$destination->date_arr);?></td>
 				<td><?php echo $destination->periodicite; ?></td>
+				<td><a href="#editVol" rel="popup_editVol_<?php echo $destination->id_destination;?>" class="poplight poplightedit" title="Modifier"><button class="modifier">modifier</button></a></td>
+				<td><a href="<?php echo $this->baseUrl(''); ?>" title="Supprimer"><button class="supprimer">supprimer</button></a></td>
 			</tr>
 			<?php }?>
 	</table>
+	<div class="formulaire">
+		<?php foreach ($this->destination as $destination) {
+			echo $this->action('plannifier','Planning', null, array('id_destination' => $destination->id_destination));
+		}?>
 </section>
