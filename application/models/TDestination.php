@@ -5,7 +5,6 @@ class TDestination extends Zend_Db_Table_Abstract
 	
 	protected $_name = 'destination';
 	protected $_primary = 'id_destination';
-	//protected $_sequence = false;
 
 	protected $_referenceMap = array(
 		"Aeroport" => array(

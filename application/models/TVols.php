@@ -12,7 +12,7 @@ class TVols extends Zend_Db_Table_Abstract
 			"columns" => "id_copilote",
 			"refTableClass" => "TPilote"),
 		"Avion" => array(
-			"columns" => "immatriculation_appareil",
+			"columns" => "immatriculation",
 			"refTableClass" => "TAvion"),
 		"Destination" => array(
 			"columns" => "id_destination",

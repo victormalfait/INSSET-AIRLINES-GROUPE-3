@@ -1,4 +1,5 @@
 <section id="RessourceHumaine">
+	<?php echo $this->action('menuplanning','planning'); ?>
 	<table>
 		<thead>
 			<th>N° Vol</th>
@@ -7,18 +8,21 @@
 			<th>Pilotes</th>
 			<th>Avion</th>
 			<th>Remarque</th>
-			
 		</thead>
 		<tbody>
-			<?php foreach ($this->vol as $vol) {?>
+			<?php 
+//print_r($this->vol);
+			foreach ($this->vol as $vol) {?>
 			<tr>
-				<td><?php echo $vol->numero_vol; ?></td>
-
-
 				<?php 
-
+				
 				$tableDestination = new TDestination;
-				$destination = $tableDestination->find($vol->numero_vol)->current();
+				$destination = $tableDestination->find($vol->id_destination)->current();
+				?>
+
+				<td><?php echo $destination->numero_vol; ?></td>
+
+				<?php
 
 				$tableAeroport = new TAeroport;
 				$aeroport = $tableAeroport->find($destination->tri_aero_dep)->current();
