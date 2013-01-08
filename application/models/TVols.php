@@ -4,7 +4,7 @@ class TVols extends Zend_Db_Table_Abstract
 {
 	
 	protected $_name = 'vols';
-	protected $_primary = 'id';
+	protected $_primary = 'id_vols';
 
 	protected $_referenceMap = array(
 		"Pilote" => array(

@@ -225,10 +225,10 @@ class FNouveauvol extends Zend_Form
 
             	// on peuple le formulaire avec les information demandé
                 $destination = array(
-                	'timepickerfin'	=> date('H:i',$destination->heure_arr),
+                	'timepickerfin'	=> date('H:i',$destination->date_arr),
                 	'datepickerfin'	=> date('d-m-Y',$destination->date_arr),
                 	'datepickerdeb'	=> date('d-m-Y',$destination->date_dep),
-                	'timepickerdeb'	=> date('H:i',$destination->heure_dep)
+                	'timepickerdeb'	=> date('H:i',$destination->date_dep)
                 	);
 
 

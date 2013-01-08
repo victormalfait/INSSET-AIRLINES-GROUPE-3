@@ -28,8 +28,8 @@
 							<td><?php echo $destination->numero_vol;?></td>
 							<td><?php echo $destination->tri_aero_dep;?></td>
 							<td><?php echo $destination->tri_aero_arr;?></td>
-							<td><?php echo date("d/m/Y",$destination->date_dep) . ' - ' . date("H:i",$destination->heure_dep);?></td>
-							<td><?php echo date("d/m/Y",$destination->date_arr) . ' - ' . date("H:i",$destination->heure_arr);?></td>
+							<td><?php echo date("d/m/Y - H:i",$destination->date_dep);?></td>
+							<td><?php echo date("d/m/Y - H:i",$destination->date_arr);?></td>
 							<td><?php echo $destination->periodicite;?></td>
 							<td><a href="#editVol" rel="popup_editVol_<?php echo $destination->numero_vol;?>" class="poplight poplightedit " title="Modifier"><button class="modifier">modifier</button></a></td>
 							<td><a href="<?php echo $this->baseUrl('strategie/supprimer/id/'.$destination->numero_vol); ?>" title="Supprimer"><button class="supprimer">supprimer</button></a></td>

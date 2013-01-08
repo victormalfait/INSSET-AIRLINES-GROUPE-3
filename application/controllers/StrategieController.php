@@ -94,8 +94,6 @@ class StrategieController extends Zend_Controller_Action
 
                 $row->tri_aero_dep = $formVol->getValue('aeroportDepart');
                 $row->tri_aero_arr = $formVol->getValue('aeroportArrivee');
-                $row->heure_dep = $date_depart;
-                $row->heure_arr = $date_fin;
                 $row->date_dep = $date_depart;
                 $row->date_arr = $date_fin;
                 $row->periodicite = $formVol->getValue('periodicite');
