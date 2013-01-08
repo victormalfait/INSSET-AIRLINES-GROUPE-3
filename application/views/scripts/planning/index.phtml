@@ -1,0 +1,59 @@
+<section id="RessourceHumaine">
+	<table>
+		<thead>
+			<th>N° Vol</th>
+			<th>Départ</th>
+			<th>Arrivé</th>
+			<th>Pilotes</th>
+			<th>Avion</th>
+			<th>Remarque</th>
+			
+		</thead>
+		<tbody>
+			<?php foreach ($this->vol as $vol) {?>
+			<tr>
+				<td><?php echo $vol->numero_vol; ?></td>
+
+
+				<?php 
+
+				$tableDestination = new TDestination;
+				$destination = $tableDestination->find($vol->numero_vol)->current();
+
+				$tableAeroport = new TAeroport;
+				$aeroport = $tableAeroport->find($destination->tri_aero_dep)->current();
+				$aeroportBis = $tableAeroport->find($destination->tri_aero_arr)->current();
+
+				$tableVille = new TVille;
+				$ville = $tableVille->find($aeroport->id_ville)->current();
+				$villeBis = $tableVille->find($aeroportBis->id_ville)->current();
+
+				$tablePays = new TPays;
+				$pays = $tablePays->find($ville->id_pays)->current();
+				$paysBis = $tablePays->find($villeBis->id_pays)->current();
+
+				?>
+
+				<td><?php echo 'Le '.date("d/m/Y à H:i",$destination->date_dep).' de '.$aeroport->nom_aeroport.'<br/>'.$ville->nom_ville.' ('.$pays->nom_pays.')'; ?></td>
+				<td><?php echo 'Le '.date("d/m/Y à H:i",$destination->date_arr).' de '.$aeroportBis->nom_aeroport.'<br/>'.$villeBis->nom_ville.' ('.$paysBis->nom_pays.')'; ?></td>
+
+				<?php 
+
+				$tablePilote = new TPilote;
+				$pilote = $tablePilote->find($vol->id_pilote)->current();
+				$copilote = $tablePilote->find($vol->id_copilote)->current();
+
+				$tableUtilisateur = new TUtilisateur;
+				$utilisateur = $tableUtilisateur->find($pilote->id_utilisateur)->current();
+				$utilisateurBis = $tableUtilisateur->find($copilote->id_utilisateur)->current();
+
+				?>
+				<td><?php echo 'Pilote: '.$utilisateur->nom_utilisateur.' '.$utilisateur->prenom_utilisateur.'<br/>Co-Pilote: '.$utilisateurBis->nom_utilisateur.' '.$utilisateurBis->prenom_utilisateur; ?></td>
+				<td><?php //echo ; ?></td>
+				<td><?php echo $vol->remarque; ?></td>
+			</tr>
+				
+			<?php }?>
+		</tbody>
+	</table>
+</section>
