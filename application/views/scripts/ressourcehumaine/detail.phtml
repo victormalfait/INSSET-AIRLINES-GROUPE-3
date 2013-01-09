@@ -1,0 +1,99 @@
+<section id="RessourceHumaine">
+	<?php echo $this->action('menurh','ressourcehumaine'); ?>
+
+	<?php 
+		$utilisateur = $this->utilisateur;
+		$service = $this->service;
+	?>
+	<!-- Info employé -->
+	<section class="detail">
+		<fieldset>
+			<legend>Détail employé</legend>
+				<div class="identite">
+					<div>Employé N°</div>
+					<div><?php echo $utilisateur->id_utilisateur; ?></div>
+				</div>
+				<div class="identite">
+					<div>Login</div>
+					<div><?php echo $utilisateur->login_utilisateur; ?></div>
+				</div>
+				<div class="identite">
+					<div>Nom</div>
+					<div><?php echo $utilisateur->nom_utilisateur; ?></div>
+				</div>
+				<div class="identite">
+					<div>Prénom</div>
+					<div><?php echo $utilisateur->prenom_utilisateur; ?></div>
+				</div>
+				<div class="identite">
+					<div>Adresse</div>
+					<div><?php echo $utilisateur->adresse_utilisateur; ?><br />
+						<?php echo $utilisateur->cp_utilisateur . ' ' . $utilisateur->ville_utilisateur; ?></div>
+				</div>
+				<div class="identite">
+					<div>Service</div>
+					<div><?php echo $service->nom; ?></div>
+				</div>
+		</fieldset>
+	</section>
+	
+
+	<?php 
+        $pilote         = $this->pilote;
+        $piloteBrevet   = $this->piloteBrevet;
+
+        if ($pilote != null) {
+        	?>
+	        	<section>
+					<table>
+						<thead>
+							<th>Nom du brevet</th>
+							<th>Obtention du brevet</th>
+							<th>Date de revalidation</th>
+							<th>Supprimer</th>
+						</thead>
+						<tbody>			
+						<?php 
+
+							foreach ($piloteBrevet as $brevet) {
+								
+
+								$tableBrevet = new TBrevet;
+								
+								$brevetTypeRequest = $tableBrevetType->select()->where('id_brevet ='.$brevet->id_brevet );
+								
+								$brevetType = $tableBrevetType->fetchRow($brevetTypeRequest);
+								
+								$dateRevalidation = 60 * 60 * 24 * 365 * $brevetType->temps_validite + $brevet->date_obtention;
+								
+								?>
+									<tr>
+										<td><?php echo $brevetType->nom_brevet;?></td>
+										<td><?php echo date("d-m-Y",$brevet->date_obtention);?></td>
+										<td><?php echo date("d-m-Y",$dateRevalidation);?></td>
+										<td>
+											<a href="<?php echo $this->baseUrl('ressourcehumaine/supprimerbrevet/idBrevet/' . $brevet->id_pilote_brevet . '/idUtilisateur/' . $utilisateur->id_utilisateur); ?>" title="Supprimer le brevet du pilote">
+												<button class="supprimer">supprimer</button>
+											</a>
+										</td>
+									</tr>
+								<?php 
+							}
+						?>		
+						</tbody>	
+					</table>
+					<a href="#attribBrevet" rel="popup_attribBrevet" class="poplight poplightedit">
+						<button>Attribuer un brevet</button>
+					</a>
+					<a href="#creerBrevet" rel="popup_creerBrevet" class="poplight poplightedit">
+						<button>Créer un brevet</button>
+					</a>
+	        	</section>
+				<div class="formulaire">
+					<?php echo $this->action('attribuer','ressourcehumaine', null, array('idPilote'=>$pilote->id_pilote, 'idUtilisateur'=>$pilote->id_utilisateur)); ?>
+					<?php echo $this->action('creerbrevet','ressourcehumaine'); ?>
+				</div>
+        	<?php
+        }
+	?>
+</section>
