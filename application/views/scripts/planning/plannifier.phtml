@@ -1,26 +1,26 @@
+<section id="RessourceHumaine">
+	<?php echo $this->action('menuplanning','planning'); ?>
+	<?php $destination = $this->destination; ?>
+	<ul>
+		<li>N° vol: <?php echo $destination->numero_vol;?></li>
+		<li>Date de départ: <?php echo ' le '.date("d/m/Y à H:i",$destination->heure_dep);?></li>
+		<li>Date de départ: <?php echo ' le '.date("d/m/Y à H:i",$destination->heure_arr);?></li>
+		<?php
+		$tableAeroport = new TAeroport;
+		$aeroport = $tableAeroport->find($destination->tri_aero_dep)->current();
+		$aeroportBis = $tableAeroport->find($destination->tri_aero_arr)->current();
 
-<div id="popup_editVol_<?php echo $this->id_destination;?>" class="popup_block rouleau-fenetre">
-	<section class="rouleau-fenetre-section">
-		<?php $destination = $this->destination; ?>
-		<ul>
-			<li>N° vol: <?php echo $destination->numero_vol;?></li>
-			<li>Date de départ: <?php echo ' le '.date("d/m/Y à H:i",$destination->date_dep);?></li>
-			<li>Date de départ: <?php echo ' le '.date("d/m/Y à H:i",$destination->date_arr);?></li>
-			<?php
-			$tableAeroport = new TAeroport;
-			$aeroport = $tableAeroport->find($destination->tri_aero_dep)->current();
-			$aeroportBis = $tableAeroport->find($destination->tri_aero_arr)->current();
+		$tableVille = new TVille;
+		$ville = $tableVille->find($aeroport->id_ville)->current();
+		$villeBis = $tableVille->find($aeroportBis->id_ville)->current();
 
-			$tableVille = new TVille;
-			$ville = $tableVille->find($aeroport->id_ville)->current();
-			$villeBis = $tableVille->find($aeroportBis->id_ville)->current();
+		$tablePays = new TPays;
+		$pays = $tablePays->find($ville->id_pays)->current();
+		$paysBis = $tablePays->find($villeBis->id_pays)->current();
+		?>
+		<li>Départ: <?php echo $aeroport->nom_aeroport.'<br/>'.$ville->nom_ville.' ('.$pays->nom_pays.')';?></li>
+		<li>Arrivé: <?php echo $aeroportBis->nom_aeroport.'<br/>'.$villeBis->nom_ville.' ('.$paysBis->nom_pays.')';?></li>
+		<?php echo $this->formPlannifier; ?>
 
-			$tablePays = new TPays;
-			$pays = $tablePays->find($ville->id_pays)->current();
-			$paysBis = $tablePays->find($villeBis->id_pays)->current();
-			?>
-			<li>Départ: <?php echo $aeroport->nom_aeroport.'<br/>'.$ville->nom_ville.' ('.$pays->nom_pays.')';?></li>
-			<li>Arrivé: <?php echo $aeroportBis->nom_aeroport.'<br/>'.$villeBis->nom_ville.' ('.$paysBis->nom_pays.')';?></li>
-		</ul>
-	</section>
-</div>
+	</ul>
+</section>
