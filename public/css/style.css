@@ -21,6 +21,7 @@
     .bgRedBtn { background: url(/img/bgRedBtn.png); border: none; padding: 5px 30px; color: #fff; float: right; text-shadow: 0px -1px 0px #000;}
     .bgRedBtn:hover { opacity: .7; }
     .error { color: #FF0000; font-size: .7em;}
+    .lien { cursor: pointer;}
     fieldset {border: 1px dashed #B4B4B4; border-radius: 30px; }
     legend { padding: 0 10px; margin-left: 20px;}
 /* ========= GENERAL STYLES END HERE========== */
@@ -125,4 +126,35 @@
     #menuRH #filtrer {background: url(/img/min-filtre.png) no-repeat center;}
     #menuRH #ajouter {background: url(/img/min-ajoute.png) no-repeat center;}
     #menuRH #listeResumer {background: url(/img/min-liste.png) no-repeat center;}
-/* ========= STRATEGIE STYLES END HERE =========  
+/* ========= STRATEGIE STYLES END HERE =========  */
+
+
+/* ========= DETAIL STYLES =========  */
+        .detail fieldset{
+            width: 402px;
+            margin: 20px 0;
+            border: 1px solid #646464;
+            border-radius: 5px;
+            color: #000;
+            background: #9A9A9A url(/img/noise.png);
+            box-shadow:inset -1px -1px 1px #fff,inset 1px 1px 1px #000; 
+        }
+        .detail legend {
+            margin:0 0 0 -1px;
+            padding: 3px 10px;
+            background: #9A9A9A url(/img/noise.png);
+            box-shadow:inset 1px 1px 1px #000;
+            border-left: 1px solid #646464; 
+            border-top: 1px solid #646464; 
+            border-radius: 3px 3px 3px 0px;
+            color: #fff;
+            font-weight: bold;
+            text-shadow: 0px 0px 2px #000;
+        }
+        .detail .identite { border-top: 1px solid #fff; border-bottom: 1px solid #525252;}
+        .detail .identite:first-child { border-top: none;}
+        .detail .identite:last-child { border-bottom: none;}
+        .detail .identite div { font-weight: bold; display: inline-block; vertical-align: middle; padding: 5px 0;}
+        .detail .identite div:first-child { width: 130px; color: #47559D; padding-right: 5px; text-align: right;}
+        .detail .identite div:last-child { width: 194px; color: #000; padding-left: 5px; text-align: left;}
+/* ========= DETAIL STYLES END HERE =========  */

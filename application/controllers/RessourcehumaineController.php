@@ -182,34 +182,61 @@ class RessourcehumaineController extends Zend_Controller_Action
         $redirector->gotoUrl("ressourcehumaine");
 	}
 
-    public function piloteAction(){
+    public function detailAction() {
+        // on recupere l'id 
+        $idUtilisateur = $this->_getParam('id');
+
+        // on charge le model
         $tableUtilisateur = new TUtilisateur;
-        $utilisateurRequest = $tableUtilisateur->select()->where('id_service = 9');
-        $user = $tableUtilisateur->fetchAll($utilisateurRequest);
 
-        $this->view->utilisateur = $user;
+        // requete par clé primaire
+        $utilisateur = $tableUtilisateur    ->find($idUtilisateur)
+                                            ->current();
+
+        // Si l'id existe
+        if ($utilisateur!= null)
+        {
+            // Recherche des infos sur la service de l'utilisateur
+            $service = $utilisateur->findParentRow('TService');
+
+            // envoi du resultat a la vue
+            $this->view->utilisateur = $utilisateur;
+            $this->view->service = $service;
+
+            if ($service->id_service == 9) {
+                // on charge les models
+                $tablePilote        = new TPilote;
+                $tablePiloteBrevet  = new TPiloteBrevet;
+
+                // requete par clé primaire
+                $reqPilote = $tablePilote   ->select()
+                                            ->from($tablePilote)
+                                            ->where('id_utilisateur = ?', $idUtilisateur);
+
+                $pilote = $tablePilote->fetchRow($reqPilote);
+
+                $reqPiloteBrevet = $tablePiloteBrevet   ->select()
+                                                        ->from($tablePiloteBrevet)
+                                                        ->where('id_pilote = ?', $pilote->id_pilote);
+
+                $piloteBrevet = $tablePiloteBrevet ->fetchRow($reqPiloteBrevet);;
+                
+                // envoi du resultat a la vue
+                $this->view->pilote         = $pilote;
+                $this->view->piloteBrevet   = $piloteBrevet;
+            }
+        }
+        else { // Sinon (l'id n'existe pas)
+            // Message d'erreur si aucun id n'a été trouvé
+            $message = "L'employé selectionné n'existe pas";
+            $this->_helper->FlashMessenger($message);
+
+            $redirector = $this->_helper->getHelper('Redirector');
+            $redirector->gotoUrl("ressourcehumaine/index");
+        }
     }
 
-    public function detailspiloteAction(){
-        $idPilote = $this->_getParam('idPilote');
-
-        $tablePilote = new TPilote;
-
-        $piloteRequest = $tablePilote->select()->where('id_utilisateur ='.$idPilote);
-        $pilote = $tablePilote->fetchRow($piloteRequest);
-        $utilisateur = $pilote->findParentRow('TUtilisateur');
-
-        $tableBrevet = new TPiloteBrevet;
-
-        $brevetRequest = $tableBrevet->select()->where('id_pilote ='.$pilote->id_pilote);
-        $brevet = $tableBrevet->fetchAll($brevetRequest);
-        
-        $this->view->pilote = $pilote;
-        $this->view->utilisateur = $utilisateur;
-        $this->view->brevet = $brevet;
-    }
-
-    public function attribuerAction(){
+    public function attribuerAction() {
         $form = new FAttribuer;
         $this->view->formAttribuer = $form;
         $idPilote = $this->_getParam('idPilote');
