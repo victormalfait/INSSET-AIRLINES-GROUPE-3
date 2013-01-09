@@ -20,15 +20,60 @@ class StrategieController extends Zend_Controller_Action
         }
     }
 
+    //calcul de la distance 3D conçue par partir-en-vtt.com
+    function distance($lat1, $lon1, $lat2, $lon2, $alt1, $alt2) 
+    {
+
+        $a= 6378137;
+        $b = 6356752.314245;
+        $f = 1/298.257223563;
+        $L = ($lon2-$lon1)*pi()/180;
+        $U1 = atan((1-$f) * tan($lat1*pi()/180));
+        $U2 = atan((1-$f) * tan($lat2*pi()/180));
+        $sinU1 = sin($U1); 
+        $cosU1 = cos($U1);
+        $sinU2 = sin($U2); 
+        $cosU2 = cos($U2);
+
+        $lambda = $L; 
+        $iterLimit = 100;
+        do {
+            $sinLambda = sin($lambda);
+            $cosLambda = cos($lambda);
+            $sinSigma = sqrt(($cosU2*$sinLambda) * ($cosU2*$sinLambda) + ($cosU1*$sinU2-$sinU1*$cosU2*$cosLambda) * ($cosU1*$sinU2-$sinU1*$cosU2*$cosLambda));
+            $cosSigma = $sinU1*$sinU2 + $cosU1*$cosU2*$cosLambda;
+            $sigma = atan2($sinSigma, $cosSigma);
+            $sinAlpha = $cosU1 * $cosU2 * $sinLambda / $sinSigma;
+            $cosSqAlpha = 1 - $sinAlpha*$sinAlpha;
+            $cos2SigmaM = $cosSigma - 2*$sinU1*$sinU2/$cosSqAlpha;
+            $C = $f/16*$cosSqAlpha*(4+$f*(4-3*$cosSqAlpha));
+            $lambdaP = $lambda;
+            $lambda = $L + (1-$C) * $f * $sinAlpha *($sigma + $C*$sinSigma*($cos2SigmaM+$C*$cosSigma*(-1+2*$cos2SigmaM*$cos2SigmaM)));
+        } while (abs($lambda-$lambdaP)>1^⁻12 && $iterLimit>0);
+        
+        $uSq = $cosSqAlpha * ($a*$a - $b*$b) / ($b*$b);
+        $A = 1 + $uSq/16384*(4096+$uSq*(-768+$uSq*(320-175*$uSq)));
+        $B = $uSq/1024 * (256+$uSq*(-128+$uSq*(74-47*$uSq)));
+        $deltaSigma = $B*$sinSigma*($cos2SigmaM+$B/4*($cosSigma*(-1+2*$cos2SigmaM*$cos2SigmaM)-$B/6*$cos2SigmaM*(-3+4*$sinSigma*$sinSigma)*(-3+4*$cos2SigmaM*$cos2SigmaM)));
+        $s = $b*$A*($sigma-$deltaSigma);
+
+      return $s;
+    }
+
     public function indexAction()
     {
+        //on recupere la date du jour
+        $jour  = date("d",time());
+        $mois  = date("m",time());
+        $annee = date("Y",time());
+
+        //on convertie la date en timestamp
+        $date = mktime(0, 0, 0, $mois, $jour, $an);
         // on charge le model TDestination
         $tableDestination = new TDestination;
 
         // on recherche toutes les destination ordonner par date de depart
-        $destinationRequest = $tableDestination ->select()
-                                                ->from($tableDestination)
-                                                ->order('date_dep');
+        $destinationRequest = $tableDestination ->select()->where('heure_dep >= ?',$date)->orwhere('periodicite != "Vol unique"');
 
         // on le resultat de la requete envoi à la vue
         $this->view->destinations = $tableDestination->fetchAll($destinationRequest);
@@ -65,7 +110,6 @@ class StrategieController extends Zend_Controller_Action
                 $tableDestination = new TDestination;
                 $destination = $tableDestination->fetchAll();
 
-
                 $heure_dep = $_POST['timepickerdeb'.$id_destination];
                 $heure_arr = $_POST['timepickerfin'.$id_destination];
 
@@ -73,65 +117,47 @@ class StrategieController extends Zend_Controller_Action
                 list($heureD, $minuteD) = explode(":", $heure_dep);
                 list($heureF, $minuteF) = explode(":", $heure_arr);
 
+                if(isset($_POST['datepickerdeb'.$id_destination]) && $_POST['datepickerdeb'.$id_destination] != ''){
+                    $date_debut = $_POST['datepickerdeb'.$id_destination];
+                    list($jour, $mois, $annee) = explode("-", $date_debut);
+                }else{
+                    $jour   = 0;
+                    $mois   = 0;
+                    $annee  = 0;
+                }
 
-                $date_debut = $_POST['datepickerdeb'.$id_destination];
-                $date_fin = $_POST['datepickerfin'.$id_destination];
-                list($jourD, $moisD, $anneeD) = explode("-", $date_debut);
-                list($jourF, $moisF, $anneeF) = explode("-", $date_fin); 
-
-                $date_depart = mktime($heureD, $minuteD, 0,  $moisD, $jourD, $anneeD);
-                $date_fin = mktime($heureF, $minuteF, 0, $moisF, $jourF, $anneeF);
+                $heure_depart = mktime($heureD, $minuteD, 0, $mois, $jour, $annee);
+                $heure_arrive = mktime($heureF, $minuteF, 0, $mois, $jour, $annee);
 
                 if(isset($id_destination) && $id_destination!=""){
                     $row = $tableDestination->find($id_destination)->current();
                     $numeroVol = $row->numero_vol;
-                }else{
-                    
+                }else{                    
                     $nbr_enr = count($destination);
                     $numeroVol = 'AI'.($nbr_enr+1);
-                }
-
-                   
-                $tri_aero_dep = $formVol->getValue('aeroportDepart');
-                $tri_aero_arr = $formVol->getValue('aeroportArrivee');
-                $periodicite = $formVol->getValue('periodicite');
-
-                if($formVol->getValue('periodicite')=='Vol unique'){
                     $row = $tableDestination->createRow();
-
-                    $row->numero_vol = $numeroVol;
-                    $row->tri_aero_dep = $tri_aero_dep;
-                    $row->tri_aero_arr = $tri_aero_arr;
-                    $row->date_dep = $date_depart;
-                    $row->date_arr = $date_fin;
-                    $row->periodicite = $periodicite;
-                    $row->plannification = 0;
-
-                    //sauvegarde de la requete
-                    $result = $row->save();
-
-                }else{
-
-                     for($i=0;$i<10;$i++){
-                        $date_depart += 7*24*60*60;
-                        $date_fin += 7*24*60*60;                      
-
-                        $data = array(
-                            'numero_vol' => $numeroVol,
-                        'tri_aero_dep' => $tri_aero_dep,
-                        'tri_aero_arr' => $tri_aero_arr,
-                        'date_dep' => $date_depart,
-                        'date_arr' => $date_fin,
-                        'periodicite' => $periodicite,
-                        'plannification' => 0
-                        );
-
-                        $row = $tableDestination->createRow($data);
-                        //sauvegarde de la requete
-                        $row->save();
-                    }
                 }
-        
+
+                $tableAeroport = new TAeroport;
+                $dep_d = $tableAeroport->find($formVol->getValue('aeroportDepart'))->current();
+                $arr_d = $tableAeroport->find($formVol->getValue('aeroportArrivee'))->current();
+
+                $distance = $this->distance($dep_d->lattitude,$dep_d->longitude,$arr_d->lattitude,$arr_d->longitude);//
+
+                
+
+                $row->numero_vol        = $numeroVol;
+                $row->tri_aero_dep      = $formVol->getValue('aeroportDepart');
+                $row->tri_aero_arr      = $formVol->getValue('aeroportArrivee');
+                $row->heure_dep         = $heure_depart;
+                $row->heure_arr         = $heure_arrive;
+                $row->periodicite       = $formVol->getValue('periodicite');
+                $row->plannification    = 0;
+                $row->distance          = $distance;
+
+                //sauvegarde de la requete
+                $result = $row->save();
+    
                 // RAZ du formulaire
                 $formVol->reset();
 
@@ -140,7 +166,6 @@ class StrategieController extends Zend_Controller_Action
             }
         }
     }
-
 
     public function supprimerAction()
     {
@@ -266,6 +291,8 @@ class StrategieController extends Zend_Controller_Action
                 $row->id_ville          = $_POST['ville_aeroport'];
                 $row->trigramme         = $_POST['trigramme'];
                 $row->longueur_piste    = $_POST['longueurpiste'];
+                $row->longitude         = $_POST['longitude'];
+                $row->lattitude         = $_POST['lattitude'];
 
                 //sauvegarde de la requete
                 $result = $row->save();             

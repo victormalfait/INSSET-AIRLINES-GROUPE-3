@@ -99,6 +99,26 @@ class FNouvelaeroport extends Zend_Form
 						->addValidator('notEmpty')
 						->setDecorators($decorators);
 
+		$eLattitude = new Zend_Form_Element_Text('lattitude');
+		$eLattitude	->setLabel('Lattitude :')
+						->setRequired(true)
+						->setAttrib('required', 'required')
+						->setAttrib('size', '6')
+						->addFilter('StripTags')
+		        		->addFilter('StringTrim')
+						->addValidator('notEmpty')
+						->setDecorators($decorators);
+
+		$eLongitude = new Zend_Form_Element_Text('longitute');
+		$eLongitude	->setLabel('Longitude :')
+						->setRequired(true)
+						->setAttrib('required', 'required')
+						->setAttrib('size', '6')
+						->addFilter('StripTags')
+		        		->addFilter('StringTrim')
+						->addValidator('notEmpty')
+						->setDecorators($decorators);
+
 
 		$eSubmit = new Zend_Form_Element_Submit('ajouter');
 		$eSubmit 	->setLabel('Ajouter')
@@ -114,7 +134,7 @@ class FNouvelaeroport extends Zend_Form
 					->setDecorators($decoratorsBouton);
 
 		// Ajout des éléments au formulaire
-		$elements = array( $eVille, $eAeroport, $eIATA, $eLongueurPiste, $eSubmit, $eFermer );
+		$elements = array( $eVille, $eAeroport, $eIATA, $eLongueurPiste, $eLattitude, $eLongitude, $eSubmit, $eFermer );
 		$this->addElements ( $elements );
 	}
 }

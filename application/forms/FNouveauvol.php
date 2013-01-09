@@ -67,7 +67,7 @@ class FNouveauvol extends Zend_Form
 			
 
 			$eDepartH = new Zend_Form_Element_Text('timepickerdeb');
-			$eDepartH	->setLabel('Heure :')
+			$eDepartH	->setLabel('Heure de départ:')
 						->setAttrib('required', 'required')
 						->setAttrib('size', '1')
 						->setAttrib('class','timepickerdeb'.$id_destination)
@@ -77,10 +77,8 @@ class FNouveauvol extends Zend_Form
 
 			$eDepartM = new Zend_Form_Element_Text('datepickerdeb');
 			$eDepartM	->setLabel('Date :')
-						->setAttrib('required', 'required')
 						->setAttrib('size', '3')
 						->setAttrib('class','datepickerdeb'.$id_destination)
-						->addValidator('notEmpty')
 						->setDecorators($decorators);
 
 
@@ -99,19 +97,10 @@ class FNouveauvol extends Zend_Form
 
 			
 			$eArriveeH = new Zend_Form_Element_Text('timepickerfin');
-			$eArriveeH	->setLabel('Heure :')
+			$eArriveeH	->setLabel('Heure d\'arrivée:')
 						->setAttrib('required', 'required')
 						->setAttrib('size', '1')
 						->setAttrib('class','timepickerfin'.$id_destination)
-						->addValidator('notEmpty')
-						->setDecorators($decorators);
-
-
-			$eArriveeM = new Zend_Form_Element_Text('datepickerfin');
-			$eArriveeM	->setLabel('Date :')
-						->setAttrib('required', 'required')
-						->setAttrib('size', '3')
-						->setAttrib('class','datepickerfin'.$id_destination)
 						->addValidator('notEmpty')
 						->setDecorators($decorators);
 
@@ -163,17 +152,18 @@ class FNouveauvol extends Zend_Form
 	//=============== creation des groupes de formulaire
 		$this->addDisplayGroup(array(
 								'paysDepart',
-								'aeroportDepart',
-								'timepickerdeb',
-								'datepickerdeb'), 'depart', array("legend" => "Départ"));
+								'aeroportDepart'), 'depart', array("legend" => "Aéroport de départ"));
 
 		$this->addDisplayGroup(array(
 								'paysArrivee',
-								'aeroportArrivee',
-								'timepickerfin',
-								'datepickerfin'), 'arrivee', array("legend" => "Arrivée"));
+								'aeroportArrivee'), 'arrivee', array("legend" => "Aéroport d'arrivée"));
 
-		$this->addDisplayGroup(array('periodicite'), 'periode', array("legend" => "Périodicité"));
+		$this->addDisplayGroup(array(
+								'timepickerdeb',
+								'timepickerfin'), 'horraire', array("legend" => "Horraire"));
+
+		$this->addDisplayGroup(array('periodicite',
+									'datepickerdeb'), 'periode', array("legend" => "Périodicité"));
 		
 		$this->addDisplayGroup(array(
 								'Enregistrer',
@@ -187,7 +177,6 @@ class FNouveauvol extends Zend_Form
 		if (isset ( $id_destination ) && $id_destination != "") {
 			$eDepartM->setName('datepickerdeb'.$id_destination);
 			$eDepartH->setName('timepickerdeb'.$id_destination);
-			$eArriveeM->setName('datepickerfin'.$id_destination);
 			$eArriveeH->setName('timepickerfin'.$id_destination);
 
 			// ... on charde le model,
@@ -225,10 +214,9 @@ class FNouveauvol extends Zend_Form
 
             	// on peuple le formulaire avec les information demandé
                 $destination = array(
-                	'timepickerfin'	=> date('H:i',$destination->date_arr),
-                	'datepickerfin'	=> date('d-m-Y',$destination->date_arr),
-                	'datepickerdeb'	=> date('d-m-Y',$destination->date_dep),
-                	'timepickerdeb'	=> date('H:i',$destination->date_dep)
+                	'timepickerfin'	=> date('H:i',$destination->heure_arr),
+                	'datepickerdeb'	=> date('d-m-Y',$destination->heure_dep),
+                	'timepickerdeb'	=> date('H:i',$destination->heure_dep)
                 	);
 
 

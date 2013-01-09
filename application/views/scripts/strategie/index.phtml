@@ -14,11 +14,10 @@
 				<table>
 					<thead>
 						<th>Vol N°</th>
-						<th>Départ</th>
-						<th>Arrivée</th>
-						<th>départ</th>
-						<th>arrivée</th>
-						<th>Périodicité</th>
+						<th>Aéroport départ</th>
+						<th>Aéroport arrivé</th>
+						<th>Horraire</th>
+						<th>Date</th>
 						<th colspan="2">Action</th>
 					</thead>
 					<tbody>
@@ -28,9 +27,12 @@
 							<td><?php echo $destination->numero_vol;?></td>
 							<td><?php echo $destination->tri_aero_dep;?></td>
 							<td><?php echo $destination->tri_aero_arr;?></td>
-							<td><?php echo date("d/m/Y - H:i",$destination->date_dep);?></td>
-							<td><?php echo date("d/m/Y - H:i",$destination->date_arr);?></td>
-							<td><?php echo $destination->periodicite;?></td>
+							<td><?php echo date("H:i",$destination->heure_dep).' '.date("à H:i",$destination->heure_arr);?></td>
+							<?php if($destination->periodicite != 'Vol unique'){ ?>
+								<td><?php echo $destination->periodicite;?></td>
+							<?php }else{?>
+								<td><?php echo date("d/m/Y", $destination->heure_dep);?></td>
+							<?php }?>
 							<td><a href="#editVol" rel="popup_editVol_<?php echo $destination->id_destination;?>" class="poplight poplightedit " title="Modifier"><button class="modifier">modifier</button></a></td>
 							<td><a href="<?php echo $this->baseUrl('strategie/supprimer/id/'.$destination->id_destination); ?>" title="Supprimer"><button class="supprimer">supprimer</button></a></td>
 						</tr>
