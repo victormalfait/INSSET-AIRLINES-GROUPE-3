@@ -219,7 +219,7 @@ class RessourcehumaineController extends Zend_Controller_Action
                                                         ->from($tablePiloteBrevet)
                                                         ->where('id_pilote = ?', $pilote->id_pilote);
 
-                $piloteBrevet = $tablePiloteBrevet ->fetchRow($reqPiloteBrevet);;
+                $piloteBrevet = $tablePiloteBrevet ->fetchAll($reqPiloteBrevet);;
                 
                 // envoi du resultat a la vue
                 $this->view->pilote         = $pilote;
@@ -324,6 +324,9 @@ class RessourcehumaineController extends Zend_Controller_Action
     }
 
     public function menurhAction(){
-
+        // on envoi le nom de afficher dans la vue
+        $ctrl=Zend_Controller_Front::getInstance();
+        $this->view->action = $ctrl->getRequest()->getActionName();
+        
     }
 }
