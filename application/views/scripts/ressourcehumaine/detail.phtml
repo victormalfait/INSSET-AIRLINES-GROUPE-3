@@ -41,58 +41,71 @@
 	<?php 
         $pilote         = $this->pilote;
         $piloteBrevet   = $this->piloteBrevet;
-
         if ($pilote != null) {
         	?>
-	        	<section>
-					<table>
-						<thead>
-							<th>Nom du brevet</th>
-							<th>Obtention du brevet</th>
-							<th>Date de revalidation</th>
-							<th>Supprimer</th>
-						</thead>
-						<tbody>			
-						<?php 
-
-							foreach ($piloteBrevet as $brevet) {
-								
-
-								$tableBrevet = new TBrevet;
-								
-								$brevetTypeRequest = $tableBrevetType->select()->where('id_brevet ='.$brevet->id_brevet );
-								
-								$brevetType = $tableBrevetType->fetchRow($brevetTypeRequest);
-								
-								$dateRevalidation = 60 * 60 * 24 * 365 * $brevetType->temps_validite + $brevet->date_obtention;
-								
-								?>
-									<tr>
-										<td><?php echo $brevetType->nom_brevet;?></td>
-										<td><?php echo date("d-m-Y",$brevet->date_obtention);?></td>
-										<td><?php echo date("d-m-Y",$dateRevalidation);?></td>
-										<td>
-											<a href="<?php echo $this->baseUrl('ressourcehumaine/supprimerbrevet/idBrevet/' . $brevet->id_pilote_brevet . '/idUtilisateur/' . $utilisateur->id_utilisateur); ?>" title="Supprimer le brevet du pilote">
-												<button class="supprimer">supprimer</button>
-											</a>
-										</td>
-									</tr>
-								<?php 
-							}
-						?>		
-						</tbody>	
-					</table>
-					<a href="#attribBrevet" rel="popup_attribBrevet" class="poplight poplightedit">
-						<button>Attribuer un brevet</button>
-					</a>
-					<a href="#creerBrevet" rel="popup_creerBrevet" class="poplight poplightedit">
-						<button>Créer un brevet</button>
-					</a>
-	        	</section>
 				<div class="formulaire">
+					<a href="#attribBrevet" rel="popup_attribBrevet" class="poplight poplightedit">
+						<button class="bgRedBtn" style="float:none;">Attribuer un brevet</button>
+					</a>
 					<?php echo $this->action('attribuer','ressourcehumaine', null, array('idPilote'=>$pilote->id_pilote, 'idUtilisateur'=>$pilote->id_utilisateur)); ?>
-					<?php echo $this->action('creerbrevet','ressourcehumaine'); ?>
 				</div>
+	        	<section class="listeBrevet">
+	        		<?php
+	        			// on compte le nombre de brevet du pilote
+	        			$nbBrevet = count($piloteBrevet);
+
+	        			// si il a au moin 1 brevet
+	        			if ($nbBrevet > 0) {
+	        				// on affiche la liste des brevets
+				        	?>
+								<table>
+									<thead>
+										<th>Nom du brevet</th>
+										<th>Obtention du brevet</th>
+										<th>Date de revalidation</th>
+										<th>Supprimer</th>
+									</thead>
+									<tbody>			
+									<?php 
+
+										foreach ($piloteBrevet as $pb) {
+											// on charge le model
+											$tableBrevet = new TBrevet;
+											
+											// on recherche les informations des brevets
+											$brevet = $tableBrevet 	->find($pb->id_brevet)
+																	->current();
+											
+											// on calcule la date de validation
+											$dateRevalidation = 60 * 60 * 24 * 365 * $brevet->temps_validite + $pb->date_obtention;
+											?>
+												<tr>
+													<td><?php echo $brevet->nom_brevet; ?></td>
+													<td><?php echo date("d-m-Y",$pb->date_obtention); ?></td>
+													<td><?php echo date("d-m-Y",$dateRevalidation); ?></td>
+													<td>
+														<a href="<?php echo $this->baseUrl('ressourcehumaine/supprimerbrevet/idBrevet/' . $pb->id_pilote_brevet . '/idUtilisateur/' . $utilisateur->id_utilisateur); ?>" title="Supprimer le brevet du pilote">
+															<button class="supprimer">supprimer</button>
+														</a>
+													</td>
+												</tr>
+											<?php 
+										}
+									?>		
+									</tbody>	
+								</table>
+							<?php
+						}
+						else { // sinon (pas de brevet)
+							// on affiche un message d'erreur
+							?>
+								<div class="tableVide">
+									<span>Ce pilote n'a aucune habilitation à piloté</span>
+								</div>
+							<?php							
+						}
+					?>
+	        	</section>
         	<?php
         }
 	?>
