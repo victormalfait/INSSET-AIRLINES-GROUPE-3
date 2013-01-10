@@ -68,7 +68,7 @@ class StrategieController extends Zend_Controller_Action
         $annee = date("Y",time());
 
         //on convertie la date en timestamp
-        $date = mktime(0, 0, 0, $mois, $jour, $an);
+        $date = mktime(0, 0, 0, $mois, $jour, $annee);
         // on charge le model TDestination
         $tableDestination = new TDestination;
 

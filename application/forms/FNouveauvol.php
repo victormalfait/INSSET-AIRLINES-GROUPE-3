@@ -141,7 +141,6 @@ class FNouveauvol extends Zend_Form
 								$ePaysArrivee,
 								$eAeroportArrivee,
 								$eArriveeH,
-								$eArriveeM,
 								$ePeriodicite,
 								$eSubmit,
 								$eFermer
