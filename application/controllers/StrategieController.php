@@ -77,7 +77,54 @@ class StrategieController extends Zend_Controller_Action
 
         // on le resultat de la requete envoi à la vue
         $this->view->destinations = $tableDestination->fetchAll($destinationRequest);
+
+        // Message du detail client lorsqu'aucun client n'a été choisi
+        $this->view->messages = $this->_helper->FlashMessenger->getMessages();
     }
+
+
+    public function detailAction()
+    {
+         // on recupere l'id 
+        $idDestination = $this->_getParam('id');
+
+        // on charge le model
+        $tableDestination = new TDestination;
+
+        // on recherche dans la table si l'id existe
+        $destination = $tableDestination    ->find($idDestination)
+                                            ->current();
+
+        // Si l'id existe
+        if ($destination!= null)
+        {
+            $tableAeroport = new TAeroport;
+
+            $aeroportdep = $tableAeroport   ->find($destination->tri_aero_dep)
+                                            ->current();
+            $aeroportarr = $tableAeroport   ->find($destination->tri_aero_arr)
+                                            ->current();
+                                            
+            $villedep = $aeroportdep->findParentRow('TVille');
+            $villearr = $aeroportarr->findParentRow('TVille');
+
+            // envoi du resultat a la vue
+            $this->view->destination = $destination;
+            $this->view->aeroportdep = $aeroportdep;
+            $this->view->aeroportarr = $aeroportarr;
+            $this->view->villedep = $villedep;
+            $this->view->villearr = $villearr;
+        }
+        else { // Sinon (l'id n'existe pas)
+            // Message d'erreur si aucun id n'a été trouvé
+            $message = "La destination selectionnée n'existe pas";
+            $this->_helper->FlashMessenger($message);
+
+            $redirector = $this->_helper->getHelper('Redirector');
+            $redirector->gotoUrl("strategie/index");
+        }
+    }
+
 
     public function nouveauAction()
     {

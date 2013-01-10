@@ -1,0 +1,68 @@
+<section id="strategie">
+	<?php 
+		$destination = $this->destination; 
+		$aeroportdep = $this->aeroportdep; 
+		$aeroportarr = $this->aeroportarr; 
+		$villedep = $this->villedep; 
+		$villearr = $this->villearr; 
+	?>
+	<!-- Info employé -->
+	<section class="detail">
+		<fieldset>
+			<legend>Détail Destination</legend>
+				<div class="identite">
+					<div>Vol N°</div>
+					<div><?php echo $destination->numero_vol; ?></div>
+				</div>
+				<div class="identite">
+					<div>Départ de</div>
+					<div><?php echo utf8_encode($villedep->nom_ville . ' - ' . $aeroportdep->nom_aeroport . ' - ' . $destination->tri_aero_dep); ?></div>
+				</div>
+				<div class="identite">
+					<div>Arrivée a</div>
+					<div><?php echo utf8_encode($villearr->nom_ville . ' - ' . $aeroportarr->nom_aeroport . ' - ' . $destination->tri_aero_arr); ?></div>
+				</div>
+				<div class="identite">
+					<div>Horaire</div>
+					<div><?php echo date("H:i",$destination->heure_dep).' '.date("à H:i",$destination->heure_arr); ?></div>
+				</div>
+				<div class="identite">
+					<div>Date</div>
+					<div>
+						<?php 
+							if($destination->periodicite != 'Vol unique') {
+								echo $destination->periodicite;
+							}
+							else {
+								echo date("d/m/Y", $destination->heure_dep);
+							}
+						?>
+					</div>
+				</div>
+				<div class="identite">
+					<div>Plannification</div>
+					<div>
+						<?php 
+							if($destination->plannification != 0) {
+								echo $destination->plannification;
+							}
+							else {
+								echo "Cette destination n'a pas encore été plannifiée";
+							}
+						?>
+					</div>
+				</div>
+				<div class="identite">
+					<div>Distance de croisière</div>
+					<div><?php echo $destination->distance . ' mètre'; ?></div>
+				</div>
+		</fieldset>
+	</section>
+	<div class="formulaire">
+		<a href="#editVol" rel="popup_editVol_<?php echo $destination->id_destination;?>" class="poplight poplightedit " title="Modifier">
+			<button class="bgRedBtn" style="float:none;">Modifier le vol</button>
+		</a>
+		<?php echo $this->action('nouveau','strategie', null, array('id_destination' => $destination->id_destination)); ?>
+	</div>
+	</section>
+</section>

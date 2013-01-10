@@ -2,8 +2,16 @@
 	<a href="#editVol" rel="popup_editVol_" class="poplight poplightedit ">
 		<button class="bgRedBtn" style="float:none;">Créer un vol</button>
 	</a>
-	<br />
-	<br />
+	<br/>
+	<span class="error">
+		<?php
+			$array =  $this->messages;
+			foreach ($array as $key => $value) {
+				echo $value;
+			}
+		?>
+	</span>
+	<br/>
 	<?php 
 		// on recupere toutes les destinations de la base de donnée
 		$destinations = $this->destinations;
@@ -21,23 +29,31 @@
 						<th colspan="2">Action</th>
 					</thead>
 					<tbody>
-						<?php foreach ($destinations as $destination) {?>
-						
-						<tr>
-							<td><?php echo $destination->numero_vol;?></td>
-							<td><?php echo $destination->tri_aero_dep;?></td>
-							<td><?php echo $destination->tri_aero_arr;?></td>
-							<td><?php echo date("H:i",$destination->heure_dep).' '.date("à H:i",$destination->heure_arr);?></td>
-							<?php if($destination->periodicite != 'Vol unique'){ ?>
-								<td><?php echo $destination->periodicite;?></td>
-							<?php }else{?>
-								<td><?php echo date("d/m/Y", $destination->heure_dep);?></td>
-							<?php }?>
-							<td><a href="#editVol" rel="popup_editVol_<?php echo $destination->id_destination;?>" class="poplight poplightedit " title="Modifier"><button class="modifier">modifier</button></a></td>
-							<td><a href="<?php echo $this->baseUrl('strategie/supprimer/id/'.$destination->id_destination); ?>" title="Supprimer"><button class="supprimer">supprimer</button></a></td>
-						</tr>
-
-						<?php }?>
+						<?php 
+							foreach ($destinations as $destination) {
+								?>
+									<tr onclick="document.location.href='<?php echo $this->baseUrl('strategie/detail/id/' . $destination->id_destination); ?>'" title="Cliquer sur la ligne pour visiter le detail de l'utilisateur" class="lien">
+										<td><?php echo $destination->numero_vol;?></td>
+										<td><?php echo $destination->tri_aero_dep;?></td>
+										<td><?php echo $destination->tri_aero_arr;?></td>
+										<td><?php echo date("H:i",$destination->heure_dep).' '.date("à H:i",$destination->heure_arr);?></td>
+										<td>
+											<?php 
+												if($destination->periodicite != 'Vol unique') {
+													echo $destination->periodicite;
+												}
+												else {
+													echo date("d/m/Y", $destination->heure_dep);
+												}
+											?>
+										</td>
+										<td><a href="<?php echo $this->baseUrl('strategie/detail/id/' . $destination->id_destination); ?>" title="Modifier"><button class="modifier">modifier</button></a></td>
+										<!-- <td><a href="<?php //echo $this->baseUrl('strategie/supprimer/id/'.$destination->id_destination); ?>" title="Supprimer"><button class="supprimer">supprimer</button></a></td> -->
+										<td><a href="#?supprimeVol" rel="popup_supprimeVol_<?php echo $destination->id_destination; ?>" class="overlay" title="Supprimer un vol"><button class="supprimer">supprimer</button></a></td>
+									</tr>
+								<?php 
+							}
+						?>
 					</tbody>
 				</table>
 			<?php
@@ -68,6 +84,35 @@
 				if (count($destinations) > 0) {
 					foreach ($destinations as $destination) {
 						echo $this->action('nouveau','strategie', null, array('id_destination' => $destination->id_destination));
+						?>
+							<!-- confirmation supprimer la tache -->
+							<div id="popup_supprimeVol_<?php echo $destination->id_destination; ?>" class="overlay_block overlay-fenetre">
+								<!-- entete -->
+								<header class="overlay-fenetre-titre">
+										<span>Suppression d'un vol</span>
+								</header>
+								<!-- formulaire -->
+								<section class="overlay-fenetre-section">
+									<div>
+										Êtes-vous sur de vouloir supprimer le vol "<?php echo $destination->numero_vol; ?>" ?
+									</div>
+									<div>
+										<ul>
+											<li>
+												<a href="<?php echo $this->baseUrl('strategie/supprimer/id/'.$destination->id_destination); ?>" title="Valider">
+													<div class="bouton">Valider</div>
+												</a>
+											</li>
+											<li>
+												<a title="Annuler">
+													<div class="bouton close">Annuler</div>
+												</a>
+											</li>
+										</ul>
+								</section>
+							</div>
+							<!-- confirmation supprimer la tache ends here -->
+						<?php
 					}
 				} 
 			?>
