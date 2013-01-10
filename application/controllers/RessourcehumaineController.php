@@ -217,7 +217,8 @@ class RessourcehumaineController extends Zend_Controller_Action
 
                 $reqPiloteBrevet = $tablePiloteBrevet   ->select()
                                                         ->from($tablePiloteBrevet)
-                                                        ->where('id_pilote = ?', $pilote->id_pilote);
+                                                        ->where('id_pilote = ?', $pilote->id_pilote)
+                                                        ->order('date_obtention');
 
                 $piloteBrevet = $tablePiloteBrevet ->fetchAll($reqPiloteBrevet);;
                 

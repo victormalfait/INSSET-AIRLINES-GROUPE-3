@@ -48,19 +48,10 @@ class FAttribuer extends Zend_Form
 
 
 	//=============== Creation des element
-		$tableBrevet 	= new TBrevet;
-		// on recupere tout les service
-	    $brevet 		= $tableBrevet->fetchAll();
-	    // on instancie le resulta en tableau
-	    $brevetTab 	= array();
-
-	    foreach ($brevet as $b) {
-	        $brevetTab[$b->id_brevet] = utf8_encode($b->nom_brevet);
-	    }
 
 		$eBrevet = new Zend_Form_Element_Select('brevet');
 		$eBrevet	->setLabel('Brevet')
-					->setMultiOptions($brevetTab)
+					->setMultiOptions($this->listBrevet())
         			->addFilter('StripTags')
         			->addFilter('StringTrim')
 		            ->setDecorators($decorators);
@@ -72,10 +63,12 @@ class FAttribuer extends Zend_Form
 					->addValidator('notEmpty')
 					->setDecorators($decorators);
 
+
 		$eSubmit = new Zend_Form_Element_Submit('BTNAttribuer');
 		$eSubmit 	->setAttrib('id', 'BTNAttribuer')
 					->setLabel('Attribuer')
 					->setDecorators($decoratorsBouton);
+
 
 		$eFermer = new Zend_Form_Element_Reset('fermer');
 		$eFermer 	->setLabel('Fermer')
@@ -83,9 +76,36 @@ class FAttribuer extends Zend_Form
 					->setAttrib('class', 'close')
 					->setDecorators($decoratorsBouton);
 
+
 		$elements = array($eBrevet, $eDate, $eSubmit, $eFermer);
 		$this->addElements($elements);
 
 	}
+
+
+	/**
+	* Liste des Brevets
+	*/
+    private function listBrevet () {
+
+		// on charge les models
+    	$tableBrevet 	= new TBrevet;
+		// on recupere tout les brevet
+		$reqBrevet		= $tableBrevet	->select()
+										->from($tableBrevet)
+										->order('nom_brevet');
+
+	    $brevet 		= $tableBrevet->fetchAll($reqBrevet);
+	    
+	    // on instancie le resulta en tableau
+	    $brevetTab 	= array();
+
+        $brevetTab["-1"] = "-- Choisissez --"; 
+	    foreach ($brevet as $b) {
+	        $brevetTab[$b->id_brevet] = utf8_encode($b->nom_brevet);
+	    }
+ 
+        return $brevetTab;
+    }
 
 }
