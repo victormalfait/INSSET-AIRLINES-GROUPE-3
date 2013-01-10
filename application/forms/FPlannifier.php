@@ -47,6 +47,8 @@ class FPlannifier extends Zend_Form
 		// on insere le decorateur de form au formulaire
 		$this->setDecorators($decoratorsForm);
 
+		$piloteTab["-1"] = "-- Choisissez --";
+
 
 	//=============== Creation des element
 
@@ -60,13 +62,13 @@ class FPlannifier extends Zend_Form
 		$ePilote = new Zend_Form_Element_Select('pilote');
 		$ePilote->setLabel('Pilote')
 				->setAttrib('required', 'required')
-				->addValidator('notEmpty')
+				->setMultiOptions($piloteTab)
 				->setDecorators($decorators);
 
 		$eCoPilote = new Zend_Form_Element_Select('copilote');
 		$eCoPilote->setLabel('Co-Pilote')
 				  ->setAttrib('required', 'required')
-				  ->addValidator('notEmpty')
+				  ->setMultiOptions($piloteTab)
 				  ->setDecorators($decorators);
 
 		$eSubmit = new Zend_Form_Element_Submit('BTNAttribuer');

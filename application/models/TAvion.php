@@ -9,7 +9,7 @@ class TAvion extends Zend_Db_Table_Abstract
 
 	protected $_referenceMap = array(
 		"Model" => array(
-			"columns" => "nom_model",
+			"columns" => "id_model",
 			"refTableClass" => "TModelAvion")
 		);
 }
