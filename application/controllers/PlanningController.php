@@ -33,6 +33,38 @@ class PlanningController extends Zend_Controller_Action
 		$destination = $tableDestination->find($id_destination)->current();
 		$this->view->destination = $destination;
 
+		if ($this->_request->isPost()) {
+            // on recupere les éléments
+            $formData = $this->_request->getPost();
+            // var_dump( $formVol->isValid($formData));
+
+            // si le formulaire passe au controle des validateurs
+            if ($form->isValid($formData)) {
+            	if($form->getValue('pilote') != -1 && $form->getValue('copilote') != -1 && $form->getValue('avion') != -1){
+
+	            	$tableVol = new TVols;
+	            	$row = $tableVol->createRow();                
+
+	                $row->id_pilote        = $form->getValue('pilote');
+	                $row->id_copilote      = $form->getValue('copilote');
+	                $row->immatriculation  = $form->getValue('avion');
+	                $row->id_destination   = $id_destination;
+	                $row->remarque         = 'RAS';
+
+	                //sauvegarde de la requete
+	                $result = $row->save();
+	    
+	                // RAZ du formulaire
+	                $form->reset();
+
+	                $redirector = $this->_helper->getHelper('Redirector');
+	                $redirector->gotoUrl('planning/index');
+	            }else{
+	            	echo 'choisissez un avion, un pilote et un copilote pour ce vol';
+	            }
+            }
+        }
+
 	}
 
 }

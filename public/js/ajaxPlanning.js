@@ -95,4 +95,14 @@ $(document).ready( function() {
 			location.reload();
 		});
 
+		$("#BTNPlannifier").click(function(){
+			$("#detailsVol").fadeIn();
+			return false;
+		})
+
+		$("#BTNValiderVol").click(function(){
+			$("#FPlannifier").submit();
+			$("#detailsVol").fadeOut();
+		})
+
 }); //Eof:: ready

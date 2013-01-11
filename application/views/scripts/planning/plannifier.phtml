@@ -21,6 +21,29 @@
 		<li>Départ: <?php echo $aeroport->nom_aeroport.'<br/>'.$ville->nom_ville.' ('.$pays->nom_pays.')';?></li>
 		<li>Arrivé: <?php echo $aeroportBis->nom_aeroport.'<br/>'.$villeBis->nom_ville.' ('.$paysBis->nom_pays.')';?></li>
 		<?php echo $this->formPlannifier; ?>
-
 	</ul>
+
+	<div id="detailsVol" class="overlay_block overlay-fenetre">
+		<!-- entete -->
+		<header class="overlay-fenetre-titre">
+				<span>Details du vol</span>
+		</header>
+		<!-- formulaire -->
+		<section class="overlay-fenetre-section">
+			<div>
+				
+			</div>
+			<div>
+				<ul>
+					<li>
+						<div id="BTNValiderVol" class="bouton">Valider</div>
+					</li>
+					<li>
+						<a title="Annuler">
+							<div class="bouton close">Annuler</div>
+						</a>
+					</li>
+				</ul>
+		</section>
+	</div>
 </section>

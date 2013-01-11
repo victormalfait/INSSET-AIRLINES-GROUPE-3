@@ -6,11 +6,11 @@ class FPlannifier extends Zend_Form
  
 	public function init()
 	{
-		
+		$id_destination = $this->getIdDestination();
 		//===============Parametre du formulaire
 		$this->setName('plannifier');
 		$this->setMethod('post');
-		$this->setAction('');
+		$this->setAction('/planning/plannifier/id_destination/'.$id_destination);
 		$this->setAttrib('id', 'FPlannifier');
 
 	//=============== creation des decorateurs
@@ -54,26 +54,24 @@ class FPlannifier extends Zend_Form
 
 		$eAvion = new Zend_Form_Element_Select('avion');
 		$eAvion	->setLabel('Avion')
-        		->addFilter('StripTags')
-        		->addFilter('StringTrim')
         		->setMultiOptions($this->listAvion())
 	            ->setDecorators($decorators);
 
 		$ePilote = new Zend_Form_Element_Select('pilote');
 		$ePilote->setLabel('Pilote')
-				->setAttrib('required', 'required')
 				->setMultiOptions($piloteTab)
+				->setRegisterInArrayValidator(false)
 				->setDecorators($decorators);
 
 		$eCoPilote = new Zend_Form_Element_Select('copilote');
 		$eCoPilote->setLabel('Co-Pilote')
-				  ->setAttrib('required', 'required')
 				  ->setMultiOptions($piloteTab)
+				  ->setRegisterInArrayValidator(false)
 				  ->setDecorators($decorators);
 
-		$eSubmit = new Zend_Form_Element_Submit('BTNAttribuer');
-		$eSubmit 	->setAttrib('id', 'BTNAttribuer')
-					->setLabel('Attribuer')
+		$eSubmit = new Zend_Form_Element_Submit('BTNPlannifier');
+		$eSubmit 	->setAttrib('id', 'BTNPlannifier')
+					->setLabel('Plannifier')
 					->setDecorators($decoratorsBouton);
 
 		$eFermer = new Zend_Form_Element_Reset('fermer');
