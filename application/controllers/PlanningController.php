@@ -22,7 +22,7 @@ class PlanningController extends Zend_Controller_Action
 
 	public function planifierAction(){
 		$id_destination = $this->_getParam('id_destination');
-		$form = new FPlannifier;
+		$form = new FPlanifier;
 
 		$this->view->id_destination = $id_destination;
 		$this->view->formPlannifier = $form;
