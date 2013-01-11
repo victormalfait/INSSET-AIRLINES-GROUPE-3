@@ -95,13 +95,13 @@ $(document).ready( function() {
 			location.reload();
 		});
 
-		$("#BTNPlannifier").click(function(){
+		$("#BTNPlanifier").click(function(){
 			$("#detailsVol").fadeIn();
 			return false;
 		})
 
 		$("#BTNValiderVol").click(function(){
-			$("#FPlannifier").submit();
+			$("#FPlanifier").submit();
 			$("#detailsVol").fadeOut();
 		})
 

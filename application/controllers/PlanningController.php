@@ -12,7 +12,7 @@ class PlanningController extends Zend_Controller_Action
 
 	}
 
-	public function plannificationAction(){
+	public function planificationAction(){
 		$tableDestination = new TDestination;
 		$destinationRequest = $tableDestination->select()->where('plannification = 0');
 		$destination = $tableDestination->fetchAll($destinationRequest);
@@ -20,7 +20,7 @@ class PlanningController extends Zend_Controller_Action
 		$this->view->destination =$destination;
 	}
 
-	public function plannifierAction(){
+	public function planifierAction(){
 		$id_destination = $this->_getParam('id_destination');
 		$form = new FPlannifier;
 

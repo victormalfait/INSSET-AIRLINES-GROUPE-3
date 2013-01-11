@@ -1,0 +1,23 @@
+<section id="RessourceHumaine">
+	<?php echo $this->action('menuplanning','planning'); ?>
+	<table>
+		<thead>
+			<th>N° Vol</th>
+			<th>Départ</th>
+			<th>Arrivé</th>
+			<th>Périodicité</th>
+			<th colspan="2">Action</th>
+		</thead>
+		<tbody>
+			<?php foreach ($this->destination as $destination) {?>
+			<tr>
+				<td><?php echo $destination->numero_vol;?></td>
+				<td><?php echo $destination->tri_aero_dep.' le '.date("d/m/Y à H:i",$destination->heure_dep);?></td>
+				<td><?php echo $destination->tri_aero_arr.' le '.date("d/m/Y à H:i",$destination->heure_arr);?></td>
+				<td><?php echo $destination->periodicite; ?></td>
+				<td><a href="<?php echo $this->baseUrl('planning/plannifier/id_destination/'.$destination->id_destination); ?>" class="poplight poplightedit" title="Modifier"><button class="modifier">modifier</button></a></td>
+				<td><a href="<?php echo $this->baseUrl(''); ?>" title="Supprimer"><button class="supprimer">supprimer</button></a></td>
+			</tr>
+			<?php }?>
+	</table>
+</section>
