@@ -27,15 +27,9 @@ class CommercialController extends Zend_Controller_Action
                     list($jourF, $moisF, $anneeF) = explode("-", $date_fin);           
 
                     $date_depart = mktime(0, 0, 0,  $moisD, $jourD, $anneeD);
-                    $jour_depart = date('N',$date_depart);
                     $date_fin = mktime(0, 0, 0, $moisF, $jourF, $anneeF); 
-                    $ville_depart = $formCommercial->getValue('aeroportDepart');
-                    $ville_arrivee = $formCommercial->getValue('aeroportArrivee');
-                    $type_trajet = $formCommercial->getValue('typeTrajet');
-                    $nbr_place = $formCommercial->getValue('nbrPassager');
-                    $type_passager = $formCommercial->getValue('typePassager');
-                    $type_classe = $formCommercial->getValue('classe');
 
+                    $volRequet = $tableVols->select()->where()
                     $vols = $tableVols->fetchAll();
 
                     $tableDestination = new TDestination;
