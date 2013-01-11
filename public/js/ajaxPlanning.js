@@ -4,7 +4,7 @@
 		    // Envoi requête AJAX
 		    $.ajax({
 		         type: "POST"
-		       , url: "../../../ajax/piloteplanning" // controller : ajax , action : remplir
+		       , url: "../../../../../../../ajax/piloteplanning" // controller : ajax , action : remplir
 		       , data : dataAjax
 		       , dataType: "json"
 		       , success: function(reponse){ // Sur Succès de la réponse AJAX
@@ -32,7 +32,7 @@
 		    // Envoi requête AJAX
 		    $.ajax({
 		         type: "POST"
-		       , url: "../../../ajax/copiloteplanning" // controller : ajax , action : remplir
+		       , url: "../../../../../../../ajax/copiloteplanning" // controller : ajax , action : remplir
 		       , data : dataAjax
 		       , dataType: "json"
 		       , success: function(reponse){ // Sur Succès de la réponse AJAX

@@ -8,10 +8,10 @@ class FPlanifier extends Zend_Form
 	{
 		$id_destination = $this->getIdDestination();
 		//===============Parametre du formulaire
-		$this->setName('plannifier');
+		$this->setName('planifier');
 		$this->setMethod('post');
-		$this->setAction('/planning/plannifier/id_destination/'.$id_destination);
-		$this->setAttrib('id', 'FPlannifier');
+		$this->setAction('');
+		$this->setAttrib('id', 'FPlanifier');
 
 	//=============== creation des decorateurs
 		// Descativer les decorateurs par defaut

@@ -3,8 +3,8 @@
 	<?php $destination = $this->destination; ?>
 	<ul>
 		<li>N° vol: <?php echo $destination->numero_vol;?></li>
-		<li>Date de départ: <?php echo ' le '.date("d/m/Y à H:i",$destination->heure_dep);?></li>
-		<li>Date de départ: <?php echo ' le '.date("d/m/Y à H:i",$destination->heure_arr);?></li>
+		<li>Date de départ: <?php echo ' le '.date("d/m/Y à H:i",$this->heureD);?></li>
+		<li>Date de départ: <?php echo ' le '.date("d/m/Y à H:i",$this->heureA);?></li>
 		<?php
 		$tableAeroport = new TAeroport;
 		$aeroport = $tableAeroport->find($destination->tri_aero_dep)->current();
