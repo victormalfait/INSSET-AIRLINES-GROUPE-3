@@ -1,0 +1,62 @@
+<div id="menu">
+	<ul>
+		<li>
+			<a href="<?php echo $this->baseUrl('maintenance/index');?>">Avion Disponible</a>
+		</li>
+		<li>
+			<a href="<?php echo $this->baseUrl('maintenance/afficher');?>">Planning</a>
+		</li>
+	</ul>
+</div>
+<br/>
+Planning des maintenances prevue :<br/>
+<br/>
+<?php //Zend_Debug::dump($ligne); ?>
+<section id="">
+	<table>
+		<thead>
+
+			<tr>
+				<th>Jour</th>
+				<th>Immatriculation</th>
+			</tr>
+		</thead>
+		<tbody>
+				<?php for ($numday = 1; $numday <= $this->ligne[0][0] ; $numday++) { ?>
+					<tr>
+						<td><?php echo $numday ?></td>
+						<td><?php 
+
+						if (isset($this->ligne[0][$numday])){ 
+							echo $this->ligne[0][$numday];
+						} 
+
+						?></td>
+					</tr>
+				<?php } ?>
+		</tbody>
+	</table>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Jour</th>
+				<th>Immatriculation</th>
+			</tr>
+		</thead>
+		<tbody>
+				<?php for ($numday = 1; $numday <= $this->ligne[1][0] ; $numday++) { ?>
+					<tr>
+						<td><?php echo $numday ?></td>
+						<td><?php 
+
+						if (isset($this->ligne[1][$numday])){ 
+							echo $this->ligne[1][$numday];
+						} 
+
+						?></td>
+					</tr>
+				<?php } ?>
+		</tbody>
+	</table>
+</section>
