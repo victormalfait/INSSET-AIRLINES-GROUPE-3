@@ -1,12 +1,47 @@
-<link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl('/css/menu.css')?>" />
 <div id="menu">
-	<div class="direction-strategique">
-		<a href="<?php echo $this->baseUrl('avion/ajouter')?>"><div class="fils"><img src="<?php echo $this->baseUrl('img/planning.png')?>" /><br/>Ajouter un appareil</div></a>
-	</div>
-	<div class="direction-strategique">
-		<a href="<?php echo $this->baseUrl('maintenance/ajouter')?>"><div class="fils"><img src="<?php echo $this->baseUrl('img/maintenance.png')?>" /><br/>Ajout d'une maintenance</div></a>
-	</div>
-	<div class="direction-strategique">
-		<a href="<?php echo $this->baseUrl('maintenance/calendrier')?>"><div class="fils"><img src="<?php echo $this->baseUrl('img/exploitation.png')?>" /><br/>Calendrier des interventions</div></a>
-	</div>
+	<ul>
+		<li>
+			<a href="<?php echo $this->baseUrl('maintenance/index');?>">Avion Disponible</a>
+		</li>
+		<li>
+			<a href="<?php echo $this->baseUrl('maintenance/afficher');?>">Planning</a>
+		</li>
+	</ul>
 </div>
+
+<br/>
+Liste des avion disponible pour une maintenance :<br/>
+<br/>
+
+<section id="">
+	<table>
+		<thead>
+			<th>Model</th>
+			<th>Immatriculation</th>
+			<th>Heur de vol</th>
+			<th>Heur depuis la derniere revision </th>
+			<th>Maintenance</th>
+		</thead>
+		<tbody>
+			<?php 
+			foreach ($this->avion as $avion) { ?>
+			<tr>
+				<td><?php echo $avion['nom_model']; ?></td>
+				<td><?php echo $avion['immatriculation']; ?></td>
+				<td><?php echo $avion['heure_vol_total']; ?></td>
+				<td><?php echo $avion['heure_depuis_revision']; ?></td>
+				<?php if ($avion['date_prevue'] == 0){
+					
+					echo '<td><a href="'.$this->baseUrl('maintenance/ajouter/immatriculation/' . $avion['immatriculation']).'" title="Ajouter Maintenance"><button class="ajouter">Ajouter</button></a></td>';
+				}else{ 
+					echo '<td><a href="'.$this->baseUrl('maintenance/afficher').'" title="Ajouter Maintenance">Du :'.$avion['date_prevue'].' pendant '.$avion['duree_prevue'].'</a></td>';
+					
+				}?>
+
+
+
+			</tr>
+			<?php }?>
+		</tbody>
+	</table>
+</section>
