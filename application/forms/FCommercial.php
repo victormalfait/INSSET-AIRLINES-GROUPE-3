@@ -7,8 +7,8 @@ class FCommercial extends Zend_Form
 	
 	//===============Parametre du formulaire
 		$this->setMethod('post');
-		$this->setAction('/strategie/index');
-		$this->setAttrib('id', 'ConnexionNouveauVol');
+		$this->setAction('');
+		$this->setAttrib('id', 'FCommercial');
 
 	//=============== creation des decorateurs
 		// Descativation des decorateurs par defaut
@@ -37,26 +37,19 @@ class FCommercial extends Zend_Form
 		$this->setDecorators($decoratorsForm);
 
 	//===============Creation des element
-		$tableVille = new TVille;
-        $ville = $tableVille->fetchAll();
-        $$tabVille = array();
-
-        foreach ($ville as $v) {
-        	$tabVille[$v['id_ville']] = $v['nom_ville'];
-        }
 
 		$eAeroportDepart = new Zend_Form_Element_Select('aeroportDepart');
 		$eAeroportDepart->setLabel('De')
 						->setRequired(true)
 						->addValidator('notEmpty')
-						->setMultiOptions($tabVille)
+						->setMultiOptions($this->listPays())
 						->setDecorators($decorators);
 
-		$eAeroportArrivee = new Zend_Form_Element_Select('aeroportArrivee');
+		$eAeroportArrivee = new Zend_Form_Element_Select('aeroportArrive');
 		$eAeroportArrivee->setLabel('A')
 						 ->setRequired(true)
 						 ->addValidator('notEmpty')
-						 ->setMultiOptions($tabVille)
+						 ->setMultiOptions($this->listPays())
 						 ->setDecorators($decorators);
 
 		$eTypeTrajet = new Zend_Form_Element_Radio('typeTrajet');
@@ -115,7 +108,7 @@ class FCommercial extends Zend_Form
 	//=============== creation des groupes de formulaire
 		$this->addDisplayGroup(array(
 								'aeroportDepart',
-								'aeroportArrivee'), 'un', array("legend" => ""));
+								'aeroportArrive'), 'un', array("legend" => ""));
 		$this->addDisplayGroup(array(
 								'typeTrajet'), 'deux', array("legend" => ""));
 		$this->addDisplayGroup(array(
@@ -130,4 +123,27 @@ class FCommercial extends Zend_Form
 								'reserver'), 'six', array("legend" => ""));
 
 	}
+
+	/**
+     * Liste des Pays
+     */
+    private function listPays () {
+		// on charge le model
+		$tableVille = new TVille;
+		// on recupere tout les pays
+        $reqVille = $tableVille	->select()
+    							->order("nom_ville");
+
+	    $ville = $tableVille->fetchAll($reqVille);
+
+        // on instancie le resultat en tableau de ville
+        $villeTab = array();
+
+        $villeTab["-1"] = "-- Choisissez --"; 
+        foreach ($ville as $v) {
+        	$villeTab[$v->id_ville] = utf8_encode($v->nom_ville);
+        }
+ 
+        return $villeTab;
+    }
 }
