@@ -3,11 +3,9 @@
 class FNouvelleMaintenance extends Zend_Form {
   
   public function init() {
-       $this->setName ( 'NouvelleMaintenance' );
-       $this->setMethod('post');
-       $this->setAction('');
-       $this->setAttrib('id', 'FNouvelleMaintenance');
 
+    $this->setName ( 'NouvelleMaintenance' );
+    $this->setMethod('post');
     $this->clearDecorators();
 
     //decorateur d'element
@@ -50,17 +48,17 @@ class FNouvelleMaintenance extends Zend_Form {
 			->addValidator('notEmpty')
 			->setDecorators($decorators);
 
-	$Maint_Debut = new Zend_Form_Element_Text('datepickerdeb');
-	$Maint_Debut	->setLabel('Jour du Debut:')
+	$datepickerdeb = new Zend_Form_Element_Text('datepickerdeb');
+	$datepickerdeb	->setLabel('Jour du Debut : ')
 				->setAttrib('required', 'required')
-				->setAttrib('size', '1')
+				->setAttrib('size', '8')
 				->setAttrib('class','datepickerdeb')
 				->addValidator('notEmpty')
 				->setDecorators($decorators);
 
     $Submit = new Zend_Form_Element_Submit('ajouter');
     $Submit  ->setLabel('Ajouter')
-          ->setAttrib('class', 'button_avion')
+
           ->setAttrib('id', 'submitbutton')
           ->setDecorators($decoratorsBouton);
 
@@ -68,9 +66,13 @@ class FNouvelleMaintenance extends Zend_Form {
     $Fermer = new Zend_Form_Element_Reset('fermer');
     $Fermer  ->setLabel('Fermer')
           ->setAttrib('id', 'fermerbutton')
-          ->setAttrib('class', 'closeAvion')
           ->setDecorators($decoratorsBouton);
       
+    $elements = array(  $Time_Revision,
+        $datepickerdeb,
+        $Submit,
+        $Fermer
+      );
+      $this->addElements ( $elements );
   }
 }
-?>

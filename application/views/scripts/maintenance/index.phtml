@@ -1,13 +1,4 @@
-<div id="menu">
-	<ul>
-		<li>
-			<a href="<?php echo $this->baseUrl('maintenance/index');?>">Avion Disponible</a>
-		</li>
-		<li>
-			<a href="<?php echo $this->baseUrl('maintenance/afficher');?>">Planning</a>
-		</li>
-	</ul>
-</div>
+<?php echo $this->action('menumaintenance','maintenance'); ?>
 
 <br/>
 Liste des avion disponible pour une maintenance :<br/>
@@ -34,7 +25,7 @@ Liste des avion disponible pour une maintenance :<br/>
 					
 					echo '<td><a href="'.$this->baseUrl('maintenance/ajouter/immatriculation/' . $avion['immatriculation']).'" title="Ajouter Maintenance"><button class="ajouter">Ajouter</button></a></td>';
 				}else{ 
-					echo '<td><a href="'.$this->baseUrl('maintenance/afficher').'" title="Ajouter Maintenance">Du :'.$avion['date_prevue'].' pendant '.$avion['duree_prevue'].'</a></td>';
+					echo '<td><a href="'.$this->baseUrl('maintenance/afficher').'" title="Ajouter Maintenance">Du :'.date('d/m/Y', $avion['date_prevue']).' pendant '.$avion['duree_prevue'].'</a></td>';
 					
 				}?>
 

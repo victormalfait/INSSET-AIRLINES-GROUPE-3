@@ -13,7 +13,7 @@ class MaintenanceController extends Zend_Controller_Action
 			$tableMaintenance = new TMaintenance;
 			$selectMaintenance= $tableMaintenance->select()
                                          ->from(array('m' => 'maintenance'),
-                                                array('m.immatriculation','m.date_prevue','m.date_eff','m.duree_prevue','m.duree_eff'))
+                                                array('m.immatriculation','m.date_prevue','m.date_eff','m.duree_prevue','m.duree_eff','m.note'))
                                           ->where('m.immatriculation = ?',$avion['immatriculation'] );
             $maintenance = $tableMaintenance->fetchRow($selectMaintenance);
 
@@ -46,14 +46,16 @@ class MaintenanceController extends Zend_Controller_Action
     	$tableMaintenance = new TMaintenance;
 		$maintenance = $tableMaintenance->fetchAll();
 
-		$jour_actuel = date('j', time());
-		$mois_actuel = date('m', time());
-		$annee_actuel = date('Y', time());
+		$this->view->jour_actuel = date('j', time());
+		$this->view->mois_actuel = date('m', time());
+		$this->view->annee_actuel = date('Y', time());
 
-		$this->view->DayNames = array("Dim","Lun","Mar","Mer","Jeu","Ven","Sam");
+		$this->view->DayNames = array( "Dim","Lun","Mar","Mer","Jeu","Ven","Sam");
 
-		$NameMois = array( 01 => "Janvier","Fevrier","Mars","Avril","Mai","Juin",
-                   "Juillet","Aout","Septembre","Octobre","Novembre","Decembre");
+		$this->view->NameMois = array( "01" => "Janvier","02" => "Fevrier","03" => "Mars","04" => "Avril","05" => "Mai","06" => "Juin",
+                   "07" => "Juillet","08" => "Aout","09" => "Septembre","10" =>"Octobre", "11" =>"Novembre", "12" =>"Decembre");
+
+
 
 		foreach ($maintenance as $listmaintenance) { 
 
@@ -62,46 +64,51 @@ class MaintenanceController extends Zend_Controller_Action
 			$jour_maintenance = date('j', $date_prevue);
 			$mois_maintenance = date('m', $date_prevue);
 			$annee_maintenance = date('Y', $date_prevue);
+			$nb_jour_maintenance = date('t', time());
+			$duree_maintenance = $listmaintenance['duree_prevue'];
 
+			// Date de maintenant
+			$date_now = time();
+			$jour_now = date('j', time());
+			$mois_now = date('m', time());
+			$annee_now = date('Y', time());
+			$nb_jour_now = date('t', time());
 
+			$calendrier[$annee_maintenance][$mois_maintenance]['nbjours'][0] = $nb_jour_maintenance;
+			$conteur = 0;
 
-			$Jmaintenance = $listmaintenance['duree_prevue'];
+			$jourcalendrier = $jour_maintenance;//30
 
-			// Genere un tableau avec les maintenance du mois en cour
-			//$this->view->NameOne = $NameMois[$mois_actuel].' - '.$annee_actuel;
+			for ($i=1; $i <= $duree_maintenance; $i++) { //10
 
-			if ($annee_maintenance == $annee_actuel && $mois_maintenance == $mois_actuel )
-			{
-				$ligne[0][0] = date('t',time()); 
-				for ($i = 0; $i <= $Jmaintenance-1; $i++) {
-					$ligne[0][$jour_maintenance+$i+1] = $listmaintenance['immatriculation'];
+				// Redefinie le jour , mois et l'année si on depasser la fin du mois
+				if ( $jourcalendrier > $nb_jour_maintenance ){
+						$mois_maintenance = $mois_maintenance+1;
+
+						
+
+						$jourcalendrier = 1;
+						if ($mois_maintenance == 13){
+							$mois_maintenance = 0;
+							$annee_maintenance = $annee_maintenance+1;
+						}
 				}
-			}
 
-			// Si le prochain mois et l'annné prochiane , je cahnge d'année
-			if ($mois_actuel == 12 ) 
-			{
-				$mois_actuel = 0;
-				$annee_actuel++;
-			}
-
-			//$this->view->NameTwo = $NameMois[$mois_actuel+1].' - '.$annee_actuel;
-			// Genere un tableau avec les maintenance du mois en cour+1
-			if ($annee_maintenance ==  $annee_actuel && $mois_maintenance == $mois_actuel+1 )
-			{
-				$ligne[1][0] = date('t',time()+(31*3600*24)); // Rajoute  mois a la date actuele
-				for ($i = 0; $i <= $Jmaintenance-1; $i++) {
-					$ligne[1][$jour_maintenance+$i+1] = $listmaintenance['immatriculation'];
-				}
+				$mois_maintenance = str_pad($mois_maintenance, 2, "0", STR_PAD_LEFT); // Transforme le 2 en 02 ;
+				$jourcalendrier = str_pad($jourcalendrier, 2, "0", STR_PAD_LEFT);
+				$calendrier[$annee_maintenance][$mois_maintenance][$jourcalendrier]['note'] = $listmaintenance['note'];
+				$calendrier[$annee_maintenance][$mois_maintenance][$jourcalendrier]['immatriculation'] = $listmaintenance['immatriculation'];
+				$jourcalendrier++;
 			}
 
 		}
-		$this->view->ligne = $ligne;
+		$this->view->ligne = $calendrier;
 
     }
+
     public function ajouterAction()
     {
-		$immatriculation = $this->_getParam('immatriculation');
+		
 
 		$formMaintenance = new FNouvelleMaintenance;
 		$this->view->formMaintenance = $formMaintenance;
@@ -109,35 +116,83 @@ class MaintenanceController extends Zend_Controller_Action
 		if ($this->_request->isPost()) {
             $formData = $this->_request->getPost();
 
-            if ($form->isValid($formData)) {
+            if ($formMaintenance->isValid($formData)) {
 
-					$Time_Revision 	= $form->getValue('Time_Revision');
-					$Maint_Debut 	= $form->getValue('Maint_Debut');
+            		$datepickerdeb 	= $formMaintenance->getValue('datepickerdeb');
+					$datepickerfin = $datepickerdeb+($_POST['Time_Revision']*86400);
 
 	            	$tableMaintenance = new TMaintenance;
-	            	$row = $tableMaintenance->createRow(); 
+	            	
+	            	// Recupere toute la liste des maintenances deja prevue.
+					$listmaintenance = $tableMaintenance->fetchAll();	
 
-	            	//Router => une verif si pas un autre avion deja maintenace  en cour a cette date
-	            		
-					$row->immatriculation  	= $immatriculation;
-					$row->date_prevue 	 	= $Maint_Debut;
-					$row->duree_prevue  	= $Time_Revision;
-					$row->date_eff  		= 0;
-					$row->duree_eff 	 	= 0;
+					// Boucle sur chaque maintenance
+					foreach ($listmaintenance as $maintenance) { 
 
-	                $result = $row->save();
-	                $form->reset();
+						$debut = $maintenance['date_prevue'];
+						$fin = $maintenance['date_prevue']+($maintenance['duree_prevue']*86400);
 
-	                $redirector = $this->_helper->getHelper('Redirector');
-	                $redirector->gotoUrl('maintenance/index');
+						//verifie si une maintenance n'existe pas deja a la date prevue.
+						if (  !($debut <=  $datepickerdeb  && $datepickerdeb <= $fin) ){
+							if ( !($debut <=  $datepickerfin && $datepickerfin <= $fin )){
+								$vefif = true;
+							}else{
+								$vefif = false;
+							}
+						}else{
+							$vefif = false;
+						}
+
+					}
+
+					if ($vefif == true)
+					{
+						// Convertie la date "dd-mm-yy" en Timestamps
+		            	list($jour, $mois, $annee) = explode("-", $datepickerdeb);
+		            	$date = mktime(0 , 0, 0, $mois, $jour, $annee);
+
+		            	$immatriculation = $this->_getParam('immatriculation');
+
+		            	$row = $tableMaintenance->createRow(); 
+						$row->immatriculation  	= $immatriculation;
+						$row->date_prevue 	 	= $date;
+						$row->duree_prevue  	= $_POST['Time_Revision'];
+						$row->date_eff  		= 0;
+						$row->duree_eff 	 	= 0;
+
+		                $row->save();
+		                $formMaintenance->reset();
+
+		                $redirector = $this->_helper->getHelper('Redirector');
+		                $redirector->gotoUrl('maintenance/index');
+					}else{
+	            		echo 'Il a deja une maintance a cette date !';
+	            	}
+
 	            }else{
 	            	echo 'Veillez remplire tout les champs , merci !';
 	            }
         }
     }
-    public function delAction()
+    public function supprimerAction()
     {
+        $immatriculation = $this->_getParam('immatriculation');
 
+        $tableMaintenance = new TMaintenance;
+        $whereMaintenance = $tableMaintenance->getAdapter()->quoteInto('immatriculation = ?', $immatriculation);
+        $tableMaintenance->delete($whereMaintenance);
+
+        $redirector = $this->_helper->getHelper('Redirector');
+        $redirector->gotoUrl("maintenance/afficher");
     }
+
+	public function ajouterAvionAction(){
+
+	}
+
+	public function menumaintenanceAction(){
+
+	}
+
     
 }
