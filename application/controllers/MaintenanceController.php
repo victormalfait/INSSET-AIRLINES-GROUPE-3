@@ -102,9 +102,6 @@ class MaintenanceController extends Zend_Controller_Action
     public function ajouterAction()
     {
 		
-
-
-
 		$formMaintenance = new FNouvelleMaintenance;
 		$this->view->formMaintenance = $formMaintenance;
 		$verif = true;
@@ -191,8 +188,96 @@ class MaintenanceController extends Zend_Controller_Action
 
 	}
 
-	public function menumaintenanceAction(){
+	public function modifierAction(){
 
+
+		$immatriculation = $this->_getParam('immatriculation');
+
+		$tableMaintenance = new TMaintenance;
+		$selectMaintenance= $tableMaintenance->select()
+                                     ->from(array('m' => 'maintenance'),
+                                            array('m.immatriculation','m.date_prevue','m.date_eff','m.duree_prevue','m.duree_eff','m.note'))
+                                      ->where('m.immatriculation = ?',$immatriculation );
+        $maintenance = $tableMaintenance->fetchRow($selectMaintenance)->toArray();
+
+        $maintenance = array( 'date_prevue' => date("d-m-Y",$maintenance['date_prevue']),'date_eff' => date("d-m-Y",$maintenance['date_eff']) );
+
+		$formModifierMaintenance = new FModifierMaintenance;
+		$formModifierMaintenance->populate($maintenance);
+		$this->view->formModifierMaintenance = $formModifierMaintenance;
+
+		$verif = true;
+		if ($this->_request->isPost()) {
+            $formData = $this->_request->getPost();
+
+            if ($formModifierMaintenance->isValid($formData)) {
+
+        		$date_prevue 	= $formModifierMaintenance->getValue('date_prevue');
+        		$date_eff	= $formModifierMaintenance->getValue('date_eff');
+
+        		// Convertie la date prevue en Timestamps
+            	list($jour_prevue, $mois_prevue, $annee_prevue) = explode("-", $date_prevue);
+            	$date_prevue = mktime(0 , 0, 0, $mois_prevue, $jour_prevue, $annee_prevue);
+
+				// Convertie la date effectife en Timestamps
+            	list($jour_eff, $mois_eff, $annee_eff) = explode("-", $date_eff);
+            	$date_eff = mktime(0 , 0, 0, $mois_eff, $jour_eff, $annee_eff);
+
+            	//Calcule la date prevue de fin 
+				$datefin = $date_prevue+($_POST['duree_prevue']*86400)-86400;
+            	
+            	// Recupere toute la liste des maintenances deja prevue.
+				$listmaintenance = $tableMaintenance->fetchAll();	
+
+				// Boucle sur chaque maintenance
+				foreach ($listmaintenance as $maintenance) { 
+
+					$debut = $maintenance['date_prevue'];
+					$fin = $maintenance['date_prevue']+($maintenance['duree_prevue']*86400)-86400;
+
+					//verifie si une maintenance n'existe pas deja a la date prevue.
+					if (  !($debut <=  $date_prevue  && $date_prevue <= $fin) ){
+						if ( !($debut <=  $datefin && $datefin <= $fin )){
+							$verif = true;
+							// Test :
+							// echo '1<br/>';
+							// echo $debut.' - '.$datedeb.' <= '.$fin.' <br/> '.$debut.' <= '.$datefin.' <= '.$fin;
+							// echo '<br/>';
+						}else{
+							$verif = false;
+						}
+					}else{
+						$verif = false;
+
+					}
+				}
+
+				if ($verif == true)
+				{
+
+	                $where = $tableMaintenance->getAdapter()->quoteInto('immatriculation = ?', $immatriculation);
+
+	                $tableMaintenance->update(array('date_prevue' => $date_prevue,
+								                	'date_eff' => $date_eff,
+								                	'duree_prevue' => $_POST['duree_prevue'],
+								                	'duree_eff' => $_POST['duree_eff'] ,
+								                	'note' => $_POST['note']),
+	                								$where);
+
+	                $redirector = $this->_helper->getHelper('Redirector');
+	                $redirector->gotoUrl('maintenance/index');
+				}else{
+            		echo 'Il a deja une maintance a cette date !';
+            	}
+
+            }else{
+            	echo 'Veillez remplire tout les champs , merci !';
+            }
+        }  
+	}
+
+	public function menumaintenanceAction(){
+		// Fonction pour le menu de la maintenance
 	}
 
     

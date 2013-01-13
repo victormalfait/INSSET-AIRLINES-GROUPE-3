@@ -1,0 +1,15 @@
+<?php
+	echo '<script>
+	    $(function() {
+	        $(".date_prevue" ).datepicker({dateFormat :"dd-mm-yy", minDate: 1});
+	        $(".date_eff" ).datepicker({dateFormat :"dd-mm-yy", minDate: 1});
+	    });
+	</script>';
+
+?>
+<?php echo $this->action('menumaintenance','maintenance'); ?>
+	<header>
+	</header>
+	<section>
+				<?php echo $this->formModifierMaintenance ; ?>
+	</section>

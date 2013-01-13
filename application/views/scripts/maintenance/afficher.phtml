@@ -13,7 +13,6 @@ $mois_depart = $this->mois_actuel;
 	<?php 
 
 	$mois_depart = str_pad($mois_depart+$i, 2, "0", STR_PAD_LEFT);
-
 	if ($mois_depart == 13){
 		$mois_depart = 0;
 		$annee_depart = $annee_depart+1;
@@ -32,10 +31,7 @@ $mois_depart = $this->mois_actuel;
 		</thead>
 		<tbody>
 				<?php 
-
-
-				for ($numday = 1; $numday <= $this->ligne[$annee_depart][$mois_depart]['nbjours'][0] ; $numday++) { 
-
+				for ($numday = 1; $numday <= date("t" ,mktime(0 , 0, 0, $mois_depart, 1, $annee_depart)); $numday++) { 
 					$jourcalendrier = str_pad($numday, 2, "0", STR_PAD_LEFT);
 					?>
 					<tr>
