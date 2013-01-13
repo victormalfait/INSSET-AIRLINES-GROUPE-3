@@ -25,7 +25,7 @@ Liste des avion disponible pour une maintenance :<br/>
 					
 					echo '<td><a href="'.$this->baseUrl('maintenance/ajouter/immatriculation/' . $avion['immatriculation']).'" title="Ajouter Maintenance"><button class="ajouter">Ajouter</button></a></td>';
 				}else{ 
-					echo '<td><a href="'.$this->baseUrl('maintenance/afficher').'" title="Ajouter Maintenance">Du :'.date('d/m/Y', $avion['date_prevue']).' pendant '.$avion['duree_prevue'].'</a></td>';
+					echo '<td><a href="'.$this->baseUrl('maintenance/afficher').'" title="Ajouter Maintenance">Du :'.date('d/m/Y', $avion['date_prevue']).' ('.$avion['duree_prevue'].' jours)</a></td>';
 					
 				}?>
 
