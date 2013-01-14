@@ -94,8 +94,4 @@ $(document).ready( function() {
 		}); //Eof:: sur changement de l'un des 'select pays'
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-		$("#fermerbutton").live('click', function () {
-			location.reload();
-		});
-
 }); //Eof:: ready
