@@ -55,8 +55,6 @@ class MaintenanceController extends Zend_Controller_Action
 		$this->view->NameMois = array( "01" => "Janvier","02" => "Fevrier","03" => "Mars","04" => "Avril","05" => "Mai","06" => "Juin",
                    "07" => "Juillet","08" => "Aout","09" => "Septembre","10" =>"Octobre", "11" =>"Novembre", "12" =>"Decembre");
 
-		
-
 		foreach ($maintenance as $listmaintenance) { 
 
 			// Date de chaque maintenance
@@ -184,10 +182,6 @@ class MaintenanceController extends Zend_Controller_Action
         $redirector->gotoUrl("maintenance/afficher");
     }
 
-	public function ajouterAvionAction(){
-
-	}
-
 	public function modifierAction(){
 
 
@@ -248,7 +242,6 @@ class MaintenanceController extends Zend_Controller_Action
 						}
 					}else{
 						$verif = false;
-
 					}
 				}
 
@@ -276,9 +269,12 @@ class MaintenanceController extends Zend_Controller_Action
         }  
 	}
 
+	public function nouveauavionAction (){
+
+	}
+
 	public function menumaintenanceAction(){
 		// Fonction pour le menu de la maintenance
 	}
-
     
 }
