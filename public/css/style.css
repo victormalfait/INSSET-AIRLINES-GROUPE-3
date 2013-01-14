@@ -1,4 +1,4 @@
-/*******************************
+/********************************
 *                               *
 *       feuille de style        *
 *                               *
@@ -78,7 +78,7 @@
 
 
 /* ========= ACCUEIL STYLES =========  */
-    #accueil { overflow: auto; background: url(/img/accueil.jpg) center no-repeat; height: 390px;}
+    #accueil { overflow: auto; background: url(/img/accueil.jpg) center no-repeat; height: 340px;}
 /* ========= ACCUEIL STYLES END HERE =========  */
 
 
@@ -107,14 +107,17 @@
 
 /* ========= STRATEGIE STYLES =========  */
     #strategie { margin-top: 20px; overflow: auto;}
-    #strategie .formulaire {width: 350px; float: right;}
-    .formulaire select{width: 140px;}
 /* ========= STRATEGIE STYLES END HERE =========  */
 
 
-/* ========= STRATEGIE STYLES =========  */
+/* ========= FORMULAIRE STYLES =========  */
+    .formulaire {width: 350px; float: right;}
+    .formulaire select{width: 140px;}
+/* ========= FORMULAIRE STYLES END HERE =========  */
+
+
+/* ========= RESSOURCE HUMAINE STYLES =========  */
     #RessourceHumaine { margin-top: 20px; overflow: auto;}
-    #RessourceHumaine .formulaire {width: 350px; float: right;}
     #menuRH { margin: 20px auto; }
 
     #menuRH ul {  background: url(/img/bgRedBtn.png);  }
@@ -126,10 +129,11 @@
     #menuRH #filtrer {background: url(/img/min-filtre.png) no-repeat center;}
     #menuRH #ajouter {background: url(/img/min-ajoute.png) no-repeat center;}
     #menuRH #listeResumer {background: url(/img/min-liste.png) no-repeat center;}
-/* ========= STRATEGIE STYLES END HERE =========  */
+/* ========= RESSOURCE HUMAINE STYLES END HERE =========  */
 
 
 /* ========= DETAIL STYLES =========  */
+        .detail { float: left }
         .detail fieldset{
             width: 402px;
             margin: 20px 0;
@@ -157,4 +161,6 @@
         .detail .identite div { font-weight: bold; display: inline-block; vertical-align: middle; padding: 5px 0;}
         .detail .identite div:first-child { width: 130px; color: #47559D; padding-right: 5px; text-align: right;}
         .detail .identite div:last-child { width: 194px; color: #000; padding-left: 5px; text-align: left;}
-/* ========= DETAIL STYLES END HERE =========  */
+
+        .listeBrevet { clear: both;}
+/* ========= DETAIL STYLES END HERE =========  
