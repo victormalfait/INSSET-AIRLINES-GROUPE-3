@@ -1,17 +1,38 @@
-
-<table>
-    <thead>
-        <th>Numero vol</th>
-        <th>Départ</th>
-        <th>Arrivée</th>
-    </thead>
-    <tbody>
-        <?php foreach ($this->tabVol as $vol) {?>
-            <tr>
-                <td><?php echo $vol['numero_vol']; ?></td>
-                <td><?php echo 'Le '.date("d/m/Y à H:i",$vol['heure_dep']).' de '.$vol['depart']; ?></td>
-                <td><?php echo 'Le '.date("d/m/Y à H:i",$vol['heure_arr']).' de '.$vol['arrive']; ?></td>
-            </tr>
-        <?php }?>
-    </tbody>
-</table>
+<div>
+    <h2>Vol aller</h2>
+    <table>
+        <thead>
+            <th>Numero vol</th>
+            <th>Départ</th>
+            <th>Arrivée</th>
+        </thead>
+        <tbody>
+            <?php foreach ($this->tabVol as $vol) {?>
+                <tr>
+                    <td><?php echo $vol['numero_vol']; ?></td>
+                    <td><?php echo 'Le '.date("d/m/Y à H:i",$vol['heure_dep']).' de '.$vol['depart']; ?></td>
+                    <td><?php echo 'Le '.date("d/m/Y à H:i",$vol['heure_arr']).' de '.$vol['arrive']; ?></td>
+                </tr>
+            <?php }?>
+        </tbody>
+    </table>
+    <?php if(isset($this->tabVolRetour) && $this->tabVolRetour != ''){?>
+        <h2>Vol retour</h2>
+        <table>
+            <thead>
+                <th>Numero vol</th>
+                <th>Départ</th>
+                <th>Arrivée</th>
+            </thead>
+            <tbody>
+                <?php foreach ($this->tabVolRetour as $volRetour) {?>
+                    <tr>
+                        <td><?php echo $volRetour['numero_vol']; ?></td>
+                        <td><?php echo 'Le '.date("d/m/Y à H:i",$volRetour['heure_dep']).' de '.$volRetour['depart']; ?></td>
+                        <td><?php echo 'Le '.date("d/m/Y à H:i",$volRetour['heure_arr']).' de '.$volRetour['arrive']; ?></td>
+                    </tr>
+                <?php }?>
+            </tbody>
+        </table>
+    <?php }?>
+</div>

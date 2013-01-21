@@ -97,8 +97,8 @@ class CommercialController extends Zend_Controller_Action
                 $date_depart_avant = $date_depart - 3*7*24*60*60;
 
                 //on verifie que la date ne soit pas inferieure a la date du jour
-                if($date_depart_apres < $date_jour){
-                    $date_depart_avant = $date_jour
+                if($date_depart_avant < $date_jour){
+                    $date_depart_avant = $date_jour;
                 }
 
                 //on initialise une variable à 3 semaines apres la date demandée
@@ -144,7 +144,7 @@ class CommercialController extends Zend_Controller_Action
                             }else{
                                 //on boucle pour enregistrer les infos des vols périodiques
                                 for ($i=0; $i < 7; $i++) { 
-                                    $date = $date_depart + 7*24*60*60*$i;
+                                    $date = $date_depart_avant + 7*24*60*60*$i;
 
                                     //appel à la fonction pour trouver le nombre de jour d'ecart
                                     $date_vol = $this->find_date_vol($date, $destination->periodicite);
@@ -185,6 +185,94 @@ class CommercialController extends Zend_Controller_Action
                 }                
                 //on envoie le tableau à la vue
                 $this->view->tabVol = $table_content_aller;
+
+                if($formCommercial->getValue('typeTrajet') == 2){
+
+                    $date_fin = $formCommercial->getValue('datepickerfin');
+
+                    //on convertit au format timestamp
+                    list($jourD, $moisD, $anneeD) = explode("-", $date_fin);          
+                    $date_retour = mktime(0, 0, 0,  $moisD, $jourD, $anneeD);
+
+                    //on initialise une variable pour avoir la date 3 semaines avant
+                    $date_retour_avant = $date_retour - 3*7*24*60*60;
+
+                    //on verifie que la date ne soit pas inferieure a la date du jour
+                    if($date_retour_avant < $date_jour){
+                        $date_retour_avant = $date_jour;
+                    }
+
+                    //on initialise une variable à 3 semaines apres la date demandée
+                    $date_retour_apres = $date_retour + 3*7*24*60*60;
+
+                    foreach ($aeroportArrives as $aeroportArrive) {
+                        foreach ($aeroportDeparts as $aeroportDepart) {
+
+                            //on cherche les destinations avec les aeroports de départ et d'arrivé 
+                            $destinationRetourRequest = $tableDestination->select()->where('tri_aero_dep = ?', $aeroportDepart->trigramme)->where('tri_aero_arr = ?', $aeroportArrive->trigramme);
+
+                            $destinations = $tableDestination->fetchAll($destinationRetourRequest);
+
+                            foreach ($destinations as $destination) {
+                                //si le vol est unique ...
+                                if($destination->periodicite == 'Vol unique'){
+
+                                    //on vérifie que le vol soit entre les dates voulu
+                                    if($destination->heure_dep >= $date_retour_avant && $destination->heure_dep <= $date_retour_apres){
+                                        //on enregistre les valeur dans le tableau
+                                        $table_content_aller[$count]['numero_vol']    = $destination->numero_vol;
+                                        $table_content_aller[$count]['heure_dep']     = $destination->heure_dep;
+                                        $table_content_aller[$count]['heure_arr']     = $destination->heure_arr;
+                                        $table_content_aller[$count]['depart']        = $aeroportDepart->nom_aeroport;
+                                        $table_content_aller[$count]['arrive']        = $aeroportArrive->nom_aeroport;
+                                        $count++;
+                                    }
+                                //si le vol est periodique
+                                }else{
+                                    //on boucle pour enregistrer les infos des vols périodiques
+                                    for ($i=0; $i < 7; $i++) { 
+                                        $date = $date_retour_avant + 7*24*60*60*$i;
+
+                                        //appel à la fonction pour trouver le nombre de jour d'ecart
+                                        $date_vol = $this->find_date_vol($date, $destination->periodicite);
+
+                                        $minuteD = date("i", $destination->heure_dep);
+                                        $heureD = date("H", $destination->heure_dep);
+                                        $mois = date("m", $date_vol);
+                                        $jour = date("d", $date_vol);
+                                        $an = date("Y", $date_vol);
+
+                                        //on cree un timestamp pour la date de depart du vol
+                                        $date_vol_dep = mktime($heureD,$minuteD,0, $mois, $jour, $an);
+
+                                        $minuteA = date("i", $destination->heure_arr);
+                                        $heureA = date("H", $destination->heure_arr);
+
+                                        $heure = $heureA - $heureD;
+                                        if($heure < 0)
+                                            $heure += 24;
+                                        $minute = $minuteA - $minuteD;
+                                        if($heure < 0)
+                                            $heure += 60;
+
+                                        //on cree le timestamp de la date d'arrivee du vol
+                                        $date_vol_arr = $date_vol_dep + $heure*60*60 + $minute*60;
+
+                                        $table_content_retour[$count]['numero_vol']    = $destination->numero_vol;
+                                        $table_content_retour[$count]['heure_dep']     = $date_vol_dep;
+                                        $table_content_retour[$count]['heure_arr']     = $date_vol_arr;
+                                        $table_content_retour[$count]['depart']        = $aeroportDepart->nom_aeroport;
+                                        $table_content_retour[$count]['arrive']        = $aeroportArrive->nom_aeroport;
+                                        $count++;
+
+                                    }
+                                }
+                            }
+                        }
+                    }       
+                }
+
+                $this->view->tabVolRetour = $table_content_retour;
                                                                           
                 // RAZ du formulaire
                 $formCommercial->reset();
