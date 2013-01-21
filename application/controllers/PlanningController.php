@@ -3,7 +3,7 @@
 class PlanningController extends Zend_Controller_Action
 {
 	//fonction pour calculer le nombre de jour d'écart entre le jour d'aujourd'hui et le jour du vol
-	 function find_date_vol($timestamp, $jour) {
+	public function find_date_vol($timestamp, $jour) {
         $target = $timestamp;
         //on recupere le jour d'aujourd'hui
         $day = date('D',$target);
@@ -64,14 +64,15 @@ class PlanningController extends Zend_Controller_Action
 	}
 
 	public function menuplanningAction(){
-
 	}
 
 	public function planificationAction(){
 
 		//requete dans la BDD
 		$tableDestination = new TDestination;
-		$destinationRequest = $tableDestination->select()->where('plannification = 0')->orwhere('periodicite != "Vol unique"');
+		$destinationRequest = $tableDestination	->select()
+												->where('plannification = 0')
+												->orwhere('periodicite != "Vol unique"');
 		$destinations = $tableDestination->fetchAll($destinationRequest);
 
 		$tabDestination = array();
@@ -121,8 +122,10 @@ class PlanningController extends Zend_Controller_Action
 					$test = 0;
 					//nous permet de verifier que le vol n'est pas deja planifier
 					$tableVol = new TVols;
-					$volRequest = $tableVol->select()->where('id_destination = ?',$destination->id_destination);
+					$volRequest = $tableVol	->select()
+											->where('id_destination = ?',$destination->id_destination);
 					$vols = $tableVol->fetchAll($volRequest);
+
 					foreach ($vols as $vol) {
 						if($vol->heure_dep == $date_vol_dep)
 							$test += 1;
@@ -153,11 +156,12 @@ class PlanningController extends Zend_Controller_Action
 				$i++;
 			}
 		}
+
 		$this->view->destination = $tabDestination;
 	}
 
 	public function planifierAction(){
-		$id_destination = $this->_getParam('id_destination');
+		$id_destination = $this->_getParam('id');
 		$heureD 		= $this->_getParam('heureD');
 		$heureA 		= $this->_getParam('heureA');
 

@@ -9,6 +9,9 @@
 		       , dataType: "json"
 		       , success: function(reponse){ // Sur Succès de la réponse AJAX
 
+		       		// on cache l'element select
+		       		// $('select#avion').fadeOut('slow');
+
 				    // Duplique ma réponse	
 		   		    var optionData = reponse;
 					// Suppression des éléments de mes listes déroulantes
@@ -25,6 +28,7 @@
 		    });  //Eof:: ajax 
 		} //Eof:: fucntion remplirSelect
 //////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 		//Remplir les select du formulaire en fonction de la réponse AJAX
@@ -58,9 +62,14 @@
 //Sur fin du chargement du document
 $(document).ready( function() {
 
+	// on cache les element qui ne sont pas encore utiliser
+	$('select#pilote').parent().hide();
+	$('select#copilote').parent().hide();
+	$('input#BTNPlanifier').parent().hide();
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// Sur changement de l'un des 'select pays'
+	// Sur changement de l'un des 'select'
 		$("select#avion").change(function(){
 
 			// Je recupère la valeur des sélections en cours
@@ -68,15 +77,17 @@ $(document).ready( function() {
 		 	// Données à passer à la requête AJAX
 		 	var dataAjax = { immatriculation:Vpilote };
 
+			$('select#pilote').parent().fadeIn('slow');
 			// Modification des 'select'
 			remplirSelectPilote (dataAjax);
 			
-		}); //Eof:: sur changement de l'un des 'select pays'
+		}); //Eof:: sur changement de l'un des 'select'
 //////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// Sur changement de l'un des 'select pays'
+	// Sur changement de l'un des 'select'
 		$("select#pilote").change(function(){
 
 			// Je recupère la valeur des sélections en cours
@@ -88,21 +99,15 @@ $(document).ready( function() {
 			// Modification des 'select'
 			remplirSelectCoPilote (dataAjax);
 			
-		}); //Eof:: sur changement de l'un des 'select pays'
+			$('select#copilote').parent().fadeIn('slow');
+		}); //Eof:: sur changement de l'un des 'select'
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-		$("#fermerbutton").live('click', function () {
-			location.reload();
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+		$("select#copilote").change(function(){
+			$('input#BTNPlanifier').parent().fadeIn('slow');
 		});
-
-		$("#BTNPlanifier").click(function(){
-			$("#detailsVol").fadeIn();
-			return false;
-		})
-
-		$("#BTNValiderVol").click(function(){
-			$("#FPlanifier").submit();
-			$("#detailsVol").fadeOut();
-		})
+//////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }); //Eof:: ready

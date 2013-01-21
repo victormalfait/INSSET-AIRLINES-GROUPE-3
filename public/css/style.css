@@ -118,17 +118,16 @@
 
 /* ========= RESSOURCE HUMAINE STYLES =========  */
     #RessourceHumaine { margin-top: 20px; overflow: auto;}
-    #menuRH { margin: 20px auto; }
+        #menuRH { margin: 20px auto; }
+            #menuRH ul {  background: url(/img/bgRedBtn.png);  }
+            #menuRH li { display: inline-block; padding: 7px 30px; text-indent: -9999px; cursor: pointer;}
+            #menuRH li:hover { opacity: .7;}
+            #menuRH a{ color: #fff;  text-shadow: 0px -1px 0px #000; }
+            #menuRH #filtrer {background: url(/img/min-filtre.png) no-repeat center;}
+            #menuRH #ajouter {background: url(/img/min-ajoute.png) no-repeat center;}
+            #menuRH #listeResumer {background: url(/img/min-liste.png) no-repeat center;}
 
-    #menuRH ul {  background: url(/img/bgRedBtn.png);  }
-    #menuRH li { display: inline-block; padding: 7px 30px; text-indent: -9999px; cursor: pointer;}
-    #menuRH li:hover { opacity: .7;}
-
-    #menuRH a{ color: #fff;  text-shadow: 0px -1px 0px #000; }
-
-    #menuRH #filtrer {background: url(/img/min-filtre.png) no-repeat center;}
-    #menuRH #ajouter {background: url(/img/min-ajoute.png) no-repeat center;}
-    #menuRH #listeResumer {background: url(/img/min-liste.png) no-repeat center;}
+        .listeBrevet { clear: both;}
 /* ========= RESSOURCE HUMAINE STYLES END HERE =========  */
 
 
@@ -162,19 +161,17 @@
         .detail .identite div:first-child { width: 130px; color: #47559D; padding-right: 5px; text-align: right;}
         .detail .identite div:last-child { width: 194px; color: #000; padding-left: 5px; text-align: left;}
 
-        .listeBrevet { clear: both;}
 /* ========= DETAIL STYLES END HERE =========  */
 
 
 /* ========= PLANNING STYLES =========  */
     #Planning { margin-top: 20px; overflow: auto;}
-    #menuPlannig { margin: 20px auto; }
+        #menuPlannig { margin: 20px auto; }
+            #menuPlannig ul {  background: url(/img/bgRedBtn.png);  }
+            #menuPlannig li { display: inline-block; padding: 7px 30px; cursor: pointer;}
+            #menuPlannig li:hover { opacity: .7;}
+            #menuPlannig a{ color: #fff;  text-shadow: 0px -1px 0px #000; }
+            #menuPlannig #liste {background: url(/img/min-liste.png) no-repeat center; text-indent: -9999px;}
 
-    #menuPlannig ul {  background: url(/img/bgRedBtn.png);  }
-    #menuPlannig li { display: inline-block; padding: 7px 30px; cursor: pointer;}
-    #menuPlannig li:hover { opacity: .7;}
-
-    #menuPlannig a{ color: #fff;  text-shadow: 0px -1px 0px #000; }
-
-    #menuPlannig #liste {background: url(/img/min-liste.png) no-repeat center; text-indent: -9999px;}
+        #Planning select{ background: none; border: none; width: 250px; padding: 5px 30px 5px 0;  color: #000; font-weight: bold;}
 /* ========= PLANNING STYLES END HERE =========  */

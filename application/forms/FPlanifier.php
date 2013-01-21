@@ -18,29 +18,24 @@ class FPlanifier extends Zend_Form
 		$this->clearDecorators();
 
 		$decorators = array(
-		    array('ViewHelper'),
+		    array('ViewHelper', array('tag' => 'div')),
 		    array('Errors'),
-		    array('Label', array('class' => 'label')),
-		    array('HtmlTag', array('tag' => 'li'))
+		    array('Label', array('tag' => 'div', 'class' => 'label')),
+		    array('HtmlTag', array('tag' => 'div', 'class' => 'identite'))
 		);
 
 		// decorateur d'element bouton
 		$decoratorsBouton = array(
 		    'ViewHelper',
 		    'Errors',
-		    array('Label', array('class' => 'label submit')),
-		    array('HtmlTag', array('tag' => 'li'))
+		    array('Label', array('tag' => 'div', 'class' => 'label submit')),
+		    array('HtmlTag', array('tag' => 'div', 'class' => 'identite'))
 		);
 
 		//decorateur de formulaire
 		$decoratorsForm = array(
 			'FormElements',
 		    array('Errors', array('class' => "error")),
-			array('HtmlTag', array('tag' => 'ul')),
-			array(
-				array('DivTag' => 'HtmlTag'),
-				array('tag' => 'div')
-			),
 			'Form'
 		);
 
@@ -70,17 +65,12 @@ class FPlanifier extends Zend_Form
 				  ->setDecorators($decorators);
 
 		$eSubmit = new Zend_Form_Element_Submit('BTNPlanifier');
-		$eSubmit 	->setAttrib('id', 'BTNPlanifier')
-					->setLabel('Planifier')
+		$eSubmit 	->setLabel('Terminer')
+					->setAttrib('class', 'bgRedBtn')
+					->setAttrib('style', 'float:none;')
 					->setDecorators($decoratorsBouton);
 
-		$eFermer = new Zend_Form_Element_Reset('fermer');
-		$eFermer 	->setLabel('Fermer')
-					->setAttrib('id', 'fermerbutton')
-					->setAttrib('class', 'close')
-					->setDecorators($decoratorsBouton);
-
-		$elements = array($eAvion, $ePilote, $eCoPilote, $eSubmit, $eFermer);
+		$elements = array($eAvion, $ePilote, $eCoPilote, $eSubmit);
 		$this->addElements($elements);
 	}
 

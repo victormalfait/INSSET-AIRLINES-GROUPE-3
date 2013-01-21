@@ -1,49 +1,61 @@
-<section id="RessourceHumaine">
+<section id="Planning">
 	<?php echo $this->action('menuplanning','planning'); ?>
-	<?php $destination = $this->destination; ?>
-	<ul>
-		<li>N° vol: <?php echo $destination->numero_vol;?></li>
-		<li>Date de départ: <?php echo ' le '.date("d/m/Y à H:i",$this->heureD);?></li>
-		<li>Date de départ: <?php echo ' le '.date("d/m/Y à H:i",$this->heureA);?></li>
-		<?php
-		$tableAeroport = new TAeroport;
-		$aeroport = $tableAeroport->find($destination->tri_aero_dep)->current();
-		$aeroportBis = $tableAeroport->find($destination->tri_aero_arr)->current();
+	<?php 
+		$destination = $this->destination;
 
-		$tableVille = new TVille;
-		$ville = $tableVille->find($aeroport->id_ville)->current();
-		$villeBis = $tableVille->find($aeroportBis->id_ville)->current();
+		// Recuperation des informations concernant l'aeroport
+        $tableAeroport  = new TAeroport;
+        $aeroport       = $tableAeroport	->find($destination->tri_aero_dep)
+											->current();
+        $aeroportBis    = $tableAeroport 	->find($destination->tri_aero_arr)
+											->current();
 
-		$tablePays = new TPays;
-		$pays = $tablePays->find($ville->id_pays)->current();
-		$paysBis = $tablePays->find($villeBis->id_pays)->current();
-		?>
-		<li>Départ: <?php echo $aeroport->nom_aeroport.'<br/>'.$ville->nom_ville.' ('.$pays->nom_pays.')';?></li>
-		<li>Arrivé: <?php echo $aeroportBis->nom_aeroport.'<br/>'.$villeBis->nom_ville.' ('.$paysBis->nom_pays.')';?></li>
-		<?php echo $this->formPlannifier; ?>
-	</ul>
+		// Recuperation des informations concernant la ville
+        $tableVille     = new TVille;
+        $ville          = $tableVille	->find($aeroport->id_ville)
+        								->current();
+        $villeBis       = $tableVille	->find($aeroportBis->id_ville)
+        								->current();
 
-	<div id="detailsVol" class="overlay_block overlay-fenetre">
-		<!-- entete -->
-		<header class="overlay-fenetre-titre">
-				<span>Details du vol</span>
-		</header>
-		<!-- formulaire -->
-		<section class="overlay-fenetre-section">
-			<div>
-				
-			</div>
-			<div>
-				<ul>
-					<li>
-						<div id="BTNValiderVol" class="bouton">Valider</div>
-					</li>
-					<li>
-						<a title="Annuler">
-							<div class="bouton close">Annuler</div>
-						</a>
-					</li>
-				</ul>
-		</section>
-	</div>
+		// Recuperation des informations concernant le pays
+        $tablePays      = new TPays;
+        $pays           = $tablePays	->find($ville->id_pays)
+        								->current();
+        $paysBis        = $tablePays	->find($villeBis->id_pays)
+        								->current();
+	?>
+
+		<!-- Info employé -->
+	<section class="detail">
+		<fieldset>
+			<legend>Détail du vol</legend>
+				<div class="identite">
+					<div>Vol n°</div>
+					<div><?php echo $destination->numero_vol; ?></div>
+				</div>
+				<div class="identite">
+					<div>Date de départ</div>
+					<div><?php echo 'Le ' . date("d/m/Y à H:i", $this->heureD); ?></div>
+				</div>
+				<div class="identite">
+					<div>Date d'arrivée</div>
+					<div><?php echo 'Le ' . date("d/m/Y à H:i", $this->heureA); ?></div>
+				</div>
+				<div class="identite">
+					<div>Départ</div>
+					<div><?php echo $aeroport->nom_aeroport . '<br/>' . $ville->nom_ville . ' (' . $pays->nom_pays . ')'; ?></div>
+				</div>
+				<div class="identite">
+					<div>Arrivée</div>
+					<div><?php echo $aeroportBis->nom_aeroport . '<br/>' . $villeBis->nom_ville . ' (' . $paysBis->nom_pays . ')'; ?></div>
+				</div>
+		</fieldset>
+	</section>
+
+	<section class="detail" style="margin-left:10px;">
+		<fieldset>
+			<legend>Planification</legend>
+				<?php echo $this->formPlannifier; ?>
+		</fieldset>
+	</section>
 </section>
