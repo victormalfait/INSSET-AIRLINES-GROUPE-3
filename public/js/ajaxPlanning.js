@@ -77,7 +77,7 @@ $(document).ready( function() {
 		 	// Données à passer à la requête AJAX
 		 	var dataAjax = { immatriculation:Vpilote };
 
-			$('select#pilote').parent().fadeIn('slow');
+			$('select#pilote').parent().slideDown('slow');
 			// Modification des 'select'
 			remplirSelectPilote (dataAjax);
 			
@@ -99,14 +99,14 @@ $(document).ready( function() {
 			// Modification des 'select'
 			remplirSelectCoPilote (dataAjax);
 			
-			$('select#copilote').parent().fadeIn('slow');
+			$('select#copilote').parent().slideDown('slow');
 		}); //Eof:: sur changement de l'un des 'select'
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 		$("select#copilote").change(function(){
-			$('input#BTNPlanifier').parent().fadeIn('slow');
+			$('input#BTNPlanifier').parent().slideDown('slow');
 		});
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
