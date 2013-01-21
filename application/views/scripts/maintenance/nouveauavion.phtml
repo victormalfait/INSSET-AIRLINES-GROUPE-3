@@ -1,10 +1,9 @@
-<!-- popup avion -->
-<div id="" class="popup_block rouleau-fenetre">
-	<header class="rouleau-fenetre-titre">
+<div>
+	<header>
 		<span><?php echo $this->translate('Création d\'un Avion')?></span>
 	</header>
-	<section class="rouleau-fenetre-section">
-				<a href="" rel="popup_nouveauModel" class="poplight"><button class="nouveau_model">Ajouter un Model</button></a>
+	<section >
+				<a href="<?php echo $this->baseUrl('maintenance/nouveaumodel');?>">Ajouter un Model</a>
 				<?php echo $this->formNouveauAvion; ?>
 	</section>
 </div>

@@ -271,10 +271,123 @@ class MaintenanceController extends Zend_Controller_Action
 
 	public function nouveauavionAction (){
 
+		$formNouveauAvion = new FNouveauAvion;
+		$this->view->formNouveauAvion = $formNouveauAvion;
+
+		if ($this->_request->isPost()) {
+            $formData = $this->_request->getPost();
+
+            if ($formNouveauAvion->isValid($formData)) {	
+
+			$model  = $formNouveauAvion->getValue('model');
+
+			$tableAvion = new TAvion;
+
+			// Recupere le dernier id de la table
+			$last_id =  count($tableAvion->fetchAll());
+			$mumero = $last_id+1;
+			//Crée le nom de l'imatriculation avec un prifix et un numero
+			$immatriculation = 'F-B'.$mumero;
+
+			// Crée le tableau pour l'insetion
+			$rowAvion = $tableAvion->createRow();
+
+			$rowAvion->id_model = $model;
+			$rowAvion->immatriculation = $immatriculation;
+			$rowAvion->heure_vol_total = 0;
+			$rowAvion->heure_depuis_revision = 0;
+
+			$rowAvion->save();
+
+            $redirector = $this->_helper->getHelper('Redirector');
+	        $redirector->gotoUrl('maintenance/index');
+
+
+	        }
+        }
+
 	}
+
+	public function nouveaumodelAction (){
+
+
+		$formNouveauModel = new FNouveauModel;
+		$this->view->formNouveauModel = $formNouveauModel;
+
+		if ($this->_request->isPost()) {
+            $formData = $this->_request->getPost();
+
+            if ($formNouveauModel->isValid($formData)) {
+
+				$tableModelAvion = new TModelAvion;
+
+	            //Met tout les variable du formulaire dans des variable
+				$nom_model  		= $formNouveauModel->getValue('nom_model');
+				$rayon_action 	 	= $formNouveauModel->getValue('rayon_action');
+				$longueur_piste  	= $formNouveauModel->getValue('longueur_piste');
+				$nbr_place  		= $formNouveauModel->getValue('nbr_place');
+				$vitesse 	 		= $formNouveauModel->getValue('vitesse');
+
+		        $model = $tableModelAvion->fetchAll();
+				$nompispo = true; // Variable pour verifier si le nom du model n'est pas deja dans la base de donnée
+		        // Ré-encode le nom des model en UTF8
+
+		        // Boucle sur tout les model d'avion
+		        foreach ($model as $m) {
+		        	//Verifie si un model existe pas deja
+		        	if ( $m->nom_model == $nom_model ){
+		        		$nompispo = false;
+		        	}
+		        }
+
+		        // Verifie si le nom du model est libre.
+				if ($nompispo == true){
+					// Verifie si les valeur ne son pas 0 ou negatife .
+					if ($rayon_action > 0 && $longueur_piste > 0 && $nbr_place > 0 && $vitesse > 0){
+
+							// Creation du tableau Row pour faire l'insertion dans la BDD
+				            $rowAvion = $tableModelAvion->createRow(); 
+
+							$rowAvion->nom_model  		= $nom_model;
+							$rowAvion->rayon_action 	= $rayon_action;
+							$rowAvion->longueur_piste  	= $longueur_piste;
+							$rowAvion->nbr_place  		= $nbr_place;
+							$rowAvion->vitesse 	 		= $vitesse;
+
+
+							//Creation du brevet
+								$tableBrevet = new TBrevet;
+								$rowBrevet = $tableBrevet->createRow();
+	
+								$rowBrevet->nom_brevet = 'Licence d\'aptitude au vol '.$nom_model;
+								$rowBrevet->temps_validite = '3'; // Definie le temp de validiter a 3 ans par defaut
+
+								$idBrevet = $rowBrevet->save(); 
+
+							$rowAvion->id_brevet = $idBrevet;
+
+							$rowAvion->save();
+					}else{
+						echo 'Le rayon d\'action , la longueur de piste , le nombre de places ou la vitesse doivent etre superieur a 0 .';
+					}
+				}else{
+					echo 'Le nom du model existe deja ! ';
+				}
+
+		        $redirector = $this->_helper->getHelper('Redirector');
+		        $redirector->gotoUrl('maintenance/index');
+	    	}
+
+	    }
+
+	}
+
 
 	public function menumaintenanceAction(){
 		// Fonction pour le menu de la maintenance
+
+
+
 	}
     
 }
