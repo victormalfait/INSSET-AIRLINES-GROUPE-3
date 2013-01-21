@@ -1,0 +1,17 @@
+
+<table>
+    <thead>
+        <th>Numero vol</th>
+        <th>Départ</th>
+        <th>Arrivée</th>
+    </thead>
+    <tbody>
+        <?php foreach ($this->tabVol as $vol) {?>
+            <tr>
+                <td><?php echo $vol['numero_vol']; ?></td>
+                <td><?php echo 'Le '.date("d/m/Y à H:i",$vol['heure_dep']).' de '.$vol['depart']; ?></td>
+                <td><?php echo 'Le '.date("d/m/Y à H:i",$vol['heure_arr']).' de '.$vol['arrive']; ?></td>
+            </tr>
+        <?php }?>
+    </tbody>
+</table>

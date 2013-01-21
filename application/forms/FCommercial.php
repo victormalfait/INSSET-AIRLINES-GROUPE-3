@@ -7,7 +7,7 @@ class FCommercial extends Zend_Form
 	
 	//===============Parametre du formulaire
 		$this->setMethod('post');
-		$this->setAction('');
+		$this->setAction('/commercial/recherche');
 		$this->setAttrib('id', 'FCommercial');
 
 	//=============== creation des decorateurs
@@ -42,14 +42,14 @@ class FCommercial extends Zend_Form
 		$eAeroportDepart->setLabel('De')
 						->setRequired(true)
 						->addValidator('notEmpty')
-						->setMultiOptions($this->listPays())
+						->setMultiOptions($this->listVille())
 						->setDecorators($decorators);
 
 		$eAeroportArrivee = new Zend_Form_Element_Select('aeroportArrive');
 		$eAeroportArrivee->setLabel('A')
 						 ->setRequired(true)
 						 ->addValidator('notEmpty')
-						 ->setMultiOptions($this->listPays())
+						 ->setMultiOptions($this->listVille())
 						 ->setDecorators($decorators);
 
 		$eTypeTrajet = new Zend_Form_Element_Radio('typeTrajet');
@@ -64,7 +64,6 @@ class FCommercial extends Zend_Form
 
 		$eDatefin = new Zend_Form_Element_Text('datepickerfin');
 		$eDatefin	->setLabel('Date retour')
-					->setRequired(true)
 					->setDecorators($decorators);
 
 		$nbr=array();
@@ -127,7 +126,7 @@ class FCommercial extends Zend_Form
 	/**
      * Liste des Pays
      */
-    private function listPays () {
+    private function listVille () {
 		// on charge le model
 		$tableVille = new TVille;
 		// on recupere tout les pays

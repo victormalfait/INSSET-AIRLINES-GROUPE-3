@@ -4,7 +4,7 @@
         $("#datepickerdeb").change(function(){
             var d = $("#datepickerdeb").datepicker('getDate');
         
-            var n = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1);
+            var n = new Date(d.getFullYear(), d.getMonth(), d.getDate());
      
             $("#datepickerfin").datepicker({dateFormat :'d-m-y', minDate: n});
         });
@@ -34,29 +34,12 @@
             });
     });
 </script>
-
-    <?php if(isset($this->tabVol)){?>
-        <table>
-            <thead>
-                <th>Numero vol</th>
-                <th>Départ</th>
-                <th>Arrivée</th>
-            </thead>
-            <tbody>
-                <?php foreach ($this->tabVol as $vol) {?>
-                <td><?php echo $vol['numero_vol']; ?></td>
-                <td><?php echo 'Le '.date("d/m/Y à H:i",$vol['heure_dep']).' de '.$vol['depart']; ?></td>
-                <td><?php echo 'Le '.date("d/m/Y à H:i",$vol['heure_arr']).' de '.$vol['arrive']; ?></td>
-                <?php }?>
-            </tbody>
-        </table>
-    <?php }else{?>
-        <div id="accueil">
-        	<div id="reservation">
-        		<div class="bgRed"><span>Réservation</span></div>
-                <div class="reservation">
-            		<?php echo $this->formCommercial; ?>
-                </div>
-        	</div>
+<div id="accueil">
+	<div id="reservation">
+		<div class="bgRed"><span>Réservation</span></div>
+        <div class="reservation">
+    		<?php echo $this->formCommercial; ?>
         </div>
-    <?php }?>
+	</div>
+</div>
+

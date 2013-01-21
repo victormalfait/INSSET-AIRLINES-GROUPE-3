@@ -61,7 +61,7 @@ class FNouveauModel extends Zend_Form
 				->setDecorators($decorators);
 
 		$longueur_piste = new Zend_Form_Element_Text('longueur_piste');
-		$longueur_piste	->setLabel('Longeur de piste minimum :')
+		$longueur_piste	->setLabel('Longeur de piste minimum (metre):')
 				->setRequired(true)
 				->setAttrib('required', 'required')
 				->setAttrib('size', '17')
@@ -72,7 +72,7 @@ class FNouveauModel extends Zend_Form
 		$nbr_place	->setLabel('Nombre de places :')
 				->setRequired(true)
 				->setAttrib('required', 'required')
-				->setAttrib('size', '17')
+				->setAttrib('size', '5')
 				->addValidator('notEmpty')
 				->setDecorators($decorators);
 
@@ -84,21 +84,21 @@ class FNouveauModel extends Zend_Form
 				->addValidator('notEmpty')
 				->setDecorators($decorators);
 
-		$eSubmit = new Zend_Form_Element_Submit('ajouter');
-		$eSubmit 	->setLabel('Ajouter')
-					->setAttrib('class', 'button_pays')
+		$Submit = new Zend_Form_Element_Submit('ajouter');
+		$Submit 	->setLabel('Ajouter')
+					->setAttrib('class', 'button_model')
 					->setAttrib('id', 'submitbutton')
 					->setDecorators($decoratorsBouton);
 
 
-		$eFermer = new Zend_Form_Element_Reset('fermer');
-		$eFermer 	->setLabel('Fermer')
+		$Fermer = new Zend_Form_Element_Reset('fermer');
+		$Fermer 	->setLabel('Fermer')
 					->setAttrib('id', 'fermerbutton')
-					->setAttrib('class', 'closePays')
+					->setAttrib('class', 'closeModel')
 					->setDecorators($decoratorsBouton);
 
 		// Ajout des éléments au formulaire
-		$elements = array( $nom_model, $rayon_action, $longueur_piste, $nbr_place, $vitesse, $eSubmit, $eFermer );
+		$elements = array( $nom_model, $rayon_action, $longueur_piste, $nbr_place, $vitesse, $Submit, $Fermer );
 		$this->addElements ( $elements );
 	}
 }
