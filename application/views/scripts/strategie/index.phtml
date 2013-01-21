@@ -32,7 +32,7 @@
 						<?php 
 							foreach ($destinations as $destination) {
 								?>
-									<tr onclick="document.location.href='<?php echo $this->baseUrl('strategie/detail/id/' . $destination->id_destination); ?>'" title="Cliquer sur la ligne pour visiter le detail de l'utilisateur" class="lien">
+									<tr onclick="document.location.href='<?php echo $this->baseUrl('strategie/detail/id/' . $destination->id_destination); ?>'" title="Cliquer sur la ligne pour visiter le detail de la destination" class="lien">
 										<td><?php echo $destination->numero_vol;?></td>
 										<td><?php echo $destination->tri_aero_dep;?></td>
 										<td><?php echo $destination->tri_aero_arr;?></td>
