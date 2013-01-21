@@ -1,11 +1,16 @@
-<link rel="stylesheet" type="text/css" href="/css/planning.css">
-<div id="menuPlannig">
+<!-- Menu menuPlannig -->
+<nav id="menuPlannig">
 	<ul>
-		<li>
-			<a href="<?php echo $this->baseUrl('planning/index');?>">Liste des vols</a>
-		</li>
-		<li>
-			<a href="<?php echo $this->baseUrl('planning/planification');?>">Plannification standard</a>
-		</li>
+		<a href="<?php echo $this->baseUrl('planning/index'); ?>" title="Afficher la liste des vols">
+			<li id="liste">
+					<div>Liste des vols</div>
+			</li>
+		</a>
+		<a href="<?php echo $this->baseUrl('planning/planification'); ?>" title="Afficher la liste des vols non planifiés">
+			<li>
+					<div>Plannification standard</div>
+			</li>
+		</a>
 	</ul>
-</div>
+</nav>
+<!-- Menu menuPlannig ends here -->

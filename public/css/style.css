@@ -163,4 +163,18 @@
         .detail .identite div:last-child { width: 194px; color: #000; padding-left: 5px; text-align: left;}
 
         .listeBrevet { clear: both;}
-/* ========= DETAIL STYLES END HERE =========  
+/* ========= DETAIL STYLES END HERE =========  */
+
+
+/* ========= PLANNING STYLES =========  */
+    #Planning { margin-top: 20px; overflow: auto;}
+    #menuPlannig { margin: 20px auto; }
+
+    #menuPlannig ul {  background: url(/img/bgRedBtn.png);  }
+    #menuPlannig li { display: inline-block; padding: 7px 30px; cursor: pointer;}
+    #menuPlannig li:hover { opacity: .7;}
+
+    #menuPlannig a{ color: #fff;  text-shadow: 0px -1px 0px #000; }
+
+    #menuPlannig #liste {background: url(/img/min-liste.png) no-repeat center; text-indent: -9999px;}
+/* ========= PLANNING STYLES END HERE =========  */
