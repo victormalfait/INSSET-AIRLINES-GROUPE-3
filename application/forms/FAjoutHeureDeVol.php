@@ -52,8 +52,8 @@ class FAjoutheuredevolavion extends zend_form
 
 
         //Liste des avions
-		$model = new Zend_Form_Element_Select('avions');
-		$model	->setLabel('Avion : ')
+		$avion = new Zend_Form_Element_Select('avions');
+		$avion	->setLabel('Avion : ')
 				->setRequired(true)
 				->setAttrib('required', 'required')
 				->setMultiOptions($modelTab)
@@ -61,6 +61,14 @@ class FAjoutheuredevolavion extends zend_form
 				->setDecorators($decorators);
 
 
+		//ajout heure de vol sur l'avion choisi
+		$heuredevol = new Zend_Form_Element_Text('heuredevol')
+		$heuredevol ->setLabel("Nombre d'heure de vol : ")
+					->setRequired(true)
+					->setAttrib('required', 'required')
+					->setMultiOptions($modelTab)
+					->addValidator('notEmpty')
+					->setDecorators($decorators);
 
 
 
