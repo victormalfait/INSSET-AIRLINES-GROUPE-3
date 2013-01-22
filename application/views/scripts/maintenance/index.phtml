@@ -1,10 +1,10 @@
-<?php echo $this->action('menumaintenance','maintenance'); ?>
+<section id="Maintenance">
+	<?php echo $this->action('menumaintenance','maintenance'); ?>
 
-<br/>
-Liste des avion disponible pour une maintenance :<br/>
-<br/>
+	Liste des avion disponible pour une maintenance :
+	<br/>
+	<br/>
 
-<section id="">
 	<table>
 		<thead>
 			<th>Model</th>
@@ -14,44 +14,48 @@ Liste des avion disponible pour une maintenance :<br/>
 			<th>Maintenance</th>
 		</thead>
 		<tbody>
-			<?php 
-			$HeureMax = 300;
-			$HeureMin = 100;
-			foreach ($this->avion as $avion) { 
+			<?php
 
+				$HeureMax = 300;
+				$HeureMin = 100;
+				
+				foreach ($this->avion as $avion) {
+					if ($avion['heure_depuis_revision'] >=  $HeureMax && $avion['date_prevue'] == 0 ) {
+					 	$couleur = '#F08080'; // rouge
+					}
+					else {
+						if ($avion['heure_depuis_revision'] >=  $HeureMin && $avion['date_prevue'] == 0 ) {
+						 	$couleur = '#FFA07A'; // orange
+						}
+						else {
+						 	$couleur = 'none'; // aucune couleur
+						}
+					}
 
-				 if ($avion['heure_depuis_revision'] >=  $HeureMax && $avion['date_prevue'] == 0 ){
-				 	echo '<tr bgcolor=#F08080>';
-				 }else{
-					if ($avion['heure_depuis_revision'] >=  $HeureMin && $avion['date_prevue'] == 0 ){
-					 	echo '<tr bgcolor=#FFA07A>';
-					 }else{
-					 	echo '<tr>';
-					 }
-				 }
-
-				?>
-
-			
-
-
-				<td><?php echo $avion['nom_model']; ?></td>
-				<td><?php echo $avion['immatriculation']; ?></td>
-				<td><?php echo $avion['heure_vol_total']; ?></td>
-				<td><?php echo $avion['heure_depuis_revision']; ?></td>
-				<?php if ($avion['date_prevue'] == 0){
-					
-					echo '<td><a href="'.$this->baseUrl('maintenance/ajouter/immatriculation/' . $avion['immatriculation']).'" title="Ajouter Maintenance"><button class="ajouter">Ajouter</button></a></td>';
-				}else{ 
-					echo '<td><a href="'.$this->baseUrl('maintenance/afficher').'" title="Ajouter Maintenance">Du :'.date('d/m/Y', $avion['date_prevue']).' ('.$avion['duree_prevue'].' jours)</a></td>';
-					
-				}?>
-
-			</tr>
-			<?php }?>
+					?>
+					<tr style="background-color:<?php echo $couleur; ?>">
+						<td><?php echo $avion['nom_model']; ?></td>
+						<td><?php echo $avion['immatriculation']; ?></td>
+						<td><?php echo $avion['heure_vol_total']; ?></td>
+						<td><?php echo $avion['heure_depuis_revision']; ?></td>
+						<?php 
+							if ($avion['date_prevue'] == 0){
+								echo '<td><a href="'.$this->baseUrl('maintenance/ajouter/immatriculation/' . $avion['immatriculation']).'" title="Ajouter Maintenance"><button class="ajouter">Ajouter</button></a></td>';
+							}
+							else { 
+								echo '<td><a href="'.$this->baseUrl('maintenance/afficher').'" title="Ajouter Maintenance">Du :'.date('d/m/Y', $avion['date_prevue']).' ('.$avion['duree_prevue'].' jours)</a></td>';
+							}
+						?>
+					</tr>
+					<?php 
+				}
+			?>
 		</tbody>
-	</table><br/>
+	</table>
+	<br/>
 	*Legende :<br/>
-		<font color="#F08080">Maintenance a prevoir : <br/>Rouge ( Nombre d'heurs superieur a <?php echo $HeureMax; ?> heurs de vol )</font><br/>
-		<font color="#FFA07A">Maintenance pour bientot : <br/>Orange( Nombre d'heurs superieur a <?php echo $HeureMin; ?> heurs de vol )</font><br/>
+	<font color="#F08080">Maintenance à prévoir : 
+	<br/>Rouge ( Nombre d'heures supérieur à <?php echo $HeureMax; ?> heures de vols )</font><br/>
+	<font color="#FFA07A">Maintenance pour bientôt : 
+	<br/>Orange( Nombre d'heures supérieur à <?php echo $HeureMin; ?> heures de vols )</font><br/>
 </section>

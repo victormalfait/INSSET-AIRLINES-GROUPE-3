@@ -1,13 +1,21 @@
-<div id="menu">
+<!-- Menu menuPlannig -->
+<nav id="menuMaintenance">
 	<ul>
-		<li>
-			<a href="<?php echo $this->baseUrl('maintenance/index');?>">Avion Disponible</a>
-		</li>
-		<li>
-			<a href="<?php echo $this->baseUrl('maintenance/afficher');?>">Planning</a>
-		</li>
-		<li>
-			<a href="<?php echo $this->baseUrl('maintenance/nouveauavion');?>">Ajouter un Avion</a>
-		</li>
+		<a href="<?php echo $this->baseUrl('maintenance'); ?>" title="Afficher la liste des avions disponible">
+			<li id="liste">
+					<div>Liste des avions disponibles</div>
+			</li>
+		</a>
+		<a href="<?php echo $this->baseUrl('maintenance/afficher'); ?>" title="Afficher le planning des maintenances">
+			<li id="calendrier">
+					<div>Planning</div>
+			</li>
+		</a>
+		<a href="<?php echo $this->baseUrl('maintenance/nouvelavion'); ?>" title="Ajouter un avion">
+			<li id="ajouter">
+					<div>Ajouter un avion</div>
+			</li>
+		</a>
 	</ul>
-</div>
+</nav>
+<!-- Menu menuPlannig ends here -->

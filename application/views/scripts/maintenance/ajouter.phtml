@@ -1,14 +1,10 @@
-<?php
-	echo '<script>
-	    $(function() {
-	        $(".datepickerdeb" ).datepicker({dateFormat :"dd-mm-yy", minDate: 1});
-	    });
-	</script>';
+<script>
+    $(function() {
+        $(".datepickerdeb" ).datepicker({dateFormat :"dd-mm-yy", minDate: 1});
+    });
+</script>
 
-?>
 <?php echo $this->action('menumaintenance','maintenance'); ?>
-	<header>
-	</header>
-	<section>
-				<?php echo $this->formMaintenance ; ?>
-	</section>
+<section>
+	<?php echo $this->formMaintenance ; ?>
+</section>
