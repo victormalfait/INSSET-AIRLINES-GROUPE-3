@@ -1,0 +1,21 @@
+<?php $destination = $this->volAller;
+$destinationRetour = $this->volRetour;
+setlocale (LC_TIME, 'fr_FR','fra'); ?>
+<div>
+	<h2>Vol Aller</h2>
+	<ul>
+		<li><?php echo $destination['numero_vol']?></li>
+		<li>Depart : <?php echo $destination['depart'].' le '.strftime("%A %d %B à %H:%M",$destination['heure_dep']);?></li>
+		<li>Arrivé : <?php echo $destination['arrive'].' le '.strftime("%A %d %B à %H:%M",$destination['heure_arr']);?></li>
+	</ul>
+</div>
+<?php if(isset($destinationRetour) && $destinationRetour != ''){?>
+<div>
+	<h2>Vol Retour</h2>
+	<ul>
+		<li><?php echo $destinationRetour['numero_vol']?></li>
+		<li>Depart : <?php echo $destinationRetour['depart'].' le '.strftime("%A %d %B à %H:%M",$destinationRetour['heure_dep']);?></li>
+		<li>Arrivé : <?php echo $destinationRetour['arrive'].' le '.strftime("%A %d %B à %H:%M",$destinationRetour['heure_arr']);?></li>
+	</ul>
+</div>
+<?php }?>

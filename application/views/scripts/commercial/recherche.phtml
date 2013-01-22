@@ -1,5 +1,6 @@
 <div class="recherche">
-    
+    <form method="POST" action="<?php echo $this->baseUrl('commercial/detailsrecherche');?>">
+        <input type="hidden" name="victor" value="victor"/>
         <div class="aller">
             <div class="titre">
                 <h2>Vol aller</h2>
@@ -15,17 +16,26 @@
                 <tbody>
                     <?php foreach ($this->tabVol as $vol) {?>
                         <tr>
-                            <form>
-                                <td><?php echo $vol['numero_vol']; ?><input type="hidden" name="numero_vol" value="<?php echo $vol['numero_vol'];?>"/></td>
+                            <td><?php echo $vol['numero_vol']; ?></td>
 
-                                <td><?php echo 'Le '.date("d/m/Y à H:i",$vol['heure_dep']).' de '.$vol['depart']; ?><input type="hidden" name="heure_dep" value="<?php echo $vol['heure_dep'];?>"/><input type="hidden" name="depart" value="<?php echo $vol['depart'];?>"/></td>
+                            <td>
+                                <?php 
+                                    echo $vol['depart'];
+                                    setlocale (LC_TIME, 'fr_FR','fra'); 
+                                    echo strftime("%A %d %B %H:%M",$vol['heure_dep']);  
+                                ?>
+                            </td>
 
-                                <td><?php echo 'Le '.date("d/m/Y à H:i",$vol['heure_arr']).' de '.$vol['arrive']; ?><input type="hidden" name="heure_arr" value="<?php echo $vol['heure_arr'];?>"/><input type="hidden" name="arrive" value="<?php echo $vol['arrive'];?>"/></td>
+                            <td>
+                                <?php 
+                                    echo $vol['arrive']; 
+                                    echo strftime("%A %d %B %H:%M",$vol['heure_arr']);
+                                ?>
+                            </td>
 
-                                <td><?php echo $vol['prix'].'€'; ?><input type="hidden" name="prix" value="<?php echo $vol['prix'];?>"/></td>
+                            <td><?php echo $vol['prix'].'€'; ?></td>
 
-                                <td><input type="submit" name="submit" value="Réserver"/></td>
-                            </form>
+                            <td><input type="radio" name="volAller" value="<?php echo $vol['numero_vol'].'/'.$vol['heure_dep'];?>"/></td>
                         </tr>
                     <?php }?>
                 </tbody>
@@ -47,21 +57,31 @@
                     <tbody>
                         <?php foreach ($this->tabVolRetour as $volRetour) {?>
                             <tr>
-                                <form>
-                                    <td><?php echo $volRetour['numero_vol']; ?><input type="hidden" name="numero_vol_retour" value="<?php echo $volRetour['numero_vol'];?>"/></td>
+                                <td><?php echo $volRetour['numero_vol']; ?></td>
 
-                                    <td><?php echo 'Le '.date("d/m/Y à H:i",$volRetour['heure_dep']).' de '.$volRetour['depart']; ?><input type="hidden" name="heure_dep_retour" value="<?php echo $volRetour['heure_dep'];?>"/><input type="hidden" name="depart_retour" value="<?php echo $volRetour['depart'];?>"/></td>
+                                <td>
+                                    <?php 
+                                        echo $volRetour['depart']; 
+                                        echo strftime("%A %d %B %H:%M",$volRetour['heure_dep']);
+                                    ?>
+                                </td>
 
-                                    <td><?php echo 'Le '.date("d/m/Y à H:i",$volRetour['heure_arr']).' de '.$volRetour['arrive']; ?><input type="hidden" name="heure_arr_retour" value="<?php echo $volRetour['heure_arr'];?>"/><input type="hidden" name="arrive_retour" value="<?php echo $volRetour['arrive'];?>"/></td>
+                                <td>
+                                    <?php 
+                                        echo $volRetour['arrive']; 
+                                        echo strftime("%A %d %B %H:%M",$volRetour['heure_arr']);
+                                    ?>
+                                </td>
 
-                                    <td><?php echo $volRetour['prix'].'€'; ?><input type="hidden" name="prix_retour" value="<?php echo $volRetour['prix'];?>"/></td>
+                                <td><?php echo $volRetour['prix'].'€'; ?></td>
 
-                                    <td><input type="submit" name="submit" value="Réserver"/></td>
-                                </form>
+                                <td><input type="radio" name="volRetour" value="<?php echo $volRetour['numero_vol'].'/'.$volRetour['heure_dep'];?>"/></td>
                             </tr>
                         <?php }?>
                     </tbody>
                 </table>
             </div>
         <?php }?>
+        <input type="submit" name="reserve" value="Réserver" />
+    </form>
 </div>
