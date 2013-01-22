@@ -3,11 +3,17 @@
 Planning des maintenances prevue :<br/>
 <br/>
 <?php 
- 
+$jour_now =  $this->jour_actuel;
 $annee_depart = $this->annee_actuel;
 $mois_depart = $this->mois_actuel;
-
+//Zend_Debug::dump($this->ligne);
 ?>
+<br/>
+<br/>
+<font color="#FFCCCD">Maintenance en retard: Rouge </font><br/>
+<font color="#CCD1FF">Maintenance Fini : Bleu</font><br/>
+<br/>
+<br/>
 <section id="">
 	<?php for ($i=0; $i <= 1 ; $i++) { ?>
 	<?php 
@@ -33,8 +39,35 @@ $mois_depart = $this->mois_actuel;
 				<?php 
 				for ($numday = 1; $numday <= date("t" ,mktime(0 , 0, 0, $mois_depart, 1, $annee_depart)); $numday++) { 
 					$jourcalendrier = str_pad($numday, 2, "0", STR_PAD_LEFT);
+
+					// Colorie les jour deja passer 
+					if ( $jour_now >= $numday && $i == 0 ) {
+						if ( isset($this->ligne[$annee_depart][$mois_depart][$jourcalendrier]['date_eff']) && isset($this->ligne[$annee_depart][$mois_depart][$jourcalendrier]['duree_eff']) ) {
+
+							if ( $this->ligne[$annee_depart][$mois_depart][$jourcalendrier]['date_eff'] == 0 && $this->ligne[$annee_depart][$mois_depart][$jourcalendrier]['duree_eff'] == 0) {
+								echo '<tr bgcolor=#FFCCCD>'; // Rouge
+							}else{
+								echo '<tr bgcolor=#CCD1FF>'; // Bleu
+							}
+
+						}else{
+							echo '<tr bgcolor=#E1E1E1>'; // Gris
+						}
+						
+					}else{
+						if ( isset($this->ligne[$annee_depart][$mois_depart][$jourcalendrier]['date_eff']) && isset($this->ligne[$annee_depart][$mois_depart][$jourcalendrier]['duree_eff']) ) {
+
+							if ( $this->ligne[$annee_depart][$mois_depart][$jourcalendrier]['date_eff'] != 0 && $this->ligne[$annee_depart][$mois_depart][$jourcalendrier]['duree_eff'] != 0) {
+
+								echo '<tr bgcolor=#CCD1FF>'; // Bleu
+							}
+						}else{
+							echo '<tr>';
+						}
+						
+					}
+
 					?>
-					<tr>
 						<td><?php echo $this->DayNames[date("w", mktime(0 , 0, 0, $mois_depart, $jourcalendrier, $annee_depart))].' '.$jourcalendrier; ?></td>
 						<?php if (isset($this->ligne[$annee_depart][$mois_depart][$jourcalendrier]['immatriculation'])){ ?>
 							<td><?php echo $this->ligne[$annee_depart][$mois_depart][$jourcalendrier]['immatriculation']; ?> <td>

@@ -15,8 +15,26 @@ Liste des avion disponible pour une maintenance :<br/>
 		</thead>
 		<tbody>
 			<?php 
-			foreach ($this->avion as $avion) { ?>
-			<tr>
+			$HeureMax = 300;
+			$HeureMin = 100;
+			foreach ($this->avion as $avion) { 
+
+
+				 if ($avion['heure_depuis_revision'] >=  $HeureMax && $avion['date_prevue'] == 0 ){
+				 	echo '<tr bgcolor=#F08080>';
+				 }else{
+					if ($avion['heure_depuis_revision'] >=  $HeureMin && $avion['date_prevue'] == 0 ){
+					 	echo '<tr bgcolor=#FFA07A>';
+					 }else{
+					 	echo '<tr>';
+					 }
+				 }
+
+				?>
+
+			
+
+
 				<td><?php echo $avion['nom_model']; ?></td>
 				<td><?php echo $avion['immatriculation']; ?></td>
 				<td><?php echo $avion['heure_vol_total']; ?></td>
@@ -32,5 +50,8 @@ Liste des avion disponible pour une maintenance :<br/>
 			</tr>
 			<?php }?>
 		</tbody>
-	</table>
+	</table><br/>
+	*Legende :<br/>
+		<font color="#F08080">Maintenance a prevoir : <br/>Rouge ( Nombre d'heurs superieur a <?php echo $HeureMax; ?> heurs de vol )</font><br/>
+		<font color="#FFA07A">Maintenance pour bientot : <br/>Orange( Nombre d'heurs superieur a <?php echo $HeureMin; ?> heurs de vol )</font><br/>
 </section>

@@ -5,7 +5,7 @@ class MaintenanceController extends Zend_Controller_Action
 	public function indexAction()
     {
     	$tableAvion = new TAvion;
-		$fetchAllavion = $tableAvion->fetchAll();
+		$fetchAllavion = $tableAvion->fetchAll(null,'heure_vol_total DESC');
 
 		foreach ($fetchAllavion as $avion) {
 			$tableMaintenance = new TMaintenance;
@@ -86,6 +86,8 @@ class MaintenanceController extends Zend_Controller_Action
 				$jourcalendrier = str_pad($jourcalendrier, 2, "0", STR_PAD_LEFT);
 				$calendrier[$annee_maintenance][$mois_maintenance][$jourcalendrier]['note'] = $listmaintenance['note'];
 				$calendrier[$annee_maintenance][$mois_maintenance][$jourcalendrier]['immatriculation'] = $listmaintenance['immatriculation'];
+				$calendrier[$annee_maintenance][$mois_maintenance][$jourcalendrier]['date_eff'] = $listmaintenance['date_eff'];
+				$calendrier[$annee_maintenance][$mois_maintenance][$jourcalendrier]['duree_eff'] = $listmaintenance['duree_eff'];
 				$jourcalendrier++;
 			}
 		}
@@ -115,7 +117,7 @@ class MaintenanceController extends Zend_Controller_Action
 	            	list($jour, $mois, $annee) = explode("-", $datepickerdeb);
 	            	$datedeb = mktime(0 , 0, 0, $mois, $jour, $annee);
 
-					$datefin = $datedeb+($_POST['Time_Revision']*86400)-86400;
+					$datefin = $datedeb+($_POST['Time_Revision']*86400);
 
 	            	$tableMaintenance = new TMaintenance;
 	            	
@@ -131,10 +133,14 @@ class MaintenanceController extends Zend_Controller_Action
 						//verifie si une maintenance n'existe pas deja a la date prevue.
 						if (  !($debut <=  $datedeb  && $datedeb <= $fin) ){
 							if ( !($debut <=  $datefin && $datefin <= $fin )){
+
 								$verif = true;
+
 								// echo '1<br/>';
 								// echo $debut.' - '.$datedeb.' <= '.$fin.' <br/> '.$debut.' <= '.$datefin.' <= '.$fin;
 								// echo '<br/>';
+
+
 							}else{
 								$verif = false;
 							}
@@ -146,21 +152,26 @@ class MaintenanceController extends Zend_Controller_Action
 
 					if ($verif == true)
 					{
+						if ( $datedeb > time() ){//Verifie si on met pas un maintenance avans la date actuel
 
-		            	$immatriculation = $this->_getParam('immatriculation');
+							$immatriculation = $this->_getParam('immatriculation');
 
-		            	$row = $tableMaintenance->createRow(); 
-						$row->immatriculation  	= $immatriculation;
-						$row->date_prevue 	 	= $datedeb;
-						$row->duree_prevue  	= $_POST['Time_Revision'];
-						$row->date_eff  		= 0;
-						$row->duree_eff 	 	= 0;
-						$row->note 	 	= $_POST['note'];
+			            	$row = $tableMaintenance->createRow(); 
+							$row->immatriculation  	= $immatriculation;
+							$row->date_prevue 	 	= $datedeb;
+							$row->duree_prevue  	= $_POST['Time_Revision'];
+							$row->date_eff  		= 0;
+							$row->duree_eff 	 	= 0;
+							$row->note 	 	= $_POST['note'];
 
-		                $row->save();
-		                $formMaintenance->reset();
-		                $redirector = $this->_helper->getHelper('Redirector');
-		                $redirector->gotoUrl('maintenance/index');
+			                $row->save();
+			                $formMaintenance->reset();
+			                $redirector = $this->_helper->getHelper('Redirector');
+			                $redirector->gotoUrl('maintenance/index');
+						}else{
+							echo 'La date de maintenance doit etre superieur a la date actuel !';
+						}
+
 					}else{
 	            		echo 'Il a deja une maintance a cette date !';
 	            	}
@@ -194,7 +205,8 @@ class MaintenanceController extends Zend_Controller_Action
                                       ->where('m.immatriculation = ?',$immatriculation );
         $maintenance = $tableMaintenance->fetchRow($selectMaintenance)->toArray();
 
-        $maintenance = array( 'date_prevue' => date("d-m-Y",$maintenance['date_prevue']),'date_eff' => date("d-m-Y",$maintenance['date_eff']) );
+        $maintenance = array( 'date_prevue' => date("d-m-Y",$maintenance['date_prevue']),
+        	'date_eff' => date("d-m-Y",$maintenance['date_eff']));
 
 		$formModifierMaintenance = new FModifierMaintenance;
 		$formModifierMaintenance->populate($maintenance);
@@ -247,8 +259,7 @@ class MaintenanceController extends Zend_Controller_Action
 
 				if ($verif == true)
 				{
-
-	                $where = $tableMaintenance->getAdapter()->quoteInto('immatriculation = ?', $immatriculation);
+					$where = $tableMaintenance->getAdapter()->quoteInto('immatriculation = ?', $immatriculation);
 
 	                $tableMaintenance->update(array('date_prevue' => $date_prevue,
 								                	'date_eff' => $date_eff,
@@ -256,13 +267,12 @@ class MaintenanceController extends Zend_Controller_Action
 								                	'duree_eff' => $_POST['duree_eff'] ,
 								                	'note' => $_POST['note']),
 	                								$where);
-
-	                $redirector = $this->_helper->getHelper('Redirector');
+					
+					$redirector = $this->_helper->getHelper('Redirector');
 	                $redirector->gotoUrl('maintenance/index');
 				}else{
             		echo 'Il a deja une maintance a cette date !';
             	}
-
             }else{
             	echo 'Veillez remplire tout les champs , merci !';
             }
