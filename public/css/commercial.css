@@ -6,3 +6,11 @@
 .aller{border: 1px solid black;}
 .retour{border: 1px solid black;}
 .vol{border: 1px solid black; width: 150px;}
+.detailsVol{border: 1px solid black;margin: 20px 0px;}
+.detailsVolFils{margin: 30px 30px;}
+.detailsVolFils h2{margin-top: 10px;color: red;font-weight: bold;}
+.detailsVolFils span{color:#b1b1b1;margin-bottom: 10px;}
+.numero_vol{margin-top: 10px;font-size: 0.800em;border: 1px solid black;width: 150px;display: inline-block;vertical-align: top!important;}
+.lieu{display: inline-block;border: 1px solid black;margin-top: 10px;}
+.ville{font-weight: bold; color: blue!important;}
+.arrive{}

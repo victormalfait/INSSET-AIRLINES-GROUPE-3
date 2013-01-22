@@ -1,21 +1,36 @@
 <?php $destination = $this->volAller;
 $destinationRetour = $this->volRetour;
+$classe = $this->classe;
+if($classe ==1){
+	$nomClasse = 'Économique';
+}elseif($classe == 2){
+	$nomClasse = 'Affaire';
+}elseif($classe == 2.5){
+	$nomClasse = 'Première';
+}
+$nbrPassager = $this->nbrPassager;
+$typePassager = $this->typePassager;
 setlocale (LC_TIME, 'fr_FR','fra'); ?>
-<div>
-	<h2>Vol Aller</h2>
-	<ul>
-		<li><?php echo $destination['numero_vol']?></li>
-		<li>Depart : <?php echo $destination['depart'].' le '.strftime("%A %d %B à %H:%M",$destination['heure_dep']);?></li>
-		<li>Arrivé : <?php echo $destination['arrive'].' le '.strftime("%A %d %B à %H:%M",$destination['heure_arr']);?></li>
-	</ul>
+<div class="detailsVol">
+	<div class="detailsVolFils">
+		<h2>Vol Aller <?php echo $destination['villeDepart'].' - '.$destination['villeArrive'];?></h2>
+		<span><?php echo strftime("%A %d %B",$destination['heure_dep']);?></span><br/>	
+		<div class="numero_vol"><?php echo $destination['numero_vol'].' '.$nomClasse;?></div>
+		<div class="lieu">
+			<div class="depart"><?php echo strftime("%H:%M",$destination['heure_dep']).' <span class="ville">'.$destination['villeDepart'].'</span>, '.$destination['depart'];?></div>
+			<div class="arrive"><?php echo strftime("%H:%M",$destination['heure_arr']).' <span class="ville">'.$destination['villeArrive'].'</span>, '.$destination['arrive'];?></div>
+		</div>	
+	</div>	
 </div>
 <?php if(isset($destinationRetour) && $destinationRetour != ''){?>
-<div>
-	<h2>Vol Retour</h2>
-	<ul>
-		<li><?php echo $destinationRetour['numero_vol']?></li>
-		<li>Depart : <?php echo $destinationRetour['depart'].' le '.strftime("%A %d %B à %H:%M",$destinationRetour['heure_dep']);?></li>
-		<li>Arrivé : <?php echo $destinationRetour['arrive'].' le '.strftime("%A %d %B à %H:%M",$destinationRetour['heure_arr']);?></li>
-	</ul>
+<div class="detailsVol">
+	<div class="detailsVolFils">
+		<span><?php echo strftime("%A %d %B",$destinationRetour['heure_dep']);?></span><br/>	
+		<div class="numero_vol"><?php echo $destinationRetour['numero_vol'].' '.$nomClasse;?></div>
+		<div class="lieu">
+			<div class="depart"><?php echo strftime("%H:%M",$destinationRetour['heure_dep']).' <span class="ville">'.$destinationRetour['villeDepart'].'</span>, '.$destinationRetour['depart'];?></div>
+			<div class="arrive"><?php echo strftime("%H:%M",$destinationRetour['heure_arr']).' <span class="ville">'.$destinationRetour['villeArrive'].'</span>, '.$destinationRetour['arrive'];?></div>
+		</div>	
+	</div>
 </div>
 <?php }?>
