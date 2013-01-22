@@ -39,7 +39,6 @@ $mois_depart = $this->mois_actuel;
 				<?php 
 				for ($numday = 1; $numday <= date("t" ,mktime(0 , 0, 0, $mois_depart, 1, $annee_depart)); $numday++) { 
 					$jourcalendrier = str_pad($numday, 2, "0", STR_PAD_LEFT);
-
 					// Colorie les jour deja passer 
 					if ( $jour_now >= $numday && $i == 0 ) {
 						if ( isset($this->ligne[$annee_depart][$mois_depart][$jourcalendrier]['date_eff']) && isset($this->ligne[$annee_depart][$mois_depart][$jourcalendrier]['duree_eff']) ) {
@@ -71,8 +70,8 @@ $mois_depart = $this->mois_actuel;
 						<td><?php echo $this->DayNames[date("w", mktime(0 , 0, 0, $mois_depart, $jourcalendrier, $annee_depart))].' '.$jourcalendrier; ?></td>
 						<?php if (isset($this->ligne[$annee_depart][$mois_depart][$jourcalendrier]['immatriculation'])){ ?>
 							<td><?php echo $this->ligne[$annee_depart][$mois_depart][$jourcalendrier]['immatriculation']; ?> <td>
-							<?php echo $this->ligne[$annee_depart][$mois_depart][$jourcalendrier]['note']; ?>
-							<td><?php  echo '<a href="'.$this->baseUrl('').'maintenance/modifier/immatriculation/'.$this->ligne[$annee_depart][$mois_depart][$jourcalendrier]['immatriculation'].'" title="Modifier"><button class="modifier">Modifier</button></a>'; ?></td>
+							<?php if (strlen($this->ligne[$annee_depart][$mois_depart][$jourcalendrier]['note']) >= 40 ) { echo substr($this->ligne[$annee_depart][$mois_depart][$jourcalendrier]['note'],0,40).'...'; }else{ echo $this->ligne[$annee_depart][$mois_depart][$jourcalendrier]['note']; } ?>
+							<td><?php echo '<a href="'.$this->baseUrl('').'maintenance/modifier/immatriculation/'.$this->ligne[$annee_depart][$mois_depart][$jourcalendrier]['immatriculation'].'" title="Modifier"><button class="modifier">Modifier</button></a>'; ?></td>
 							<td><?php  echo '<a href="'.$this->baseUrl('').'maintenance/supprimer/immatriculation/'.$this->ligne[$annee_depart][$mois_depart][$jourcalendrier]['immatriculation'].'" title="Supprimer"><button class="supprimer">Supprimer</button></a>'; ?></td>
 						<?php }else{ ?>
 							<td></td>
