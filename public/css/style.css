@@ -175,3 +175,18 @@
 
         #Planning select{ background: none; border: none; width: 250px; padding: 5px 30px 5px 0;  color: #000; font-weight: bold;}
 /* ========= PLANNING STYLES END HERE =========  */
+
+
+/* ========= MAINTENANCE STYLES =========  */
+    #Maintenance { margin-top: 20px; overflow: auto;}
+        #menuMaintenance { margin: 20px auto; }
+            #menuMaintenance ul {  background: url(/img/bgRedBtn.png);  }
+            #menuMaintenance li { display: inline-block; padding: 7px 30px; cursor: pointer;}
+            #menuMaintenance li:hover { opacity: .7;}
+            #menuMaintenance a{ color: #fff;  text-shadow: 0px -1px 0px #000; }
+            #menuMaintenance #liste {background: url(/img/min-liste.png) no-repeat center; text-indent: -9999px;}
+            #menuMaintenance #calendrier {background: url(/img/min-calendrier.png) no-repeat center; text-indent: -9999px;}
+            #menuMaintenance #ajouter {background: url(/img/min-ajoute.png) no-repeat center; text-indent: -9999px;}
+
+        #Maintenance select{ background: none; border: none; width: 250px; padding: 5px 30px 5px 0;  color: #000; font-weight: bold;}
+/* ========= MAINTENANCE STYLES END HERE =========  */
