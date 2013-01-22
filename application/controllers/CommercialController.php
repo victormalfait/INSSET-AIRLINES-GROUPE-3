@@ -138,6 +138,7 @@ class CommercialController extends Zend_Controller_Action
                                     $table_content_aller[$count]['heure_arr']     = $destination->heure_arr;
                                     $table_content_aller[$count]['depart']        = $aeroportDepart->nom_aeroport;
                                     $table_content_aller[$count]['arrive']        = $aeroportArrive->nom_aeroport;
+                                    $table_content_aller[$count]['prix']          = ($destination->distance * 0.1)/1000;
                                     $count++;
                                 }
                             //si le vol est periodique
@@ -176,6 +177,7 @@ class CommercialController extends Zend_Controller_Action
                                     $table_content_aller[$count]['heure_arr']     = $date_vol_arr;
                                     $table_content_aller[$count]['depart']        = $aeroportDepart->nom_aeroport;
                                     $table_content_aller[$count]['arrive']        = $aeroportArrive->nom_aeroport;
+                                    $table_content_aller[$count]['prix']          = ($destination->distance * 0.1)/1000;
                                     $count++;
 
                                 }
@@ -187,6 +189,8 @@ class CommercialController extends Zend_Controller_Action
                 $this->view->tabVol = $table_content_aller;
 
                 if($formCommercial->getValue('typeTrajet') == 2){
+
+                    $table_content_retour = array();
 
                     $date_fin = $formCommercial->getValue('datepickerfin');
 
@@ -220,11 +224,12 @@ class CommercialController extends Zend_Controller_Action
                                     //on vérifie que le vol soit entre les dates voulu
                                     if($destination->heure_dep >= $date_retour_avant && $destination->heure_dep <= $date_retour_apres){
                                         //on enregistre les valeur dans le tableau
-                                        $table_content_aller[$count]['numero_vol']    = $destination->numero_vol;
-                                        $table_content_aller[$count]['heure_dep']     = $destination->heure_dep;
-                                        $table_content_aller[$count]['heure_arr']     = $destination->heure_arr;
-                                        $table_content_aller[$count]['depart']        = $aeroportDepart->nom_aeroport;
-                                        $table_content_aller[$count]['arrive']        = $aeroportArrive->nom_aeroport;
+                                        $table_content_retour[$count]['numero_vol']    = $destination->numero_vol;
+                                        $table_content_retour[$count]['heure_dep']     = $destination->heure_dep;
+                                        $table_content_retour[$count]['heure_arr']     = $destination->heure_arr;
+                                        $table_content_retour[$count]['depart']        = $aeroportDepart->nom_aeroport;
+                                        $table_content_retour[$count]['arrive']        = $aeroportArrive->nom_aeroport;
+                                        $table_content_retour[$count]['prix']          = ($destination->distance * 0.1)/1000;
                                         $count++;
                                     }
                                 //si le vol est periodique
@@ -263,16 +268,19 @@ class CommercialController extends Zend_Controller_Action
                                         $table_content_retour[$count]['heure_arr']     = $date_vol_arr;
                                         $table_content_retour[$count]['depart']        = $aeroportDepart->nom_aeroport;
                                         $table_content_retour[$count]['arrive']        = $aeroportArrive->nom_aeroport;
+                                        $table_content_retour[$count]['prix']          = ($destination->distance * 0.1)/1000;
                                         $count++;
 
                                     }
                                 }
                             }
                         }
-                    }       
+                    }
+
+                    $this->view->tabVolRetour = $table_content_retour;       
                 }
 
-                $this->view->tabVolRetour = $table_content_retour;
+                
                                                                           
                 // RAZ du formulaire
                 $formCommercial->reset();

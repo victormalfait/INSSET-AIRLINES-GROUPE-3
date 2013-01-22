@@ -151,3 +151,13 @@
 /*parti droite*/
 	.droite{ float: right; width: 50%;}
 	.droitefils{margin: 20px;}
+
+
+
+/*MODIF VICTOR*/
+
+.recherche table{float:none;}
+.recherche h2{font-size: 1.350em; margin:10px; text-align: center;}
+.titre{background: url(/img/bgRedBtn.png);}
+.aller{border: 1px solid black;}
+.retour{border: 1px solid black;}

@@ -1,38 +1,67 @@
-<div>
-    <h2>Vol aller</h2>
-    <table>
-        <thead>
-            <th>Numero vol</th>
-            <th>Départ</th>
-            <th>Arrivée</th>
-        </thead>
-        <tbody>
-            <?php foreach ($this->tabVol as $vol) {?>
-                <tr>
-                    <td><?php echo $vol['numero_vol']; ?></td>
-                    <td><?php echo 'Le '.date("d/m/Y à H:i",$vol['heure_dep']).' de '.$vol['depart']; ?></td>
-                    <td><?php echo 'Le '.date("d/m/Y à H:i",$vol['heure_arr']).' de '.$vol['arrive']; ?></td>
-                </tr>
-            <?php }?>
-        </tbody>
-    </table>
-    <?php if(isset($this->tabVolRetour) && $this->tabVolRetour != ''){?>
-        <h2>Vol retour</h2>
-        <table>
-            <thead>
-                <th>Numero vol</th>
-                <th>Départ</th>
-                <th>Arrivée</th>
-            </thead>
-            <tbody>
-                <?php foreach ($this->tabVolRetour as $volRetour) {?>
-                    <tr>
-                        <td><?php echo $volRetour['numero_vol']; ?></td>
-                        <td><?php echo 'Le '.date("d/m/Y à H:i",$volRetour['heure_dep']).' de '.$volRetour['depart']; ?></td>
-                        <td><?php echo 'Le '.date("d/m/Y à H:i",$volRetour['heure_arr']).' de '.$volRetour['arrive']; ?></td>
-                    </tr>
-                <?php }?>
-            </tbody>
-        </table>
-    <?php }?>
+<div class="recherche">
+    
+        <div class="aller">
+            <div class="titre">
+                <h2>Vol aller</h2>
+            </div>  
+            <table>
+                <thead>
+                    <th>Numero vol</th>
+                    <th>Départ</th>
+                    <th>Arrivée</th>
+                    <th>Prix</th>
+                    <th>Réserver</th>
+                </thead>
+                <tbody>
+                    <?php foreach ($this->tabVol as $vol) {?>
+                        <tr>
+                            <form>
+                                <td><?php echo $vol['numero_vol']; ?><input type="hidden" name="numero_vol" value="<?php echo $vol['numero_vol'];?>"/></td>
+
+                                <td><?php echo 'Le '.date("d/m/Y à H:i",$vol['heure_dep']).' de '.$vol['depart']; ?><input type="hidden" name="heure_dep" value="<?php echo $vol['heure_dep'];?>"/><input type="hidden" name="depart" value="<?php echo $vol['depart'];?>"/></td>
+
+                                <td><?php echo 'Le '.date("d/m/Y à H:i",$vol['heure_arr']).' de '.$vol['arrive']; ?><input type="hidden" name="heure_arr" value="<?php echo $vol['heure_arr'];?>"/><input type="hidden" name="arrive" value="<?php echo $vol['arrive'];?>"/></td>
+
+                                <td><?php echo $vol['prix'].'€'; ?><input type="hidden" name="prix" value="<?php echo $vol['prix'];?>"/></td>
+
+                                <td><input type="submit" name="submit" value="Réserver"/></td>
+                            </form>
+                        </tr>
+                    <?php }?>
+                </tbody>
+            </table>
+        </div>
+        <?php if(isset($this->tabVolRetour) && $this->tabVolRetour != ''){?>
+            <div class="retour">
+                <div class="titre">
+                    <h2>Vol retour</h2>
+                </div>
+                <table>
+                    <thead>
+                        <th>Numero vol</th>
+                        <th>Départ</th>
+                        <th>Arrivée</th>
+                        <th>Prix</th>
+                        <th>Réserver</th>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($this->tabVolRetour as $volRetour) {?>
+                            <tr>
+                                <form>
+                                    <td><?php echo $volRetour['numero_vol']; ?><input type="hidden" name="numero_vol_retour" value="<?php echo $volRetour['numero_vol'];?>"/></td>
+
+                                    <td><?php echo 'Le '.date("d/m/Y à H:i",$volRetour['heure_dep']).' de '.$volRetour['depart']; ?><input type="hidden" name="heure_dep_retour" value="<?php echo $volRetour['heure_dep'];?>"/><input type="hidden" name="depart_retour" value="<?php echo $volRetour['depart'];?>"/></td>
+
+                                    <td><?php echo 'Le '.date("d/m/Y à H:i",$volRetour['heure_arr']).' de '.$volRetour['arrive']; ?><input type="hidden" name="heure_arr_retour" value="<?php echo $volRetour['heure_arr'];?>"/><input type="hidden" name="arrive_retour" value="<?php echo $volRetour['arrive'];?>"/></td>
+
+                                    <td><?php echo $volRetour['prix'].'€'; ?><input type="hidden" name="prix_retour" value="<?php echo $volRetour['prix'];?>"/></td>
+
+                                    <td><input type="submit" name="submit" value="Réserver"/></td>
+                                </form>
+                            </tr>
+                        <?php }?>
+                    </tbody>
+                </table>
+            </div>
+        <?php }?>
 </div>
