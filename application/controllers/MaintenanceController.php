@@ -203,10 +203,14 @@ class MaintenanceController extends Zend_Controller_Action
                                      ->from(array('m' => 'maintenance'),
                                             array('m.immatriculation','m.date_prevue','m.date_eff','m.duree_prevue','m.duree_eff','m.note'))
                                       ->where('m.immatriculation = ?',$immatriculation );
+
         $maintenance = $tableMaintenance->fetchRow($selectMaintenance)->toArray();
 
         $maintenance = array( 'date_prevue' => date("d-m-Y",$maintenance['date_prevue']),
-        	'date_eff' => date("d-m-Y",$maintenance['date_eff']));
+        						'date_eff' => date("d-m-Y",$maintenance['date_eff']), 
+        						'note' => $maintenance['note'],
+        						'duree_prevue' => $maintenance['duree_prevue'],
+        						'duree_eff' => $maintenance['duree_eff'] );
 
 		$formModifierMaintenance = new FModifierMaintenance;
 		$formModifierMaintenance->populate($maintenance);
