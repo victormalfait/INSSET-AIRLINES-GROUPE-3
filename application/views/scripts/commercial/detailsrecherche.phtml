@@ -11,26 +11,45 @@ if($classe ==1){
 $nbrPassager = $this->nbrPassager;
 $typePassager = $this->typePassager;
 setlocale (LC_TIME, 'fr_FR','fra'); ?>
-<div class="detailsVol">
-	<div class="detailsVolFils">
-		<h2>Vol Aller <?php echo $destination['villeDepart'].' - '.$destination['villeArrive'];?></h2>
-		<span><?php echo strftime("%A %d %B",$destination['heure_dep']);?></span><br/>	
-		<div class="numero_vol"><?php echo $destination['numero_vol'].' '.$nomClasse;?></div>
-		<div class="lieu">
-			<div class="depart"><?php echo strftime("%H:%M",$destination['heure_dep']).' <span class="ville">'.$destination['villeDepart'].'</span>, '.$destination['depart'];?></div>
-			<div class="arrive"><?php echo strftime("%H:%M",$destination['heure_arr']).' <span class="ville">'.$destination['villeArrive'].'</span>, '.$destination['arrive'];?></div>
-		</div>	
-	</div>	
-</div>
-<?php if(isset($destinationRetour) && $destinationRetour != ''){?>
-<div class="detailsVol">
-	<div class="detailsVolFils">
-		<span><?php echo strftime("%A %d %B",$destinationRetour['heure_dep']);?></span><br/>	
-		<div class="numero_vol"><?php echo $destinationRetour['numero_vol'].' '.$nomClasse;?></div>
-		<div class="lieu">
-			<div class="depart"><?php echo strftime("%H:%M",$destinationRetour['heure_dep']).' <span class="ville">'.$destinationRetour['villeDepart'].'</span>, '.$destinationRetour['depart'];?></div>
-			<div class="arrive"><?php echo strftime("%H:%M",$destinationRetour['heure_arr']).' <span class="ville">'.$destinationRetour['villeArrive'].'</span>, '.$destinationRetour['arrive'];?></div>
+<div id="detailsRecherche">
+	<div class="detailsVol">
+		<div class="detailsVolFils">
+			<h2>Vol Aller <?php echo $destination['villeDepart'].' - '.$destination['villeArrive'];?></h2>
+			<span><?php echo strftime("%A %d %B",$destination['heure_dep']);?></span><br/>	
+			<div class="numero_vol"><?php echo $destination['numero_vol'].' '.$nomClasse;?></div>
+			<div class="lieu">
+				<div class="depart"><?php echo strftime("%H:%M",$destination['heure_dep']).' <span class="ville">'.$destination['villeDepart'].'</span>, '.$destination['depart'];?></div>
+				<div class="arrive"><?php echo strftime("%H:%M",$destination['heure_arr']).' <span class="ville">'.$destination['villeArrive'].'</span>, '.$destination['arrive'];?></div>
+			</div>
+			<div class="detailsLogistique">
+				<div class="compagnie"><span>Effectué par :</span> Insset Airlines</div>
+				<div class="prix"><span>Prix : </span><?php echo $this->prix;?> €</div>
+				<div class="appareil"><span>Appareil : </span><?php if(isset($this->avion) && $this->avion != ''){echo $this->avion;}else{echo 'Appareil non programmé';}?></div>
+				<div class="duree"><span>Durée : </span><?php echo $this->duree;?></div>
+				<div class="repas"><span>Repas servi(s) à bord : </span></div>
+				<div class="baggage"><span>Franchise bagages : </span></div>
+			</div>	
 		</div>	
 	</div>
+	<?php if(isset($destinationRetour) && $destinationRetour != ''){?>
+	<div class="detailsVol">
+		<div class="detailsVolFils">
+			<h2>Vol Retour <?php echo $destination['villeArrive'].' - '.$destination['villeDepart'];?></h2>
+			<span><?php echo strftime("%A %d %B",$destinationRetour['heure_dep']);?></span><br/>	
+			<div class="numero_vol"><?php echo $destinationRetour['numero_vol'].' '.$nomClasse;?></div>
+			<div class="lieu">
+				<div class="depart"><?php echo strftime("%H:%M",$destinationRetour['heure_dep']).' <span class="ville">'.$destination['villeArrive'].'</span>, '.$destinationRetour['depart'];?></div>
+				<div class="arrive"><?php echo strftime("%H:%M",$destinationRetour['heure_arr']).' <span class="ville">'.$destination['villeDepart'].'</span>, '.$destinationRetour['arrive'];?></div>
+			</div>
+			<div class="detailsLogistique">
+				<div class="compagnie"><span>Effectué par :</span> Insset Airlines</div>
+				<div class="prix"><span>Prix : </span><?php echo $this->prixRetour;?> €</div>
+				<div class="appareil"><span>Appareil : </span><?php if(isset($this->avionRetour) && $this->avionRetour != ''){echo $this->avionRetour;}else{echo 'Appareil non programmé';}?></div>
+				<div class="duree"><span>Durée : </span><?php echo $this->dureeRetour;?></div>
+				<div class="repas"><span>Repas servi(s) à bord : </span></div>
+				<div class="baggage"><span>Franchise bagages : </span></div>
+			</div>	
+		</div>
+	</div>
+	<?php }?>
 </div>
-<?php }?>

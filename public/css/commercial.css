@@ -13,4 +13,4 @@
 .numero_vol{margin-top: 10px;font-size: 0.800em;border: 1px solid black;width: 150px;display: inline-block;vertical-align: top!important;}
 .lieu{display: inline-block;border: 1px solid black;margin-top: 10px;}
 .ville{font-weight: bold; color: blue!important;}
-.arrive{}
+#detailsRecherche{width: 800px;}

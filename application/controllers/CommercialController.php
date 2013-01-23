@@ -2,60 +2,6 @@
 
 class CommercialController extends Zend_Controller_Action
 {
-    //fonction pour calculer le nombre de jour d'écart entre le jour d'aujourd'hui et le jour du vol
-     function find_date_vol($timestamp, $jour) {
-        $target = $timestamp;
-        //on recupere le jour d'aujourd'hui
-        $day = date('D',$target);
-        switch(strtoupper($day)) {
-            case "MON":$first = 0;
-                break;
-            case "TUE":$first = 1;
-                break;
-            case "WED":$first = 2;
-                break;
-            case "THU":$first = 3;
-                break;
-            case "FRI":$first = 4;
-                break;
-            case "SAT":$first = 5;
-                break;
-            case "SUN":$first = 6;
-                break;
-            default:$first = 0;
-                break;
-        }
-
-        switch($jour) {
-            case "Lundi":$second = 0;
-                break;
-            case "Mardi":$second = 1;
-                break;
-            case "Mercredi":$second =2;
-                break;
-            case "Jeudi":$second = 3;
-                break;
-            case "Vendredi":$second = 4;
-                break;
-            case "Samedi":$second = 5;
-                break;
-            case "Dimanche":$second = 6;
-                break;
-            default:$second = 0;
-                break;
-        }
-        //nombre en timestamp d'une journée
-        $one_day = 24*60*60;
-        //nombre de jour d'ecart entre le jour d'aujourdhui et le jour du vol
-        $day_left = $second - $first;
-        //si la différence est negative on ajoute 7 
-        if($day_left < 0)
-            $day_left += 7;
-        //on ajoute au timestamp d'aujourdhui le nombre de journee d'ecart
-        $date = $target + ($one_day * $day_left);
-        //on renvoi le timestamp
-        return $date;
-    }
 
 	public function indexAction()
     {
@@ -63,7 +9,7 @@ class CommercialController extends Zend_Controller_Action
     	$formCommercial = new FCommercial;
 
     	// on l'envoi à la vu
-    	$this->view->formCommercial = $formCommercial;        
+    	$this->view->formCommercial = $formCommercial;             
     }
 
     public function rechercheAction ()
@@ -76,52 +22,64 @@ class CommercialController extends Zend_Controller_Action
 
             // si le formulaire passe au controle des validateurs
             if ($formCommercial->isValid($formData)) {
-                //on recupere la date de départ
+                //on recupere la date de départ, le npmbre de passager et le type
                 $date_debut = $formCommercial->getValue('datepickerdeb');
-
                 $nbrPassager = $formCommercial->getValue('nbrPassager');
-
                 $coefPrix = $formCommercial->getValue('typePassager');
+                $date_fin = $formCommercial->getValue('datepickerfin');
 
+                //on initialise un tableau pour stocker le type de chaque passager
                 $tabTypePassager = array();
 
+                //initialisation d'une session
                 $sessionUser = new Zend_Session_Namespace('user');
+
+                //initialisation de la classe des fonctions pour gérer le temps
+                $time = new time;
+
+                //on enregistre en session le nombre de passager
                 $sessionUser->nbrPassager = $formCommercial->getValue('nbrPassager');
                 $tabTypePassager['1'] = $formCommercial->getValue('typePassager');
 
+                //on boucle pour pouvoir enregistrer dans le tableau et on incrémente une variable qui permettra d'obtenir un prix
                 for ($i=2; $i <= $nbrPassager; $i++) {
                     $coefPrix += $formCommercial->getValue('typePassager'.$i);
                     $tabTypePassager[$i] = $formCommercial->getValue('typePassager'.$i);
                 }
-
+                //on enregistre en session le tableau et la classe
                 $sessionUser->typePassager = $tabTypePassager;
-
                 $sessionUser->classe = $formCommercial->getValue('classe');
+                //on multiplie par le coef de la classe choisie
                 $coefPrix = $coefPrix * $formCommercial->getValue('classe');
+
+
 
                 //on convertit au format timestamp
                 list($jourD, $moisD, $anneeD) = explode("-", $date_debut);          
+                list($jourD, $moisD, $anneeD) = explode("-", $date_fin);          
+                $date_retour = mktime(0, 0, 0,  $moisD, $jourD, $anneeD);
                 $date_depart = mktime(0, 0, 0,  $moisD, $jourD, $anneeD);
 
-                $mois = date("m", time());
-                $jour = date("d", time());
-                $an = date("Y", time());
-
-                //on cree un timestamp de la date d'aujourd'hui
-                $date_jour = mktime(0,0,0, $mois, $jour, $an);
+                //on appelle la fonction pour obtenir la date du jour
+                $date_jour = $time->timestamp_now();
 
                 //on initialise une variable pour avoir la date 1 semaines avant
                 $date_depart_avant = $date_depart - 7*24*60*60;
+                $date_retour_avant = $date_retour - 7*24*60*60;
 
                 //on verifie que la date ne soit pas inferieure a la date du jour
                 if($date_depart_avant < $date_jour){
                     $date_depart_avant = $date_jour;
                 }
 
+                if($date_retour_avant < $date_depart_avant){
+                    $date_retour_avant = $date_depart_avant;
+                }
+
                 //on initialise une variable à 3 semaines apres la date demandée
                 $date_depart_apres = $date_depart + 7*24*60*60;
+                $date_retour_apres = $date_retour + 7*24*60*60;
 
-                //on fait une requete pour trouver les aeroports possibles de départ et d'arrivé
                 $tableAeroport = new TAeroport;
 
                 $aeroportDepartRequest = $tableAeroport->select()->where('id_ville = ?', $formCommercial->getValue('aeroportDepart'));
@@ -132,7 +90,9 @@ class CommercialController extends Zend_Controller_Action
 
                 //on initialise un tableau pour enregistrer les informations sur les vols
                 $table_content_aller = array();
+                $table_content_retour = array();
                 $count = 0;
+                $countRetour = 0;
 
                 foreach ($aeroportDeparts as $aeroportDepart) {
                     foreach ($aeroportArrives as $aeroportArrive) {
@@ -142,8 +102,13 @@ class CommercialController extends Zend_Controller_Action
                         $destinationRequest = $tableDestination->select()
                                                                ->where('tri_aero_dep = ?', $aeroportDepart->trigramme)
                                                                ->where('tri_aero_arr = ?', $aeroportArrive->trigramme);
-
+                        $destinationRetourRequest = $tableDestination->select()
+                                                                     ->where('tri_aero_dep = ?', $aeroportArrive->trigramme)
+                                                                     ->where('tri_aero_arr = ?', $aeroportDepart->trigramme);
+                        $destinationsRetour = $tableDestination->fetchAll($destinationRetourRequest);
                         $destinations = $tableDestination->fetchAll($destinationRequest);
+
+                        $date_test = $date_retour_avant + 1;
 
                         foreach ($destinations as $destination) {
                             //si le vol est unique ...
@@ -159,37 +124,25 @@ class CommercialController extends Zend_Controller_Action
                                     $table_content_aller[$count]['arrive']        = $aeroportArrive->nom_aeroport;
                                     $table_content_aller[$count]['prix']          = ($destination->distance / 10000) * $coefPrix;
                                     $count++;
+                                    if($date_retour_avant < $destination->heure_dep && $date_retour_avant < $date_test){
+                                        $date_retour_avant = $destination->heure_dep;
+                                        $date_test = $destination->heure_dep;
+                                    }
                                 }
                             //si le vol est periodique
                             }else{
                                 //on boucle pour enregistrer les infos des vols périodiques
                                 for ($i=0; $i < 3; $i++) { 
+
                                     $date = $date_depart_avant + 7*24*60*60*$i;
 
                                     //appel à la fonction pour trouver le nombre de jour d'ecart
-                                    $date_vol = $this->find_date_vol($date, $destination->periodicite);
-
-                                    $minuteD = date("i", $destination->heure_dep);
-                                    $heureD = date("H", $destination->heure_dep);
-                                    $mois = date("m", $date_vol);
-                                    $jour = date("d", $date_vol);
-                                    $an = date("Y", $date_vol);
+                                    $date_vol = $time->find_date_vol($date, $destination->periodicite);
 
                                     //on cree un timestamp pour la date de depart du vol
-                                    $date_vol_dep = mktime($heureD,$minuteD,0, $mois, $jour, $an);
+                                    $date_vol_dep = $time->timestamp_fly($date_vol, $destination->heure_dep);
 
-                                    $minuteA = date("i", $destination->heure_arr);
-                                    $heureA = date("H", $destination->heure_arr);
-
-                                    $heure = $heureA - $heureD;
-                                    if($heure < 0)
-                                        $heure += 24;
-                                    $minute = $minuteA - $minuteD;
-                                    if($heure < 0)
-                                        $heure += 60;
-
-                                    //on cree le timestamp de la date d'arrivee du vol
-                                    $date_vol_arr = $date_vol_dep + $heure*60*60 + $minute*60;
+                                    $date_vol_arr = $time->timestamp_fly($date_vol_dep, $destination->heure_arr);
 
                                     $table_content_aller[$count]['numero_vol']    = $destination->numero_vol;
                                     $table_content_aller[$count]['heure_dep']     = $date_vol_dep;
@@ -198,43 +151,15 @@ class CommercialController extends Zend_Controller_Action
                                     $table_content_aller[$count]['arrive']        = $aeroportArrive->nom_aeroport;
                                     $table_content_aller[$count]['prix']          = ($destination->distance / 10000) * $coefPrix;
                                     $count++;
+
+                                    if($date_retour_avant < $date_vol_dep && $date_retour_avant < $date_test){
+                                        $date_retour_avant = $date_vol_dep;
+                                        $date_test = $date_vol_dep;
+                                    }
                                 }
                             }
                         }
-                    }
-                }                
-                //on envoie le tableau à la vue
-                $this->view->tabVol = $table_content_aller;
-
-                if($formCommercial->getValue('typeTrajet') == 2){
-
-                    $table_content_retour = array();
-
-                    $date_fin = $formCommercial->getValue('datepickerfin');
-
-                    //on convertit au format timestamp
-                    list($jourD, $moisD, $anneeD) = explode("-", $date_fin);          
-                    $date_retour = mktime(0, 0, 0,  $moisD, $jourD, $anneeD);
-
-                    //on initialise une variable pour avoir la date 3 semaines avant
-                    $date_retour_avant = $date_retour - 7*24*60*60;
-
-                    //on verifie que la date ne soit pas inferieure a la date du jour
-                    if($date_retour_avant < $date_jour){
-                        $date_retour_avant = $date_jour;
-                    }
-
-                    //on initialise une variable à 3 semaines apres la date demandée
-                    $date_retour_apres = $date_retour + 7*24*60*60;
-
-                    foreach ($aeroportArrives as $aeroportArrive) {
-                        foreach ($aeroportDeparts as $aeroportDepart) {
-
-                            //on cherche les destinations avec les aeroports de départ et d'arrivé 
-                            $destinationRetourRequest = $tableDestination->select()->where('tri_aero_dep = ?', $aeroportArrive->trigramme)->where('tri_aero_arr = ?', $aeroportDepart->trigramme);
-
-                            $destinationsRetour = $tableDestination->fetchAll($destinationRetourRequest);
-
+                        if($formCommercial->getValue('typeTrajet') == 2){
                             foreach ($destinationsRetour as $destinationRetour) {
                                 //si le vol est unique ...
                                 if($destinationRetour->periodicite == 'Vol unique'){
@@ -242,64 +167,50 @@ class CommercialController extends Zend_Controller_Action
                                     //on vérifie que le vol soit entre les dates voulu
                                     if($destinationRetour->heure_dep >= $date_retour_avant && $destinationRetour->heure_dep <= $date_retour_apres){
                                         //on enregistre les valeur dans le tableau
-                                        $table_content_retour[$count]['numero_vol']    = $destinationRetour->numero_vol;
-                                        $table_content_retour[$count]['heure_dep']     = $destinationRetour->heure_dep;
-                                        $table_content_retour[$count]['heure_arr']     = $destinationRetour->heure_arr;
-                                        $table_content_retour[$count]['depart']        = $aeroportArrive->nom_aeroport;
-                                        $table_content_retour[$count]['arrive']        = $aeroportDepart->nom_aeroport;
-                                        $table_content_retour[$count]['prix']          = ($destinationRetour->distance / 10000) * $coefPrix;
-                                        $count++;
+                                        $table_content_retour[$countRetour]['numero_vol']    = $destinationRetour->numero_vol;
+                                        $table_content_retour[$countRetour]['heure_dep']     = $destinationRetour->heure_dep;
+                                        $table_content_retour[$countRetour]['heure_arr']     = $destinationRetour->heure_arr;
+                                        $table_content_retour[$countRetour]['depart']        = $aeroportArrive->nom_aeroport;
+                                        $table_content_retour[$countRetour]['arrive']        = $aeroportDepart->nom_aeroport;
+                                        $table_content_retour[$countRetour]['prix']          = ($destinationRetour->distance / 10000) * $coefPrix;
+                                        $countRetour++;
                                     }
                                 //si le vol est periodique
                                 }else{
                                     //on boucle pour enregistrer les infos des vols périodiques
                                     for ($i=0; $i < 3; $i++) { 
+
                                         $date = $date_retour_avant + 7*24*60*60*$i;
 
                                         //appel à la fonction pour trouver le nombre de jour d'ecart
-                                        $date_vol = $this->find_date_vol($date, $destinationRetour->periodicite);
-
-                                        $minuteD = date("i", $destinationRetour->heure_dep);
-                                        $heureD = date("H", $destinationRetour->heure_dep);
-                                        $mois = date("m", $date_vol);
-                                        $jour = date("d", $date_vol);
-                                        $an = date("Y", $date_vol);
+                                        $date_vol = $time->find_date_vol($date, $destinationRetour->periodicite);
 
                                         //on cree un timestamp pour la date de depart du vol
-                                        $date_vol_dep = mktime($heureD,$minuteD,0, $mois, $jour, $an);
+                                        $date_vol_dep = $time->timestamp_fly($date_vol, $destinationRetour->heure_dep);
 
-                                        $minuteA = date("i", $destinationRetour->heure_arr);
-                                        $heureA = date("H", $destinationRetour->heure_arr);
+                                        $date_vol_arr = $time->timestamp_fly($date_vol_dep, $destinationRetour->heure_arr);
 
-                                        $heure = $heureA - $heureD;
-                                        if($heure < 0)
-                                            $heure += 24;
-                                        $minute = $minuteA - $minuteD;
-                                        if($heure < 0)
-                                            $heure += 60;
-
-                                        //on cree le timestamp de la date d'arrivee du vol
-                                        $date_vol_arr = $date_vol_dep + $heure*60*60 + $minute*60;
-
-                                        $table_content_retour[$count]['numero_vol']    = $destinationRetour->numero_vol;
-                                        $table_content_retour[$count]['heure_dep']     = $date_vol_dep;
-                                        $table_content_retour[$count]['heure_arr']     = $date_vol_arr;
-                                        $table_content_retour[$count]['depart']        = $aeroportArrive->nom_aeroport;
-                                        $table_content_retour[$count]['arrive']        = $aeroportDepart->nom_aeroport;
-                                        $table_content_retour[$count]['prix']          = ($destination->distance / 10000) * $coefPrix;;
-                                        $count++;
+                                        $table_content_retour[$countRetour]['numero_vol']    = $destinationRetour->numero_vol;
+                                        $table_content_retour[$countRetour]['heure_dep']     = $date_vol_dep;
+                                        $table_content_retour[$countRetour]['heure_arr']     = $date_vol_arr;
+                                        $table_content_retour[$countRetour]['depart']        = $aeroportArrive->nom_aeroport;
+                                        $table_content_retour[$countRetour]['arrive']        = $aeroportDepart->nom_aeroport;
+                                        $table_content_retour[$countRetour]['prix']          = ($destination->distance / 10000) * $coefPrix;;
+                                        $countRetour++;
                                     }
                                 }
                             }
                         }
                     }
-                    $this->view->tabVolRetour = $table_content_retour;       
-                }                                                                    
-                // RAZ du formulaire
-                $formCommercial->reset();
-            }
-        }
-        
+                }                
+                //on envoie le tableau à la vue
+                $this->view->tabVol = $table_content_aller;
+                $this->view->tabVolRetour = $table_content_retour; 
+                          
+            }                                                                    
+            // RAZ du formulaire
+            $formCommercial->reset();
+        }        
     }
 
     public function detailsrechercheAction ()
@@ -308,16 +219,42 @@ class CommercialController extends Zend_Controller_Action
 
             $sessionUser = new Zend_Session_Namespace('user');
 
-            list($numero_vol,$heure_dep) = explode('/', $_POST['volAller']);
-            $tableDestination = new TDestination;
-            $destinationRequest = $tableDestination->select()->where('numero_vol = ?', $numero_vol);
-            $destination = $tableDestination->fetchRow($destinationRequest);
+            list($numero_vol,$heure_dep,$prix) = explode('/', $_POST['volAller']);
+
             $this->view->nbrPassager = $sessionUser->nbrPassager;
             $this->view->typePassager = $sessionUser->typePassager;
             $this->view->classe = $sessionUser->classe;
+            $this->view->prix = $prix;
+            $vitesse = 800*1000;
+            $vitesseRetour = 800*1000;
 
-            // $tableVol = new TVols;
-            // $volRequest = 
+            $tableDestination = new TDestination;
+            $destinationRequest = $tableDestination->select()->where('numero_vol = ?', $numero_vol);
+            $destination = $tableDestination->fetchRow($destinationRequest);   
+
+            $tableVol = new TVols;
+            $volRequest = $tableVol->select()->where('id_destination = ?',$destination->id_destination)
+                                             ->where('heure_dep = ?', $heure_dep);
+            $vol = $tableVol->fetchRow($volRequest);
+
+            if(isset($vol) && $vol != ''){
+                $tableAvion = new TAvion;
+                $avion = $tableAvion->find($vol->immatriculation)->current();
+
+                $tableModelAvion = new TModelAvion;
+                $modelAvion = $tableModelAvion->find($avion->id_model)->current();
+
+                $this->view->avion = $modelAvion->nom_model;
+
+                $vitesse = $modelAvion->vitesse * 1000;
+            }
+
+            $division = $destination->distance / $vitesse;
+            $minute = ($division*60)%60;
+            $heure = intval($division);
+            $duree = $heure.'h'.$minute.'min';
+
+            $this->view->duree = $duree;
 
             $heure_arr = $destination->heure_arr - $destination->heure_dep + $heure_dep;
 
@@ -342,9 +279,35 @@ class CommercialController extends Zend_Controller_Action
             $this->view->volAller = $volAller;
 
             if(isset($_POST['volRetour']) && $_POST['volRetour'] != ''){
-                list($numero_vol_retour,$heure_dep_retour) = explode('/', $_POST['volRetour']);
+
+                list($numero_vol_retour,$heure_dep_retour,$prixRetour) = explode('/', $_POST['volRetour']);
+
                 $destinationRetourRequest = $tableDestination->select()->where('numero_vol = ?', $numero_vol_retour);
                 $destinationRetour = $tableDestination->fetchRow($destinationRetourRequest);
+                $volRetourRequest = $tableVol->select()->where('id_destination = ?',$destinationRetour->id_destination)
+                                                       ->where('heure_dep = ?', $heure_dep_retour);
+                $volRetour = $tableVol->fetchRow($volRetourRequest);
+
+                if(isset($volRetour) && $volRetour != ''){
+                    $avionRetour = $tableAvion->find($volRetour->immatriculation)->current();
+
+                    $modelAvionRetour = $tableModelAvion->find($avionRetour->id_model)->current();
+
+                    $this->view->avionRetour = $modelAvionRetour->nom_model;
+
+                    $vitesseRetour = $modelAvionRetour->vitesse * 1000;
+
+                }
+
+                $divisionRetour = $destinationRetour->distance / $vitesse;
+                $minuteRetour = ($divisionRetour*60)%60;
+                $heureRetour = intval($divisionRetour);
+                $dureeRetour = $heureRetour.'h'.$minuteRetour.'min';
+
+                $this->view->dureeRetour = $dureeRetour;
+
+
+                $this->view->prixRetour = $prixRetour;
 
                 $heure_arr_retour = $destinationRetour->heure_arr - $destinationRetour->heure_dep + $heure_dep_retour;
 

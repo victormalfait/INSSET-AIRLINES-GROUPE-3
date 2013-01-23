@@ -1,3 +1,4 @@
+<?php setlocale (LC_TIME, 'fr_FR','fra'); ?>
 <div class="recherche">
     <form method="POST" action="<?php echo $this->baseUrl('commercial/detailsrecherche');?>">
         <input type="hidden" name="victor" value="victor"/>
@@ -18,24 +19,13 @@
                         <tr>
                             <td><?php echo $vol['numero_vol']; ?></td>
 
-                            <td>
-                                <?php 
-                                    echo $vol['depart'];
-                                    setlocale (LC_TIME, 'fr_FR','fra'); 
-                                    echo strftime("%A %d %B %H:%M",$vol['heure_dep']);  
-                                ?>
-                            </td>
+                            <td><?php echo $vol['depart'].' le '.strftime("%A %d %B %H:%M",$vol['heure_dep']); ?></td>
 
-                            <td>
-                                <?php 
-                                    echo $vol['arrive']; 
-                                    echo strftime("%A %d %B %H:%M",$vol['heure_arr']);
-                                ?>
-                            </td>
+                            <td><?php echo $vol['arrive'].' le '.strftime("%A %d %B %H:%M",$vol['heure_arr']);?></td>
 
                             <td><?php echo $vol['prix'].'€'; ?></td>
 
-                            <td><input type="radio" name="volAller" value="<?php echo $vol['numero_vol'].'/'.$vol['heure_dep'];?>"/></td>
+                            <td><input type="radio" name="volAller" value="<?php echo $vol['numero_vol'].'/'.$vol['heure_dep'].'/'.$vol['prix'];?>"/></td>
                         </tr>
                     <?php }?>
                 </tbody>
@@ -59,23 +49,13 @@
                             <tr>
                                 <td><?php echo $volRetour['numero_vol']; ?></td>
 
-                                <td>
-                                    <?php 
-                                        echo $volRetour['depart']; 
-                                        echo strftime("%A %d %B %H:%M",$volRetour['heure_dep']);
-                                    ?>
-                                </td>
+                                <td><?php echo $volRetour['depart'].' le '.strftime("%A %d %B %H:%M",$volRetour['heure_dep']);?></td>
 
-                                <td>
-                                    <?php 
-                                        echo $volRetour['arrive']; 
-                                        echo strftime("%A %d %B %H:%M",$volRetour['heure_arr']);
-                                    ?>
-                                </td>
+                                <td><?php echo $volRetour['arrive'].' le '.strftime("%A %d %B %H:%M",$volRetour['heure_arr']);?></td>
 
                                 <td><?php echo $volRetour['prix'].'€'; ?></td>
 
-                                <td><input type="radio" name="volRetour" value="<?php echo $volRetour['numero_vol'].'/'.$volRetour['heure_dep'];?>"/></td>
+                                <td><input type="radio" name="volRetour" value="<?php echo $volRetour['numero_vol'].'/'.$volRetour['heure_dep'].'/'.$volRetour['prix'];?>"/></td>
                             </tr>
                         <?php }?>
                     </tbody>

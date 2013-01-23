@@ -2,7 +2,6 @@
 $(document).ready( function() {
 
 	// on cache les element qui ne sont pas encore utiliser
-	$('#datepickerfin').parent().hide();
 	$('#typePassager2').parent().hide();
 	$('#typePassager3').parent().hide();
 	$('#typePassager4').parent().hide();
@@ -14,7 +13,7 @@ $(document).ready( function() {
 	$('#typePassager10').parent().hide();
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
-	$("input[name$='typeTrajet']").click(function(){
+	$("input[name$='typeTrajet']").change(function(){
 
 		var radio_value = $(this).val();
 
@@ -28,6 +27,15 @@ $(document).ready( function() {
 	$("select#nbrPassager").change(function(){
 
 		var select_value = $(this).val();
+		$('#typePassager2').parent().hide();
+		$('#typePassager3').parent().hide();
+		$('#typePassager4').parent().hide();
+		$('#typePassager5').parent().hide();
+		$('#typePassager6').parent().hide();
+		$('#typePassager7').parent().hide();
+		$('#typePassager8').parent().hide();
+		$('#typePassager9').parent().hide();
+		$('#typePassager10').parent().hide();
 
 		if(select_value > 1){
 

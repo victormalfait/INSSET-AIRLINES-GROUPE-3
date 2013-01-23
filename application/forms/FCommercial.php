@@ -55,7 +55,7 @@ class FCommercial extends Zend_Form
 		$eTypeTrajet = new Zend_Form_Element_Radio('typeTrajet');
 		$eTypeTrajet->setMultiOptions(array('1'=>'Aller simple','2'=>'Aller retour')  )
         			->setOptions(array('separator'=>' '))
-        			->setValue('1')
+        			->setValue('2')
         			->setDecorators($decorators);
 
         $eDatedeb = new Zend_Form_Element_Text('datepickerdeb');
@@ -78,7 +78,7 @@ class FCommercial extends Zend_Form
 						->setMultiOptions($nbr)
 						->setDecorators($decorators);
 
-		$typePassager = array('Adultes (25-64 ans)','Enfants (2-11 ans)','Séniors (65 ans et plus)');
+		$typePassager = array('1' => 'Adultes (25-64 ans)','0.5' => 'Enfants (2-11 ans)','0.75' => 'Séniors (65 ans et plus)');
 
 		$eTypePassager = new Zend_Form_Element_Select('typePassager');
 		$eTypePassager	->setLabel('Passager N° 1 : ')
@@ -130,7 +130,7 @@ class FCommercial extends Zend_Form
 						->setLabel('Passager N° 10 : ')
 						->setDecorators($decorators);
 
-		$classe = array('Economique','Première','Affaire');
+		$classe = array('1'=>'Economique','2.5'=>'Première','2'=>'Affaire');
 
 		$eClasse = new Zend_Form_Element_Select('classe');
 		$eClasse	->setLabel('Classe : ')
