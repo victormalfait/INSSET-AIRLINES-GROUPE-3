@@ -61,7 +61,7 @@ class FNouvelleMaintenance extends Zend_Form {
         ->addValidator('notEmpty')
         ->setRequired(true)
         ->setValue('Aucune')
-        ->setAttrib('required', 'required')
+        ->setAttrib('required', 'required')->setAttrib('cols', '80')->setAttrib('rows', '4')
         ->setDecorators($decorators);
 
     $Submit = new Zend_Form_Element_Submit('ajouter');

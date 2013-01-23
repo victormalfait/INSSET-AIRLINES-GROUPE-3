@@ -1,11 +1,25 @@
 <?php echo $this->action('menumaintenance','maintenance'); ?>
 
-<div>
-	<header>
+<!-- popup créer un nouveau model d'avion -->
+<?php echo $this->action('nouveaumodel','maintenance'); ?>
+
+<div class="rouleau_fenetre">
+	<header class="rouleau-fenetre-titre">
 		<span><?php echo $this->translate('Création d\'un Avion')?></span>
 	</header>
-	<section >
-				<a href="<?php echo $this->baseUrl('maintenance/nouveaumodel');?>">Ajouter un Model</a>
-				<?php echo $this->formNouveauAvion; ?>
+	<section class="rouleau-fenetre-section">
+		<div>
+			Sélectionner simplement le model de se nouvel avion.
+		</div>
+		<br />
+			<?php echo $this->formNouvelavion; ?>
+		<div>
+		<br />
+			Si le model n'est pas dans la liste vous pouvez le créer.
+		</div>
+		<br />
+		<a href="#creerModel" rel="popup_creerModel" class="poplight">
+			<button>Créer un model</button>
+		</a>
 	</section>
 </div>

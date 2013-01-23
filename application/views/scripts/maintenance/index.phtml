@@ -1,7 +1,7 @@
 <section id="Maintenance">
 	<?php echo $this->action('menumaintenance','maintenance'); ?>
 
-	Liste des avion disponible pour une maintenance :
+	Liste des avions disponibles pour une maintenance :
 	<br/>
 	<br/>
 
@@ -40,10 +40,22 @@
 						<td><?php echo $avion['heure_depuis_revision']; ?></td>
 						<?php 
 							if ($avion['date_prevue'] == 0){
-								echo '<td><a href="'.$this->baseUrl('maintenance/ajouter/immatriculation/' . $avion['immatriculation']).'" title="Ajouter Maintenance"><button class="ajouter">Ajouter</button></a></td>';
+								?>
+									<td>
+										<a href="<?php echo $this->baseUrl('maintenance/ajouter/immatriculation/' . $avion['immatriculation']); ?>" title="Ajouter Maintenance">
+											<button>Prévoir</button>
+										</a>
+									</td>
+								<?php
 							}
-							else { 
-								echo '<td><a href="'.$this->baseUrl('maintenance/afficher').'" title="Ajouter Maintenance">Du :'.date('d/m/Y', $avion['date_prevue']).' ('.$avion['duree_prevue'].' jours)</a></td>';
+							else {
+								?>
+									<td>
+										<a href="<?php echo $this->baseUrl('maintenance/afficher'); ?>" title="Ajouter Maintenance">
+											Du :<?php echo date('d/m/Y', $avion['date_prevue']).' ('.$avion['duree_prevue']; ?> jours)
+										</a>
+									</td>
+								<?php
 							}
 						?>
 					</tr>

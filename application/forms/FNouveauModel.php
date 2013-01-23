@@ -94,7 +94,7 @@ class FNouveauModel extends Zend_Form
 		$Fermer = new Zend_Form_Element_Reset('fermer');
 		$Fermer 	->setLabel('Fermer')
 					->setAttrib('id', 'fermerbutton')
-					->setAttrib('class', 'closeModel')
+					->setAttrib('class', 'close')
 					->setDecorators($decoratorsBouton);
 
 		// Ajout des éléments au formulaire

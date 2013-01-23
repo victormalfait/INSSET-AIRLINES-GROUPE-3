@@ -78,7 +78,7 @@ class FModifierMaintenance extends Zend_Form {
   $note  ->setLabel('Note : ')
         ->addValidator('notEmpty')
         ->setRequired(true)
-        ->setAttrib('class','note')
+        ->setAttrib('class','note')->setAttrib('cols', '80')->setAttrib('rows', '4')
         ->setAttrib('required', 'required')
         ->setDecorators($decorators);
 

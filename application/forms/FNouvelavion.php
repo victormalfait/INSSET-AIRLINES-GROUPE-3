@@ -1,11 +1,11 @@
 <?php
 
-class FNouveauAvion extends Zend_Form
+class FNouvelavion extends Zend_Form
 {
 
 	public function init(){
 	//===============Parametre du formulaire
-		$this->setName('nouveauAvion');
+		$this->setName('nouvelavion');
 		$this->setMethod('post');
 	
 	//=============== creation des decorateurs
@@ -44,22 +44,12 @@ class FNouveauAvion extends Zend_Form
 
 	//=============== Creation des element
 
-		// Recupere tout les model d'avion
-		$tableModel = new TModelAvion;
-        $model = $tableModel->fetchAll();
-        $modelTab = array();
-
-        // Ré-encode le nom des model en UTF8
-        foreach ($model as $m) {
-        	$modelTab[$m->id_model] = utf8_encode($m->nom_model);
-        }
-
 		//Liste des models d'avion .
 		$model = new Zend_Form_Element_Select('model');
 		$model	->setLabel('Model : ')
 				->setRequired(true)
 				->setAttrib('required', 'required')
-				->setMultiOptions($modelTab)
+				->setMultiOptions($this->listModel())
 				->addValidator('notEmpty')
 				->setDecorators($decorators);
 
@@ -73,11 +63,36 @@ class FNouveauAvion extends Zend_Form
 		$Fermer = new Zend_Form_Element_Reset('fermer');
 		$Fermer 	->setLabel('Fermer')
 					->setAttrib('id', 'fermerbutton')
-					->setAttrib('class', 'closeAvion')
+					->setAttrib('class', 'close')
 					->setDecorators($decoratorsBouton);
 
 		// Ajout des éléments au formulaire
 		$elements = array( $model, $Submit, $Fermer );
 		$this->addElements ( $elements );
 	}
+
+	/**
+    * Liste des model d'avions
+    */
+    private function listModel () {
+		// on charge le model
+		$tableModel = new TModelAvion;
+		// on recupere tout les pays
+        $reqModel = $tableModel	->select()
+    							->from($tableModel)
+    							->order("nom_model");
+
+	    $model = $tableModel->fetchAll($reqModel);
+
+        // on instancie le resultat en tableau de pays
+        $modelTab = array();
+
+        $modelTab["-1"] = "-- Choisissez --"; 
+        foreach ($model as $m) {
+        	$modelTab[$m->id_model] = utf8_encode($m->nom_model);
+        }
+ 
+        return $modelTab;
+    }
+
 }

@@ -335,16 +335,16 @@ class MaintenanceController extends Zend_Controller_Action
 	public function nouvelavionAction ()
 	{
 
-		$formNouveauAvion 				= new FNouveauAvion;
-		$this->view->formNouveauAvion 	= $formNouveauAvion;
+		$formNouvelavion 				= new FNouvelavion;
+		$this->view->formNouvelavion 	= $formNouvelavion;
 
 		if ($this->_request->isPost()) {
 
             $formData = $this->_request->getPost();
 
-            if ($formNouveauAvion->isValid($formData)) {	
+            if ($formNouvelavion->isValid($formData)) {	
 
-                $model       = $formNouveauAvion->getValue('model');
+                $model       = $formNouvelavion->getValue('model');
 
                 $tableAvion  = new TAvion;
 
