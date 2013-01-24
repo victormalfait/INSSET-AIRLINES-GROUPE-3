@@ -1,0 +1,32 @@
+<?php 
+$count=1;
+if(isset($this->nbrAdultes) && $this->nbrAdultes != ''){?>
+	<div class="adulte">
+		<?php for ($i=0; $i < $this->nbrAdultes ; $i++) {
+			echo '<h2>Passager adulte N° '.$count;
+			echo '<div class="formClient">'.$this->form.'</div>';
+			$count++;
+		}?>
+	</div>	
+<?php }
+
+if(isset($this->nbrSeniors) && $this->nbrSeniors != ''){?>
+	<div class="senior">
+		<?php for ($i=0; $i < $this->nbrSeniors ; $i++) { 
+			echo '<h2>Passager sénior N° '.$count;
+			echo '<div class="formClient">'.$this->form.'</div>';
+			$count++;
+		}?>
+	</div>	
+<?php }
+
+if(isset($this->nbrEnfants) && $this->nbrEnfants != ''){?>
+	<div class="enfant">
+		<?php for ($i=0; $i < $this->nbrEnfants ; $i++) { 
+			echo '<h2>Passager enfant N° '.$count;
+			echo '<div class="formClient">'.$this->form.'</div>';
+			$count++;
+		}?>
+	</div>	
+<?php }
+ ?>

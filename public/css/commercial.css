@@ -14,3 +14,12 @@
 .lieu{display: inline-block;border: 1px solid black;margin-top: 10px;}
 .ville{font-weight: bold; color: blue!important;}
 #detailsRecherche{width: 800px;}
+#montant{border: 1px solid black;display: inline-block;width: 800px;}
+#montant table{width: 100%;}
+.formClient{border: 1px solid black;margin: 10px;}
+.adulte{border: 3px solid blue;margin: 10px;}
+.adulte h2{margin: 10px 20px;}
+.enfant{border: 3px solid blue;margin: 10px;}
+.enfant h2{margin: 10px 20px;}
+.senior{border: 3px solid blue;margin: 10px;}
+.senior h2{margin: 10px 20px;}

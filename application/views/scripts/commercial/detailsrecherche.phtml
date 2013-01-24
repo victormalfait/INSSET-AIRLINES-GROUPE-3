@@ -9,8 +9,22 @@ if($classe ==1){
 	$nomClasse = 'Première';
 }
 $nbrPassager = $this->nbrPassager;
-$typePassager = $this->typePassager;
+$nbrAdultes = $this->nbrAdultes;
+$nbrEnfants = $this->nbrEnfants;
+$nbrSeniors = $this->nbrSeniors;
+$tarifRetour = $this->tarifRetour;
+$tarif = $this->tarif;
+
+$tarifsSeniors = ($tarif + $tarifRetour)*0.75;
+$tarifsAdultes = $tarif + $tarifRetour;
+$tarifsEnfants = ($tarif + $tarifRetour)*0.5; 
+ 
+$montantAdultes = $tarifsAdultes * $nbrAdultes;
+$montantEnfants = $tarifsEnfants * $nbrEnfants;
+$montantSeniors = $tarifsSeniors * $nbrSeniors;
+
 setlocale (LC_TIME, 'fr_FR','fra'); ?>
+
 <div id="detailsRecherche">
 	<div class="detailsVol">
 		<div class="detailsVolFils">
@@ -23,7 +37,6 @@ setlocale (LC_TIME, 'fr_FR','fra'); ?>
 			</div>
 			<div class="detailsLogistique">
 				<div class="compagnie"><span>Effectué par :</span> Insset Airlines</div>
-				<div class="prix"><span>Prix : </span><?php echo $this->prix;?> €</div>
 				<div class="appareil"><span>Appareil : </span><?php if(isset($this->avion) && $this->avion != ''){echo $this->avion;}else{echo 'Appareil non programmé';}?></div>
 				<div class="duree"><span>Durée : </span><?php echo $this->duree;?></div>
 				<div class="repas"><span>Repas servi(s) à bord : </span></div>
@@ -43,7 +56,6 @@ setlocale (LC_TIME, 'fr_FR','fra'); ?>
 			</div>
 			<div class="detailsLogistique">
 				<div class="compagnie"><span>Effectué par :</span> Insset Airlines</div>
-				<div class="prix"><span>Prix : </span><?php echo $this->prixRetour;?> €</div>
 				<div class="appareil"><span>Appareil : </span><?php if(isset($this->avionRetour) && $this->avionRetour != ''){echo $this->avionRetour;}else{echo 'Appareil non programmé';}?></div>
 				<div class="duree"><span>Durée : </span><?php echo $this->dureeRetour;?></div>
 				<div class="repas"><span>Repas servi(s) à bord : </span></div>
@@ -52,4 +64,45 @@ setlocale (LC_TIME, 'fr_FR','fra'); ?>
 		</div>
 	</div>
 	<?php }?>
+	<div id="montant">
+		<table>
+			<thead>
+				<th>Tarif</th>
+				<th>Passager(s)</th>
+				<th>Montant TTC</th>
+			</thead>
+			<tbody>
+				<?php if(isset($nbrAdultes) && $nbrAdultes != ''){?>
+					<tr>
+						<td><?php echo $tarifsAdultes;?></td>
+						<td><?php echo 'x'.$nbrAdultes.' Adulte(s)';?></td>
+						<td><?php echo $montantAdultes.' €';?></td>
+					</tr>
+				<?php }?>
+				<?php if(isset($nbrEnfants) && $nbrEnfants != ''){?>
+					<tr>
+						<td><?php echo $tarifsEnfants;?></td>
+						<td><?php echo 'x'.$nbrEnfants.' Enfant(s)';?></td>
+						<td><?php echo $montantEnfants.' €';?></td>
+					</tr>
+				<?php }?>
+				<?php if(isset($nbrSeniors) && $nbrSeniors != ''){?>
+					<tr>
+						<td><?php echo $tarifsSeniors;?></td>
+						<td><?php echo 'x'.$nbrSeniors.' Sénior(s)';?></td>
+						<td><?php echo $montantEnfants.' €';?></td>
+					</tr>
+				<?php }?>
+				<tr>
+					<td colspan="2"></td>
+					<td><?php 
+							$montant = $montantAdultes + $montantEnfants + $montantSeniors;
+							echo 'Montant total : '.$montant.' € TTC';
+						?>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<a href="<?php echo $this->baseUrl('commercial/reservation');?>"><button>Continuer</button></a>
 </div>

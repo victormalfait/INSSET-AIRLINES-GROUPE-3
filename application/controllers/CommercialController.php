@@ -52,8 +52,6 @@ class CommercialController extends Zend_Controller_Action
                 //on multiplie par le coef de la classe choisie
                 $coefPrix = $coefPrix * $formCommercial->getValue('classe');
 
-
-
                 //on convertit au format timestamp
                 list($jourD, $moisD, $anneeD) = explode("-", $date_debut);          
                 list($jourD, $moisD, $anneeD) = explode("-", $date_fin);          
@@ -222,11 +220,30 @@ class CommercialController extends Zend_Controller_Action
             list($numero_vol,$heure_dep,$prix) = explode('/', $_POST['volAller']);
 
             $this->view->nbrPassager = $sessionUser->nbrPassager;
-            $this->view->typePassager = $sessionUser->typePassager;
+            $typePassager = $sessionUser->typePassager;
+
+            $nbrAdultes = 0; $nbrEnfants = 0; $nbrSeniors = 0;
+            for ($i=1; $i <= $sessionUser->nbrPassager ; $i++) { 
+                if($typePassager[$i] == 1){
+                    $nbrAdultes++;
+                }elseif($typePassager[$i] == 0.5){
+                    $nbrEnfants++;
+                }elseif($typePassager[$i] == 0.75){
+                    $nbrSeniors++;
+                }
+            }
+
             $this->view->classe = $sessionUser->classe;
-            $this->view->prix = $prix;
+            $tarif = $prix/($nbrAdultes+$nbrEnfants*0.5+$nbrSeniors*0.75);
+
+            $this->view->nbrAdultes = $nbrAdultes;
+            $this->view->nbrEnfants = $nbrEnfants;
+            $this->view->nbrSeniors = $nbrSeniors;
+            $this->view->tarif = $tarif;
             $vitesse = 800*1000;
             $vitesseRetour = 800*1000;
+            $id_vol = 0;
+            $id_vol_retour = 0;
 
             $tableDestination = new TDestination;
             $destinationRequest = $tableDestination->select()->where('numero_vol = ?', $numero_vol);
@@ -238,6 +255,8 @@ class CommercialController extends Zend_Controller_Action
             $vol = $tableVol->fetchRow($volRequest);
 
             if(isset($vol) && $vol != ''){
+                $id_vol = $vol->id_vol;
+                
                 $tableAvion = new TAvion;
                 $avion = $tableAvion->find($vol->immatriculation)->current();
 
@@ -267,13 +286,13 @@ class CommercialController extends Zend_Controller_Action
             $villeArrive = $tableVille->find($aeroportArrive->id_ville)->current();
 
             $volAller = array(
-                'numero_vol' => $numero_vol,
-                'depart'     => $aeroportDepart->nom_aeroport,
-                'arrive'     => $aeroportArrive->nom_aeroport,
-                'heure_dep'  => $heure_dep,
-                'heure_arr'  => $heure_arr,
-                'villeDepart'=> $villeDepart->nom_ville,
-                'villeArrive'=> $villeArrive->nom_ville
+                'numero_vol'     => $numero_vol,
+                'depart'         => $aeroportDepart->nom_aeroport,
+                'arrive'         => $aeroportArrive->nom_aeroport,
+                'heure_dep'      => $heure_dep,
+                'heure_arr'      => $heure_arr,
+                'villeDepart'    => $villeDepart->nom_ville,
+                'villeArrive'    => $villeArrive->nom_ville
                 );
 
             $this->view->volAller = $volAller;
@@ -289,6 +308,8 @@ class CommercialController extends Zend_Controller_Action
                 $volRetour = $tableVol->fetchRow($volRetourRequest);
 
                 if(isset($volRetour) && $volRetour != ''){
+                    $id_vol_retour = $volRetour->id_vol;
+
                     $avionRetour = $tableAvion->find($volRetour->immatriculation)->current();
 
                     $modelAvionRetour = $tableModelAvion->find($avionRetour->id_model)->current();
@@ -306,8 +327,9 @@ class CommercialController extends Zend_Controller_Action
 
                 $this->view->dureeRetour = $dureeRetour;
 
+                $tarifRetour = $prixRetour/($nbrAdultes+$nbrEnfants*0.5+$nbrSeniors*0.75);
 
-                $this->view->prixRetour = $prixRetour;
+                $this->view->tarifRetour = $tarifRetour;
 
                 $heure_arr_retour = $destinationRetour->heure_arr - $destinationRetour->heure_dep + $heure_dep_retour;
 
@@ -315,16 +337,37 @@ class CommercialController extends Zend_Controller_Action
                 $aeroportArriveRetour = $tableAeroport->find($destinationRetour->tri_aero_arr)->current();
 
                 $volRetour = array(
-                'numero_vol' => $numero_vol_retour,
-                'depart'     => $aeroportDepartRetour->nom_aeroport,
-                'arrive'     => $aeroportArriveRetour->nom_aeroport,
-                'heure_dep'  => $heure_dep_retour,
-                'heure_arr'  => $heure_arr_retour
+                    'numero_vol'     => $numero_vol_retour,
+                    'depart'         => $aeroportDepartRetour->nom_aeroport,
+                    'arrive'         => $aeroportArriveRetour->nom_aeroport,
+                    'heure_dep'      => $heure_dep_retour,
+                    'heure_arr'      => $heure_arr_retour
                 );
 
             $this->view->volRetour = $volRetour;
             }
+
+            $sessionUser->id_destination_aller = $destination->id_destination;
+            $sessionUser->id_destination_retour = $destinationRetour->id_destination;
+            $sessionUser->id_vol_aller = $id_vol;
+            $sessionUser->id_vol_retour = $id_vol_retour;
+            $sessionUser->heure_dep_aller = $heure_dep;
+            $sessionUser->heure_dep_retour = $heure_dep_retour;
+            $sessionUser->tarif_aller = $tarif;
+            $sessionUser->tarif_retour = $tarifRetour;
+            $sessionUser->nombre_adultes = $nbrAdultes;
+            $sessionUser->nombre_enfants = $nbrEnfants;
+            $sessionUser->nombre_senior = $nbrSeniors;
         }
+    }
+
+    public function reservationAction(){
+        $sessionUser = new Zend_Session_Namespace('user');
+        $this->view->nbrAdultes = $sessionUser->nombre_adultes;
+        $this->view->nbrSeniors = $sessionUser->nombre_senior;
+        $this->view->nbrEnfants = $sessionUser->nombre_enfants;
+        $formClient = new FClient;
+        $this->view->form = $formClient;
 
     }
 
