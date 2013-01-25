@@ -47,7 +47,6 @@ $(document).ready( function() {
 				$('#typePassager'+j).parent().hide();
 			}
 		}
-	});
-		
+	});		
 }); //Eof:: sur changement de l'un des 'select'
 //////////////////////////////////////////////////////////////////////////////////////////////////////

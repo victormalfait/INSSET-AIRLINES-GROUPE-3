@@ -54,8 +54,6 @@ class CommercialController extends Zend_Controller_Action
 
                 //on convertit au format timestamp
                 list($jourD, $moisD, $anneeD) = explode("-", $date_debut);          
-                list($jourD, $moisD, $anneeD) = explode("-", $date_fin);          
-                $date_retour = mktime(0, 0, 0,  $moisD, $jourD, $anneeD);
                 $date_depart = mktime(0, 0, 0,  $moisD, $jourD, $anneeD);
 
                 //on appelle la fonction pour obtenir la date du jour
@@ -63,20 +61,24 @@ class CommercialController extends Zend_Controller_Action
 
                 //on initialise une variable pour avoir la date 1 semaines avant
                 $date_depart_avant = $date_depart - 7*24*60*60;
-                $date_retour_avant = $date_retour - 7*24*60*60;
 
                 //on verifie que la date ne soit pas inferieure a la date du jour
                 if($date_depart_avant < $date_jour){
                     $date_depart_avant = $date_jour;
                 }
 
-                if($date_retour_avant < $date_depart_avant){
-                    $date_retour_avant = $date_depart_avant;
-                }
-
                 //on initialise une variable à 3 semaines apres la date demandée
                 $date_depart_apres = $date_depart + 7*24*60*60;
-                $date_retour_apres = $date_retour + 7*24*60*60;
+
+                if($formCommercial->getValue('typeTrajet') == 2){
+                    list($jourD, $moisD, $anneeD) = explode("-", $date_fin);          
+                    $date_retour = mktime(0, 0, 0,  $moisD, $jourD, $anneeD);
+                    $date_retour_avant = $date_retour - 7*24*60*60;
+                    if($date_retour_avant < $date_depart_avant){
+                        $date_retour_avant = $date_depart_avant;
+                    }
+                    $date_retour_apres = $date_retour + 7*24*60*60;
+                }                
 
                 $tableAeroport = new TAeroport;
 
@@ -106,7 +108,9 @@ class CommercialController extends Zend_Controller_Action
                         $destinationsRetour = $tableDestination->fetchAll($destinationRetourRequest);
                         $destinations = $tableDestination->fetchAll($destinationRequest);
 
-                        $date_test = $date_retour_avant + 1;
+                        if($formCommercial->getValue('typeTrajet') == 2){
+                            $date_test = $date_retour_avant + 1;
+                        }
 
                         foreach ($destinations as $destination) {
                             //si le vol est unique ...
@@ -122,9 +126,12 @@ class CommercialController extends Zend_Controller_Action
                                     $table_content_aller[$count]['arrive']        = $aeroportArrive->nom_aeroport;
                                     $table_content_aller[$count]['prix']          = ($destination->distance / 10000) * $coefPrix;
                                     $count++;
-                                    if($date_retour_avant < $destination->heure_dep && $date_retour_avant < $date_test){
-                                        $date_retour_avant = $destination->heure_dep;
-                                        $date_test = $destination->heure_dep;
+
+                                    if($formCommercial->getValue('typeTrajet') == 2){
+                                        if($date_retour_avant < $destination->heure_dep && $date_retour_avant < $date_test){
+                                            $date_retour_avant = $destination->heure_dep;
+                                            $date_test = $destination->heure_dep;
+                                        }
                                     }
                                 }
                             //si le vol est periodique
@@ -150,9 +157,11 @@ class CommercialController extends Zend_Controller_Action
                                     $table_content_aller[$count]['prix']          = ($destination->distance / 10000) * $coefPrix;
                                     $count++;
 
-                                    if($date_retour_avant < $date_vol_dep && $date_retour_avant < $date_test){
-                                        $date_retour_avant = $date_vol_dep;
-                                        $date_test = $date_vol_dep;
+                                    if($formCommercial->getValue('typeTrajet') == 2){
+                                        if($date_retour_avant < $date_vol_dep && $date_retour_avant < $date_test){
+                                            $date_retour_avant = $date_vol_dep;
+                                            $date_test = $date_vol_dep;
+                                        }
                                     }
                                 }
                             }
@@ -203,7 +212,9 @@ class CommercialController extends Zend_Controller_Action
                 }                
                 //on envoie le tableau à la vue
                 $this->view->tabVol = $table_content_aller;
-                $this->view->tabVolRetour = $table_content_retour; 
+                if($formCommercial->getValue('typeTrajet') == 2){
+                    $this->view->tabVolRetour = $table_content_retour; 
+                }
                           
             }                                                                    
             // RAZ du formulaire
@@ -321,9 +332,9 @@ class CommercialController extends Zend_Controller_Action
                 }
 
                 $divisionRetour = $destinationRetour->distance / $vitesse;
-                $minuteRetour = ($divisionRetour*60)%60;
-                $heureRetour = intval($divisionRetour);
-                $dureeRetour = $heureRetour.'h'.$minuteRetour.'min';
+                $minuteRetour   = ($divisionRetour*60)%60;
+                $heureRetour    = intval($divisionRetour);
+                $dureeRetour    = $heureRetour.'h'.$minuteRetour.'min';
 
                 $this->view->dureeRetour = $dureeRetour;
 
@@ -345,30 +356,138 @@ class CommercialController extends Zend_Controller_Action
                 );
 
             $this->view->volRetour = $volRetour;
+            $sessionUser->id_destination_retour = $destinationRetour->id_destination;
+            $sessionUser->id_vol_retour         = $id_vol_retour;
+            $sessionUser->heure_dep_retour      = $heure_dep_retour;
+            $sessionUser->tarif_retour          = $tarifRetour;
             }
 
-            $sessionUser->id_destination_aller = $destination->id_destination;
-            $sessionUser->id_destination_retour = $destinationRetour->id_destination;
-            $sessionUser->id_vol_aller = $id_vol;
-            $sessionUser->id_vol_retour = $id_vol_retour;
-            $sessionUser->heure_dep_aller = $heure_dep;
-            $sessionUser->heure_dep_retour = $heure_dep_retour;
-            $sessionUser->tarif_aller = $tarif;
-            $sessionUser->tarif_retour = $tarifRetour;
-            $sessionUser->nombre_adultes = $nbrAdultes;
-            $sessionUser->nombre_enfants = $nbrEnfants;
-            $sessionUser->nombre_senior = $nbrSeniors;
+            $sessionUser->id_destination_aller  = $destination->id_destination;
+            
+            $sessionUser->id_vol_aller          = $id_vol;
+            
+            $sessionUser->heure_dep_aller       = $heure_dep;
+            
+            $sessionUser->tarif_aller           = $tarif;
+            
+            $sessionUser->nombre_adultes        = $nbrAdultes;
+            $sessionUser->nombre_enfants        = $nbrEnfants;
+            $sessionUser->nombre_senior         = $nbrSeniors;
         }
     }
 
     public function reservationAction(){
         $sessionUser = new Zend_Session_Namespace('user');
-        $this->view->nbrAdultes = $sessionUser->nombre_adultes;
-        $this->view->nbrSeniors = $sessionUser->nombre_senior;
-        $this->view->nbrEnfants = $sessionUser->nombre_enfants;
-        $formClient = new FClient;
-        $this->view->form = $formClient;
+        $nbrAdultes = $sessionUser->nombre_adultes;
+        $nbrSeniors = $sessionUser->nombre_senior;
+        $nbrEnfants = $sessionUser->nombre_enfants;
+        $nbr_passager = $nbrAdultes + $nbrSeniors + $nbrEnfants;
+        $count=1;
 
+        $formClient = new FClient;
+
+        if ($this->_request->isPost()) {
+            $formData = $this->_request->getPost();
+
+            if ($formClient->isValid($formData)) {
+
+                if(isset($sessionUser->tarif_retour) && $sessionUser->tarif_retour != ''){
+                    $trajet = 'Aller retour';
+                }else{
+                    $trajet = 'Aller simple';
+                }
+
+                $tableReservation = new TReservation;
+                $dataAller = array(
+                    'id_destination'    => $sessionUser->id_destination_aller,
+                    'id_vol'            => $sessionUser->id_vol_aller,
+                    'heure_dep'         => $sessionUser->heure_dep_aller,
+                    'tarif'             => $sessionUser->tarif_aller,
+                    'nbr_passager'      => $nbr_passager,
+                    'trajet'            => $trajet
+                    );
+
+                $reservation = $tableReservation->createRow();
+                $reservation->save($dataAller);
+                
+                $id_reservation = $reservation->id_destination;
+
+                $tableClient = new TClient;
+
+                if(isset($nbrAdultes) && $nbrAdultes != ''){
+                    for ($i=0; $i < $nbrAdultes ; $i++) {
+                        $data = array(
+                            'nom_client'        => $_POST['nom'.$count],
+                            'prenom_client'     => $_POST['prenom'.$count],
+                            'email_client'      => $_POST['email'.$count],
+                            'date_naissance'    => $_POST['jour'.$count].'/'.$_POST['mois'.$count].'/'.$_POST['annee'.$count],
+                            'id_reservation'    => $id_reservation
+                            );
+                        $row = $tableClient->createRow();
+                        $row->save($data);
+                        $count++;
+                    }
+                }
+
+                if(isset($nbrSeniors) && $nbrSeniors != ''){
+                    for ($i=0; $i < $nbrSeniors ; $i++) { 
+                        $data = array(
+                            'nom_client'        => $_POST['nom'.$count],
+                            'prenom_client'     => $_POST['prenom'.$count],
+                            'email_client'      => $_POST['email'.$count],
+                            'date_naissance'    => $_POST['jour'.$count].'/'.$_POST['mois'.$count].'/'.$_POST['annee'.$count],
+                            'id_reservation'    => $id_reservation
+                            );
+                        $row = $tableClient->createRow();
+                        $row->save($data);
+                        $count++;
+                    }
+                }
+
+                if(isset($nbrEnfants) && $nbrEnfants != ''){
+                    for ($i=0; $i < $nbrEnfants ; $i++) { 
+                        $data = array(
+                            'nom_client'        => $_POST['nom'.$count],
+                            'prenom_client'     => $_POST['prenom'.$count],
+                            'email_client'      => $_POST['email'.$count],
+                            'date_naissance'    => $_POST['jour'.$count].'/'.$_POST['mois'.$count].'/'.$_POST['annee'.$count],
+                            'id_reservation'    => $id_reservation
+                            );
+                        $row = $tableClient->createRow();
+                        $row->save($data);
+                        $formClient->setId($count);
+                        $count++;
+                    }
+                }
+
+            }
+        }else{
+            
+            
+            
+            if(isset($nbrAdultes) && $nbrAdultes != ''){
+                for ($i=0; $i < $nbrAdultes ; $i++) {
+                    $formClient->setId($count);
+                    $count++;
+                }
+            }
+
+            if(isset($nbrSeniors) && $nbrSeniors != ''){
+                for ($i=0; $i < $nbrSeniors ; $i++) { 
+                    $formClient->setId($count);
+                    $count++;
+                }
+            }
+
+            if(isset($nbrEnfants) && $nbrEnfants != ''){
+                for ($i=0; $i < $nbrEnfants ; $i++) { 
+                
+                    $formClient->setId($count);
+                    $count++;
+                }
+            }
+            $this->view->formClient = $formClient;
+        }
     }
 
     public function catalogueAction ()
