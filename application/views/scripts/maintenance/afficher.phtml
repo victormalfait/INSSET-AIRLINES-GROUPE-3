@@ -14,24 +14,29 @@
 	<br/>
 
 	<?php 
-		for ($i=0; $i <= 1 ; $i++) {
+		for ($i=0; $i <= 2 ; $i++) {
 
-			$mois_depart = str_pad($mois_depart+$i, 2, "0", STR_PAD_LEFT);
+			if($i != 0){
+				$mois_depart = str_pad($mois_depart+1, 2, "0", STR_PAD_LEFT);
+			}else{
+				$mois_depart = str_pad($mois_depart, 2, "0", STR_PAD_LEFT);
+			}
+			
 
 			if ($mois_depart == 13){
 				$mois_depart = 0;
 				$annee_depart = $annee_depart+1;
 			}
 			?>
-				<table>
+				<table width="325px">
 					<thead>
 						<tr>
 							<th colspan="5"><?php echo $this->NameMois[$mois_depart].' - '.$annee_depart ?></th>
 						</tr>
 						<tr>
-							<th>Jour</th>
-							<th>Immatriculation</th>
-							<th>Note</th>
+							<th width="55px">Jour</th>
+							<th width="55px">Imma..</th>
+							<th width="100px">Note</th>
 							<th colspan="2">Action</th>
 						</tr>
 					</thead>
@@ -79,21 +84,23 @@
 										<?php 
 											if (isset($this->ligne[$annee_depart][$mois_depart][$jourcalendrier]['immatriculation'])) { 
 												?>
-													<td><?php echo $this->ligne[$annee_depart][$mois_depart][$jourcalendrier]['immatriculation']; ?><td>
+													<td><?php echo $this->ligne[$annee_depart][$mois_depart][$jourcalendrier]['immatriculation']; ?></td><td>
 													<?php 
+													
 														if (strlen($this->ligne[$annee_depart][$mois_depart][$jourcalendrier]['note']) >= 40 ) {
 															echo substr($this->ligne[$annee_depart][$mois_depart][$jourcalendrier]['note'],0,40) . '...'; 
 														}
+
 														else { 
 															echo $this->ligne[$annee_depart][$mois_depart][$jourcalendrier]['note']; 
 														}
-													?>
-													<td>
+													?></td>
+													<td width="8px">
 														<a href="<?php echo $this->baseUrl('maintenance/modifier/immatriculation/' . $this->ligne[$annee_depart][$mois_depart][$jourcalendrier]['immatriculation']); ?>" title="Modifier">
 															<button class="modifier">Modifier</button>
 														</a>
 													</td>
-													<td>
+													<td width="8px">
 														<a href="<?php echo $this->baseUrl('maintenance/supprimer/immatriculation/' . $this->ligne[$annee_depart][$mois_depart][$jourcalendrier]['immatriculation']); ?>" title="Supprimer">
 															<button class="supprimer">Supprimer</button>
 														</a>
