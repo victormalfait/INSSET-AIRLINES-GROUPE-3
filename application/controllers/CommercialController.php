@@ -391,24 +391,36 @@ class CommercialController extends Zend_Controller_Action
 
             if ($formClient->isValid($formData)) {
 
+                $tableReservation = new TReservation;
+                $reservation = $tableReservation->createRow();
+
                 if(isset($sessionUser->tarif_retour) && $sessionUser->tarif_retour != ''){
                     $trajet = 'Aller retour';
+                    $reservation_retour = $tableReservation->createRow();
+
+                    $reservation_retour->id_destination = $sessionUser->id_destination_retour;
+                    $reservation_retour->id_vol         = $sessionUser->id_vol_retour;
+                    $reservation_retour->heure_dep      = $sessionUser->heure_dep_retour;
+                    $reservation_retour->tarif          = $sessionUser->tarif_retour;
+                    $reservation_retour->nbr_passager   = $nbr_passager;
+                    $reservation_retour->trajet         = $trajet;
+
+                    $reservation_retour->save();
+                
+                    $id_reservation_retour = $reservation_retour->id_destination;
+
                 }else{
                     $trajet = 'Aller simple';
-                }
+                }   
 
-                $tableReservation = new TReservation;
-                $dataAller = array(
-                    'id_destination'    => $sessionUser->id_destination_aller,
-                    'id_vol'            => $sessionUser->id_vol_aller,
-                    'heure_dep'         => $sessionUser->heure_dep_aller,
-                    'tarif'             => $sessionUser->tarif_aller,
-                    'nbr_passager'      => $nbr_passager,
-                    'trajet'            => $trajet
-                    );
+                $reservation->id_destination = $sessionUser->id_destination_aller;
+                $reservation->id_vol         = $sessionUser->id_vol_aller;
+                $reservation->heure_dep      = $sessionUser->heure_dep_aller;
+                $reservation->tarif          = $sessionUser->tarif_aller;
+                $reservation->nbr_passager   = $nbr_passager;
+                $reservation->trajet         = $trajet;
 
-                $reservation = $tableReservation->createRow();
-                $reservation->save($dataAller);
+                $reservation->save();
                 
                 $id_reservation = $reservation->id_destination;
 
@@ -416,54 +428,53 @@ class CommercialController extends Zend_Controller_Action
 
                 if(isset($nbrAdultes) && $nbrAdultes != ''){
                     for ($i=0; $i < $nbrAdultes ; $i++) {
-                        $data = array(
-                            'nom_client'        => $_POST['nom'.$count],
-                            'prenom_client'     => $_POST['prenom'.$count],
-                            'email_client'      => $_POST['email'.$count],
-                            'date_naissance'    => $_POST['jour'.$count].'/'.$_POST['mois'.$count].'/'.$_POST['annee'.$count],
-                            'id_reservation'    => $id_reservation
-                            );
-                        $row = $tableClient->createRow();
-                        $row->save($data);
+                        $adultes = $tableClient->createRow();
+
+                        $adultes->nom_client            = $_POST['nom'.$count];
+                        $adultes->prenom_client         = $_POST['prenom'.$count];
+                        $adultes->email_client          = $_POST['email'.$count];
+                        $adultes->date_naissance        = $_POST['jour'.$count].'/'.$_POST['mois'.$count].'/'.$_POST['annee'.$count];
+                        $adultes->id_reservation        = $id_reservation;
+                        $adultes->id_reservation_retour = $id_reservation_retour;
+        
+                        $adultes->save();
                         $count++;
                     }
                 }
 
                 if(isset($nbrSeniors) && $nbrSeniors != ''){
                     for ($i=0; $i < $nbrSeniors ; $i++) { 
-                        $data = array(
-                            'nom_client'        => $_POST['nom'.$count],
-                            'prenom_client'     => $_POST['prenom'.$count],
-                            'email_client'      => $_POST['email'.$count],
-                            'date_naissance'    => $_POST['jour'.$count].'/'.$_POST['mois'.$count].'/'.$_POST['annee'.$count],
-                            'id_reservation'    => $id_reservation
-                            );
-                        $row = $tableClient->createRow();
-                        $row->save($data);
+                        $senior = $tableClient->createRow();
+
+                        $senior->nom_client             = $_POST['nom'.$count];
+                        $senior->prenom_client          = $_POST['prenom'.$count];
+                        $senior->email_client           = $_POST['email'.$count];
+                        $senior->date_naissance         = $_POST['jour'.$count].'/'.$_POST['mois'.$count].'/'.$_POST['annee'.$count];
+                        $senior->id_reservation         = $id_reservation;
+                        $senior->id_reservation_retour  = $id_reservation_retour;
+        
+                        $senior->save();
                         $count++;
                     }
                 }
 
                 if(isset($nbrEnfants) && $nbrEnfants != ''){
                     for ($i=0; $i < $nbrEnfants ; $i++) { 
-                        $data = array(
-                            'nom_client'        => $_POST['nom'.$count],
-                            'prenom_client'     => $_POST['prenom'.$count],
-                            'email_client'      => $_POST['email'.$count],
-                            'date_naissance'    => $_POST['jour'.$count].'/'.$_POST['mois'.$count].'/'.$_POST['annee'.$count],
-                            'id_reservation'    => $id_reservation
-                            );
-                        $row = $tableClient->createRow();
-                        $row->save($data);
-                        $formClient->setId($count);
+                        $enfant = $tableClient->createRow();
+
+                        $enfant->nom_client             = $_POST['nom'.$count];
+                        $enfant->prenom_client          = $_POST['prenom'.$count];
+                        $enfant->email_client           = $_POST['email'.$count];
+                        $enfant->date_naissance         = $_POST['jour'.$count].'/'.$_POST['mois'.$count].'/'.$_POST['annee'.$count];
+                        $enfant->id_reservation         = $id_reservation;
+                        $enfant->id_reservation_retour  = $id_reservation_retour;
+        
+                        $enfant->save();
                         $count++;
                     }
                 }
-
             }
         }else{
-            
-            
             
             if(isset($nbrAdultes) && $nbrAdultes != ''){
                 for ($i=0; $i < $nbrAdultes ; $i++) {
