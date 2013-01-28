@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configdata>
+	<nav>
+		<accueil>
+			<label>Accueil</label>
+			<controller>index</controller>
+            <action>index</action>
+            <ressource>index</ressource>		
+		</accueil>
+		
+		<reserver>
+			<label>Réserver</label>
+			<controller>commercial</controller>
+            <action>index</action>
+            <ressource>commercial</ressource>
+		</reserver>
+
+		<catalogue>
+			<label>Catalogue</label>
+			<controller>commercial</controller>
+            <action>catalogue</action>
+            <ressource>commercial</ressource>
+		</catalogue>
+
+    	<strategie>
+            <label>Stratégie</label>
+            <controller>strategie</controller>
+            <action>index</action>
+            <ressource>strategie</ressource>
+        </strategie>
+
+    	<ressourcehumaine>
+            <label>Ressouces Humaines</label>
+            <controller>ressourcehumaine</controller>
+            <action>index</action>
+            <ressource>ressourcehumaine</ressource>
+        </ressourcehumaine>
+
+    	<maintenance>
+            <label>Maintenance</label>
+            <controller>maintenance</controller>
+            <action>index</action>
+            <ressource>maintenance</ressource>
+        </maintenance>
+
+    	<planning>
+            <label>Planning</label>
+            <controller>planning</controller>
+            <action>index</action>
+            <ressource>planning</ressource>
+        </planning>
+
+    	<commercial>
+            <label>Commercial</label>
+            <controller>commercial</controller>
+            <action>index</action>
+            <ressource>commercial</ressource>
+        </commercial>
+
+    	<exploitation>
+            <label>Service d'Exploitation</label>
+            <controller>exploitation</controller>
+            <action>index</action>
+            <ressource>exploitation</ressource>
+        </exploitation>
+
+    	<logistique>
+            <label>Logistique</label>
+            <controller>logistique</controller>
+            <action>index</action>
+            <ressource>logistique</ressource>
+        </logistique>
+	</nav>
+</configdata>

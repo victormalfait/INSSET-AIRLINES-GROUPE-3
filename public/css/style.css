@@ -1,4 +1,4 @@
-/********************************
+*******************************
 *                               *
 *       feuille de style        *
 *                               *
@@ -33,7 +33,6 @@
         #headerInfo { float: left; }
         #headerInfo h1{ font-size: 2em; margin: 10px; color: #002454; text-transform: uppercase; font-weight: bold;}
         #headerLogin { float: right;}
-        #headerMenu { clear: both;}
 /* ========= HEADER STYLES END HERE========== */
 
 
@@ -52,12 +51,47 @@
 
 
 /* ========= MENU STYLES =========  */
-    #menuAdmin { width: 1144px;}
-    #menuGuest { width: 306px;}
-    #menuAdmin, #menuGuest {margin: 0 auto;}
-    #menuAdmin li, #menuGuest li {display: inline-block; padding: 6px 20px;}
-    #menuAdmin ul span:before, #menuGuest ul span:before {content: "|"; color: #D6D6D6; font-weight: normal;}
-    #menuAdmin a, #menuGuest a {color: #002454; font-weight: bold; font-size: .8em;}
+    #navbar { 
+        clear: both;
+        height: 40px;
+        background-color: #0b0b7d;
+        background-image: -moz-linear-gradient(top, #7d7db3, #0b0b7d);
+        background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#7d7db3), to(#0b0b7d));
+        background-image: -webkit-linear-gradient(top, #7d7db3, #0b0b7d);
+        background-image: -o-linear-gradient(top, #7d7db3, #0b0b7d);
+        background-image: linear-gradient(to bottom, #7d7db3, #0b0b7d);
+        background-repeat: repeat-x;
+        border: 1px solid #d4d4d4;
+        -webkit-border-radius: 4px;
+         -moz-border-radius: 4px;
+              border-radius: 4px;
+        filter: progid:dximagetransform.microsoft.gradient(startColorstr='#7d7db3', endColorstr='#0b0b7d', GradientType=0);
+        *zoom: 1;
+        -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+         -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+              box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+    }
+
+    #navbar > ul { height: 40px; margin: 0 20px;}
+
+    #navbar .navigation > li { display: inline-block; height: 40px; }
+
+    #navbar .navigation > li > a {display: block; padding: 10px 15px 10px; margin-top: 2px; color: #fff; text-shadow: 0 -1px 0 #333333; }
+
+    #navbar .navigation > li > a:focus,
+    #navbar .navigation > li > a:hover { opacity: .7; }
+
+    #navbar .navigation > .active > a,
+    #navbar .navigation > .active > a:hover,
+    #navbar .navigation > .active > a:focus {
+      color: #e5e5e5;
+      text-decoration: none;
+      opacity: 1;
+      background-color: #6856FF;
+      -webkit-box-shadow: inset 0 -1px 4px rgba(0, 0, 0, 0.8);
+         -moz-box-shadow: inset 0 -1px 4px rgba(0, 0, 0, 0.8);
+              box-shadow: inset 0 -1px 4px rgba(0, 0, 0, 0.8);
+    }
 /* ========= MENU STYLES END HERE =========  */
 
 
@@ -189,4 +223,4 @@
             #menuMaintenance #ajouter {background: url(/img/min-ajoute.png) no-repeat center; text-indent: -9999px;}
 
         #Maintenance select{ background: none; border: none; width: 250px; padding: 5px 30px 5px 0;  color: #000; font-weight: bold;}
-/* ========= MAINTENANCE STYLES END HERE =========  */
+/* ========= MAINTENANCE STYLES END HERE =========  
