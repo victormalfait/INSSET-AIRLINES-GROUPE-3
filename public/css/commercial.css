@@ -17,3 +17,7 @@
 #montant{border: 1px solid black;display: inline-block;width: 800px;}
 #montant table{width: 100%;}
 .formClient{border: 1px solid black;margin: 10px;}
+.detailsAller{border: 1px solid black;margin: 10px;}
+.detailsAller p{margin: 5px;}
+.detailsRetour{border: 1px solid black;margin: 10px;}
+.detailsRetour p{margin: 5px;}

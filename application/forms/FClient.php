@@ -48,9 +48,9 @@ class FClient extends Zend_Form
 			$this->setDecorators($decoratorsForm);
 
 
-			$eSubmit = new Zend_Form_Element_Submit('BTNAttribuer');
-			$eSubmit ->setAttrib('id', 'BTNAttribuer')
-					 ->setLabel('Attribuer')
+			$eSubmit = new Zend_Form_Element_Submit('BTNReserver');
+			$eSubmit ->setAttrib('id', 'BTNReserver')
+					 ->setLabel('Réserver')
 					 ->setDecorators($decoratorsBouton);
 
 
@@ -63,7 +63,7 @@ class FClient extends Zend_Form
 	 */
 	public function setId($id) {
 		//=============== Creation des element
-			$tabCivilite = array('1' => 'M.', '2' => 'Mme');
+			$tabCivilite = array('M.' => 'M.', 'Mme.' => 'Mme.');
 			$eCivilite = new Zend_Form_Element_Select('civilite'.$id);
 			$eCivilite ->setLabel('Civilite')
 					   ->setMultiOptions($tabCivilite)
