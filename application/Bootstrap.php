@@ -54,7 +54,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	    $view->headMeta()	->setHttpEquiv('Content-Type', 'text/html;X charset=utf-8')
 		                    ->setHttpEquiv('Content-Style-Type', 'text/css')
 		                    ->setHttpEquiv('lang', 'fr')
-		                    ->setHttpEquiv('Refresh', '2')
+		                    // ->setHttpEquiv('Refresh', '2')
 		                    ->setName('language', 'fr');
 
 	    // css
