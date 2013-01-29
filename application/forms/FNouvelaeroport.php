@@ -109,7 +109,7 @@ class FNouvelaeroport extends Zend_Form
 						->addValidator('notEmpty')
 						->setDecorators($decorators);
 
-		$eLongitude = new Zend_Form_Element_Text('longitute');
+		$eLongitude = new Zend_Form_Element_Text('longitude');
 		$eLongitude	->setLabel('Longitude :')
 						->setRequired(true)
 						->setAttrib('required', 'required')
