@@ -1,4 +1,5 @@
-*******************************
+                                 
+/********************************
 *                               *
 *       feuille de style        *
 *                               *
@@ -53,6 +54,7 @@
 /* ========= MENU STYLES =========  */
     #navbar { 
         clear: both;
+        min-width: 1260px;
         height: 40px;
         background-color: #0b0b7d;
         background-image: -moz-linear-gradient(top, #7d7db3, #0b0b7d);

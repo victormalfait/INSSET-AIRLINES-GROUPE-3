@@ -1,74 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configdata>
-	<nav>
-		<accueil>
-			<label>Accueil</label>
-			<controller>index</controller>
+    <nav>
+        <accueil>
+            <label>Accueil</label>
+            <controller>index</controller>
             <action>index</action>
-            <ressource>index</ressource>		
-		</accueil>
-		
-		<reserver>
-			<label>Réserver</label>
-			<controller>commercial</controller>
+            <resource>index</resource>        
+        </accueil>
+        
+        <reserver>
+            <label>Réserver</label>
+            <controller>commercial</controller>
             <action>index</action>
-            <ressource>commercial</ressource>
-		</reserver>
+            <resource>commercial</resource>
+        </reserver>
 
-		<catalogue>
-			<label>Catalogue</label>
-			<controller>commercial</controller>
+        <catalogue>
+            <label>Catalogue</label>
+            <controller>commercial</controller>
             <action>catalogue</action>
-            <ressource>commercial</ressource>
-		</catalogue>
+            <resource>commercial</resource>
+        </catalogue>
 
-    	<strategie>
+        <strategie>
             <label>Stratégie</label>
             <controller>strategie</controller>
             <action>index</action>
-            <ressource>strategie</ressource>
+            <resource>strategie</resource>
         </strategie>
 
-    	<ressourcehumaine>
+        <ressourcehumaine>
             <label>Ressouces Humaines</label>
             <controller>ressourcehumaine</controller>
             <action>index</action>
-            <ressource>ressourcehumaine</ressource>
+            <resource>ressourcehumaine</resource>
         </ressourcehumaine>
 
-    	<maintenance>
+        <maintenance>
             <label>Maintenance</label>
             <controller>maintenance</controller>
             <action>index</action>
-            <ressource>maintenance</ressource>
+            <resource>maintenance</resource>
         </maintenance>
 
-    	<planning>
+        <planning>
             <label>Planning</label>
             <controller>planning</controller>
             <action>index</action>
-            <ressource>planning</ressource>
+            <resource>planning</resource>
         </planning>
 
-    	<commercial>
+        <commercial>
             <label>Commercial</label>
             <controller>commercial</controller>
             <action>index</action>
-            <ressource>commercial</ressource>
+            <resource>commercial</resource>
         </commercial>
 
-    	<exploitation>
+        <exploitation>
             <label>Service d'Exploitation</label>
             <controller>exploitation</controller>
             <action>index</action>
-            <ressource>exploitation</ressource>
+            <resource>exploitation</resource>
         </exploitation>
 
-    	<logistique>
+        <logistique>
             <label>Logistique</label>
             <controller>logistique</controller>
             <action>index</action>
-            <ressource>logistique</ressource>
+            <resource>logistique</resource>
         </logistique>
-	</nav>
+    </nav>
 </configdata>

@@ -78,116 +78,49 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		                    ->appendFile('/js/ajaxPlanning.js');				/////////////////
 	}
 
-	/** Initialisation des Acls */
-	protected function _initAcl()
-	{
 
-		// chargement de Zend_Acl
-		$acl = new Zend_Acl;
-
-		// Mise en place des rôles
-		$acl->addRole('visiteur')
-			->addRole('1')  // Administration
-			->addRole('2')  // Direction Strategie
-			->addRole('3')  // Ressources humaines
-			->addRole('4')  // Maintenance
-			->addRole('5')  // Planning
-			->addRole('6')  // Commercial
-			->addRole('7')  // Exploitation
-			->addRole('8'); // Logistique Commercial
-
-		// Mise en place des resources
-		$acl->addResource('commercial')
-			->addResource('connexion')
-			->addResource('exploitation')
-			->addResource('index')
-			->addResource('maintenance')
-			->addResource('menu')
-			->addResource('planning')
-			->addResource('ressourcehumaine')
-			->addResource('logistique')
-			->addResource('strategie');
-
-		// Mise en place des regles
-		// Visiteur
-			$acl->deny('visiteur', null)
-				->allow('visiteur', 'connexion', 'index')
-				->allow('visiteur', 'index', 'index')
-				->allow('visiteur', 'menu', 'menuadmin')
-				->allow('visiteur', 'menu', 'menuvisiteur')
-				->allow('visiteur', 'commercial', 'index')
-				->allow('visiteur', 'commercial', 'catalogue');
-
-		// Administration
-			$acl->allow('1', null);
-
-		// Direction Strategie
-			$acl->deny('2', null)
-				->allow('2', 'menu', 'menuvisiteur')
-				->allow('2', 'strategie');
-
-		// Ressources Humaines
-			$acl->deny('3', null)
-				->allow('3', 'menu', 'menuvisiteur')
-				->allow('3', 'ressourcehumaine');
-
-		// Maintenance
-			$acl->deny('4', null)
-				->allow('4', 'menu', 'menuvisiteur')
-				->allow('4', 'maintenance');
-
-		// Planning
-			$acl->deny('5', null)
-				->allow('5', 'menu', 'menuvisiteur')
-				->allow('5', 'planning');
-
-		// Commercial
-			$acl->deny('6', null)
-				->allow('6', 'menu', 'menuvisiteur')
-				->allow('6', 'commercial');
-
-		// Exploitation
-			$acl->deny('7', null)
-				->allow('7', 'menu', 'menuvisiteur')
-				->allow('7', 'exploitation');
-
-		// Logistique Commercial
-			$acl->deny('8', null)
-				->allow('8', 'menu', 'menuvisiteur')
-				->allow('8', 'logistique');
-
-
-		// on enregistre notre acl
-		Zend_Registry::set('acl', $acl);
-
-		// on creer un espace de session pour les roles 
-		$session = new Zend_Session_Namespace('role');
-		
-		// si l'utilisateur est connecté ...
-		if (Zend_Auth::getInstance ()->hasIdentity ()) {
-
+    /** liaison entre Zend_Acl et Zend_Navigation */
+    private $_acl = null;
+    private $_auth = null;
+    private $_role = null;
+    
+    protected function _initAutoload()
+    {
+        
+        new Zend_Application_Module_Autoloader(array(
+                'namespace' => '',
+                'basePath'  => APPLICATION_PATH,
+        ));
+        
+        $this->_acl = new acl(APPLICATION_PATH . '/configs/acl.ini');
+        $this->_auth = Zend_Auth::getInstance();
+        
+        // si l'utilisateur est connecté ...
+        if ($this->_auth->hasIdentity()) {
 			// ... on recupere l'identifiant de son service
-			$storage = Zend_Auth::getInstance()->getIdentity()->id_service;
-
-			// on lui attribue le role de membre
-		 	$session->role = $storage;
-		}
-		else { // sinon (pas connecté)
-			// on lui attribut le role de visiteur
-			$session->role = "visiteur";
-		}
-	}
-
-	/** initialisation de la navigation */
-	protected function _initNavigation()    
+			$this->_role = $this->_auth->getIdentity()->id_service;
+        	// $this->_role = $this->_auth->getStorage()->read()->role;
+        }
+        else { // sinon (l'utilisateur n'est pas connecté)
+        	// c'est un visiteur
+        	$this->_role = 'visiteur';
+        }
+    }
+    
+    /** initialisation des acls */
+    protected function _initAcl()
+    {
+        $front = Zend_Controller_Front::getInstance();
+        $front->registerPlugin(new auth($this->_acl, $this->_auth));
+    }
+    
+    /** initialisation de la navigation */
+    protected function _initNavigation()    
     {
         $this->bootstrap('layout');
         $layout = $this->getResource('layout');
         $view = $layout->getView();
         $config = new Zend_Config_Xml(APPLICATION_PATH . '/configs/navigation.xml', 'nav');
-        // $view->navigation(new Zend_Navigation($config))->setAcl($this->_acl)->setRole($this->_role);
-	 
-		$navigation = new Zend_Navigation($config);
-		$view->navigation($navigation);
+        $view->navigation(new Zend_Navigation($config))->setAcl($this->_acl)->setRole($this->_role);
     }
 }
