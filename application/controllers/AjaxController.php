@@ -51,8 +51,8 @@ class AjaxController extends Zend_Controller_Action
 
             // Transforme mes données en tableau PHP 
             $list = array();
-            foreach ($piloteBrevets as $piloteBrevet) {
-                $tablePilote = new TPilote;
+            $tablePilote = new TPilote;
+            foreach ($piloteBrevets as $piloteBrevet) {  
                 $pilote = $tablePilote->find($piloteBrevet->id_pilote)->current();
                 $utilisateur = $pilote->findParentRow('TUtilisateur');
                 $list ['pilote'][$pilote->id_pilote] = $utilisateur->nom_utilisateur . ' ' . $utilisateur->prenom_utilisateur;
@@ -79,10 +79,11 @@ class AjaxController extends Zend_Controller_Action
             $piloteBrevetRequest = $tablePiloteBrevet->select()->where('id_brevet = ?', $modelAvion->id_brevet)->where('id_pilote != ?',$params['id_pilote']);
             $piloteBrevets = $tablePiloteBrevet->fetchAll($piloteBrevetRequest);
 
+            $tablePilote = new TPilote;
+
             // Transforme mes données en tableau PHP 
             $list = array();
             foreach ($piloteBrevets as $piloteBrevet) {
-                $tablePilote = new TPilote;
                 $piloteRequest = $tablePilote->select()->where('id_pilote = ?',$piloteBrevet->id_pilote);
                 $pilote = $tablePilote->fetchRow($piloteRequest);
                 $utilisateur = $pilote->findParentRow('TUtilisateur');

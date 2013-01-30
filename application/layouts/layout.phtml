@@ -2,32 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="FR">
 	<head>
 		<?php
-		    $this->headMeta()	->setHttpEquiv('Content-Type', 'text/html;X charset=utf-8')
-                                ->setHttpEquiv('Content-Style-Type', 'text/css')
-                                ->setHttpEquiv('lang', 'fr')
-                                // ->setHttpEquiv('Refresh', '2')
-                                ->setName('language', 'fr');
             echo $this->headMeta();
-
-			$this->headLink()	->appendStylesheet('/css/resetcss.css')
-                                ->appendStylesheet('/css/smoothness/jquery-ui-1.9.2.custom.css')
-                                ->appendStylesheet('/css/style.css')
-                                ->appendStylesheet('/css/rouleau.css')
-                                ->appendStylesheet('/css/commercial.css')
-                                ->appendStylesheet('/css/overlay.css');
 			echo $this->headLink();
-			
-			$this->headScript()	->appendFile('/js/Jquery/jquery-1.8.3.js')					/////////////
-								->appendFile('/js/Jquery/jquery-ui-1.9.2.custom.min.js')	//	JQuery
-								->appendFile('/js/Jquery/jquery.easing.1.3.js')				/////////////
-                                ->appendFile('/js/custom.js')                               /////////////////
-                                ->appendFile('/js/rouleau.js')                              // 
-                                ->appendFile('/js/overlay.js')                              // 
-                                ->appendFile('/js/ajax.js')                                 // fichier perso
-								->appendFile('/js/tutorial.js')                             //
-                                ->appendFile('/js/ajaxRessourcesHumaines.js')
-                                ->appendFile('/js/ajaxCommercial.js')
-                                ->appendFile('/js/ajaxPlanning.js');				/////////////////
 			echo $this->headScript();
 		?>
 		<title>Insset Airline</title>
@@ -38,6 +14,9 @@
             <!-- Header -->
             <header id="header">
                 <?php echo $this->partial('header.phtml'); ?>
+                <nav id="navbar">
+                    <?php echo $this->navigation()->menu(); ?>
+                </nav>
             </header>
             <!-- Header ends here -->
 

@@ -35,42 +35,46 @@ class ConnexionController extends Zend_Controller_Action
         // traitement du formulaire
         // si le formulaire a été soumis
         if ($this->_request->isPost()) {
+
             // on recupere les éléments
             $formData = $this->_request->getPost();
+            $verif = $form->getValue ( 'login_utilisateur' );
 
-            // si le formulaire passe au controle des validateurs
-            if ($form->isValid($formData)) {
-                // on recupere les données
-                $login_utilisateur = $form->getValue ( 'login_utilisateur' );
-                $password_utilisateur = $form->getValue ( 'password_utilisateur' );
+            if(isset($verif) && $verif!=''){
+                // si le formulaire passe au controle des validateurs
+                if ($form->isValid($formData)) {
+                    // on recupere les données
+                    $login_utilisateur = $form->getValue ( 'login_utilisateur' );
+                    $password_utilisateur = $form->getValue ( 'password_utilisateur' );
 
-                // creation d'un Zend_Auth
-                $authAdapter = new Zend_Auth_Adapter_DbTable ( Zend_Db_Table::getDefaultAdapter () );
-                // en lui donnant quelque information sur la base de donnée
-                $authAdapter->setTableName('utilisateur')  // nom de la table
-                            ->setIdentityColumn('login_utilisateur')   // colonne contenant l'identifiant
-                            ->setCredentialColumn('password_utilisateur')  // colonne contenant le mot de passe
-                            ->setCredentialTreatment('MD5(?)')  // Type de hashage
-                            ->setIdentity($login_utilisateur)   // valeur de l'identifiant
-                            ->setCredential($password_utilisateur);  // valeur du mot de passe
+                    // creation d'un Zend_Auth
+                    $authAdapter = new Zend_Auth_Adapter_DbTable ( Zend_Db_Table::getDefaultAdapter () );
+                    // en lui donnant quelque information sur la base de donnée
+                    $authAdapter->setTableName('utilisateur')  // nom de la table
+                                ->setIdentityColumn('login_utilisateur')   // colonne contenant l'identifiant
+                                ->setCredentialColumn('password_utilisateur')  // colonne contenant le mot de passe
+                                ->setCredentialTreatment('MD5(?)')  // Type de hashage
+                                ->setIdentity($login_utilisateur)   // valeur de l'identifiant
+                                ->setCredential($password_utilisateur);  // valeur du mot de passe
 
-                // identification de l'utilisateur
-                $authAuthenticate = $authAdapter->authenticate ();
+                    // identification de l'utilisateur
+                    $authAuthenticate = $authAdapter->authenticate ();
 
-                //si l'authentification a reussi
-                if ($authAuthenticate->isValid()) {
-                    //on recupere l'espace de stockage de l'application
-                    $storage = Zend_Auth::getInstance ()->getStorage ();
+                    //si l'authentification a reussi
+                    if ($authAuthenticate->isValid()) {
+                        //on recupere l'espace de stockage de l'application
+                        $storage = Zend_Auth::getInstance ()->getStorage ();
 
-                    // on y ajoute les infos de l'utilisateur
-                    $storage->write ( $authAdapter->getResultRowObject ( null, 'password_utilisateur' ) );
+                        // on y ajoute les infos de l'utilisateur
+                        $storage->write ( $authAdapter->getResultRowObject ( null, 'password_utilisateur' ) );
 
-                    // on redirige l'utilisateur sur la page principal de l'application
-                    $this->_helper->redirector ( 'index', 'index' );
-                }
-                else{ // sinon l'authentification a echoué
+                        // on redirige l'utilisateur sur la page principal de l'application
+                        $this->_helper->redirector ( 'index', 'index' );
+                    }
+                    else{ // sinon l'authentification a echoué
 
-                    $form->addError ( 'l\'identifiant ou le mot de passe est incorrect' );
+                        $form->addError ( 'l\'identifiant ou le mot de passe est incorrect' );
+                    }
                 }
             }
         } 

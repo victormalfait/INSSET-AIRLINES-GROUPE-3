@@ -73,7 +73,9 @@ jQuery(document).ready(function($) {
             var aeroport = $("input#nouvelAeroport").val();
             var trigramme = $("input#trigramme").val();
             var longueurpiste = $("input#longueurpiste").val();
-            var dataString = '&ville_aeroport='+ville+'&nouvelAeroport='+aeroport+'&trigramme='+trigramme+'&longueurpiste='+longueurpiste;
+            var lattitude = $("input#lattitude").val();
+            var longitude = $("input#longitude").val();
+            var dataString = '&ville_aeroport='+ville+'&nouvelAeroport='+aeroport+'&trigramme='+trigramme+'&longueurpiste='+longueurpiste+'&longitude='+longitude+'&lattitude='+lattitude;;
 
             if (longueurpiste == "") {
                 $("input #longueurpiste").focus();
@@ -97,8 +99,8 @@ jQuery(document).ready(function($) {
                 
                 success: function() {
                     $("#popup_ajouterAeroport").hide();
-                    $('#aeroportDepart').append('<option label="'+ville+'" value="'+trigramme+'">'+aeroport+'</option>');
-                    $('#aeroportArrivee').append('<option label="'+ville+'" value="'+trigramme+'">'+aeroport+'</option>');
+                    $('#aeroportDepart').append('<option value="'+trigramme+'" label="'+ville+'">'+aeroport+'</option>');
+                    $('#aeroportArrivee').append('<option value="'+trigramme+'" label="'+ville+'">'+aeroport+'</option>');
                 }
             });
 

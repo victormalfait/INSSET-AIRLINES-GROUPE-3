@@ -1,0 +1,25 @@
+
+<table>
+	<thead>
+		<th>N° vol</th>
+		<th>Départ</th>
+		<th>Arrivée</th>
+		<th>Date départ</th>
+		<th>Durée</th>
+		<th>Nombre de passager</th>
+		<th>Prix</th>
+	</thead>
+	<tbody>
+		<?php foreach ($this->reservation as $reservation) {?>
+			<tr>
+				<td><?php echo $reservation['numero_vol'];?></td>
+				<td><?php echo $reservation['depart'];?></td>
+				<td><?php echo $reservation['arrive'];?></td>
+				<td><?php echo date("d/m/Y à H\hi",$reservation['heure_dep']);?></td>
+				<td><?php echo $reservation['duree'];?></td>
+				<td><?php echo $reservation['nbr_passager'];?></td>
+				<td><?php echo $reservation['tarif'];?>€</td>
+			</tr>
+			<?php }?>
+	</tbody>
+</table>

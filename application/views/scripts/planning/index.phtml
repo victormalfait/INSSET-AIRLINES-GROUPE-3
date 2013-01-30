@@ -14,49 +14,13 @@
 
 			foreach ($this->vol as $vol) {?>
 			<tr>
-				<?php 
-				
-				$tableDestination = new TDestination;
-				$destination = $tableDestination->find($vol->id_destination)->current();
-				?>
-
-				<td><?php echo $destination->numero_vol; ?></td>
-
-				<?php
-
-				$tableAeroport = new TAeroport;
-				$aeroport = $tableAeroport->find($destination->tri_aero_dep)->current();
-				$aeroportBis = $tableAeroport->find($destination->tri_aero_arr)->current();
-
-				$tableVille = new TVille;
-				$ville = $tableVille->find($aeroport->id_ville)->current();
-				$villeBis = $tableVille->find($aeroportBis->id_ville)->current();
-
-				$tablePays = new TPays;
-				$pays = $tablePays->find($ville->id_pays)->current();
-				$paysBis = $tablePays->find($villeBis->id_pays)->current();
-
-				?>
-
-				<td><?php echo 'Le '.date("d/m/Y à H:i",$vol->heure_dep).' de '.$aeroport->nom_aeroport.'<br/>'.$ville->nom_ville.' ('.$pays->nom_pays.')'; ?></td>
-				<td><?php echo 'Le '.date("d/m/Y à H:i",$vol->heure_arr).' de '.$aeroportBis->nom_aeroport.'<br/>'.$villeBis->nom_ville.' ('.$paysBis->nom_pays.')'; ?></td>
-
-				<?php 
-
-				$tablePilote = new TPilote;
-				$pilote = $tablePilote->find($vol->id_pilote)->current();
-				$copilote = $tablePilote->find($vol->id_copilote)->current();
-
-				$tableUtilisateur = new TUtilisateur;
-				$utilisateur = $tableUtilisateur->find($pilote->id_utilisateur)->current();
-				$utilisateurBis = $tableUtilisateur->find($copilote->id_utilisateur)->current();
-
-				?>
-				<td><?php echo 'Pilote: '.$utilisateur->nom_utilisateur.' '.$utilisateur->prenom_utilisateur.'<br/>Co-Pilote: '.$utilisateurBis->nom_utilisateur.' '.$utilisateurBis->prenom_utilisateur; ?></td>
-				<td><?php //echo ; ?></td>
-				<td><?php echo $vol->remarque; ?></td>
-			</tr>
-				
+				<td><?php echo $vol['numero_vol']; ?></td>
+				<td><?php echo $vol['depart']; ?></td>
+				<td><?php echo $vol['arrive']; ?></td>
+				<td><?php echo $vol['pilotes']; ?></td>
+				<td><?php echo $vol['avion']; ?></td>
+				<td><?php echo $vol['remarque'] ?></td>
+			</tr>				
 			<?php }?>
 		</tbody>
 	</table>

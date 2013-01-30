@@ -21,11 +21,12 @@
 										  				+ optionData['aeroport'][key]
 										  			+ '</option>');
 					    i++;
-					    if (i >= 2) { 
-							$("#aeroportDepart:first").prepend( '<option label="Choisissez" value="-1" >-- Choississez --</option>');
-							$("#aeroportDepart option:first").attr ('selected', 'selected');
-						}
+					    
 					} //Eof:: for 'aeroport'
+					if (i >= 2) { 
+						$("#aeroportDepart:first").prepend( '<option label="Choisissez" value="-1" >-- Choississez --</option>');
+						$("#aeroportDepart option:first").attr ('selected', 'selected');
+					}
 		    	} //Eof:: success
 		    });  //Eof:: ajax 
 		} //Eof:: fucntion remplirSelect
@@ -52,11 +53,11 @@
 										  				+ optionData['aeroport'][key]
 										  			+ '</option>');
 					    i++;
-					    if (i >= 2) { 
-							$("#aeroportArrivee:first").prepend( '<option label="Choisissez" value="-1" >-- Choississez --</option>');
-							$("#aeroportArrivee option:first").attr ('selected', 'selected');
-						}
 					} //Eof:: for 'aeroport'
+					if (i >= 2) { 
+						$("#aeroportArrivee:first").prepend( '<option label="Choisissez" value="-1" >-- Choississez --</option>');
+						$("#aeroportArrivee option:first").attr ('selected', 'selected');
+					}
 		    	} //Eof:: success
 		    });  //Eof:: ajax 
 		} //Eof:: fucntion remplirSelect
