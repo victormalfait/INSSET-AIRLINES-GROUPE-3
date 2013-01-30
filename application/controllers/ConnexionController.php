@@ -38,7 +38,7 @@ class ConnexionController extends Zend_Controller_Action
 
             // on recupere les éléments
             $formData = $this->_request->getPost();
-            $verif = $form->getValue ( 'login_utilisateur' );
+            $verif = $_POST['login_utilisateur'];
 
             if(isset($verif) && $verif!=''){
                 // si le formulaire passe au controle des validateurs
