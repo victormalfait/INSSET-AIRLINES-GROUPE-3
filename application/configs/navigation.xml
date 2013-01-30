@@ -53,7 +53,7 @@
         <commercial>
             <label>Commercial</label>
             <controller>commercial</controller>
-            <action>index</action>
+            <action>listereservation</action>
             <resource>commercial</resource>
         </commercial>
 
