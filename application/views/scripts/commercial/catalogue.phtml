@@ -1,1 +1,23 @@
-catalogue.phtml
+<table>
+	<thead>
+		<th>Date</th>
+		<th>Départ</th>
+		<th>Arrivée</th>
+		<th>Durée</th>
+	</thead>
+	<tbody>
+		<?php foreach ($this->vols as $vol) {?>
+			<tr>
+				<?php if($vol['periodicite'] == 'Vol unique'){
+					echo '<td>'.date("d/m/Y à H\hi", $vol['heure_dep']).'</td>';
+				}else{
+					echo '<td>Tous les '.$vol['periodicite'].' à '.date("H\hi", $vol['heure_dep']).'</td>';
+				}?>			
+				<td><?php echo $vol['depart'];?></td>
+				<td><?php echo $vol['arrive'];?></td>
+				<td><?php echo $vol['duree'];?></td>
+			</tr>
+		<?php }?>
+		
+	</tbody>
+</table>

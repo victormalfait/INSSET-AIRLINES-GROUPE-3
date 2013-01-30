@@ -1,6 +1,6 @@
 <?php setlocale (LC_TIME, 'fr_FR','fra'); ?>
 <div class="recherche">
-    <form method="POST" action="<?php echo $this->baseUrl('commercial/detailsrecherche');?>">
+    <form method="POST" action="<?php echo $this->baseUrl('commercial/detailsrecherche');?>" onSubmit="return verif()">
         <input type="hidden" name="victor" value="victor"/>
         <div class="aller">
             <div class="titre">

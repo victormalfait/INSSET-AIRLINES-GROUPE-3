@@ -5,6 +5,8 @@ class CommercialController extends Zend_Controller_Action
 
 	public function indexAction()
     {
+        if(isset($sessionUser))
+            Zend_Session::namespaceUnset('user');
     	// on charge le formulaire FCommercial
     	$formCommercial = new FCommercial;
 
@@ -87,8 +89,10 @@ class CommercialController extends Zend_Controller_Action
 
                 //on recupere les informations des aeroports
                 $tableAeroport = new TAeroport;
-                $aeroportDeparts = $tableAeroport->find($formCommercial->getValue('aeroportDepart'))->current();
-                $aeroportArrives = $tableAeroport->find($formCommercial->getValue('aeroportArrive'))->current();
+                $aeroportDepartsRequest = $tableAeroport->select()->where('id_ville = ?',$formCommercial->getValue('aeroportDepart'));
+                $aeroportArrivesRequest = $tableAeroport->select()->where('id_ville = ?',$formCommercial->getValue('aeroportArrive'));
+                $aeroportDeparts = $tableAeroport->fetchAll($aeroportDepartsRequest);
+                $aeroportArrives = $tableAeroport->fetchAll($aeroportArrivesRequest);
 
                 //on initialise un tableau pour enregistrer les informations sur les vols
                 $table_content_aller = array();
@@ -277,7 +281,7 @@ class CommercialController extends Zend_Controller_Action
 
             //si le vol est planifié on recupere le model d'avion
             if(isset($vol) && $vol != ''){
-                $id_vol = $vol->id_vol;
+                $id_vol = $vol->id_vols;
                 
                 $tableAvion = new TAvion;
                 $avion = $tableAvion->find($vol->immatriculation)->current();
@@ -335,10 +339,12 @@ class CommercialController extends Zend_Controller_Action
                 $volRetour = $tableVol->fetchRow($volRetourRequest);
 
                 if(isset($volRetour) && $volRetour != ''){
-                    $id_vol_retour = $volRetour->id_vol;
+                    $id_vol_retour = $volRetour->id_vols;
 
+                    $tableAvion = new TAvion;
                     $avionRetour = $tableAvion->find($volRetour->immatriculation)->current();
 
+                    $tableModelAvion = new TModelAvion;
                     $modelAvionRetour = $tableModelAvion->find($avionRetour->id_model)->current();
 
                     $this->view->avionRetour = $modelAvionRetour->nom_model;
@@ -566,7 +572,7 @@ class CommercialController extends Zend_Controller_Action
 
         //si il existe on recupere la vitesse de l'avion
         if(isset($vol) && $vol != ''){
-            $id_vol = $vol->id_vol;
+            $id_vol = $vol->id_vols;
             
             $tableAvion = new TAvion;
             $avion = $tableAvion->find($vol->immatriculation)->current();
@@ -620,7 +626,7 @@ class CommercialController extends Zend_Controller_Action
             $volRetour = $tableVol->fetchRow($volRequest);
 
             if(isset($volRetour) && $volRetour != ''){
-                $id_vol = $volRetour->id_vol;
+                $id_vol = $volRetour->id_vols;
                 
                 $avionRetour = $tableAvion->find($volRetour->immatriculation)->current();
 
@@ -667,7 +673,61 @@ class CommercialController extends Zend_Controller_Action
 
     public function catalogueAction ()
     {
-    	
+    	$time = new time;
+        $date = $time->timestamp_now();
+
+        $count = 0;
+
+        $tableDestination = new TDestination;
+        $destinationRequest = $tableDestination->select()->where('heure_dep >= ?', $date)->orwhere('periodicite != ?', 'Vol unique');
+        $destinations = $tableDestination->fetchAll($destinationRequest);
+
+        foreach ($destinations as $destination) {
+            $vitesse = 800 * 1000;
+
+            //si il existe on recupere la vitesse de l'avion
+            if(isset($vol) && $vol != ''){
+                $id_vol = $vol->id_vols;
+                
+                $tableAvion = new TAvion;
+                $avion = $tableAvion->find($vol->immatriculation)->current();
+
+                $tableModelAvion = new TModelAvion;
+                $modelAvion = $tableModelAvion->find($avion->id_model)->current();
+
+                $vitesse = $modelAvion->vitesse * 1000;
+            }
+
+            //on recupere les infos des aeroports
+            $tableAeroport = new TAeroport;
+            $aeroportDepart = $tableAeroport->find($destination->tri_aero_dep)->current();
+            $aeroportArrive = $tableAeroport->find($destination->tri_aero_arr)->current();
+
+            //nous permettra d'avoir le nom de la ville ou se situeny les aeroports
+            $tableVille = new TVille;
+            $villeDepart = $tableVille->find($aeroportDepart->id_ville)->current();
+            $villeArrive = $tableVille->find($aeroportArrive->id_ville)->current();
+
+            //on recupere aussi le pays
+            $tablePays = new TPays;
+            $paysDepart = $tablePays->find($villeDepart->id_pays)->current();
+            $paysArrive = $tablePays->find($villeArrive->id_pays)->current();
+
+            //on calcul la duree du vol
+            $division = $destination->distance / $vitesse;
+            $minute = ($division*60)%60;
+            $heure = intval($division);
+            $duree = $heure.'h'.$minute.'min';
+
+            $tab_catologue[$count]['depart'] = $aeroportDepart->nom_aeroport.' ('.$villeDepart->nom_ville.', '.$paysDepart->nom_pays.')';
+            $tab_catologue[$count]['arrive'] = $aeroportArrive->nom_aeroport.' ('.$villeArrive->nom_ville.', '.$paysArrive->nom_pays.')';
+            $tab_catologue[$count]['heure_dep'] = $destination->heure_dep;
+            $tab_catologue[$count]['duree'] = $duree;
+            $tab_catologue[$count]['periodicite'] = $destination->periodicite;
+
+            $count++;
+        }
+        $this->view->vols = $tab_catologue;
     }
 
     public function listereservationAction(){
@@ -695,7 +755,7 @@ class CommercialController extends Zend_Controller_Action
 
             //si il existe on recupere la vitesse de l'avion
             if(isset($vol) && $vol != ''){
-                $id_vol = $vol->id_vol;
+                $id_vol = $vol->id_vols;
                 
                 $tableAvion = new TAvion;
                 $avion = $tableAvion->find($vol->immatriculation)->current();

@@ -47,6 +47,19 @@ $(document).ready( function() {
 				$('#typePassager'+j).parent().hide();
 			}
 		}
-	});		
+	});	
 }); //Eof:: sur changement de l'un des 'select'
 //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function verif(){
+    var volAller = $('input[type=radio][name=volAller]:checked').attr('value');
+    var volRetour = $('input[type=radio][name=volRetour]:checked').attr('value');
+    var aller = volAller.split('/'); 
+    var retour = volRetour.split('/'); 
+    if (aller[1] >= retour[1]) {
+        alert('Votre vol retour se situe avant le vol aller.\nChoissez une autre combinaison de vol');
+        return false;
+    }else{
+        return true;
+    };
+}
