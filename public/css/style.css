@@ -300,6 +300,22 @@
         #Maintenance select{ background: none; border: none; width: 250px; padding: 5px 30px 5px 0;  color: #000; font-weight: bold;}
 /* ========= MAINTENANCE STYLES END HERE =========  */
 
+
+/* ========= EXPLOITATION STYLES =========  */
+    #Exploitation { margin-top: 20px; overflow: auto;}
+        #menuExploitation { margin: 20px auto; }
+            #menuExploitation ul {  background: url(/img/bgRedBtn.png);  }
+            #menuExploitation li { display: inline-block; padding: 7px 30px; cursor: pointer;}
+            #menuExploitation li:hover { opacity: .7;}
+            #menuExploitation a{ color: #fff;  
+                text-shadow: 0px -1px 0px #000;
+                filter: dropshadow(color=#000, offx=0, offy=-1);
+            }
+            #menuExploitation #listeResumer {background: url(/img/min-liste.png) no-repeat center;}
+
+        #Maintenance select{ background: none; border: none; width: 250px; padding: 5px 30px 5px 0;  color: #000; font-weight: bold;}
+/* ========= MAINTENANCE STYLES END HERE =========  */
+
 /* ========= COMMERCIAL STYLES ========= */
     .recherche table{float:none; text-align: center;}
     .recherche h2{font-size: 1.350em; margin:10px; text-align: center;}
