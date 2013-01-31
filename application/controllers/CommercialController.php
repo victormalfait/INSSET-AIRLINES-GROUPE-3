@@ -89,8 +89,8 @@ class CommercialController extends Zend_Controller_Action
 
                 //on recupere les informations des aeroports
                 $tableAeroport = new TAeroport;
-                $aeroportDepartsRequest = $tableAeroport->select()->where('id_ville = ?',$formCommercial->getValue('aeroportDepart'));
-                $aeroportArrivesRequest = $tableAeroport->select()->where('id_ville = ?',$formCommercial->getValue('aeroportArrive'));
+                $aeroportDepartsRequest = $tableAeroport->select()->where('trigramme = ?',$formCommercial->getValue('aeroportDepart'));
+                $aeroportArrivesRequest = $tableAeroport->select()->where('trigramme = ?',$formCommercial->getValue('aeroportArrive'));
                 $aeroportDeparts = $tableAeroport->fetchAll($aeroportDepartsRequest);
                 $aeroportArrives = $tableAeroport->fetchAll($aeroportArrivesRequest);
 

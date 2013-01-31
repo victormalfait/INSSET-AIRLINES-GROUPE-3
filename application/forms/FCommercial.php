@@ -9,6 +9,7 @@ class FCommercial extends Zend_Form
         $this->setMethod('post');
         $this->setAction('/commercial/recherche');
         $this->setAttrib('id', 'FCommercial');
+        $this->setAttrib('onsubmit', 'return verifCommercial()');
 
     //=============== creation des decorateurs
         // Descativation des decorateurs par defaut
@@ -228,16 +229,14 @@ class FCommercial extends Zend_Form
         $tableAeroport = new TAeroport;
  
         // on recupere tout les pays
-        $reqAeroport = $tableAeroport   ->select()
-                                        ->from($tableAeroport)
-                                        ->order("nom_aeroport");
+        $reqAeroport = $tableAeroport->select()->order("nom_aeroport");
 
         $aeroport = $tableAeroport->fetchAll($reqAeroport);
 
         // on instancie le resultat en tableau de pays
         $aeroportTab = array();
 
-        $aeroportTab[""] = "-- Choisissez --"; 
+        $aeroportTab["-1"] = "-- Choisissez --"; 
         foreach ($aeroport as $a) {
             $tableAeroport = new TAeroport;
             // on recherche l'aeroport par clé primaire
@@ -245,7 +244,7 @@ class FCommercial extends Zend_Form
                                         ->current();
             $ville = $aeroport->findParentRow('TVille');
 
-            $aeroportTab[$ville->id_ville] = utf8_encode($a->nom_aeroport . '(' . $a->trigramme . ')' . ', ' . $ville->nom_ville);
+            $aeroportTab[$a->trigramme] = utf8_encode($a->nom_aeroport . '(' . $a->trigramme . ')' . ', ' . $ville->nom_ville);
         }
  
         return $aeroportTab;

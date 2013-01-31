@@ -63,3 +63,44 @@ function verif(){
         return true;
     };
 }
+
+function verifCommercial(){
+	var verif = true;
+	var phrase = '';
+    var aeroDep = $('select#aeroportDepart').val();
+    var aeroRet = $('select#aeroportArrive').val();
+    if(aeroDep == -1){
+    	verif = false;
+
+    };
+
+    if(aeroRet == -1){
+    	verif = false;
+    	phrase = 'Vous n\'avez pas choisi d\'aeroport de départ'; 
+    };
+
+    if(aeroRet == aeroDep){
+    	verif = false;
+    	phrase = 'Vous n\'avez pas choisi d\'aeroport de d\'arrivé'; 
+    };
+
+    var dateAller = $('#datepickerdeb').val();
+    var dateRetour = $('#datepickerfin').val();
+    var aller = dateAller.split('-'); 
+    var retour = dateRetour.split('-'); 
+    var x = new Date();
+	var y = x.setFullYear(aller[2],aller[1]-1,aller[0]);
+	var z = x.setFullYear(retour[2],retour[1]-1,retour[0]);
+
+	if(z < y){
+		verif = false;
+		phrase = 'Votre date de retour est avant votre date de départ'; 
+	};
+
+    if (verif) {
+        return true;
+    }else{
+        alert(phrase);
+        return false;
+    };
+}
