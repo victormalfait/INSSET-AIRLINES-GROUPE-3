@@ -324,17 +324,21 @@
     .recherche span { color: #002454; font-weight: bold;}
 
 
-    .vol{border: 1px solid black; width: 150px;}
-    .detailsVol{border: 1px solid black;margin: 20px 0px;}
+    #detailsRecherche{width: 800px; margin: 0 auto;}
+    .detailsVol{border-bottom: 1px solid #D6D6D6; margin: 20px 0px;}
     .detailsVolFils{margin: 30px 30px;}
-    .detailsVolFils h2{margin-top: 10px;color: red;font-weight: bold;}
-    .detailsVolFils span{color:#b1b1b1;margin-bottom: 10px;}
-    .numero_vol{margin-top: 10px;font-size: 0.800em;border: 1px solid black;width: 150px;display: inline-block;vertical-align: top!important;}
-    .lieu{display: inline-block;border: 1px solid black;margin-top: 10px;}
-    .ville{font-weight: bold; color: blue!important;}
-    #detailsRecherche{width: 800px;}
-    #montant{border: 1px solid black;display: inline-block;width: 800px;}
+    .detailsVolFils h2{margin-top: 10px; color: #002454; font-weight: bold;}
+    .detailsVolFils span{color:#b1b1b1; margin-bottom: 10px;}
+    .numero_vol{margin-top: 10px; font-size: 0.9em; width: 150px; display: inline-block; vertical-align: top!important;}
+    .lieu{display: inline-block; font-size: 0.9em; margin-top: 10px;}
+    .ville{font-weight: bold; font-size: 0.9em; color: blue!important;}
+    .detailsLogistique{ font-size: 0.8em; margin-top: 20px;}
+    .detailsLogistiqueFils {display: inline-block; width: 32%;}
+    .detailsLogistiqueFils div { margin: 0; padding: 0; }
+    #montant{display: inline-block; width: 800px;}
     #montant table{width: 100%;}
+
+    .vol{ width: 150px;}
     .formClient{border: 1px solid black;margin: 10px;}
     .detailsAller{border: 1px solid black;margin: 10px;}
     .detailsAller p{margin: 5px;}
