@@ -1,57 +1,16 @@
 <?php setlocale (LC_TIME, 'fr_FR.utf8','fra'); ?>
 <div class="recherche">
-    <form method="POST" action="<?php echo $this->baseUrl('commercial/detailsrecherche');?>" onSubmit="return verif()">
-        <div class="aller">
-            <?php
-                $i = 0;
-                foreach ($this->tabVol as $vol) {
-                    if ($i == 0) {
-                        ?>
-                            <span>Votre vol aller : <?php echo $vol['depart']; ?> à <?php echo $vol['arrive']; ?></span>
-                        <?php
-                    }
-                    $i++;
-                }
+    <?php
+        if (isset($this->tabVol) && $this->tabVol != null) {
             ?>
-            <table>
-                <thead>
-                    <th>Prix</th>
-                    <th>Vol N°</th>
-                    <th>Départ</th>
-                    <th>Arrivée</th>
-                </thead>
-                <tbody>
-                    <?php 
-                        foreach ($this->tabVol as $vol) {
-                            ?>
-                                <tr>
-                                    <td>
-                                        <input type="radio" name="volAller" value="<?php echo $vol['numero_vol'].'/'.$vol['heure_dep'].'/'.$vol['prix'];?>"/>
-                                        <?php echo $vol['prix'].'€'; ?>
-                                    </td>
-
-                                    <td><?php echo $vol['numero_vol']; ?></td>
-
-                                    <td><?php echo strftime("%A %d %B à %H:%M",$vol['heure_dep']); ?></td>
-
-                                    <td><?php echo strftime("%A %d %B à %H:%M",$vol['heure_arr']);?></td>
-                                </tr>
-                            <?php 
-                        }
-                    ?>
-                </tbody>
-            </table>
-        </div>
-        <?php 
-            if(isset($this->tabVolRetour) && $this->tabVolRetour != '') {
-                ?>
-                    <div class="retour">
+                <form method="POST" action="<?php echo $this->baseUrl('commercial/detailsrecherche');?>" onSubmit="return verif()">
+                    <div class="aller">
                         <?php
                             $i = 0;
-                            foreach ($this->tabVolRetour as $volRetour) {
+                            foreach ($this->tabVol as $vol) {
                                 if ($i == 0) {
                                     ?>
-                                        <span>Votre vol retour : <?php echo $volRetour['depart']; ?> à <?php echo $volRetour['arrive']; ?></span>
+                                        <span>Votre vol aller : <?php echo $vol['depart']; ?> à <?php echo $vol['arrive']; ?></span>
                                     <?php
                                 }
                                 $i++;
@@ -66,19 +25,19 @@
                             </thead>
                             <tbody>
                                 <?php 
-                                    foreach ($this->tabVolRetour as $volRetour) {
+                                    foreach ($this->tabVol as $vol) {
                                         ?>
                                             <tr>
                                                 <td>
-                                                    <input type="radio" name="volRetour" value="<?php echo $volRetour['numero_vol'].'/'.$volRetour['heure_dep'].'/'.$volRetour['prix'];?>"/>
-                                                    <?php echo $volRetour['prix'].'€'; ?>
+                                                    <input type="radio" name="volAller" value="<?php echo $vol['numero_vol'].'/'.$vol['heure_dep'].'/'.$vol['prix'];?>"/>
+                                                    <?php echo $vol['prix'].'€'; ?>
                                                 </td>
 
-                                                <td><?php echo $volRetour['numero_vol']; ?></td>
+                                                <td><?php echo $vol['numero_vol']; ?></td>
 
-                                                <td><?php echo strftime("%A %d %B à %H:%M",$volRetour['heure_dep']);?></td>
+                                                <td><?php echo strftime("%A %d %B à %H:%M",$vol['heure_dep']); ?></td>
 
-                                                <td><?php echo strftime("%A %d %B à %H:%M",$volRetour['heure_arr']);?></td>
+                                                <td><?php echo strftime("%A %d %B à %H:%M",$vol['heure_arr']);?></td>
                                             </tr>
                                         <?php 
                                     }
@@ -86,9 +45,65 @@
                             </tbody>
                         </table>
                     </div>
-                <?php 
-            }
-        ?>
-        <input type="submit" name="reserve" value="Valider votre parcours" class="bgRedBtn" />
-    </form>
+                    <?php 
+                        if(isset($this->tabVolRetour) && $this->tabVolRetour != '') {
+                            ?>
+                                <div class="retour">
+                                    <?php
+                                        $i = 0;
+                                        foreach ($this->tabVolRetour as $volRetour) {
+                                            if ($i == 0) {
+                                                ?>
+                                                    <span>Votre vol retour : <?php echo $volRetour['depart']; ?> à <?php echo $volRetour['arrive']; ?></span>
+                                                <?php
+                                            }
+                                            $i++;
+                                        }
+                                    ?>
+                                    <table>
+                                        <thead>
+                                            <th>Prix</th>
+                                            <th>Vol N°</th>
+                                            <th>Départ</th>
+                                            <th>Arrivée</th>
+                                        </thead>
+                                        <tbody>
+                                            <?php 
+                                                foreach ($this->tabVolRetour as $volRetour) {
+                                                    ?>
+                                                        <tr>
+                                                            <td>
+                                                                <input type="radio" name="volRetour" value="<?php echo $volRetour['numero_vol'].'/'.$volRetour['heure_dep'].'/'.$volRetour['prix'];?>"/>
+                                                                <?php echo $volRetour['prix'].'€'; ?>
+                                                            </td>
+
+                                                            <td><?php echo $volRetour['numero_vol']; ?></td>
+
+                                                            <td><?php echo strftime("%A %d %B à %H:%M",$volRetour['heure_dep']);?></td>
+
+                                                            <td><?php echo strftime("%A %d %B à %H:%M",$volRetour['heure_arr']);?></td>
+                                                        </tr>
+                                                    <?php 
+                                                }
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            <?php 
+                        }
+                    ?>
+                    <input type="submit" name="reserve" value="Valider votre parcours" class="bgRedBtn" />
+                </form>
+            <?php
+        }
+        else {
+            ?>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <span>Il n'y a aucun vol de prévu pour cette destination</span>
+            <?php
+        }
+    ?>
 </div>
