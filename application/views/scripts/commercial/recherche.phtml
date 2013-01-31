@@ -1,9 +1,14 @@
-<?php setlocale (LC_TIME, 'fr_FR.utf8','fra'); ?>
+<?php setlocale (LC_TIME, 'fr_FR.utf8','fra'); 
+if(isset($this->tabVolRetour) && $this->tabVolRetour != '') {
+    $variable = 1;
+}else{
+    $variable = 2;
+}?>
 <div class="recherche">
     <?php
         if (isset($this->tabVol) && $this->tabVol != null) {
             ?>
-                <form method="POST" action="<?php echo $this->baseUrl('commercial/detailsrecherche');?>" onSubmit="return verif()">
+                <form method="POST" action="<?php echo $this->baseUrl('commercial/detailsrecherche');?>" onSubmit="return verif(<?php echo $variable;?>)">
                     <div class="aller">
                         <?php
                             $i = 0;

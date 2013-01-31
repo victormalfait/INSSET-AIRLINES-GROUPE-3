@@ -51,17 +51,37 @@ $(document).ready( function() {
 }); //Eof:: sur changement de l'un des 'select'
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-function verif(){
-    var volAller = $('input[type=radio][name=volAller]:checked').attr('value');
-    var volRetour = $('input[type=radio][name=volRetour]:checked').attr('value');
-    var aller = volAller.split('/'); 
-    var retour = volRetour.split('/'); 
-    if (aller[1] >= retour[1]) {
-        alert('Votre vol retour se situe avant le vol aller.\nChoissez une autre combinaison de vol');
-        return false;
-    }else{
+function verif(variable){
+	var verif = true;
+	var volAller = $('input[type=radio][name=volAller]:checked').attr('value');
+	if (volAller == undefined) {
+		verif = false;
+	    alert('Sélectionnez un vol aller.');
+	}else{
+		if(variable == 1){
+			var volRetour = $('input[type=radio][name=volRetour]:checked').attr('value');
+
+			if (volRetour == undefined) {
+		    	verif = false;
+		    	alert('Sélectionnez un vol retour.');
+		    }else{
+		    	var retour = volRetour.split('/');
+		    	var aller = volAller.split('/'); 
+		    	if (aller[1] >= retour[1]) {
+			        alert('Votre vol retour se situe avant le vol aller.\nChoissez une autre combinaison de vol');
+			        verif = false;
+			    };
+		    };	    
+		};
+	};
+
+	
+
+	if (verif) {
         return true;
-    };
+    }else{
+        return false;
+    };    
 }
 
 function verifCommercial(){
