@@ -13,8 +13,8 @@
 		<?php foreach ($this->reservation as $reservation) {?>
 			<tr>
 				<td><?php echo $reservation['numero_vol'];?></td>
-				<td><?php echo $reservation['depart'];?></td>
-				<td><?php echo $reservation['arrive'];?></td>
+				<td><?php echo utf8_encode($reservation['depart']);?></td>
+				<td><?php echo utf8_encode($reservation['arrive']);?></td>
 				<td><?php echo date("d/m/Y à H\hi",$reservation['heure_dep']);?></td>
 				<td><?php echo $reservation['duree'];?></td>
 				<td><?php echo $reservation['nbr_passager'];?></td>

@@ -15,11 +15,11 @@
 			foreach ($this->vol as $vol) {?>
 			<tr>
 				<td><?php echo $vol['numero_vol']; ?></td>
-				<td><?php echo $vol['depart']; ?></td>
-				<td><?php echo $vol['arrive']; ?></td>
-				<td><?php echo $vol['pilotes']; ?></td>
-				<td><?php echo $vol['avion']; ?></td>
-				<td><?php echo $vol['remarque'] ?></td>
+				<td><?php echo utf8_encode($vol['depart']); ?></td>
+				<td><?php echo utf8_encode($vol['arrive']); ?></td>
+				<td><?php echo utf8_encode($vol['pilotes']); ?></td>
+				<td><?php echo utf8_encode($vol['avion']); ?></td>
+				<td><?php echo utf8_encode($vol['remarque']); ?></td>
 			</tr>				
 			<?php }?>
 		</tbody>

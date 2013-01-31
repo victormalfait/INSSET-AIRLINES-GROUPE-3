@@ -41,12 +41,12 @@
 									?>
 										<tr onclick="document.location.href='<?php echo $this->baseUrl('ressourcehumaine/detail/id/' . $utilisateur->id_utilisateur); ?>'" title="Cliquer sur la ligne pour visiter le detail de l'utilisateur" class="lien">
 											<td><?php echo $utilisateur->id_utilisateur; ?></td>
-											<td><?php echo $utilisateur->nom_utilisateur . ' ' . $utilisateur->prenom_utilisateur; ?></td>
+											<td><?php echo utf8_encode($utilisateur->nom_utilisateur . ' ' . $utilisateur->prenom_utilisateur); ?></td>
 											<td>
-												<?php echo $utilisateur->adresse_utilisateur; ?><br />
-												<?php echo $utilisateur->cp_utilisateur . ' - ' . $utilisateur->ville_utilisateur; ?>
+												<?php echo utf8_encode($utilisateur->adresse_utilisateur); ?><br />
+												<?php echo $utilisateur->cp_utilisateur . ' - ' . utf8_encode($utilisateur->ville_utilisateur); ?>
 											</td>
-											<td><?php echo $service->nom; ?></td>
+											<td><?php echo utf8_encode($service->nom); ?></td>
 											<td><a href="#editEmploye" rel="popup_editEmploye_<?php echo $utilisateur->id_utilisateur;?>" class="poplight poplightedit" title="Modifier"><button class="modifier">modifier</button></a></td>
 											<td><a href="<?php echo $this->baseUrl('ressourcehumaine/supprimer/id/' . $utilisateur->id_utilisateur); ?>" title="Supprimer"><button class="supprimer">supprimer</button></a></td>
 										</tr>
