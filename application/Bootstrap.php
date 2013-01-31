@@ -62,7 +62,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                             ->appendStylesheet('/css/smoothness/jquery-ui-1.9.2.custom.css')
                             ->appendStylesheet('/css/style.css')
                             ->appendStylesheet('/css/rouleau.css')
-                            ->appendStylesheet('/css/commercial.css')
                             ->appendStylesheet('/css/overlay.css');
 	    // javascript
 		$view->headScript()	->appendFile('/js/Jquery/jquery-1.8.3.js')					/////////////

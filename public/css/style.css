@@ -19,7 +19,7 @@
     
     .submit {display: none;}
     form li {padding: 5px 0;}
-    .bgRedBtn { background: url(/img/bgRedBtn.png); border: none; padding: 5px 30px; color: #fff; float: right; 
+    .bgRedBtn { background: url(/img/bgRedBtn.png); border: none; padding: 5px 30px; color: #fff; float: right;  cursor: pointer;
         text-shadow: 0px -1px 0px #000;
         filter: dropshadow(color=#000, offx=0, offy=-1);
     }
@@ -44,7 +44,7 @@
         .header { width: 980px; margin: 0 auto;}
         .header div { display: inline-block; }
         #headerInfo { width: 740px;}
-        #headerInfo h1{ font-size: 2em; margin: 10px; color: #002454; text-transform: uppercase; font-weight: bold;}
+        #headerInfo h1 a{ font-size: 2em; margin: 10px; color: #002454; text-transform: uppercase; font-weight: bold;}
 /* ========= HEADER STYLES END HERE========== */
 
 
@@ -174,7 +174,7 @@
                -moz-border-radius: 5px;
                     border-radius: 5px;
         }
-        thead { background-color: #C8C8C8; color: #002454; font-weight: bold; border: 1px solid #cec2aa;
+        th { background-color: #C8C8C8; color: #002454; font-weight: bold;
             -webkit-border-radius: 3px 3px 0px 0px;
                -moz-border-radius: 3px 3px 0px 0px;
                     border-radius: 3px 3px 0px 0px;
@@ -298,4 +298,29 @@
             #menuMaintenance #ajouter {background: url(/img/min-ajoute.png) no-repeat center; text-indent: -9999px;}
 
         #Maintenance select{ background: none; border: none; width: 250px; padding: 5px 30px 5px 0;  color: #000; font-weight: bold;}
-/* ========= MAINTENANCE STYLES END HERE =========  
+/* ========= MAINTENANCE STYLES END HERE =========  */
+
+/* ========= COMMERCIAL STYLES ========= */
+    .recherche table{float:none; text-align: center;}
+    .recherche h2{font-size: 1.350em; margin:10px; text-align: center;}
+    .aller{border: 1px solid black;}
+    .retour{border: 1px solid black;}
+
+
+    .vol{border: 1px solid black; width: 150px;}
+    .detailsVol{border: 1px solid black;margin: 20px 0px;}
+    .detailsVolFils{margin: 30px 30px;}
+    .detailsVolFils h2{margin-top: 10px;color: red;font-weight: bold;}
+    .detailsVolFils span{color:#b1b1b1;margin-bottom: 10px;}
+    .numero_vol{margin-top: 10px;font-size: 0.800em;border: 1px solid black;width: 150px;display: inline-block;vertical-align: top!important;}
+    .lieu{display: inline-block;border: 1px solid black;margin-top: 10px;}
+    .ville{font-weight: bold; color: blue!important;}
+    #detailsRecherche{width: 800px;}
+    #montant{border: 1px solid black;display: inline-block;width: 800px;}
+    #montant table{width: 100%;}
+    .formClient{border: 1px solid black;margin: 10px;}
+    .detailsAller{border: 1px solid black;margin: 10px;}
+    .detailsAller p{margin: 5px;}
+    .detailsRetour{border: 1px solid black;margin: 10px;}
+    .detailsRetour p{margin: 5px;}
+/* ========= COMMERCIAL STYLES END HERE ========= */

@@ -1,67 +1,118 @@
-<?php setlocale (LC_TIME, 'fr_FR','fra'); ?>
+<?php setlocale (LC_TIME, 'fr_FR.utf8','fra'); ?>
 <div class="recherche">
     <form method="POST" action="<?php echo $this->baseUrl('commercial/detailsrecherche');?>" onSubmit="return verif()">
-        <input type="hidden" name="victor" value="victor"/>
         <div class="aller">
-            <div class="titre">
-                <h2>Vol aller</h2>
-            </div>  
+            <?php
+                $i = 0;
+                foreach ($this->tabVol as $vol) {
+                    if ($i == 0) {
+                        echo 'Votre vol aller : ' . $vol['depart'] . ' à ' . $vol['arrive'];
+                    }
+                    $i++;
+                }
+            ?>
             <table>
                 <thead>
-                    <th>Numero vol</th>
+                    <th>Prix</th>
+                    <th>Vol N°</th>
                     <th>Départ</th>
                     <th>Arrivée</th>
-                    <th>Prix</th>
-                    <th>Réserver</th>
+                    <th>Durée</th>
                 </thead>
                 <tbody>
-                    <?php foreach ($this->tabVol as $vol) {?>
-                        <tr>
-                            <td><?php echo $vol['numero_vol']; ?></td>
+                    <?php 
+                        foreach ($this->tabVol as $vol) {
+                            $d = date('Y-m-d H:i:s', $vol['heure_dep']);
+                            $a = date('Y-m-d H:i:s', $vol['heure_arr']);
+                            $dep = new DateTime($d);
+                            $arr = new DateTime($a);
+                            $duree = $dep->diff($arr);
+                            ?>
+                                <tr>
+                                    <td>
+                                        <input type="radio" name="volAller" value="<?php echo $vol['numero_vol'].'/'.$vol['heure_dep'].'/'.$vol['prix'];?>"/>
+                                        <?php echo $vol['prix'].'€'; ?>
+                                    </td>
 
-                            <td><?php echo $vol['depart'].' le '.strftime("%A %d %B %H:%M",$vol['heure_dep']); ?></td>
+                                    <td><?php echo $vol['numero_vol']; ?></td>
 
-                            <td><?php echo $vol['arrive'].' le '.strftime("%A %d %B %H:%M",$vol['heure_arr']);?></td>
+                                    <td><?php echo strftime("%A %d %B à %H:%M",$vol['heure_dep']); ?></td>
 
-                            <td><?php echo $vol['prix'].'€'; ?></td>
+                                    <td><?php echo strftime("%A %d %B à %H:%M",$vol['heure_arr']);?></td>
 
-                            <td><input type="radio" name="volAller" value="<?php echo $vol['numero_vol'].'/'.$vol['heure_dep'].'/'.$vol['prix'];?>"/></td>
-                        </tr>
-                    <?php }?>
+                                    <td>
+                                        <?php echo $duree->h . ':' . $duree->i; ?>
+                                        <?php
+                                            if ($duree->d > 0) {
+                                                echo '+' . $duree->d .'Jour';
+                                            }
+                                        ?>
+                                    </td>
+                                </tr>
+                            <?php 
+                        }
+                    ?>
                 </tbody>
             </table>
         </div>
-        <?php if(isset($this->tabVolRetour) && $this->tabVolRetour != ''){?>
-            <div class="retour">
-                <div class="titre">
-                    <h2>Vol retour</h2>
-                </div>
-                <table>
-                    <thead>
-                        <th>Numero vol</th>
-                        <th>Départ</th>
-                        <th>Arrivée</th>
-                        <th>Prix</th>
-                        <th>Réserver</th>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($this->tabVolRetour as $volRetour) {?>
-                            <tr>
-                                <td><?php echo $volRetour['numero_vol']; ?></td>
+        <?php 
+            if(isset($this->tabVolRetour) && $this->tabVolRetour != '') {
+                $i = 0;
+                foreach ($this->tabVolRetour as $volRetour) {
+                    if ($i == 0) {
+                        echo 'Votre vol retour : ' . $volRetour['depart'] . ' à ' . $volRetour['arrive'];
+                    }
+                    $i++;
+                }
+                ?>
+                    <div class="retour">
+                        <table>
+                            <thead>
+                                <th>Prix</th>
+                                <th>Vol N°</th>
+                                <th>Départ</th>
+                                <th>Arrivée</th>
+                                <th>Durée</th>
+                            </thead>
+                            <tbody>
+                                <?php 
+                                    foreach ($this->tabVolRetour as $volRetour) {
+                                        $d = date('Y-m-d H:i:s', $volRetour['heure_dep']);
+                                        $a = date('Y-m-d H:i:s', $volRetour['heure_arr']);
+                                        $dep = new DateTime($d);
+                                        $arr = new DateTime($a);
+                                        $duree = $dep->diff($arr);
+                                        ?>
+                                            <tr>
+                                                <td>
+                                                    <input type="radio" name="volRetour" value="<?php echo $volRetour['numero_vol'].'/'.$volRetour['heure_dep'].'/'.$volRetour['prix'];?>"/>
+                                                    <?php echo $volRetour['prix'].'€'; ?>
+                                                </td>
 
-                                <td><?php echo $volRetour['depart'].' le '.strftime("%A %d %B %H:%M",$volRetour['heure_dep']);?></td>
+                                                <td><?php echo $volRetour['numero_vol']; ?></td>
 
-                                <td><?php echo $volRetour['arrive'].' le '.strftime("%A %d %B %H:%M",$volRetour['heure_arr']);?></td>
+                                                <td><?php echo strftime("%A %d %B à %H:%M",$volRetour['heure_dep']);?></td>
 
-                                <td><?php echo $volRetour['prix'].'€'; ?></td>
+                                                <td><?php echo strftime("%A %d %B à %H:%M",$volRetour['heure_arr']);?></td>
 
-                                <td><input type="radio" name="volRetour" value="<?php echo $volRetour['numero_vol'].'/'.$volRetour['heure_dep'].'/'.$volRetour['prix'];?>"/></td>
-                            </tr>
-                        <?php }?>
-                    </tbody>
-                </table>
-            </div>
-        <?php }?>
-        <input type="submit" name="reserve" value="Réserver" />
+                                                <td>
+                                                    <?php echo $duree->h . ':' . $duree->i; ?>
+                                                    <?php
+                                                        if ($duree->d > 0) {
+                                                            echo '+' . $duree->d .'Jour';
+                                                        }
+                                                    ?>
+                                                </td>
+                                            </tr>
+                                        <?php 
+                                    }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                <?php 
+            }
+        ?>
+        <input type="submit" name="reserve" value="Valider votre parcours" class="bgRedBtn" />
     </form>
 </div>
