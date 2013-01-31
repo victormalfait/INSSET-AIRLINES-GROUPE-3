@@ -339,7 +339,16 @@
     #montant table{width: 100%;}
 
     .vol{ width: 150px;}
-    .formClient{border: 1px solid black;margin: 10px;}
+    .formClient {margin: 10px; margin: 0 auto;}
+    .formClient dd {display: inline-block; width: 240px; margin:20px; }
+    .formClient legend { color: #002454; font-weight: bold; font-size: 0.9em;}
+    .formClient dl div { display: inline-block;}
+    .formClient label { color: #002454;font-weight: bold;font-size: 0.8em; clear: right; }
+    .formClient .jour { width: 25px;}
+    .formClient .mois { width: 80px;}
+    .formClient .annee { width: 40px;}
+    .formClient .repas { width: 100px;}
+    .formClient .bgRedBtn { }
     .detailsAller{border: 1px solid black;margin: 10px;}
     .detailsAller p{margin: 5px;}
     .detailsRetour{border: 1px solid black;margin: 10px;}
