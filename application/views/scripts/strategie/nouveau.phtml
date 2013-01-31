@@ -11,7 +11,12 @@
 <!-- popup nouveau vol -->
 <div id="popup_editVol_<?php echo $this->id_destination;?>" class="popup_block rouleau-fenetre">
 	<header class="rouleau-fenetre-titre">
-		<span><?php echo $this->translate('Création d\'un Vol')?></span>
+		<?php if(isset($this->id_destination) && $this->id_destination != ''){
+			echo '<span>'.$this->translate('Modification d\'une ligne').'</span>';
+		}else{
+			echo '<span>'.$this->translate('Création d\'une ligne').'</span>';
+		}?>
+		
 	</header>
 	<section class="rouleau-fenetre-section">
 				<a href="#?editvol" rel="popup_ajouterPays" class="poplight"><button class="ajouter_pays">Ajouter un pays</button></a>
