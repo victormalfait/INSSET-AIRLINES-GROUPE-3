@@ -107,7 +107,7 @@ class FNouveauvol extends Zend_Form
 
 		// Périodicité
 			$ePeriodicite = new Zend_Form_Element_Select('periodicite');
-			$ePeriodicite	->setLabel('periodicite : ')
+			$ePeriodicite	->setLabel('Périodicité : ')
 							->setMultiOptions( array( 'Vol unique'	=> 'Vol unique'
 													, 'Lundi'		=> 'Lundi'
 													, 'Mardi'		=> 'Mardi'
