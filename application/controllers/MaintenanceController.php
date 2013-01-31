@@ -2,6 +2,7 @@
 
 class MaintenanceController extends Zend_Controller_Action
 {
+	//Affiche la liste des maintenance
 	public function indexAction()
     {
     	$tableAvion = new TAvion;
@@ -55,19 +56,24 @@ class MaintenanceController extends Zend_Controller_Action
 		$this->view->avion 		= $listeavion;
 		
     }
+
+    //Affiche un calendrier sur 8 semaines
     public function afficherAction()
     {
     	$tableMaintenance 	= new TMaintenance;
 		$maintenance 		= $tableMaintenance->fetchAll();
 
+		//Recupere le jour , le mois , et l'année actuel
         $jour_now  			= $this->view->jour_actuel  = date('j', time());
         $mois_now  			= $this->view->mois_actuel  = date('m', time());
         $annee_now  		= $this->view->annee_actuel	= date('Y', time());
 
 		$nb_jour_now 		= date('t', time());
 
+		//Initialise les jours
 		$this->view->DayNames = array( "Dim","Lun","Mar","Mer","Jeu","Ven","Sam");
 
+		//Initialise les mois
 		$this->view->NameMois = array("01" => "Janvier"
 									, "02" => "Fevrier"
 									, "03" => "Mars"
@@ -81,6 +87,7 @@ class MaintenanceController extends Zend_Controller_Action
 						            , "11" =>"Novembre"
 						            , "12" =>"Decembre");
 
+		//Boucle sur chaque maintenance prevue
 		foreach ($maintenance as $listmaintenance) { 
 
 			// Date de chaque maintenance
@@ -91,12 +98,13 @@ class MaintenanceController extends Zend_Controller_Action
             $nb_jour_maintenance    = date('t', $date_prevue);
             $duree_maintenance      = $listmaintenance['duree_prevue'];
 
+            //Ajoute le nombre de jours dans le mois 
 			$calendrier[$annee_maintenance][$mois_maintenance]['nbjours'][0] = $nb_jour_maintenance;
 			$conteur = 0;
 
-			$jourcalendrier = $jour_maintenance;//30
+			$jourcalendrier = $jour_maintenance;
 
-			for ($i=1; $i <= $duree_maintenance; $i++) { //10
+			for ($i=1; $i <= $duree_maintenance; $i++) { 
 
 				// Redefinie le jour , mois et l'année si on depasser la fin du mois
 				if ( $jourcalendrier > $nb_jour_maintenance ){
@@ -167,9 +175,6 @@ class MaintenanceController extends Zend_Controller_Action
 
 								$verif = true;
 
-								// echo '1<br/>';
-								// echo $debut.' - '.$datedeb.' <= '.$fin.' <br/> '.$debut.' <= '.$datefin.' <= '.$fin;
-								// echo '<br/>';
 							}
 							else {
 								$verif = false;
@@ -186,6 +191,7 @@ class MaintenanceController extends Zend_Controller_Action
 
 							$immatriculation 		= $this->_getParam('immatriculation');
 
+							//Crée un tableau et on ajoute tout les valeurs a changer dans la base de donnée
 			            	$row 					= $tableMaintenance->createRow(); 
 							$row->immatriculation  	= $immatriculation;
 							$row->date_prevue 	 	= $datedeb;
@@ -194,9 +200,11 @@ class MaintenanceController extends Zend_Controller_Action
 							$row->duree_eff 	 	= 0;
 							$row->note 	 			= $_POST['note'];
 
+							// Savegarde les changements
 			                $row->save();
 			                $formMaintenance->reset();
 
+			                //redirection a l'index de la mantenance
 			                $redirector = $this->_helper->getHelper('Redirector');
 			                $redirector->gotoUrl('maintenance/index');
 						}
@@ -450,7 +458,7 @@ class MaintenanceController extends Zend_Controller_Action
 
 	}
 
-
+	//Menu de la maintenance
 	public function menumaintenanceAction(){
 	}
     

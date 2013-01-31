@@ -7,7 +7,10 @@ class RestserverController extends Zend_Controller_Action
     
     public function init() {
 
+        //Initialise Le REST
         $this->_server = new Zend_Rest_Server();
+
+        // Desactive tout le HTML pour qui ne reste que le XML en sortie
         $this->_helper->viewRenderer->setNoRender();
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);
@@ -16,6 +19,7 @@ class RestserverController extends Zend_Controller_Action
 
     public function indexAction() {
 
+        // Ajoute la Classe VolsClass au service REST
         $this->_server->setClass('VolsClass');
         $this->_server->handle();
     }
@@ -23,6 +27,7 @@ class RestserverController extends Zend_Controller_Action
 
 class VolsClass {
 
+    //Recupere tous les vols qui son programmer 
     public function allVols() {
 
         //  http://inssetairline.fr/restserver/index?method=allVols

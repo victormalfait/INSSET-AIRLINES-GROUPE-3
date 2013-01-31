@@ -14,27 +14,30 @@ class LogistiqueController extends Zend_Controller_Action
         $tab_vol = array();
         $count = 0;
 
+        //Boucle sur chaque vols
 		foreach ($vols as $vol) {
-            $tableDestination = new TDestination;
-            $destination = $tableDestination->find($vol->id_destination)->current();
 
-            $tableAeroport = new TAeroport;
-            $aeroport = $tableAeroport->find($destination->tri_aero_dep)->current();
-            $aeroportBis = $tableAeroport->find($destination->tri_aero_arr)->current();
+            // Recupere chaque information du vols
+                $tableDestination = new TDestination;
+                $destination = $tableDestination->find($vol->id_destination)->current();
 
-            $tableVille = new TVille;
-            $ville = $tableVille->find($aeroport->id_ville)->current();
-            $villeBis = $tableVille->find($aeroportBis->id_ville)->current();
+                $tableAeroport = new TAeroport;
+                $aeroport = $tableAeroport->find($destination->tri_aero_dep)->current();
+                $aeroportBis = $tableAeroport->find($destination->tri_aero_arr)->current();
 
-            $tablePays = new TPays;
-            $pays = $tablePays->find($ville->id_pays)->current();
-            $paysBis = $tablePays->find($villeBis->id_pays)->current();
+                $tableVille = new TVille;
+                $ville = $tableVille->find($aeroport->id_ville)->current();
+                $villeBis = $tableVille->find($aeroportBis->id_ville)->current();
 
-            $tableAvion = new TAvion;
-            $avion = $tableAvion->find($vol->immatriculation)->current();
+                $tablePays = new TPays;
+                $pays = $tablePays->find($ville->id_pays)->current();
+                $paysBis = $tablePays->find($villeBis->id_pays)->current();
 
-            $tableModelAvion = new TModelAvion;
-            $modelAvion = $tableModelAvion->find($avion->id_model)->current();
+                $tableAvion = new TAvion;
+                $avion = $tableAvion->find($vol->immatriculation)->current();
+
+                $tableModelAvion = new TModelAvion;
+                $modelAvion = $tableModelAvion->find($avion->id_model)->current();
 
 			$tab_vol[$count]['total_reservation'] = 0;
 
@@ -47,8 +50,7 @@ class LogistiqueController extends Zend_Controller_Action
 				$tab_vol[$count]['total_reservation'] = $tab_vol[$count]['total_reservation'] + $reservation['nbr_passager'];
             }
 
-            $tableModelAvion = new TModelAvion;
-
+            // reunie toute les informations dans un seul meme tableau
             $tab_vol[$count]['numero_vol']              = $destination->numero_vol;
 
             $tab_vol[$count]['heur_depart']             = $vol->heure_dep;
