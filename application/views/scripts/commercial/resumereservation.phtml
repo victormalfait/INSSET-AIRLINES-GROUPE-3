@@ -1,15 +1,16 @@
-<?php  $reservation = $this->reservation;
-$reservation_retour = $this->reservationRetour;
+<?php  
+	$reservation 		= $this->reservation;
+	$reservation_retour = $this->reservationRetour;
 ?>
-<div>
+<div id="resumeReservation">
 	<div class="detailsAller">
-		<p>Vous venez de réserver un vol <?php echo $reservation['trajet'];?> au départ de <?php echo $reservation['depart'];?> à destination de <?php echo $reservation['arrive'];?></p>
-		<p>Vous décolerez à <?php echo date('H\hi',$reservation['heure_dep']).' le '.date('d/m/Y',$reservation['heure_dep']);?> (Durée estimée à <?php echo $reservation['duree'];?>).</p>
-		<p>Vous avez réservé pour <?php echo $reservation['nbrPassager'];?> personne(s) pour un total de <?php echo intval($reservation['prix']);?>€.</p>
+		<p>Vous venez de réserver un vol <span><?php echo $reservation['trajet'];?></span> au départ de <span><?php echo $reservation['depart'];?></span> à destination de <span><?php echo $reservation['arrive'];?></span></p><br/>
+		<p>Vous décolerez à <span><?php echo date('H\hi',$reservation['heure_dep']).' le '.date('d/m/Y',$reservation['heure_dep']);?></span> (Durée estimée à <span><?php echo $reservation['duree'];?></span>).</p><br/>
+		<p>Vous avez réservé pour <span><?php echo $reservation['nbrPassager'];?></span> personne(s) pour un total de <span><?php echo intval($reservation['prix']);?>€</span>.</p>
 	</div>
 	<?php if(isset($reservation_retour) && $reservation_retour != ''){?>
 		<div class="detailsRetour">
-			<p>Vous décolerez au retour à <?php echo date('H\hi',$reservation_retour['heure_dep']).' le '.date('d/m/Y',$reservation_retour['heure_dep']);?> (Durée estimée à <?php echo $reservation_retour['duree'];?>).</p>
+			<p>Vous décolerez au retour à <span><?php echo date('H\hi',$reservation_retour['heure_dep']).' le '.date('d/m/Y',$reservation_retour['heure_dep']);?></span> (Durée estimée à <span><?php echo $reservation_retour['duree'];?></span>).</p>
 		</div>
 	<?php }?>
 	

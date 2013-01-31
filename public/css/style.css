@@ -193,6 +193,7 @@
 
 /* ========= RESSOURCE HUMAINE STYLES =========  */
     #RessourceHumaine { margin-top: 20px; overflow: auto;}
+    #RessourceHumaine table{ width: 600px;}
         #menuRH { margin: 20px auto; }
             #menuRH ul {  background: url(/img/bgRedBtn.png);  }
             #menuRH li { display: inline-block; padding: 7px 30px; text-indent: -9999px; cursor: pointer;}
@@ -348,9 +349,9 @@
     .formClient .mois { width: 80px;}
     .formClient .annee { width: 40px;}
     .formClient .repas { width: 100px;}
-    .formClient .bgRedBtn { }
-    .detailsAller{border: 1px solid black;margin: 10px;}
-    .detailsAller p{margin: 5px;}
-    .detailsRetour{border: 1px solid black;margin: 10px;}
-    .detailsRetour p{margin: 5px;}
+
+    #resumeReservation { width: 600px; margin: 20px auto; font-size: 0.9em; }
+    #resumeReservation span{ color: #002454; font-weight: bold; font-size: 1.05em; }
+    .detailsAller, .detailsRetour {border-bottom: 1px solid #D6D6D6; padding: 10px 0;}
+    .detailsAller, .detailsRetour  p{ margin: 5px;}
 /* ========= COMMERCIAL STYLES END HERE ========= */
