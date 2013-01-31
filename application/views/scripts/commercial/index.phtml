@@ -1,12 +1,16 @@
 <script>
     $(function() {
-        $( "#datepickerdeb" ).datepicker({dateFormat :'dd-mm-yy', minDate: 0});
+        var c = new Date();
+        var date = c.getDate()+'-'+(c.getMonth()+1)+'-'+c.getFullYear();
+        $( "#datepickerdeb" ).datepicker({dateFormat :'d-m-yy', minDate: 0, numberOfMonths: 2, showButtonPanel: true}).val(date);
+        $("#datepickerfin").datepicker({dateFormat :'d-m-yy', minDate: 0, numberOfMonths: 2, showButtonPanel: true}).val(date);
         $("#datepickerdeb").change(function(){
             var d = $("#datepickerdeb").datepicker('getDate');
         
             var n = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+            var m = d.getDate()+'-'+(d.getMonth()+1)+'-'+d.getFullYear();
      
-            $("#datepickerfin").datepicker({dateFormat :'d-m-y', minDate: n});
+            $("#datepickerfin").datepicker({dateFormat :'d-m-yy', minDate: n, numberOfMonths: 2, showButtonPanel: true}).val(m);
         });
     });
     $(function() {

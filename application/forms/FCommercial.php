@@ -71,12 +71,12 @@ class FCommercial extends Zend_Form
         $eDatedeb = new Zend_Form_Element_Text('datepickerdeb');
         $eDatedeb   ->setLabel('Date aller')
                     ->setRequired(true)
-                    ->setAttrib('size', '7')
+                    ->setAttrib('size', '10')
                     ->setDecorators($decoratorsBis);
 
         $eDatefin = new Zend_Form_Element_Text('datepickerfin');
         $eDatefin   ->setLabel('Date retour')
-                    ->setAttrib('size', '7')
+                    ->setAttrib('size', '10')
                     ->setDecorators($decoratorsBis);
 
         $nbr=array();
