@@ -6,7 +6,9 @@
                 $i = 0;
                 foreach ($this->tabVol as $vol) {
                     if ($i == 0) {
-                        echo 'Votre vol aller : ' . $vol['depart'] . ' à ' . $vol['arrive'];
+                        ?>
+                            <span>Votre vol aller : <?php echo $vol['depart']; ?> à <?php echo $vol['arrive']; ?></span>
+                        <?php
                     }
                     $i++;
                 }
@@ -17,16 +19,10 @@
                     <th>Vol N°</th>
                     <th>Départ</th>
                     <th>Arrivée</th>
-                    <th>Durée</th>
                 </thead>
                 <tbody>
                     <?php 
                         foreach ($this->tabVol as $vol) {
-                            $d = date('Y-m-d H:i:s', $vol['heure_dep']);
-                            $a = date('Y-m-d H:i:s', $vol['heure_arr']);
-                            $dep = new DateTime($d);
-                            $arr = new DateTime($a);
-                            $duree = $dep->diff($arr);
                             ?>
                                 <tr>
                                     <td>
@@ -39,15 +35,6 @@
                                     <td><?php echo strftime("%A %d %B à %H:%M",$vol['heure_dep']); ?></td>
 
                                     <td><?php echo strftime("%A %d %B à %H:%M",$vol['heure_arr']);?></td>
-
-                                    <td>
-                                        <?php echo $duree->h . ':' . $duree->i; ?>
-                                        <?php
-                                            if ($duree->d > 0) {
-                                                echo '+' . $duree->d .'Jour';
-                                            }
-                                        ?>
-                                    </td>
                                 </tr>
                             <?php 
                         }
@@ -57,31 +44,29 @@
         </div>
         <?php 
             if(isset($this->tabVolRetour) && $this->tabVolRetour != '') {
-                $i = 0;
-                foreach ($this->tabVolRetour as $volRetour) {
-                    if ($i == 0) {
-                        echo 'Votre vol retour : ' . $volRetour['depart'] . ' à ' . $volRetour['arrive'];
-                    }
-                    $i++;
-                }
                 ?>
                     <div class="retour">
+                        <?php
+                            $i = 0;
+                            foreach ($this->tabVolRetour as $volRetour) {
+                                if ($i == 0) {
+                                    ?>
+                                        <span>Votre vol retour : <?php echo $volRetour['depart']; ?> à <?php echo $volRetour['arrive']; ?></span>
+                                    <?php
+                                }
+                                $i++;
+                            }
+                        ?>
                         <table>
                             <thead>
                                 <th>Prix</th>
                                 <th>Vol N°</th>
                                 <th>Départ</th>
                                 <th>Arrivée</th>
-                                <th>Durée</th>
                             </thead>
                             <tbody>
                                 <?php 
                                     foreach ($this->tabVolRetour as $volRetour) {
-                                        $d = date('Y-m-d H:i:s', $volRetour['heure_dep']);
-                                        $a = date('Y-m-d H:i:s', $volRetour['heure_arr']);
-                                        $dep = new DateTime($d);
-                                        $arr = new DateTime($a);
-                                        $duree = $dep->diff($arr);
                                         ?>
                                             <tr>
                                                 <td>
@@ -94,15 +79,6 @@
                                                 <td><?php echo strftime("%A %d %B à %H:%M",$volRetour['heure_dep']);?></td>
 
                                                 <td><?php echo strftime("%A %d %B à %H:%M",$volRetour['heure_arr']);?></td>
-
-                                                <td>
-                                                    <?php echo $duree->h . ':' . $duree->i; ?>
-                                                    <?php
-                                                        if ($duree->d > 0) {
-                                                            echo '+' . $duree->d .'Jour';
-                                                        }
-                                                    ?>
-                                                </td>
                                             </tr>
                                         <?php 
                                     }

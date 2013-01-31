@@ -145,28 +145,6 @@
 /* ========= ACCUEIL STYLES END HERE =========  */
 
 
-/* ========= RESERVATION STYLES =========  */
-    #reservation { margin: 30px; position: relative;}
-        .bgRed { background: url(/img/bg_menu_red.png); position: absolute; z-index: 1; width: 236px; height: 50px;}
-        .bgRed span { color: #fff; font-weight: bold; position: absolute; top: 15px; left: 60px; }
-        .reservation { position: absolute; left: 210px; background-color: #F7F8FC; opacity: .9; border: 2px solid #AFAFAF; width: 700px; 
-            -webkit-box-shadow: 2px 2px 10px 2px #000;
-               -moz-box-shadow: 2px 2px 10px 2px #000;
-                    box-shadow: 2px 2px 10px 2px #000;
-        }
-        .reservation li { display: inline-block; color: #002454; font-weight: bold; font-size: .8em; }
-        .reservation ul { margin: 0 0 0 60px; }
-        .reservation fieldset{border-top: 1px solid #D6D6D6; margin: 0 20px 0 0;}
-        .reservation #fieldset-deux { border: none;}
-        .reservation #quatre-element { float: left; }
-        .reservation #quatre-element fieldset { padding: 0; margin: 0;}
-        .reservation #quatrebis-element { float: right; }
-        .reservation #fieldset-quatreBis { padding: 10px 0 0 40px;}
-        .reservation #cinq-element { /*clear: both;*/overflow: auto; width: 142px; clear: left; float: left;}
-        .reservation #six-element { clear: both;}
-        .reservation legend {}
-/* ========= RESERVATION STYLES END HERE =========  */
-
 /* ========= TABLEAU STYLES =========  */
         .tableVide { margin: 3px; text-align: center; }
         table { text-align: center; border: 1px solid #C8C8C8; float: left;
@@ -314,13 +292,36 @@
             #menuExploitation #listeResumer {background: url(/img/min-liste.png) no-repeat center;}
 
         #Exploitation select{ background: none; border: none; width: 250px; padding: 5px 30px 5px 0;  color: #000; font-weight: bold;}
-/* ========= MAINTENANCE STYLES END HERE =========  */
+/* ========= EXPLOITATION STYLES END HERE =========  */
+
+/* ========= RESERVATION STYLES =========  */
+    #reservation { margin: 30px; position: relative;}
+        .bgRed { background: url(/img/bg_menu_red.png); position: absolute; z-index: 1; width: 236px; height: 50px;}
+        .bgRed span { color: #fff; font-weight: bold; position: absolute; top: 15px; left: 60px; }
+        .reservation { position: absolute; left: 210px; background-color: #F7F8FC; opacity: .9; border: 2px solid #AFAFAF; width: 700px; 
+            -webkit-box-shadow: 2px 2px 10px 2px #000;
+               -moz-box-shadow: 2px 2px 10px 2px #000;
+                    box-shadow: 2px 2px 10px 2px #000;
+        }
+        .reservation li { display: inline-block; color: #002454; font-weight: bold; font-size: .8em; }
+        .reservation ul { margin: 0 0 0 60px; }
+        .reservation fieldset{border-top: 1px solid #D6D6D6; margin: 0 20px 0 0;}
+        .reservation #fieldset-deux { border: none;}
+        .reservation #quatre-element { float: left; }
+        .reservation #quatre-element fieldset { padding: 0; margin: 0;}
+        .reservation #quatrebis-element { float: right; }
+        .reservation #fieldset-quatreBis { padding: 10px 0 0 40px;}
+        .reservation #cinq-element { overflow: auto; width: 142px; clear: left; float: left;}
+        .reservation #six-element { clear: both;}
+        .reservation legend {}
+/* ========= RESERVATION STYLES END HERE =========  */
 
 /* ========= COMMERCIAL STYLES ========= */
+    .recherche {width: 800px; margin: 0 auto;}
     .recherche table{float:none; text-align: center;}
     .recherche h2{font-size: 1.350em; margin:10px; text-align: center;}
-    .aller{border: 1px solid black;}
-    .retour{border: 1px solid black;}
+    .recherche div{border-bottom: 1px solid #D6D6D6; padding: 20px 10px;}
+    .recherche span { color: #002454; font-weight: bold;}
 
 
     .vol{border: 1px solid black; width: 150px;}

@@ -130,7 +130,7 @@ class CommercialController extends Zend_Controller_Action
                                     $table_content_aller[$count]['heure_arr']     = $destination->heure_arr;
                                     $table_content_aller[$count]['depart']        = $aeroportDepart->nom_aeroport;
                                     $table_content_aller[$count]['arrive']        = $aeroportArrive->nom_aeroport;
-                                    $table_content_aller[$count]['prix']          = ($destination->distance / 10000) * $coefPrix;
+                                    $table_content_aller[$count]['prix']          = number_format(($destination->distance / 10000) * $coefPrix, 2);
                                     $count++;
 
                                     if($formCommercial->getValue('typeTrajet') == 2){
@@ -160,7 +160,7 @@ class CommercialController extends Zend_Controller_Action
                                     $table_content_aller[$count]['heure_arr']     = $date_vol_arr;
                                     $table_content_aller[$count]['depart']        = $aeroportDepart->nom_aeroport;
                                     $table_content_aller[$count]['arrive']        = $aeroportArrive->nom_aeroport;
-                                    $table_content_aller[$count]['prix']          = ($destination->distance / 10000) * $coefPrix;
+                                    $table_content_aller[$count]['prix']          = number_format(($destination->distance / 10000) * $coefPrix, 2);
                                     $count++;
 
                                     if($formCommercial->getValue('typeTrajet') == 2){
@@ -185,7 +185,7 @@ class CommercialController extends Zend_Controller_Action
                                         $table_content_retour[$countRetour]['heure_arr']     = $destinationRetour->heure_arr;
                                         $table_content_retour[$countRetour]['depart']        = $aeroportArrive->nom_aeroport;
                                         $table_content_retour[$countRetour]['arrive']        = $aeroportDepart->nom_aeroport;
-                                        $table_content_retour[$countRetour]['prix']          = ($destinationRetour->distance / 10000) * $coefPrix;
+                                        $table_content_retour[$countRetour]['prix']          = number_format(($destinationRetour->distance / 10000) * $coefPrix, 2);
                                         $countRetour++;
                                     }
                                 //si le vol est periodique
@@ -208,7 +208,7 @@ class CommercialController extends Zend_Controller_Action
                                         $table_content_retour[$countRetour]['heure_arr']     = $date_vol_arr;
                                         $table_content_retour[$countRetour]['depart']        = $aeroportArrive->nom_aeroport;
                                         $table_content_retour[$countRetour]['arrive']        = $aeroportDepart->nom_aeroport;
-                                        $table_content_retour[$countRetour]['prix']          = ($destination->distance / 10000) * $coefPrix;;
+                                        $table_content_retour[$countRetour]['prix']          = number_format(($destinationRetour->distance / 10000) * $coefPrix, 2);
                                         $countRetour++;
                                     }
                                 }
