@@ -264,10 +264,10 @@ class StrategieController extends Zend_Controller_Action
                 echo $row->id_pays;
                 //echo $_POST['nouveauPays'];
              
-                // RAZ du formulaire
-                $form->reset();
-                $redirector = $this->_helper->getHelper('Redirector');
-                $redirector->gotoUrl('strategie/index');
+                // // RAZ du formulaire
+                // $form->reset();
+                // $redirector = $this->_helper->getHelper('Redirector');
+                // $redirector->gotoUrl('strategie/index');
             }
         }
     }
@@ -304,9 +304,9 @@ class StrategieController extends Zend_Controller_Action
                 echo $row->id_ville;
              
                 // RAZ du formulaire
-                $form->reset(); 
-                $redirector = $this->_helper->getHelper('Redirector');
-                $redirector->gotoUrl('strategie/index');            
+                // $form->reset(); 
+                // $redirector = $this->_helper->getHelper('Redirector');
+                // $redirector->gotoUrl('strategie/index');            
             }
         }
     }
@@ -322,11 +322,11 @@ class StrategieController extends Zend_Controller_Action
         //=========== traitement du formulaire
         // si le formulaire a été soumis
         if ($this->_request->isPost()) {
-            // on recupere les éléments
-            $formData = $this->_request->getPost();
+            // // on recupere les éléments
+            // $formData = $this->_request->getPost();
 
-            // si le formulaire passe au controle des validateurs
-            if ($form->isValid($formData)) {
+            // // si le formulaire passe au controle des validateurs
+            // if ($form->isValid($formData)) {
                 //on charge le model TDestination
                 $tableVille = new TAeroport;
 
@@ -344,10 +344,10 @@ class StrategieController extends Zend_Controller_Action
                 //sauvegarde de la requete
                 $result = $row->save();             
                 // RAZ du formulaire
-                $form->reset();
-                $redirector = $this->_helper->getHelper('Redirector');
-                $redirector->gotoUrl('strategie/index');
-            }
+                // $form->reset();
+                // $redirector = $this->_helper->getHelper('Redirector');
+                // $redirector->gotoUrl('strategie/index');
+           // }
         }
     }
 }
