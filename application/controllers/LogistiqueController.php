@@ -13,6 +13,11 @@ class LogistiqueController extends Zend_Controller_Action
 
         $tab_vol = array();
         $count = 0;
+        $nbr_repas_normal = 0;
+        $nbr_repas_enfant = 0;
+        $nbr_repas_hallal = 0;
+        $nbr_repas_vegetarien = 0;
+        $nbr_repas_casher = 0;
 
         //Boucle sur chaque vols
 		foreach ($vols as $vol) {
@@ -48,6 +53,27 @@ class LogistiqueController extends Zend_Controller_Action
 			//Compe le nombre de passager sur le vol
             foreach ($reservations as $reservation) {
 				$tab_vol[$count]['total_reservation'] = $tab_vol[$count]['total_reservation'] + $reservation['nbr_passager'];
+
+                $tableClient = new TClient;
+                $clientRequest = $tableClient->select()->where('id_reservation = ?', $reservation->id_reservation)->orwhere('id_reservation_retour = ?', $reservation->id_reservation);
+                $clients = $tableClient->fetchAll($clientRequest);
+
+                
+
+                foreach ($clients as $client) {
+                    if($client->id_repas == 'normal'){
+                        $nbr_repas_normal++;
+                    }elseif ($client->id_repas == 'enfant') {
+                        $nbr_repas_enfant++;
+                    }elseif ($client->id_repas == 'hallal') {
+                        $nbr_repas_hallal++;
+                    }elseif ($client->id_repas == 'végétarien') {
+                        $nbr_repas_vegetarien++;
+                    }elseif ($client->id_repas == 'casher') {
+                        $nbr_repas_casher++;
+                    }
+                    
+                }
             }
 
             // reunie toute les informations dans un seul meme tableau
@@ -61,11 +87,9 @@ class LogistiqueController extends Zend_Controller_Action
             $tab_vol[$count]['aeroport_arrive']         = $aeroportBis->nom_aeroport;
             $tab_vol[$count]['ville_arrive']            = $villeBis->nom_ville;
             $tab_vol[$count]['pays_arrive']             = $paysBis->nom_pays;
-
+            $tab_vol[$count]['repas']                   = $nbr_repas_normal.' normal(aux) '.$nbr_repas_enfant.' enfant(s) '.$nbr_repas_hallal.' hallal(s) '.$nbr_repas_vegetarien.' végétarien(s) '.$nbr_repas_casher.' casher(s)';
             $tab_vol[$count]['avion_model']             = $modelAvion->nom_model;
             $tab_vol[$count]['nbr_place']             	= $modelAvion->nbr_place;
-
-            $tab_vol[$count]['remarque']                = $vol->remarque;
 
             $count++;
         }
