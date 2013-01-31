@@ -437,8 +437,9 @@ class MaintenanceController extends Zend_Controller_Action
 						$rowBrevet->nom_brevet 		= 'Licence d\'aptitude au vol '.$nom_model;
 						$rowBrevet->temps_validite 	= '3'; // Definie le temp de validiter a 3 ans par defaut
 
-						$idBrevet 					= $rowBrevet->save(); 
-						$rowAvion->id_brevet 		= $idBrevet;
+						$rowBrevet->save(); 
+						$rowAvion->id_brevet 		= $rowBrevet->id_brevet; 
+								
 
 						$rowAvion->save();
 					}
