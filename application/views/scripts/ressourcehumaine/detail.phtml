@@ -4,6 +4,8 @@
 	<?php 
 		$utilisateur = $this->utilisateur;
 		$service = $this->service;
+		$TempsUser_Semaine = $this->TempsUser_Semaine;
+		$TempsUser_Total = $this->TempsUser_Total;
 	?>
 	<!-- Info employé -->
 	<section class="detail">
@@ -33,6 +35,21 @@
 				<div class="identite">
 					<div>Service</div>
 					<div><?php echo $service->nom; ?></div>
+				</div>
+		</fieldset>
+
+		<fieldset>
+			<legend>Durées de travail</legend>
+				<div class="identite">
+					<div>Cette Semaine ( <?php echo ltrim(date('W', time()), "0"); ?> )</div>
+					<div><?php echo 
+					floor($TempsUser_Semaine[ltrim(date('W', time()), "0")] / 3600).' H '.floor(((floor($TempsUser_Semaine[ltrim(date('W', time()), "0")] / 3600))%3600)/60).' min';
+					 ?></div>
+				</div>
+				<div class="identite">
+					<div>Au total</div>
+					<div><?php echo floor($TempsUser_Total / 3600).' H ';
+					 ?></div>
 				</div>
 		</fieldset>
 	</section>

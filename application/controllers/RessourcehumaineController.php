@@ -23,7 +23,7 @@ class RessourcehumaineController extends Zend_Controller_Action
 	{
         // on charge les model
         $tableUtilisateur = new TUtilisateur;
-        $tablePilote = new TPilote;
+        
 
         // Récuperation le filtre
         $filtre = $this->_getParam('filtre');
@@ -42,6 +42,7 @@ class RessourcehumaineController extends Zend_Controller_Action
             // on recupere tout les utilisateur 
             $utilisateurs = $tableUtilisateur->fetchAll();
         }
+
         // on envoi le resultat a la vue
         $this->view->utilisateurs = $utilisateurs;
 
@@ -207,6 +208,7 @@ class RessourcehumaineController extends Zend_Controller_Action
                 // on charge les models
                 $tablePilote        = new TPilote;
                 $tablePiloteBrevet  = new TPiloteBrevet;
+                $tableTempsTravail  = new TTempsTravail;
 
                 // requete par clé primaire
                 $reqPilote = $tablePilote   ->select()
@@ -220,11 +222,41 @@ class RessourcehumaineController extends Zend_Controller_Action
                                                         ->where('id_pilote = ?', $pilote->id_pilote)
                                                         ->order('date_obtention');
 
-                $piloteBrevet = $tablePiloteBrevet ->fetchAll($reqPiloteBrevet);;
+                $piloteBrevet = $tablePiloteBrevet ->fetchAll($reqPiloteBrevet);
+
+                $selectTempsTravail = $tableTempsTravail->select()
+                                                        ->where('id_pilote = ?', $pilote->id_pilote);
+                $TempsTravails = $tableTempsTravail->fetchAll($selectTempsTravail);
+
+               // Zend_Debug::dump($TempsTravails);
+                $TempsUser_Total = 0;
+                $TempsUser_Semaine[0] = 0;
+                $variable[0] = 0;
+
+                foreach ($TempsTravails as $TempsTravail){
+
+                    //Temps Total
+                    $TempsUser_Total = $TempsUser_Total + $TempsTravail['temps'];
+                    
+                    //Temps dans la semaine
+                    (int)$numeor_semaine = ltrim(date('W',$TempsTravail['date']) , "0");
+
+                    if (!isset($TempsUser_Semaine[$numeor_semaine])){
+                       $TempsUser_Semaine[$numeor_semaine] = 0; 
+                    }
+                    $TempsUser_Semaine[$numeor_semaine] = $TempsTravail['temps'] + $TempsUser_Semaine[$numeor_semaine];
+                   // $valeur_avant[$numeor_semaine] = $TempsUser_Semaine[$numeor_semaine] =  $TempsTravail['temps'] ;
+                    
+                }
+               
                 
                 // envoi du resultat a la vue
-                $this->view->pilote         = $pilote;
-                $this->view->piloteBrevet   = $piloteBrevet;
+                $this->view->pilote              = $pilote;
+                $this->view->piloteBrevet        = $piloteBrevet;
+                $this->view->TempsUser_Total     = $TempsUser_Total;
+                $this->view->TempsUser_Semaine   = $TempsUser_Semaine;
+             
+    
             }
         }
         else { // Sinon (l'id n'existe pas)
