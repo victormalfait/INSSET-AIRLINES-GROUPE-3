@@ -1,0 +1,35 @@
+<br/>
+Listes des vols programmers :
+<br/>
+<br/>
+
+<table>
+	<thead>
+		<th>N° Vol</th>
+		<th *>Départ</th>
+		<th>Arrivé</th>
+		<th >Model</th>
+		<th >Place</th>
+	</thead>
+	<tbody>
+		<?php 
+
+		foreach ($this->listevol as $vol) {?>
+			<tr>
+				<td><?php echo $vol['numero_vol']; ?></td>
+
+				<td><?php echo date("d/m/Y à H:i",$vol['heur_depart']); ?> de <?php echo $vol['aeroport_depart']; ?> <br/> ( <?php echo $vol['ville_depart']; ?> - <?php echo $vol['pays_depart']; ?> ) </td>
+
+				<td><?php echo date("d/m/Y à H:i",$vol['heur_arrive']); ?> de <?php echo $vol['aeroport_arrive']; ?> <br/> ( <?php echo $vol['ville_arrive']; ?> - <?php echo $vol['pays_depart']; ?> ) </td>
+
+				<td><?php echo $vol['avion_model']; ?></td>
+
+				<td><?php echo $vol['total_reservation']; ?> / <?php echo $vol['nbr_place']; ?></td>
+			</tr>	
+			<tr bgcolor="#F2F2F2">
+				<td colspan="2">Remarques : </td>
+				<td colspan="3"><center><?php echo $vol['remarque']; ?></center></td>
+			</tr>	
+		<?php }?>
+	</tbody>
+</table>
