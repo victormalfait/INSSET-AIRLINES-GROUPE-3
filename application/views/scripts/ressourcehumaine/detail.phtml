@@ -37,7 +37,7 @@
 					<div><?php echo $service->nom; ?></div>
 				</div>
 		</fieldset>
-
+	<?php if ( ltrim(date('W', time()), "0") != 0 && floor($TempsUser_Total / 3600) != 0 ) {?>	
 		<fieldset>
 			<legend>Durées de travail</legend>
 				<div class="identite">
@@ -48,10 +48,11 @@
 				</div>
 				<div class="identite">
 					<div>Au total</div>
-					<div><?php echo floor($TempsUser_Total / 3600).' H ';
-					 ?></div>
+					<div><?php echo floor($TempsUser_Total / 3600).' H ';?></div>
 				</div>
 		</fieldset>
+
+	<?php } ?>
 	</section>
 	
 

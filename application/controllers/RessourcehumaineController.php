@@ -230,7 +230,7 @@ class RessourcehumaineController extends Zend_Controller_Action
 
                // Zend_Debug::dump($TempsTravails);
                 $TempsUser_Total = 0;
-                $TempsUser_Semaine[0] = 0;
+                $TempsUser_Semaine[ltrim(date('W', time()), "0")] = 0;
                 $variable[0] = 0;
 
                 foreach ($TempsTravails as $TempsTravail){
