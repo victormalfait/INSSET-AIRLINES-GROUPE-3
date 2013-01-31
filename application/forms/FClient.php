@@ -133,11 +133,11 @@ class FClient extends Zend_Form
 						->setDecorators($decorators);
 
 			$tabRepas = array('-1' => 'Choisissez'
-							, '1'  => 'Normal'
-							, '2'  => 'Plateau bébé'
-							, '3'  => 'Hallal'
-							, '4'  => 'Casher'
-							, '5'  => 'Végétarien');
+							, 'normal'  => 'Normal'
+							, 'enfant'  => 'Enfant'
+							, 'hallal'  => 'Hallal'
+							, 'casher'  => 'Casher'
+							, 'végétarien'  => 'Végétarien');
 
 			$eRepasRestriction = new Zend_Form_Element_Select('repasrestriction'.$id) ;
 			$eRepasRestriction 	->setLabel('Réserverepas à bord')

@@ -1,6 +1,8 @@
 <?php  
 	$reservation 		= $this->reservation;
 	$reservation_retour = $this->reservationRetour;
+	$prix = $reservation['prix'];
+	$count =1;
 ?>
 <div id="resumeReservation">
 	<div class="detailsAller">
@@ -10,13 +12,27 @@
 	</div>
 	<?php if(isset($reservation_retour) && $reservation_retour != ''){?>
 		<div class="detailsRetour">
-			<p>Vous décolerez au retour à <span><?php echo date('H\hi',$reservation_retour['heure_dep']).' le '.date('d/m/Y',$reservation_retour['heure_dep']);?></span> (Durée estimée à <span><?php echo $reservation_retour['duree'];?></span>).</p>
+			<p>Vous décolerez au retour à <span><?php echo date('H\hi',$reservation_retour['heure_dep']).' le '.date('d/m/Y',$reservation_retour['heure_dep']);?></span> (Durée estimée à <span><?php echo $reservation_retour['duree'];?></span>).</p><br/>
+			<p>Vous avez réservé pour <span><?php echo $reservation_retour['nbrPassager'];?></span> personne(s) pour un total de <span><?php echo intval($reservation_retour['prix']);?>€</span>.</p>
 		</div>
-	<?php }?>
+	<?php $prix = $reservation['prix'] + $reservation_retour['prix'];
+		}?>
 	
 
-<?php foreach ($this->clients as $client) {?>
-	<p><?php echo $client->civilite.' '.$client->nom_client.' '.$client->prenom_client;?></p>
-<?php }?>
+<?php foreach ($this->clients as $client) {
+	if($client->type == 'adulte'){
+		$coef = 1;
+	}elseif ($client->type == 'senior') {
+		$coef = 0.75;
+	}elseif ($client->type == 'enfant') {
+		$coef = 0.5;
+	}?>
+	<br/><h3 style="font-size:20px;">Passager N° <?php echo $count;?></h3><br/><br/>
 
+	<p><?php echo $client->civilite.' '.$client->nom_client.' '.$client->prenom_client;?></p><br/>
+	<p>Repas : <?php echo $client->repas;?></p><br/>
+	<p>X1 <?php echo $client->type;?> à <?php echo ($prix*$coef);?>€</p>
+<?php $count++;
+}?>
+<br/><br/><br/><br/><a href="<?php echo $this->baseUrl('commercial/index');?>"><button>Finir réservation</button></a>
 </div>

@@ -469,6 +469,7 @@ class CommercialController extends Zend_Controller_Action
                         $adultes->id_reservation        = $id_reservation;
                         $adultes->id_reservation_retour = $id_reservation_retour;
                         $adultes->type                  = 'adulte';
+                        $adultes->repas                 = $_POST['repasrestriction'.$count];
         
                         $adultes->save();
                         $count++;
@@ -487,6 +488,7 @@ class CommercialController extends Zend_Controller_Action
                         $senior->id_reservation         = $id_reservation;
                         $senior->id_reservation_retour  = $id_reservation_retour;
                         $senior->type                   = 'sénior';
+                        $senior->repas                  = $_POST['repasrestriction'.$count];
         
                         $senior->save();
                         $count++;
@@ -505,6 +507,7 @@ class CommercialController extends Zend_Controller_Action
                         $enfant->id_reservation         = $id_reservation;
                         $enfant->id_reservation_retour  = $id_reservation_retour;
                         $enfant->type                   = 'enfant';
+                        $enfant->repas                  = $_POST['repasrestriction'.$count];
         
                         $enfant->save();
                         $count++;
