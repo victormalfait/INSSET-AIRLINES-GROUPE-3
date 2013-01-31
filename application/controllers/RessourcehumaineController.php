@@ -269,7 +269,7 @@ class RessourcehumaineController extends Zend_Controller_Action
                 // RAZ du formulaire
                 $form->reset(); 
                 $redirector = $this->_helper->getHelper('Redirector');
-                $redirector->gotoUrl('ressourcehumaine/detailspilote/idPilote/'.$idUtilisateur);            
+                $redirector->gotoUrl('ressourcehumaine/detail/id/'.$idUtilisateur);            
             }
         }
     }
