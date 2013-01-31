@@ -313,7 +313,7 @@
             }
             #menuExploitation #listeResumer {background: url(/img/min-liste.png) no-repeat center;}
 
-        #Maintenance select{ background: none; border: none; width: 250px; padding: 5px 30px 5px 0;  color: #000; font-weight: bold;}
+        #Exploitation select{ background: none; border: none; width: 250px; padding: 5px 30px 5px 0;  color: #000; font-weight: bold;}
 /* ========= MAINTENANCE STYLES END HERE =========  */
 
 /* ========= COMMERCIAL STYLES ========= */
