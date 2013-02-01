@@ -322,16 +322,12 @@ class StrategieController extends Zend_Controller_Action
         //=========== traitement du formulaire
         // si le formulaire a été soumis
         if ($this->_request->isPost()) {
-            // // on recupere les éléments
-            // $formData = $this->_request->getPost();
-
-            // // si le formulaire passe au controle des validateurs
-            // if ($form->isValid($formData)) {
-                //on charge le model TDestination
-                $tableVille = new TAeroport;
+                $tableAeroport = new TAeroport;
+                $tableVille = new TVille;
+                $ville = $tableVille->find($_POST['ville_aeroport'])->current();
 
                 // on creer une nouvelle ligne
-                $row = $tableVille->createRow();
+                $row = $tableAeroport->createRow();
 
                 // on envoi les données 
                 $row->nom_aeroport      = utf8_decode($_POST['nouvelAeroport']);
@@ -342,12 +338,8 @@ class StrategieController extends Zend_Controller_Action
                 $row->lattitude         = $_POST['lattitude'];
 
                 //sauvegarde de la requete
-                $result = $row->save();             
-                // RAZ du formulaire
-                // $form->reset();
-                // $redirector = $this->_helper->getHelper('Redirector');
-                // $redirector->gotoUrl('strategie/index');
-           // }
+                $result = $row->save();    
+                echo $ville->nom_ville;        
         }
     }
 }

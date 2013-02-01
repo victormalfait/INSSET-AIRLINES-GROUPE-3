@@ -61,15 +61,15 @@ class LogistiqueController extends Zend_Controller_Action
                 
 
                 foreach ($clients as $client) {
-                    if($client->id_repas == 'normal'){
+                    if($client->repas == 'normal'){
                         $nbr_repas_normal++;
-                    }elseif ($client->id_repas == 'enfant') {
+                    }elseif ($client->repas == 'enfant') {
                         $nbr_repas_enfant++;
-                    }elseif ($client->id_repas == 'hallal') {
+                    }elseif ($client->repas == 'hallal') {
                         $nbr_repas_hallal++;
-                    }elseif ($client->id_repas == 'végétarien') {
+                    }elseif ($client->repas == 'végétarien') {
                         $nbr_repas_vegetarien++;
-                    }elseif ($client->id_repas == 'casher') {
+                    }elseif ($client->repas == 'casher') {
                         $nbr_repas_casher++;
                     }
                     

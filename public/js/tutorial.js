@@ -97,10 +97,10 @@ jQuery(document).ready(function($) {
                 url: "/strategie/nouvelaeroport",
                 data: dataString,
                 
-                success: function() {
+                success: function(nomVille) {
                     $("#popup_ajouterAeroport").hide();
-                    $('#aeroportDepart').append('<option value="'+trigramme+'" label="'+ville+'">'+ville+' - '+aeroport+'</option>');
-                    $('#aeroportArrivee').append('<option value="'+trigramme+'" label="'+ville+'">'+ville+' - '+aeroport+'</option>');
+                    $('#aeroportDepart').append('<option value="'+trigramme+'">'+nomVille+' - '+aeroport+'</option>');
+                    $('#aeroportArrivee').append('<option value="'+trigramme+'">'+nomVille+' - '+aeroport+'</option>');
                 }
             });
 
