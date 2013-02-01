@@ -20,7 +20,7 @@
 				 	// Mes aeroports
 				 	i = 0;           
 					for (key in reponse.pilote) {	
-			 			$("#pilote").append(  '<option label="' + optionData['pilote'][key] + '"' + 'value="' + key + '">' + optionData['pilote'][key] + '</option>');
+			 			$("#pilote").append(  '<option label="' +optionData['pilote'][key]+ '" value="' +key+ '">' +optionData['pilote'][key] +'</option>');
 					} //Eof:: for 'aeroport'
 					$("#pilote:first").prepend( '<option label="Choisissez" value="-1" >-- Choississez --</option>');
 					$("#pilote option:first").attr ('selected', 'selected');
@@ -49,7 +49,7 @@
 				 	// Mes aeroports
 				 	i = 0;           
 					for (key in reponse.copilote) {	
-			 			$("#copilote").append(  '<option label="' + optionData['copilote'][key] + '"' + 'value="' + key + '">' + optionData['copilote'][key] + '</option>');
+			 			$("#copilote").append(  '<option label="' + optionData['copilote'][key] + '" value="' + key + '">' + optionData['copilote'][key] + '</option>');
 					} //Eof:: for 'aeroport'
 					$("#copilote:first").prepend( '<option label="Choisissez" value="-1" >-- Choississez --</option>');
 					$("#copilote option:first").attr ('selected', 'selected');
