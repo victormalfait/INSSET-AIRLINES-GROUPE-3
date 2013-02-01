@@ -133,14 +133,14 @@ class RessourcehumaineController extends Zend_Controller_Action
                     
                 }
 
-                $row->login_utilisateur = $form->getValue('login');
-                $row->nom_utilisateur = $form->getValue('nom');
-                $row->prenom_utilisateur = $form->getValue('prenom');
-                $row->adresse_utilisateur = $form->getValue('adresse');
-                $row->cp_utilisateur = $form->getValue('codePostal');
-                $row->ville_utilisateur = $form->getValue('ville');
-                $row->password_utilisateur = md5($form->getValue('password'));
-                $row->id_service = $form->getValue('service');
+                $row->login_utilisateur     = utf8_decode($form->getValue('login'));
+                $row->nom_utilisateur       = utf8_decode($form->getValue('nom'));
+                $row->prenom_utilisateur    = utf8_decode($form->getValue('prenom'));
+                $row->adresse_utilisateur   = utf8_decode($form->getValue('adresse'));
+                $row->cp_utilisateur        = utf8_decode($form->getValue('codePostal'));
+                $row->ville_utilisateur     = utf8_decode($form->getValue('ville'));
+                $row->password_utilisateur  = md5($form->getValue('password'));
+                $row->id_service            = utf8_decode($form->getValue('service'));
                 
                 //sauvegarde de la requete
                 $result = $row->save();
